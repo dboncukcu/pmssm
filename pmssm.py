@@ -802,7 +802,61 @@ class PMSSM:
                 print("-Log Scale:",self.particleDrawConfig[particleName].get("logScale"))
                 print("-Linear Scale:",self.particleDrawConfig[particleName].get("linearScale"))
                 print("-Unit:",self.particleDrawConfig[particleName].get("unit"))
+
+    def impact(self,
+                drawstring : str, 
+                name : str, 
+                analysis : str = "combined",
+                moreconstraints : list = [], 
+                moreconstraints_prior : bool =False,
+                xaxisDrawConfig : dict = None):
+ 
+        
+        self.canvas.Clear()
+        
+        xaxisParticleName = drawstring
+        
+        if xaxisDrawConfig is None:
+            try:
+                if self.particleDrawConfig.get(xaxisParticleName) is not None:
+                    xaxisDrawConfig = self.particleDrawConfig[xaxisParticleName]
+                elif self.generalDrawConfig.get("defaults") is not None:
+                    xaxisDrawConfig = self.generalDrawConfig["defaults"]
+                    xaxisDrawConfig["title"] = xaxisParticleName 
+            except:
+                print("Missing Config for ",xaxisParticleName)
+                return
                 
+        impact_plots = get_impact_plots(
+            localtree = self.intree,
+            analysis = analysis,
+            hname = name,
+            xtitle = xaxisDrawConfig["title"] + " ["+xaxisDrawConfig["unit"]+"]",
+            xbins = xaxisDrawConfig["nbin"],
+            xlow = xaxisDrawConfig["min"],
+            xup = xaxisDrawConfig["max"],
+            _logx = xaxisDrawConfig.get("logScale",False),
+            drawstring = drawstring,
+            moreconstraints = moreconstraints,
+            moreconstraints_prior = moreconstraints_prior)
+                
+        for key in impact_plots:
+            hist = impact_plots[key]
+            if xaxisDrawConfig.get("linearScale",1.0) != 1.0:
+                scaleXaxis(hist,scaleFactor=xaxisDrawConfig.get("linearScale"))
+        
+        self.legend.AddEntry(impact_plots["prior"],"prior")
+        self.legend.AddEntry(impact_plots["posterior"],"posterior (#sigma = #sigma_{nominal})")
+        self.legend.AddEntry(impact_plots["posterior_up"],"posterior (#sigma = 1.5#times#sigma_{nominal})")
+        self.legend.AddEntry(impact_plots["posterior_down"],"posterior (#sigma =0.5#times#sigma_{nominal})")
+        impact_plots["prior"].Draw("hist")
+        impact_plots["posterior"].Draw("histsame")
+        impact_plots["posterior_up"].Draw("histsame")
+        impact_plots["posterior_down"].Draw("histsame")
+        self.legend.Draw("same")
+        self.canvas.SaveAs(self.outdir+name+".png")
+        self.legend.Clear()
+          
             
     def survivalProbability2D(self,
                                 drawstring : str,
