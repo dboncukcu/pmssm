@@ -103,7 +103,7 @@ class PMSSM:
                     "energy" : "7",
                     "extraText" : "Preliminary",
                     "lumi" : "",
-                    "analysisName" : "Combined",
+                    "analysisName" : "",
                 }
                 ):
         
@@ -167,8 +167,7 @@ class PMSSM:
             CMS.SetSusyAnalysisName(canvasStyle.get("analysisName"))
         
         CMS.SetAlternativePalette(self.createSurvivalPlotPalette())
-            
-
+    
     @staticmethod
     def createCanvas(
         canvName:str,
@@ -283,11 +282,26 @@ class PMSSM:
             del self.legend
             self.legend = None
     
-    def setCanvas(self,obj,xtitle:str,ytitle:str,y_offset:float = 1.6, offset:dict = {},range:dict = None,with_z_axis:bool = False,leftMarginOffset:float = 0.0):
+    def setCanvas(self,
+                  obj, # WILL BE DEPRECATED
+                  xtitle:str,
+                  ytitle:str,
+                  y_offset:float = 1.6,
+                  offset:dict = {},
+                  range:dict = None,
+                  with_z_axis:bool = False,
+                  leftMarginOffset:float = 0.0
+                  ):
         if range is None:
             xmin, xmax, ymin, ymax = self.getAxisRange(obj,offset=offset)
         else:
-            xmin, xmax, ymin, ymax = range["xmin"],range["xmax"],range["ymin"],range["ymax"]        
+            xmin, xmax, ymin, ymax = range["xmin"],range["xmax"],range["ymin"],range["ymax"]
+            
+            xmin -= offset.get("xmin",0.0)
+            xmax += offset.get("xmax",0.0)
+            ymin -= offset.get("ymin",0.0)
+            ymax += offset.get("ymax",0.0)
+            
         self.canvas = self.createCanvas(
             canvName="",
             xmin=xmin,
@@ -300,7 +314,27 @@ class PMSSM:
             y_offset = y_offset,
             leftMarginOffset = leftMarginOffset
             )
+    
+    def setConfig(self, particleName: str, config: dict, verbose: bool = False) -> None:
         
+        if particleName is None:
+            particleName = list(self.particleDrawConfig.keys())
+        elif isinstance(particleName, str):
+            particleName = [particleName]
+            
+        for particle in particleName:
+            particle_config = self.particleDrawConfig.get(particle, {})
+            for key, value in config.items():
+                if particle_config.get(key.lower()) is not None:
+                    particle_config[key.lower()] = value
+                else:
+                    if verbose:
+                        print(f"Adding new configuration for {particle}: {key.lower()}={value}")
+                    particle_config[key.lower()] = value
+            self.particleDrawConfig[particle] = particle_config.copy()
+            if verbose:
+                self.printConfig(particleName=particle)
+    
     def printConfig(self,particleName=None):
         if particleName is not None:
             print("#"*15,particleName,"#"*15)
@@ -322,7 +356,7 @@ class PMSSM:
                 print("-Linear Scale:",self.particleDrawConfig[particleName].get("linearScale"))
                 print("-Unit:",self.particleDrawConfig[particleName].get("unit"))
 
-    def impact(self,
+    def impact1D(self,
                 drawstring : str, 
                 name : str, 
                 analysis : str = "combined",
@@ -335,7 +369,7 @@ class PMSSM:
                     },
                     "legend": {
                         "x1":0.15,
-                        "y1":0.8,
+                        "y1":0.78,
                         "x2":0.32,
                         "y2":0.9,
                         "textSize":0.025
@@ -391,7 +425,7 @@ class PMSSM:
             y2=canvasStyle.get("legend",{}).get("y2",0.9),
             textSize=canvasStyle.get("legend",{}).get("textSize",0.025)
             )
-        
+        self.legend.SetHeader(analysis.upper())
         self.legend.AddEntry(impact_plots["prior"],"prior")
         self.legend.AddEntry(impact_plots["posterior"],"posterior (#sigma = #sigma_{nominal} )")
         self.legend.AddEntry(impact_plots["posterior_up"],"posterior (#sigma = 1.5#times#sigma_{nominal} )")
@@ -402,8 +436,8 @@ class PMSSM:
         impact_plots["posterior_up"].Draw("histsame")
         impact_plots["posterior_down"].Draw("histsame")
         # self.legend.Draw("same")
-        CMS.SaveCanvas(self.canvas,self.outdir+name+".png")
-            
+        CMS.SaveCanvas(self.canvas,self.outdir+name+"_impact1D.png")
+    
     def survivalProbability2D(self,
                                 drawstring : str,
                                 name : str,
@@ -418,11 +452,8 @@ class PMSSM:
                                         "ymax":0.002
                                     },
                                     "legend": {
-                                        "x1":0.15,
-                                        "y1":0.8,
-                                        "x2":0.32,
-                                        "y2":0.9,
-                                        "textSize":0.025
+                                        "textSize":0.025,
+                                        "legendNColumns": 2
                                     }
                                 }
                             ):
@@ -482,29 +513,10 @@ class PMSSM:
             "ymin": yaxisDrawConfig["min"]/yaxisDrawConfig.get("linearScale",1.0),
             "ymax": yaxisDrawConfig["max"]/yaxisDrawConfig.get("linearScale",1.0)
         }
+    
         
-        self.setCanvas(
-            hist,
-            xaxisDrawConfig["title"] + " ["+xaxisDrawConfig["unit"]+"]", 
-            yaxisDrawConfig["title"] + " ["+yaxisDrawConfig["unit"]+"]", 
-            offset={
-                "xmin":canvasStyle.get("offset",{}).get("xmin",0.0),
-                "xmax":canvasStyle.get("offset",{}).get("xmax",0.0),
-                "ymin":canvasStyle.get("offset",{}).get("ymin",0.0),
-                "ymax":canvasStyle.get("offset",{}).get("ymax",0.0)
-                },
-            range=axisRange,
-            with_z_axis=True,
-            y_offset = 1,
-            )
-        
-        hist.GetZaxis().SetTitle("Survival Probability")
-        hist.GetZaxis().SetLabelSize(0.03)
-        hist.GetZaxis().SetTitleSize(0.04)
-        hist.GetZaxis().SetTitleOffset(1)
-        
-        CMS.SetAlternative2DColor(hist=hist)
         if contourSwitch:
+
             prior_data =  get_prior_CI(
                 self.intree, 
                 hname = name + "_priorcontours",
@@ -533,8 +545,38 @@ class PMSSM:
                 _logy = yaxisDrawConfig.get("logScale",False), 
                 drawstring = drawstring,
                 moreconstraints = moreconstraints)
-
-            hist.Draw("colz")
+            
+            self.setCanvas(
+                hist,
+                xaxisDrawConfig["title"] + " ["+xaxisDrawConfig["unit"]+"]", 
+                yaxisDrawConfig["title"] + " ["+yaxisDrawConfig["unit"]+"]", 
+                offset={
+                    "xmin":canvasStyle.get("offset",{}).get("xmin",0.0),
+                    "xmax":canvasStyle.get("offset",{}).get("xmax",0.0),
+                    "ymin":canvasStyle.get("offset",{}).get("ymin",0.0),
+                    "ymax":canvasStyle.get("offset",{}).get("ymax",0.0)
+                    },
+                range=axisRange,
+                with_z_axis=True,
+                y_offset = 1,
+                )
+            
+            hist.GetZaxis().SetTitle("Survival Probability")
+            hist.GetZaxis().SetLabelSize(0.03)
+            hist.GetZaxis().SetTitleSize(0.04)
+            hist.GetZaxis().SetTitleOffset(0.9)
+            CMS.SetAlternative2DColor(hist=hist)
+                
+            
+            self.legend = self.createLegend(
+                x1=canvasStyle.get("legend",{}).get("x1",0.15),
+                y1=canvasStyle.get("legend",{}).get("y1",0.81),
+                x2=canvasStyle.get("legend",{}).get("x2",0.55),
+                y2=canvasStyle.get("legend",{}).get("y2",0.90),
+                textSize=canvasStyle.get("legend",{}).get("textSize",0.025)
+                )
+            self.legend.SetHeader(analysis.upper())  
+            hist.Draw("same colz")
             for ix,interval in enumerate(prior_data):
                 for cont in prior_data[interval]:
                     scaleGraphXaxis(cont,scaleFactor=xaxisDrawConfig.get("linearScale"))
@@ -550,11 +592,161 @@ class PMSSM:
                     self.legend.AddEntry(prior_data[interval][0],str(int(100*(interval)))+"%  prior CI","l",)
                 if len(posterior_data[interval])>0:
                     self.legend.AddEntry(posterior_data[interval][0],str(int(100*(interval)))+"% posterior CI","l",)
-            self.legend.SetNColumns(2)
+            self.legend.SetNColumns(canvasStyle.get("legend",{}).get("legendNColumns",2))
             self.legend.Draw("same")
         else:
+            
+            self.setCanvas(
+                hist,
+                xaxisDrawConfig["title"] + " ["+xaxisDrawConfig["unit"]+"]", 
+                yaxisDrawConfig["title"] + " ["+yaxisDrawConfig["unit"]+"]", 
+                offset={
+                    "xmin":canvasStyle.get("offset",{}).get("xmin",0.0),
+                    "xmax":canvasStyle.get("offset",{}).get("xmax",0.0),
+                    "ymin":canvasStyle.get("offset",{}).get("ymin",0.0),
+                    "ymax":canvasStyle.get("offset",{}).get("ymax",0.0)
+                    },
+                range=axisRange,
+                with_z_axis=True,
+                y_offset = 1,
+                )
+            
+            hist.GetZaxis().SetTitle("Survival Probability")
+            hist.GetZaxis().SetLabelSize(0.03)
+            hist.GetZaxis().SetTitleSize(0.04)
+            hist.GetZaxis().SetTitleOffset(1)
+            CMS.SetAlternative2DColor(hist=hist)
+            
             hist.Draw("same colz")
+            self.legend = self.createLegend(
+                x1=canvasStyle.get("legend",{}).get("x1",0.15),
+                y1=canvasStyle.get("legend",{}).get("y1",0.87),
+                x2=canvasStyle.get("legend",{}).get("x2",0.55),
+                y2=canvasStyle.get("legend",{}).get("y2",0.91),
+                textSize=canvasStyle.get("legend",{}).get("textSize",0.025)
+                )
+            self.legend.SetHeader(analysis.upper())  
             CMS.UpdatePalettePosition(hist,X1=0.88,X2=0.91,Y1=0.108,Y2=0.93)
-        CMS.SaveCanvas(self.canvas,self.outdir+name+".png")
+            
+        contourName = "Wcontours" if contourSwitch else ""
+        CMS.SaveCanvas(self.canvas,self.outdir+name+"_survival2D"+ contourName +".png")
 
+    def quantilePlots1D(self,
+                drawstring : str, 
+                name : str, 
+                quantiles : dict = {
+                    "0.5": {"color":kBlack},
+                    "0.75": {"color":kOrange},
+                    "0.9": {"color":kRed,"linestyle": kDashed},
+                    "0.99": {"color":kMagenta,"linestyle": kDashed}
+                    },
+                analysis : str = "combined",
+                moreconstraints : list = [], 
+                xaxisDrawConfig : dict = None,
+                canvasStyle : dict = {
+                    "offset": {
+                        "ymax":0.1
+                    },
+                    "legend": {
+                        "x1":0.15,
+                        "y1":0.8,
+                        "x2":0.32,
+                        "y2":0.9,
+                        "textSize":0.025
+                    }
+                }):
+    
+    # get_quantile_plot_1D(localtree, analysis, hname, xtitle, xbins, xlow, xup, _logx, drawstring, moreconstraints=[],quantiles=[0.])
 
+        self.flushCanvas()
+        self.flushLegend()
+        
+        xaxisParticleName = drawstring
+        
+        if xaxisDrawConfig is None:
+            try:
+                if self.particleDrawConfig.get(xaxisParticleName) is not None:
+                    xaxisDrawConfig = self.particleDrawConfig[xaxisParticleName]
+                elif self.generalDrawConfig.get("defaults") is not None:
+                    xaxisDrawConfig = self.generalDrawConfig["defaults"]
+                    xaxisDrawConfig["title"] = xaxisParticleName 
+            except:
+                print("Missing Config for ",xaxisParticleName)
+                return
+
+        quantiles_hists = get_quantile_plot_1D(
+            localtree = self.intree,
+            analysis = analysis,
+            hname = name,
+            xtitle = xaxisDrawConfig["title"] + " ["+xaxisDrawConfig["unit"]+"]",
+            xbins = xaxisDrawConfig["nbin"],
+            xlow = xaxisDrawConfig["min"],
+            xup = xaxisDrawConfig["max"],
+            _logx = xaxisDrawConfig.get("logScale",False),
+            drawstring = drawstring,
+            moreconstraints = moreconstraints,
+            quantiles = [float(i) for i in quantiles.keys()]
+        )
+                
+        for key in quantiles_hists:
+            hist = quantiles_hists[key]
+            if xaxisDrawConfig.get("linearScale",1.0) != 1.0:
+                scaleXaxis(hist,scaleFactor=xaxisDrawConfig.get("linearScale"))
+        axis_range = {
+            "xmin": None,
+            "xmax": None,
+            "ymin": None,
+            "ymax": None
+        }
+        for key in quantiles_hists:
+            hist = quantiles_hists[key]
+            xmin,xmax,ymin,ymax = self.getAxisRange(hist)
+            
+            if axis_range["xmin"] is None or xmin < axis_range["xmin"]:
+                axis_range["xmin"] = xmin
+            if axis_range["xmax"] is None or xmax > axis_range["xmax"]:
+                axis_range["xmax"] = xmax
+            if axis_range["ymin"] is None or ymin < axis_range["ymin"]:
+                axis_range["ymin"] = ymin
+            if axis_range["ymax"] is None or ymax > axis_range["ymax"]:
+                axis_range["ymax"] = ymax
+            
+                            
+        
+        self.setCanvas(quantiles_hists[list(quantiles_hists.keys())[0]],
+                       xaxisDrawConfig["title"]+ " ["+xaxisDrawConfig["unit"]+"]", 
+                       "Bayes Factor", 
+                       offset={
+                            "xmin":canvasStyle.get("offset",{}).get("xmin",0.0),
+                            "xmax":canvasStyle.get("offset",{}).get("xmax",0.0),
+                            "ymin":canvasStyle.get("offset",{}).get("ymin",0.0),
+                            "ymax":canvasStyle.get("offset",{}).get("ymax",0.0)
+                            },
+                       range=axis_range)
+        
+        self.legend = self.createLegend(
+            x1=canvasStyle.get("legend",{}).get("x1",0.15),
+            y1=canvasStyle.get("legend",{}).get("y1",0.8),
+            x2=canvasStyle.get("legend",{}).get("x2",0.32),
+            y2=canvasStyle.get("legend",{}).get("y2",0.9),
+            textSize=canvasStyle.get("legend",{}).get("textSize",0.025)
+            )
+        self.legend.SetHeader(analysis.upper())
+        
+        for i in quantiles:
+            histname = "quantile_" + str(int(100 * float(i)))
+            hist_style = quantiles[i]
+            hist = quantiles_hists[histname]
+            
+            if hist_style.get("color") is not None:
+                hist.SetLineColor(hist_style["color"])
+            if hist_style.get("linestyle") is not None:
+                hist.SetLineStyle(hist_style["linestyle"])
+            
+            self.legend.AddEntry(hist,str(int(100 * float(i)))+"th Percentile")
+            
+        for key in quantiles_hists:
+            hist = quantiles_hists[key]
+            hist.Draw("hist same")
+        
+        CMS.SaveCanvas(self.canvas,self.outdir+name+"_quantile1D.png")

@@ -331,7 +331,16 @@ def CMS_lumi(pad, iPosX=11, scaleLumi=None):
         lumiText += " (" + cms_energy + " TeV)"
     if scaleLumi:
         lumiText = ScaleText(lumiText, scale=scaleLumi)
-
+    
+    
+    ######### CUSTOM PART #########
+    # ADDED by Dorukhan Boncukçu
+    if lumiText[0] == ",": lumiText = lumiText[1:]
+    if lumiText[0] == " ": lumiText = lumiText[1:]
+    if lumiText[-1] == ",": lumiText = lumiText[:-1]    
+    if lumiText[-1] == " ": lumiText = lumiText[:-1]
+    ###############################
+    
     def drawText(text, posX, posY, font, align, size):
         latex.SetTextFont(font)
         latex.SetTextAlign(align)
