@@ -594,6 +594,7 @@ class PMSSM:
                     self.legend.AddEntry(posterior_data[interval][0],str(int(100*(interval)))+"% posterior CI","l",)
             self.legend.SetNColumns(canvasStyle.get("legend",{}).get("legendNColumns",2))
             self.legend.Draw("same")
+            CMS.UpdatePalettePosition(hist,X1=0.88,X2=0.91,Y1=0.108,Y2=0.93)
         else:
             
             self.setCanvas(
