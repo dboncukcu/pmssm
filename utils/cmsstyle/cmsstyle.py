@@ -25,18 +25,6 @@ def SetLumi(lumi, unit="fb", round_lumi=False):
     else:
         cms_lumi = lumi
 
-
-######  CUSTOM PART ######
-# ADDED by Dorukhan Boncukçu
-def SetSusyAnalysisName(analysis_name):
-    global susy_analysis_name
-    if analysis_name != "":
-        susy_analysis_name = analysis_name
-    else:
-        susy_analysis_name = analysis_name
-##########################
-
-
 cmsText = "CMS"
 extraText = "Preliminary"
 
@@ -318,13 +306,6 @@ def CMS_lumi(pad, iPosX=11, scaleLumi=None):
     outOfFrame_posY = 1 - t + lumiTextOffset * t
     pad.cd()
     lumiText = ""
-    
-    ######  CUSTOM PART ######
-    # ADDED by Dorukhan Boncukçu
-    lumiText += susy_analysis_name
-    if cms_energy != "":
-        lumiText += ", "
-    ##########################
     
     lumiText += cms_lumi
     if cms_energy != "":

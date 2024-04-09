@@ -13,7 +13,11 @@ terms["wino"] = "Re_N_12**2"
 #constraints relating to the analyses likelihoods and others
 theconstraints = {}
 theconstraints["reason"] = "(!(xsec_tot_pb>1E3 && Zsig_combined==0))" # this excludes points with enormous weights that could not be excluded, almost certaintly due to these large weights and statistical chance
+theconstraints["reason"] = "(1)"
+
 theconstraints["reason_simplified"] = "(!(xsec_tot_pb>1E3 && Zsig_combined_simplified==0))"# this excludes points with enormous weights that could not be excluded, almost certaintly due to these large weights and statistical chance
+theconstraints["reason_simplified"] = "(1)"
+
 theconstraints["reweight"] = "(1/PickProbability)" #this reweights each point to remove the effect of over-sampling and under-sampling. Important for Bayesian interpretation of results that require a meaningful prior.
 
 #The following are Bayes factors using simplified or (where available) full combine likelihoods
@@ -77,20 +81,6 @@ bfs.append("(max(bf_cms_sus_18_004_mu1p0f,1E-20))")
 bfs_down.append("(max(bf_cms_sus_18_004_mu0p5f,1E-20))")
 bfs_up.append("(max(bf_cms_sus_18_004_mu1p5f,1E-20))")
 
-
-bfs_no_cms_sus_21_006 = []
-bfs_no_cms_sus_21_006_down = []
-bfs_no_cms_sus_21_006_up = []
-bfs_no_cms_sus_21_006.append("(max(bf_cms_sus_18_004_mu1p0f,1E-20))")
-bfs_no_cms_sus_21_006_down.append("(max(bf_cms_sus_18_004_mu0p5f,1E-20))")
-bfs_no_cms_sus_21_006_up.append("(max(bf_cms_sus_18_004_mu1p5f,1E-20))")
-
-bfs_no_cms_sus_18_004 = []
-bfs_no_cms_sus_18_004_down = []
-bfs_no_cms_sus_18_004_up = []
-bfs_no_cms_sus_18_004.append("(max(bf_cms_sus_21_006_mu1p0f,1E-20))")
-bfs_no_cms_sus_18_004_down.append("(max(bf_cms_sus_21_006_mu0p5f,1E-20))")
-bfs_no_cms_sus_18_004_up.append("(max(bf_cms_sus_21_006_mu1p5f,1E-20))")
 
 #We only started storing the Bayes factors for the full combine likelihoods, so the simplified version is simpler
 signals_simplified = "+".join(["llhd_cms_sus_19_006_100s","llhd_atlas_susy_2018_32_100s","llhd_atlas_susy_2018_06_100s","llhd_cms_sus_21_006_100s","llhd_cms_sus_18_004_100s"])

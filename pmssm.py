@@ -46,6 +46,14 @@ def scaleGraphYaxis(graph, scaleFactor=1.0):
         graph.SetPointY(i, y / scaleFactor)
 
 particleDrawConfig_TeV = {
+    "defaults" : {
+        "nbin": 100,
+        "max": 1000,
+        "min": 0,
+        "logScale": False,
+        "linearScale": 1000.0, # for TeV, 1GeV/1000
+        "unit": "TeV",
+        },
     "abs(chi10)" : {
         "title" : "m_{#tilde{#chi}^{0}_{1}}",
         "nbin" : 50,
@@ -54,57 +62,57 @@ particleDrawConfig_TeV = {
         "logScale" : False,
         "linearScale": 1000, # for TeV, 1GeV/1000
         "unit": "TeV",
+        "name" : "chi10"
         },
     "g": {
         "title" : "m(#tilde{g})",
         "nbin" : 100,
         "min" : 0,
-        "max" : 7000,
+        "max" : 6500,
         "logScale" : False,
         "linearScale": 1000, # for TeV, 1GeV/1000
         "unit": "TeV",
+        "name" : "gluon"
         },
     "t1" : {
         "title": "m(#tilde{t}_{1})",
         "nbin" : 100,
         "min" : 0,
-        "max" : 7000,
+        "max" : 6500,
         "logScale": False,
         "linearScale": 1000.0,
         "unit": "TeV",
+        "name": "stop"
+        
     },
     "b1" : {
         "title": "m(#tilde{b}_{1})",
         "nbin" : 100,
         "min" : 0,
-        "max" : 7000,
+        "max" : 6500,
         "logScale": False,
         "linearScale": 1000.0,
         "unit": "TeV",
+        "name": "sbottom"
     },
     }
+
+
+individualAnalysis = {
+    
+}
+
 
 class PMSSM:
     def __init__(self,intree,
                 outdir : str,
                 particleDrawConfig : dict,
-                generalDrawConfig : dict = {
-                    "defaults" :
-                        {
-                            "nbin": 100,
-                            "max": 1000,
-                            "min": 0,
-                            "logScale": False,
-                            "linearScale": 1000.0, # for TeV, 1GeV/1000
-                            "unit": "TeV",
-                        }
-                    },
                 canvasStyle :dict = {
-                    "energy" : "7",
+                    "energy" : "13",
                     "extraText" : "Preliminary",
                     "lumi" : "",
-                    "analysisName" : "",
-                }
+                },
+                defaultExportFileFormat : str = "pdf"
                 ):
         
         if outdir[-1]!="/":
@@ -120,7 +128,7 @@ class PMSSM:
         self.intree = intree
         self.outdir = outdir
         self.particleDrawConfig = particleDrawConfig
-        self.generalDrawConfig = generalDrawConfig
+        self.fileFormat = defaultExportFileFormat
     @staticmethod
     def createLegend(x1,y1,x2,y2,textSize=0.03):
         return CMS.cmsLeg(x1,y1,x2,y2,textSize)
@@ -154,8 +162,6 @@ class PMSSM:
                 Extra text to be displayed on the plot
             - lumi : str
                 The luminosity of the analysis
-            - analysisName : str
-                The name of the analysis
         """
         if canvasStyle.get("energy") is not None:
             CMS.SetEnergy(str(canvasStyle.get("energy")))
@@ -163,9 +169,6 @@ class PMSSM:
             CMS.SetExtraText(canvasStyle.get("extraText"))
         if canvasStyle.get("lumi") is not None:
             CMS.SetLumi(canvasStyle.get("lumi"))
-        if canvasStyle.get("analysisName") is not None:
-            CMS.SetSusyAnalysisName(canvasStyle.get("analysisName"))
-        
         CMS.SetAlternativePalette(self.createSurvivalPlotPalette())
     
     @staticmethod
@@ -282,16 +285,17 @@ class PMSSM:
             del self.legend
             self.legend = None
     
-    def setCanvas(self,
-                  obj, # WILL BE DEPRECATED
-                  xtitle:str,
-                  ytitle:str,
-                  y_offset:float = 1.6,
-                  offset:dict = {},
-                  range:dict = None,
-                  with_z_axis:bool = False,
-                  leftMarginOffset:float = 0.0
-                  ):
+    def setCanvas(
+        self,
+        obj, # WILL BE DEPRECATED
+        xtitle:str,
+        ytitle:str,
+        y_offset:float = 1.6,
+        offset:dict = {},
+        range:dict = None,
+        with_z_axis:bool = False,
+        leftMarginOffset:float = 0.0
+        ):
         if range is None:
             xmin, xmax, ymin, ymax = self.getAxisRange(obj,offset=offset)
         else:
@@ -356,38 +360,87 @@ class PMSSM:
                 print("-Linear Scale:",self.particleDrawConfig[particleName].get("linearScale"))
                 print("-Unit:",self.particleDrawConfig[particleName].get("unit"))
 
-    def impact1D(self,
-                drawstring : str, 
-                name : str, 
-                analysis : str = "combined",
-                moreconstraints : list = [], 
-                moreconstraints_prior : bool =False,
-                xaxisDrawConfig : dict = None,
-                canvasStyle : dict = {
-                    "offset": {
-                        "ymax":0.002
-                    },
-                    "legend": {
-                        "x1":0.15,
-                        "y1":0.78,
-                        "x2":0.32,
-                        "y2":0.9,
-                        "textSize":0.025
-                    }
-                }):
- 
+    def createName(self,drawstring:str,analysis:str="combined",plotType:str=""):
+        splitted = drawstring.split(":")
+        name = ""
+        if (len(splitted) == 2):
+            
+            
+            xaxisParticleName = splitted[0]
+            yaxisParticleName = splitted[1]
+        
+            
+            if self.particleDrawConfig.get(xaxisParticleName) is not None:
+                xaxisDrawConfig = self.particleDrawConfig[xaxisParticleName]
+                xname = xaxisDrawConfig.get("name","")
+            else:
+                xname = ""
+                
+            if self.particleDrawConfig.get(yaxisParticleName) is not None:
+                yaxisDrawConfig = self.particleDrawConfig[yaxisParticleName]
+                yname = yaxisDrawConfig.get("name","")
+            else:
+                yname = ""
+        
+            
+            name = xname + "_" + yname
+        else:
+            if self.particleDrawConfig.get(drawstring) is not None:
+                xaxisDrawConfig = self.particleDrawConfig[drawstring]
+                name = xaxisDrawConfig.get("name","")
+            else:
+                name = ""
+        
+        if analysis !="":
+            name += "_"+analysis.upper()
+        if plotType !="":
+            name += "_"+plotType
+        
+        return  name
+        
+        
+    ##################################################################################################################
+    #  ##########  ##       #########  ##########   ######     ##########  ##      ##  ##########  #######   ######  #                       
+    #  ##      ##  ##       ##     ##      ##      ##    ##        ##       ##    ##   ##      ##  ##       ##    ## #             
+    #  ##      ##  ##       ##     ##      ##      ##              ##         ####     ##      ##  ##       ##       #                  
+    #  #########   ##       ##     ##      ##       ######         ##          ##      #########   #######   ######  #                  
+    #  ##          ##       ##     ##      ##            ##        ##          ##      ##          ##             ## #                
+    #  ##          ##       ##     ##      ##      ##    ##        ##          ##      ##          ##       ##    ## #                      
+    #  ##          #######  #########      ##       ######         ##          ##      ##          #######   ######  #                            
+    ##################################################################################################################
+    def impact1D(
+        self,
+        drawstring : str, 
+        analysis : str = "combined",
+        moreconstraints : list = [], 
+        moreconstraints_prior : bool =False,
+        xaxisDrawConfig : dict = None,
+        canvasStyle : dict = {
+            "offset": {
+                "ymax":0.002
+            },
+            "legend": {
+                "x1":0.15,
+                "y1":0.78,
+                "x2":0.32,
+                "y2":0.9,
+                "textSize":0.025
+            }
+        }):
         
         self.flushCanvas()
         self.flushLegend()
         
         xaxisParticleName = drawstring
         
+        name = self.createName(drawstring,analysis,"impact1D")
+        
         if xaxisDrawConfig is None:
             try:
                 if self.particleDrawConfig.get(xaxisParticleName) is not None:
                     xaxisDrawConfig = self.particleDrawConfig[xaxisParticleName]
-                elif self.generalDrawConfig.get("defaults") is not None:
-                    xaxisDrawConfig = self.generalDrawConfig["defaults"]
+                else:
+                    xaxisDrawConfig = self.particleDrawConfig["defaults"]
                     xaxisDrawConfig["title"] = xaxisParticleName 
             except:
                 print("Missing Config for ",xaxisParticleName)
@@ -401,7 +454,7 @@ class PMSSM:
             xbins = xaxisDrawConfig["nbin"],
             xlow = xaxisDrawConfig["min"],
             xup = xaxisDrawConfig["max"],
-            _logx = xaxisDrawConfig.get("logScale",False),
+            _logx = xaxisDrawConfig.get("logScale",False), # TODO DEBUG THIS
             drawstring = drawstring,
             moreconstraints = moreconstraints,
             moreconstraints_prior = moreconstraints_prior)
@@ -435,12 +488,11 @@ class PMSSM:
         impact_plots["posterior"].Draw("histsame")
         impact_plots["posterior_up"].Draw("histsame")
         impact_plots["posterior_down"].Draw("histsame")
-        # self.legend.Draw("same")
-        CMS.SaveCanvas(self.canvas,self.outdir+name+"_impact1D.png")
+        self.legend.Draw("same")
+        CMS.SaveCanvas(self.canvas,self.outdir+name+"."+self.fileFormat)
     
     def survivalProbability2D(self,
                                 drawstring : str,
-                                name : str,
                                 analysis : str = "combined" ,
                                 contourSwitch : bool= False,  
                                 moreconstraints : list = [], 
@@ -462,12 +514,15 @@ class PMSSM:
     
         yaxisParticleName, xaxisParticleName = drawstring.split(":")
         
+        name = self.createName(drawstring,analysis,"contours_survival2D"if contourSwitch else "survival2D")
+
+        
         if xaxisDrawConfig is None:
             try:
                 if self.particleDrawConfig.get(xaxisParticleName) is not None:
                     xaxisDrawConfig = self.particleDrawConfig[xaxisParticleName]
-                elif self.generalDrawConfig.get("defaults") is not None:
-                    xaxisDrawConfig = self.generalDrawConfig["defaults"]
+                else:
+                    xaxisDrawConfig = self.particleDrawConfig["defaults"]
                     xaxisDrawConfig["title"] = xaxisParticleName 
             except:
                 print("Missing Config for ",xaxisParticleName)
@@ -477,8 +532,8 @@ class PMSSM:
             try:
                 if self.particleDrawConfig.get(yaxisParticleName) is not None:
                     yaxisDrawConfig = self.particleDrawConfig[yaxisParticleName]
-                elif self.generalDrawConfig.get("defaults") is not None:
-                    yaxisDrawConfig = self.generalDrawConfig["defaults"]
+                else:
+                    yaxisDrawConfig = self.particleDrawConfig["defaults"]
                     yaxisDrawConfig["title"] = yaxisParticleName 
             except:
                 print("Missing Config for ",yaxisParticleName)
@@ -513,10 +568,9 @@ class PMSSM:
             "ymin": yaxisDrawConfig["min"]/yaxisDrawConfig.get("linearScale",1.0),
             "ymax": yaxisDrawConfig["max"]/yaxisDrawConfig.get("linearScale",1.0)
         }
-    
         
         if contourSwitch:
-
+        
             prior_data =  get_prior_CI(
                 self.intree, 
                 hname = name + "_priorcontours",
@@ -629,12 +683,10 @@ class PMSSM:
             self.legend.SetHeader(analysis.upper())  
             CMS.UpdatePalettePosition(hist,X1=0.88,X2=0.91,Y1=0.108,Y2=0.93)
             
-        contourName = "Wcontours" if contourSwitch else ""
-        CMS.SaveCanvas(self.canvas,self.outdir+name+"_survival2D"+ contourName +".png")
+        CMS.SaveCanvas(self.canvas,self.outdir+name+"."+self.fileFormat)
 
     def quantilePlots1D(self,
                 drawstring : str, 
-                name : str, 
                 quantiles : dict = {
                     "0.5": {"color":kBlack},
                     "0.75": {"color":kOrange},
@@ -664,12 +716,14 @@ class PMSSM:
         
         xaxisParticleName = drawstring
         
+        name = self.createName(drawstring,analysis,"quantile1D")
+        
         if xaxisDrawConfig is None:
             try:
                 if self.particleDrawConfig.get(xaxisParticleName) is not None:
                     xaxisDrawConfig = self.particleDrawConfig[xaxisParticleName]
-                elif self.generalDrawConfig.get("defaults") is not None:
-                    xaxisDrawConfig = self.generalDrawConfig["defaults"]
+                else:
+                    xaxisDrawConfig = self.particleDrawConfig["defaults"]
                     xaxisDrawConfig["title"] = xaxisParticleName 
             except:
                 print("Missing Config for ",xaxisParticleName)
@@ -750,4 +804,4 @@ class PMSSM:
             hist = quantiles_hists[key]
             hist.Draw("hist same")
         
-        CMS.SaveCanvas(self.canvas,self.outdir+name+"_quantile1D.png")
+        CMS.SaveCanvas(self.canvas,self.outdir+name+"."+self.fileFormat)
