@@ -141,8 +141,8 @@ class PMSSM:
         for i in range(cols):
             if i<19: # The exact i was found by trial and error. Sorry.
                 col = kBlack
-            elif i > 253:
-                col = kGray
+            # elif i > 253:
+            #     col = kGray
             else:
                 col = TColor.GetColorPalette(i) # This part keeps the color from the currently set palette
                 
@@ -804,4 +804,118 @@ class PMSSM:
             hist = quantiles_hists[key]
             hist.Draw("hist same")
         
+        CMS.SaveCanvas(self.canvas,self.outdir+name+"."+self.fileFormat)
+
+    def quantilePlots2D(self,
+                drawstring : str, 
+                quantile : float,
+                analysis : str = "combined",
+                moreconstraints : list = [], 
+                moreconstraints_prior : bool =False,
+                xaxisDrawConfig : dict = None,
+                yaxisDrawConfig : dict = None,
+                canvasStyle : dict = {
+                    "offset": {
+                        "ymax":0.002
+                    },
+                    "legend": {
+                        "textSize":0.025,
+                        "legendNColumns": 2
+                    }
+                }
+                ):
+    
+
+        self.flushCanvas()
+        self.flushLegend()
+        
+        yaxisParticleName, xaxisParticleName = drawstring.split(":")
+        
+        name = self.createName(drawstring,analysis,"_"+ str(quantile) +"quantile2D")
+        
+        if xaxisDrawConfig is None:
+            try:
+                if self.particleDrawConfig.get(xaxisParticleName) is not None:
+                    xaxisDrawConfig = self.particleDrawConfig[xaxisParticleName]
+                else:
+                    xaxisDrawConfig = self.particleDrawConfig["defaults"]
+                    xaxisDrawConfig["title"] = xaxisParticleName 
+            except:
+                print("Missing Config for ",xaxisParticleName)
+                return
+        
+        if yaxisDrawConfig is None:
+            try:
+                if self.particleDrawConfig.get(yaxisParticleName) is not None:
+                    yaxisDrawConfig = self.particleDrawConfig[yaxisParticleName]
+                else:
+                    yaxisDrawConfig = self.particleDrawConfig["defaults"]
+                    yaxisDrawConfig["title"] = yaxisParticleName 
+            except:
+                print("Missing Config for ",yaxisParticleName)
+                return
+
+        hist = get_quantile_plot_2D(
+            localtree = self.intree,
+            quantile=quantile,
+            analysis = analysis,
+            hname = name,
+            xtitle = xaxisDrawConfig["title"] + " ["+xaxisDrawConfig["unit"]+"]",
+            xbins = xaxisDrawConfig["nbin"],
+            xlow = xaxisDrawConfig["min"],
+            xup = xaxisDrawConfig["max"],
+            ytitle = yaxisDrawConfig["title"] + " ["+yaxisDrawConfig["unit"]+"]",
+            ybins = yaxisDrawConfig["nbin"],
+            ylow = yaxisDrawConfig["min"],
+            yup = yaxisDrawConfig["max"],
+            _logx = xaxisDrawConfig.get("logScale",False),
+            _logy = yaxisDrawConfig.get("logScale",False),
+            drawstring = drawstring,
+            moreconstraints = moreconstraints,
+            moreconstraints_prior = moreconstraints_prior)
+        
+        if xaxisDrawConfig.get("linearScale",1.0) != 1.0:
+            scaleXaxis(hist,scaleFactor=xaxisDrawConfig.get("linearScale"))
+        if yaxisDrawConfig.get("linearScale",1.0) != 1.0:
+            scaleYaxis(hist,scaleFactor=yaxisDrawConfig.get("linearScale"))
+            
+        axisRange = {
+            "xmin": xaxisDrawConfig["min"]/xaxisDrawConfig.get("linearScale",1.0),
+            "xmax": xaxisDrawConfig["max"]/xaxisDrawConfig.get("linearScale",1.0),
+            "ymin": yaxisDrawConfig["min"]/yaxisDrawConfig.get("linearScale",1.0),
+            "ymax": yaxisDrawConfig["max"]/yaxisDrawConfig.get("linearScale",1.0)
+        }
+        
+        self.setCanvas(
+            hist,
+            xaxisDrawConfig["title"] + " ["+xaxisDrawConfig["unit"]+"]", 
+            yaxisDrawConfig["title"] + " ["+yaxisDrawConfig["unit"]+"]", 
+            offset={
+                "xmin":canvasStyle.get("offset",{}).get("xmin",0.0),
+                "xmax":canvasStyle.get("offset",{}).get("xmax",0.0),
+                "ymin":canvasStyle.get("offset",{}).get("ymin",0.0),
+                "ymax":canvasStyle.get("offset",{}).get("ymax",0.0)
+                },
+            range=axisRange,
+            with_z_axis=True,
+            y_offset = 1,
+            )
+        
+        hist.GetZaxis().SetTitle(str(int(100 * quantile)) + "th Percentile Bayes Factor")
+        hist.GetZaxis().SetLabelSize(0.03)
+        hist.GetZaxis().SetTitleSize(0.04)
+        hist.GetZaxis().SetTitleOffset(1)
+        hist.SetContour(999)
+        CMS.SetCMSPalette()
+        
+        hist.Draw("same colz")
+        self.legend = self.createLegend(
+            x1=canvasStyle.get("legend",{}).get("x1",0.15),
+            y1=canvasStyle.get("legend",{}).get("y1",0.87),
+            x2=canvasStyle.get("legend",{}).get("x2",0.55),
+            y2=canvasStyle.get("legend",{}).get("y2",0.91),
+            textSize=canvasStyle.get("legend",{}).get("textSize",0.025)
+            )
+        self.legend.SetHeader(analysis.upper())  
+        CMS.UpdatePalettePosition(hist,X1=0.88,X2=0.91,Y1=0.108,Y2=0.93)
         CMS.SaveCanvas(self.canvas,self.outdir+name+"."+self.fileFormat)
