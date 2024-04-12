@@ -1,12 +1,3 @@
-#export SCRAM_ARCH=slc7_amd64_gcc900
-#git clone https://github.com/mmrowietz/CmsPmssm
-#cmsrel CMSSW_12_2_4
-#cd CMSSW_12_2_4/src/
-#cmsenv
-#cd ../../CmsPmssm
-#python3 pmssm.py -i /eos/cms/store/group/phys_susy/pMSSMScan/MasterTrees/pmssmtree_11aug2023.root -o plots
-
-
 from ROOT import *
 import os,sys
 from utils.utils import *
@@ -65,7 +56,7 @@ particleDrawConfig_TeV = {
         "name" : "chi10"
         },
     "g": {
-        "title" : "m(#tilde{g})",
+        "title" : "m_{#tilde{g}}",
         "nbin" : 100,
         "min" : 0,
         "max" : 6500,
@@ -75,7 +66,7 @@ particleDrawConfig_TeV = {
         "name" : "gluon"
         },
     "t1" : {
-        "title": "m(#tilde{t}_{1})",
+        "title": "m_{#tilde{t}_{1}}",
         "nbin" : 100,
         "min" : 0,
         "max" : 6500,
@@ -86,7 +77,7 @@ particleDrawConfig_TeV = {
         
     },
     "b1" : {
-        "title": "m(#tilde{b}_{1})",
+        "title": "m_{#tilde{b}_{1}}",
         "nbin" : 100,
         "min" : 0,
         "max" : 6500,
@@ -185,6 +176,9 @@ class PMSSM:
         leftMarginOffset:float = 0.0
         ):
         """
+        This function will be moved to setCanvas function.
+        """
+        """
         Create a CMS canvas.
         Parameters:
         canvName : str
@@ -208,8 +202,7 @@ class PMSSM:
         leftMarginOffset : float
             The offset for the left margin
         Returns:
-        CMS.cmsCanvas
-            The CMS canvas
+            canvas
         """
         
         if canvName=="":
@@ -398,7 +391,15 @@ class PMSSM:
         
         return  name
         
-        
+    @staticmethod
+    def setPaletteStyle(palette,cmsStyle):
+        palette.SetTitleFont(cmsStyle.GetTitleFont())
+        palette.SetTitleSize(0.042)
+        palette.SetLabelSize(0.0381)
+        palette.SetTitleOffset(1.1)
+        palette.SetLabelFont(cmsStyle.GetLabelFont())
+                    
+    
     ##################################################################################################################
     #  ##########  ##       #########  ##########   ######     ##########  ##      ##  ##########  #######   ######  #                       
     #  ##      ##  ##       ##     ##      ##      ##    ##        ##       ##    ##   ##      ##  ##       ##    ## #             
@@ -463,13 +464,33 @@ class PMSSM:
             hist = impact_plots[key]
             if xaxisDrawConfig.get("linearScale",1.0) != 1.0:
                 scaleXaxis(hist,scaleFactor=xaxisDrawConfig.get("linearScale"))
+                
+                
+        axis_range = {
+            "xmin": None,
+            "xmax": None,
+            "ymin": None,
+            "ymax": None
+        }
+        for key in impact_plots:
+            hist = impact_plots[key]
+            xmin,xmax,ymin,ymax = self.getAxisRange(hist)
+            
+            if axis_range["xmin"] is None or xmin < axis_range["xmin"]:
+                axis_range["xmin"] = xmin
+            if axis_range["xmax"] is None or xmax > axis_range["xmax"]:
+                axis_range["xmax"] = xmax
+            if axis_range["ymin"] is None or ymin < axis_range["ymin"]:
+                axis_range["ymin"] = ymin
+            if axis_range["ymax"] is None or ymax > axis_range["ymax"]:
+                axis_range["ymax"] = ymax
         
         self.setCanvas(impact_plots["prior"],xaxisDrawConfig["title"]+ " ["+xaxisDrawConfig["unit"]+"]", "pMSSM Density", offset={
             "xmin":canvasStyle.get("offset",{}).get("xmin",0.0),
             "xmax":canvasStyle.get("offset",{}).get("xmax",0.0),
             "ymin":canvasStyle.get("offset",{}).get("ymin",0.0),
             "ymax":canvasStyle.get("offset",{}).get("ymax",0.0)
-            })
+            },range=axis_range)
         
         self.legend = self.createLegend(
             x1=canvasStyle.get("legend",{}).get("x1",0.15),
@@ -494,7 +515,7 @@ class PMSSM:
     def survivalProbability2D(self,
                                 drawstring : str,
                                 analysis : str = "combined" ,
-                                contourSwitch : bool= False,  
+                                contourSwitch : bool= True,  
                                 moreconstraints : list = [], 
                                 moreconstraints_prior : bool =False,
                                 xaxisDrawConfig : dict = None,
@@ -614,14 +635,6 @@ class PMSSM:
                 with_z_axis=True,
                 y_offset = 1,
                 )
-            
-            hist.GetZaxis().SetTitle("Survival Probability")
-            hist.GetZaxis().SetLabelSize(0.03)
-            hist.GetZaxis().SetTitleSize(0.04)
-            hist.GetZaxis().SetTitleOffset(0.9)
-            CMS.SetAlternative2DColor(hist=hist)
-                
-            
             self.legend = self.createLegend(
                 x1=canvasStyle.get("legend",{}).get("x1",0.15),
                 y1=canvasStyle.get("legend",{}).get("y1",0.81),
@@ -630,7 +643,18 @@ class PMSSM:
                 textSize=canvasStyle.get("legend",{}).get("textSize",0.025)
                 )
             self.legend.SetHeader(analysis.upper())  
+            
+                        
+            hist.GetZaxis().SetTitle("Survival Probability")
+            # hist.GetZaxis().SetLabelSize(0.0375)
+            # hist.GetZaxis().SetTitleSize(0.05)
             hist.Draw("same colz")
+            cmsStyle = CMS.getCMSStyle()
+            palette = CMS.GetPalette(hist)
+            self.setPaletteStyle(palette,cmsStyle)
+            # gStyle.SetPalette(len(self.createSurvivalPlotPalette()),self.createSurvivalPlotPalette())
+            CMS.SetAlternativePalette(self.createSurvivalPlotPalette())
+            CMS.SetAlternative2DColor(hist=hist)
             for ix,interval in enumerate(prior_data):
                 for cont in prior_data[interval]:
                     scaleGraphXaxis(cont,scaleFactor=xaxisDrawConfig.get("linearScale"))
@@ -648,7 +672,7 @@ class PMSSM:
                     self.legend.AddEntry(posterior_data[interval][0],str(int(100*(interval)))+"% posterior CI","l",)
             self.legend.SetNColumns(canvasStyle.get("legend",{}).get("legendNColumns",2))
             self.legend.Draw("same")
-            CMS.UpdatePalettePosition(hist,X1=0.88,X2=0.91,Y1=0.108,Y2=0.93)
+            CMS.UpdatePalettePosition(hist,X1=0.87,X2=0.90,Y1=0.1097,Y2=0.93)
         else:
             
             self.setCanvas(
@@ -905,8 +929,9 @@ class PMSSM:
         hist.GetZaxis().SetLabelSize(0.03)
         hist.GetZaxis().SetTitleSize(0.04)
         hist.GetZaxis().SetTitleOffset(1)
-        hist.SetContour(999)
-        CMS.SetCMSPalette()
+        #hist.SetContour(999)
+        # CMS.SetCMSPalette()
+        #CMS.SetRootPalette(kBird)
         
         hist.Draw("same colz")
         self.legend = self.createLegend(

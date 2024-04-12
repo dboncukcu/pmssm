@@ -115,7 +115,10 @@ def SetCMSPalette():
     cmsStyle.SetPalette(rt.kViridis)
     #cmsStyle.SetPalette(rt.kCividis)
     
-
+##### CUSTOM PART ######
+def SetRootPalette(palette):
+    cmsStyle.SetPalette(palette)
+########################
 def GetPalette(hist):
     """Allow to retrieve palette option. Must update the pad to access the palette"""
     UpdatePad()
@@ -184,6 +187,9 @@ def UpdatePad(pad=None):
         rt.gPad.Modified()
         rt.gPad.Update()
 
+def getCMSStyle():
+    setCMSStyle()
+    return cmsStyle
 
 def setCMSStyle():
     global cmsStyle
@@ -444,7 +450,7 @@ def cmsCanvas(
     ##### CUSTOM PART ######
     # CHANGED by Dorukhan Boncukçu
     # extraSpace=0,
-    y_offset = 1.6,
+    y_offset = 1.7,
     leftMarginOffset = 0
     ##########################
 ):
@@ -474,7 +480,7 @@ def cmsCanvas(
     
     ######  CUSTOM PART ######
     # CUSTOMIZED by Dorukhan Boncukçu
-    cmsStyle.SetLabelSize(0.03, "XYZ")
+    cmsStyle.SetLabelSize(0.04, "XYZ")
     cmsStyle.SetTitleSize(0.04, "XYZ")
     ##########################
     
@@ -486,7 +492,9 @@ def cmsCanvas(
     H = H_ref
     T = 0.07 * H_ref
     B = 0.11 * H_ref
-    L = 0.13 * H_ref
+    ######  CUSTOM PART ######
+    L = 0.1 * H_ref
+    ##########################
     R = 0.03 * H_ref
 
     canv = rt.TCanvas(canvName, canvName, 50, 50, W, H)
@@ -497,12 +505,16 @@ def cmsCanvas(
     
     ######  CUSTOM PART ######
     # CUSTOMIZED by Dorukhan Boncukçu
-    canv.SetLeftMargin(L / W + leftMarginOffset)
-    canv.SetBottomMargin(B / H)
     ##########################
-    canv.SetRightMargin(R / W)
     if with_z_axis:
-        canv.SetRightMargin(B / W + 0.01)
+        canv.SetLeftMargin(L / W +0.01)
+        canv.SetRightMargin(B / W + 0.02)
+        canv.SetBottomMargin(B / H)
+    else:
+        canv.SetRightMargin(R / W)
+        canv.SetLeftMargin(L / W + 0.03)
+        canv.SetBottomMargin(B / H +0.01)
+        
     canv.SetTopMargin(T / H)
 
     # Draw frame and set axis labels
@@ -511,8 +523,14 @@ def cmsCanvas(
     # DELETED by Dorukhan Boncukçu
     # y_offset = 1.6 if square else 0.8
     ##########################
-    h.GetYaxis().SetTitleOffset(y_offset)
-    h.GetXaxis().SetTitleOffset(0.9)
+    if with_z_axis:
+        h.GetYaxis().SetTitleOffset(1.2)
+        h.GetXaxis().SetTitleOffset(1.1)
+
+    else:
+        h.GetYaxis().SetTitleOffset(1.5)
+        h.GetXaxis().SetTitleOffset(1.3)
+    
     h.GetXaxis().SetTitle(nameXaxis)
     h.GetYaxis().SetTitle(nameYaxis)
     h.Draw("AXIS")
