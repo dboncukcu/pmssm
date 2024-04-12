@@ -450,7 +450,7 @@ def cmsCanvas(
     ##### CUSTOM PART ######
     # CHANGED by Dorukhan Boncukçu
     # extraSpace=0,
-    y_offset = 1.7,
+    y_offset = 0,
     leftMarginOffset = 0
     ##########################
 ):
@@ -507,12 +507,12 @@ def cmsCanvas(
     # CUSTOMIZED by Dorukhan Boncukçu
     ##########################
     if with_z_axis:
-        canv.SetLeftMargin(L / W +0.01)
+        canv.SetLeftMargin(L / W +0.01 + leftMarginOffset)
         canv.SetRightMargin(B / W + 0.02)
         canv.SetBottomMargin(B / H)
     else:
         canv.SetRightMargin(R / W)
-        canv.SetLeftMargin(L / W + 0.03)
+        canv.SetLeftMargin(L / W + 0.03 + leftMarginOffset)
         canv.SetBottomMargin(B / H +0.01)
         
     canv.SetTopMargin(T / H)
@@ -523,12 +523,13 @@ def cmsCanvas(
     # DELETED by Dorukhan Boncukçu
     # y_offset = 1.6 if square else 0.8
     ##########################
+    
     if with_z_axis:
-        h.GetYaxis().SetTitleOffset(1.2)
+        h.GetYaxis().SetTitleOffset(1.2 + y_offset)
         h.GetXaxis().SetTitleOffset(1.1)
 
     else:
-        h.GetYaxis().SetTitleOffset(1.5)
+        h.GetYaxis().SetTitleOffset(1.5 + y_offset)
         h.GetXaxis().SetTitleOffset(1.3)
     
     h.GetXaxis().SetTitle(nameXaxis)

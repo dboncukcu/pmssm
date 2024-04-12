@@ -219,7 +219,8 @@ class PMSSM:
             square = CMS.kSquare, 
             iPos=0,
             with_z_axis=with_z_axis,
-            y_offset = y_offset
+            y_offset = y_offset,
+            leftMarginOffset = leftMarginOffset
             )
         return canv
 
@@ -283,7 +284,7 @@ class PMSSM:
         obj, # WILL BE DEPRECATED
         xtitle:str,
         ytitle:str,
-        y_offset:float = 1.6,
+        y_offset:float = 0,
         offset:dict = {},
         range:dict = None,
         with_z_axis:bool = False,
@@ -421,9 +422,9 @@ class PMSSM:
                 "ymax":0.002
             },
             "legend": {
-                "x1":0.15,
+                "x1":0.17,
                 "y1":0.78,
-                "x2":0.32,
+                "x2":0.34,
                 "y2":0.9,
                 "textSize":0.025
             }
@@ -490,12 +491,12 @@ class PMSSM:
             "xmax":canvasStyle.get("offset",{}).get("xmax",0.0),
             "ymin":canvasStyle.get("offset",{}).get("ymin",0.0),
             "ymax":canvasStyle.get("offset",{}).get("ymax",0.0)
-            },range=axis_range)
+            },range=axis_range, y_offset = 0.5, leftMarginOffset=0.02)
         
         self.legend = self.createLegend(
             x1=canvasStyle.get("legend",{}).get("x1",0.15),
             y1=canvasStyle.get("legend",{}).get("y1",0.8),
-            x2=canvasStyle.get("legend",{}).get("x2",0.32),
+            x2=canvasStyle.get("legend",{}).get("x2",0.37),
             y2=canvasStyle.get("legend",{}).get("y2",0.9),
             textSize=canvasStyle.get("legend",{}).get("textSize",0.025)
             )
@@ -633,7 +634,6 @@ class PMSSM:
                     },
                 range=axisRange,
                 with_z_axis=True,
-                y_offset = 1,
                 )
             self.legend = self.createLegend(
                 x1=canvasStyle.get("legend",{}).get("x1",0.15),
@@ -922,7 +922,6 @@ class PMSSM:
                 },
             range=axisRange,
             with_z_axis=True,
-            y_offset = 1,
             )
         
         hist.GetZaxis().SetTitle(str(int(100 * quantile)) + "th Percentile Bayes Factor")
