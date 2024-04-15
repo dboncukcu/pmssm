@@ -433,39 +433,24 @@ class PMSSM:
                 particleConfig[key] = overWrite[key]
         return particleConfig
 
-
-    def createName(self,drawstring:str,analysis:str="combined",plotType:str=""):
-        splitted = drawstring.split(":")
+    def createName(self,xaxisDrawConfig, yaxisDrawConfig:dict= None, analysis:str="combined",plotType:str=""):
         name = ""
-        if (len(splitted) == 2):
-            
-            
-            xaxisParticleName = splitted[0]
-            yaxisParticleName = splitted[1]
         
-            
-            if self.particleDrawConfig.get(xaxisParticleName) is not None:
-                xaxisDrawConfig = self.particleDrawConfig[xaxisParticleName]
-                xname = xaxisDrawConfig.get("name","")
-            else:
-                xname = ""
-                
-            if self.particleDrawConfig.get(yaxisParticleName) is not None:
-                yaxisDrawConfig = self.particleDrawConfig[yaxisParticleName]
-                yname = yaxisDrawConfig.get("name","")
-            else:
-                yname = ""
-
-            if yname == "":
-                name = xname
-            else:
-                name = yname + "_" + xname
+        xname = xaxisDrawConfig.get("name","notfound")
+        xlog1D = xaxisDrawConfig.get("1Dlogy", False)
+        if xlog1D:
+            xname += "_logy"
+        yname = ""
+        if yaxisDrawConfig is not None:
+            yname = yaxisDrawConfig.get("name","")
+            name = yname + "_" + xname
         else:
-            if self.particleDrawConfig.get(drawstring) is not None:
-                xaxisDrawConfig = self.particleDrawConfig[drawstring]
-                name = xaxisDrawConfig.get("name","")
-            else:
-                name = ""
+            name = xname
+        
+        if analysis !="":
+            name += "_"+analysis.upper()
+        if plotType !="":
+            name += "_"+plotType
         
         if analysis !="":
             name += "_"+analysis.upper()
@@ -474,9 +459,10 @@ class PMSSM:
         
         
         name = name.replace(".","p")
-        
+        name = name.replace("(","")
+        name = name.replace(")","")
+
         return  name
-        
     @staticmethod
     def setPaletteStyle(palette,cmsStyle):
         palette.SetTitleFont(cmsStyle.GetTitleFont())
@@ -520,11 +506,10 @@ class PMSSM:
         self.flushLegend()
         
         xaxisParticleName = drawstring
-        
-        name = self.createName(drawstring,analysis,"impact1D")
-        
         xaxisDrawConfig = self.getParticleConfig(xaxisParticleName,xaxisDrawConfig)
-
+        
+        name = self.createName(xaxisDrawConfig = xaxisDrawConfig ,analysis = analysis, plotType = "impact1D")
+        
         impact_plots = get_impact_plots(
             localtree = self.intree,
             analysis = analysis,
@@ -622,10 +607,11 @@ class PMSSM:
         self.flushLegend()
         
         xaxisParticleName = drawstring
-        
-        name = self.createName(drawstring,analysis,"survival1D")
-        
+                
         xaxisDrawConfig = self.getParticleConfig(xaxisParticleName,xaxisDrawConfig)
+
+        name = self.createName(xaxisDrawConfig = xaxisDrawConfig ,analysis = analysis, plotType = "survival1D")
+
 
         survive_plots = get_SP_plot_1D(
             localtree = self.intree,
@@ -724,12 +710,15 @@ class PMSSM:
     
         yaxisParticleName, xaxisParticleName = drawstring.split(":")
         
-        name = self.createName(drawstring,analysis,"contours_survival2D"if contourSwitch else "survival2D")
 
         xaxisDrawConfig = self.getParticleConfig(xaxisParticleName,xaxisDrawConfig)
         yaxisDrawConfig = self.getParticleConfig(yaxisParticleName,yaxisDrawConfig)
 
-        
+        name = self.createName(
+            xaxisDrawConfig = xaxisDrawConfig,
+            yaxisDrawConfig= yaxisDrawConfig,
+            analysis = analysis, plotType = "contours_survival2D"if contourSwitch else "survival2D")
+
         hist = get_SP_plot_2D(
             localtree=self.intree,
             analysis = analysis,
@@ -813,6 +802,7 @@ class PMSSM:
                     },
                 range=axisRange,
                 with_z_axis=True,
+                y_offset=0.125 if yaxisDrawConfig.get("logScale", False) else 0
                 )
             
             if xaxisDrawConfig.get("logScale", False):
@@ -878,7 +868,7 @@ class PMSSM:
                     },
                 range=axisRange,
                 with_z_axis=True,
-                y_offset = 1,
+                y_offset=0.125 if yaxisDrawConfig.get("logScale", False) else 0
                 )
             
             hist.GetZaxis().SetTitle("Survival Probability")
@@ -930,9 +920,9 @@ class PMSSM:
         
         xaxisParticleName = drawstring
         
-        name = self.createName(drawstring,analysis,"quantile1D")
-        
         xaxisDrawConfig = self.getParticleConfig(xaxisParticleName,xaxisDrawConfig)
+        name = self.createName(xaxisDrawConfig = xaxisDrawConfig ,analysis = analysis, plotType = "quantile1D")
+
         quantiles_hists = get_quantile_plot_1D(
             localtree = self.intree,
             analysis = analysis,
@@ -1047,10 +1037,13 @@ class PMSSM:
         
         yaxisParticleName, xaxisParticleName = drawstring.split(":")
         
-        name = self.createName(drawstring,analysis, str(quantile)+ "_"+"quantile2D")
-        
         xaxisDrawConfig = self.getParticleConfig(xaxisParticleName,xaxisDrawConfig)
         yaxisDrawConfig = self.getParticleConfig(yaxisParticleName,yaxisDrawConfig)
+        
+        name = self.createName(
+            xaxisDrawConfig = xaxisDrawConfig,
+            yaxisDrawConfig= yaxisDrawConfig,
+            analysis = analysis, plotType = str(quantile)+ "_"+"quantile2D")
 
         hist = get_quantile_plot_2D(
             localtree = self.intree,

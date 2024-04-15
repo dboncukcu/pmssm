@@ -1,7 +1,7 @@
 import sys
 import shutil
 
-sys.path.append("/Users/denizgungordu/Desktop/pmssm")
+sys.path.append("/Users/dorukhan/Desktop/cern/pmssm/")
 
 from ROOT import *
 from pmssm import PMSSM, particleDrawConfig_TeV
@@ -28,24 +28,24 @@ pmssm_plotter = PMSSM(
 
 print("impact1D for: ", particleName, "\n\n")
 pmssm_plotter.impact1D(drawstring=particleName, canvasStyle=pltconfig.righttop)
-survivalPlots1DCanvasStyle = {
-    "legend":pltconfig.rightbottom["legend"].copy()
-}
-survivalPlots1DCanvasStyle["legend"]["x1"] = 0.58
-survivalPlots1DCanvasStyle["legend"]["x2"] = 0.78
 
+print("quantile 1D for: ", particleName, "\n\n")
 quantilePlots1DCanvasStyle = {
     "legend":pltconfig.rightbottom["legend"].copy()
 }
 quantilePlots1DCanvasStyle["legend"]["x1"] = 0.70
 quantilePlots1DCanvasStyle["legend"]["x2"] = 0.90
-
-
-print("quantile 1D for: ", particleName, "\n\n")
 pmssm_plotter.quantilePlots1D(drawstring=particleName, canvasStyle=quantilePlots1DCanvasStyle)
 
 print("survivalProbability1D for:",particleName, "\n\n")
+survivalPlots1DCanvasStyle = {
+    "legend":pltconfig.rightbottom["legend"].copy()
+}
+survivalPlots1DCanvasStyle["legend"]["x1"] = 0.58
+survivalPlots1DCanvasStyle["legend"]["x2"] = 0.78
 pmssm_plotter.survivalProbability1D(drawstring=particleName, canvasStyle=survivalPlots1DCanvasStyle)
+pmssm_plotter.survivalProbability1D(drawstring=particleName, xaxisDrawConfig={"1Dlogy":True} ,canvasStyle=survivalPlots1DCanvasStyle)
+
 for ypar in pltconfig.yaxisFor2D:
     
     quantilePlots2DCanvasStyle = pltconfig.righttop.copy()

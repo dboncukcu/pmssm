@@ -33,6 +33,16 @@ pmssm_plotter.impact1D(drawstring=particleName, canvasStyle=pltconfig.righttop)
 print("quantile 1D for: ", particleName, "\n\n")
 pmssm_plotter.quantilePlots1D(drawstring=particleName, canvasStyle=pltconfig.rightbottom)
 
+print("survivalProbability1D for:",particleName, "\n\n")
+survivalPlots1DCanvasStyle = {
+    "legend":pltconfig.rightbottom["legend"].copy()
+}
+survivalPlots1DCanvasStyle["legend"]["x1"] = 0.58
+survivalPlots1DCanvasStyle["legend"]["x2"] = 0.78
+pmssm_plotter.survivalProbability1D(drawstring=particleName, canvasStyle=survivalPlots1DCanvasStyle)
+pmssm_plotter.survivalProbability1D(drawstring=particleName, xaxisDrawConfig={"1Dlogy":True} ,canvasStyle=survivalPlots1DCanvasStyle)
+
+
 for ypar in pltconfig.yaxisFor2D:
     if ypar == "abs(chi20-chi10)":
         quantilePlots2DCanvasStyle = {"legend":pltconfig.righttop["legend"].copy()}
