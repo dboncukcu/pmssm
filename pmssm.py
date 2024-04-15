@@ -710,9 +710,9 @@ class PMSSM:
                                         "ymax":0.002
                                     },
                                     "legend": {
-                                        "x1":0.19,
+                                        "x1":0.15,
                                         "y1":0.76,
-                                        "x2":0.66,
+                                        "x2":0.62,
                                         "y2":0.9,
                                         "textSize":0.030,
                                         "legendNColumns": 2
@@ -822,9 +822,9 @@ class PMSSM:
             
             
             self.legend = self.createLegend(
-                x1=canvasStyle.get("legend",{}).get("x1",0.19),
+                x1=canvasStyle.get("legend",{}).get("x1",0.15),
                 y1=canvasStyle.get("legend",{}).get("y1",0.76),
-                x2=canvasStyle.get("legend",{}).get("x2",0.66),
+                x2=canvasStyle.get("legend",{}).get("x2",0.62),
                 y2=canvasStyle.get("legend",{}).get("y2",0.90),
                 textSize=canvasStyle.get("legend",{}).get("textSize",0.030)
                 )
