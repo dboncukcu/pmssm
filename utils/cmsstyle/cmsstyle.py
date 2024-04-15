@@ -481,7 +481,7 @@ def cmsCanvas(
     ######  CUSTOM PART ######
     # CUSTOMIZED by Dorukhan Boncukçu
     cmsStyle.SetLabelSize(0.04, "XYZ")
-    cmsStyle.SetTitleSize(0.04, "XYZ")
+    cmsStyle.SetTitleSize(0.06, "XYZ")
     ##########################
     
     # Set canvas dimensions and margins
@@ -491,7 +491,7 @@ def cmsCanvas(
     W = W_ref
     H = H_ref
     T = 0.07 * H_ref
-    B = 0.11 * H_ref
+    B = 0.125 * H_ref
     ######  CUSTOM PART ######
     L = 0.1 * H_ref
     ##########################
@@ -507,9 +507,9 @@ def cmsCanvas(
     # CUSTOMIZED by Dorukhan Boncukçu
     ##########################
     if with_z_axis:
-        canv.SetLeftMargin(L / W +0.01 + leftMarginOffset)
+        canv.SetLeftMargin(L / W +0.03 + leftMarginOffset)
         canv.SetRightMargin(B / W + 0.02)
-        canv.SetBottomMargin(B / H)
+        canv.SetBottomMargin(B / H + 0.02)
     else:
         canv.SetRightMargin(R / W)
         canv.SetLeftMargin(L / W + 0.03 + leftMarginOffset)
@@ -519,18 +519,19 @@ def cmsCanvas(
 
     # Draw frame and set axis labels
     h = canv.DrawFrame(x_min, y_min, x_max, y_max)
+
     ######  CUSTOM PART ######
     # DELETED by Dorukhan Boncukçu
     # y_offset = 1.6 if square else 0.8
     ##########################
     
     if with_z_axis:
-        h.GetYaxis().SetTitleOffset(1.2 + y_offset)
-        h.GetXaxis().SetTitleOffset(1.25)
+        h.GetYaxis().SetTitleOffset(0.82 + y_offset)
+        h.GetXaxis().SetTitleOffset(1)
 
     else:
-        h.GetYaxis().SetTitleOffset(1.5 + y_offset)
-        h.GetXaxis().SetTitleOffset(1.35)
+        h.GetYaxis().SetTitleOffset(0.6 + y_offset)
+        h.GetXaxis().SetTitleOffset(0)
     
     h.GetXaxis().SetTitle(nameXaxis)
     h.GetYaxis().SetTitle(nameYaxis)

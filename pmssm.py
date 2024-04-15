@@ -482,7 +482,7 @@ class PMSSM:
         palette.SetTitleFont(cmsStyle.GetTitleFont())
         palette.SetTitleSize(0.042)
         palette.SetLabelSize(0.0381)
-        palette.SetTitleOffset(1.14)
+        palette.SetTitleOffset(1.15)
         palette.SetLabelFont(cmsStyle.GetLabelFont())
                     
     
@@ -508,10 +508,10 @@ class PMSSM:
             },
             "legend": {
                 "x1":0.19,
-                "y1":0.78,
+                "y1":0.73,
                 "x2":0.36,
                 "y2":0.9,
-                "textSize":0.025
+                "textSize":0.035
             }
         }
         ):
@@ -577,11 +577,11 @@ class PMSSM:
             self.canvas.SetLogy()
         
         self.legend = self.createLegend(
-            x1=canvasStyle.get("legend",{}).get("x1",0.15),
-            y1=canvasStyle.get("legend",{}).get("y1",0.8),
-            x2=canvasStyle.get("legend",{}).get("x2",0.37),
+            x1=canvasStyle.get("legend",{}).get("x1",0.19),
+            y1=canvasStyle.get("legend",{}).get("y1",0.73),
+            x2=canvasStyle.get("legend",{}).get("x2",0.36),
             y2=canvasStyle.get("legend",{}).get("y2",0.9),
-            textSize=canvasStyle.get("legend",{}).get("textSize",0.025)
+            textSize=canvasStyle.get("legend",{}).get("textSize",0.035)
             )
         self.legend.SetHeader(analysis.upper())
         self.legend.AddEntry(impact_plots["prior"],"prior")
@@ -609,7 +609,11 @@ class PMSSM:
                                         "ymax":0.002
                                     },
                                     "legend": {
-                                        "textSize":0.025,
+                                        "x1":0.19,
+                                        "y1":0.76,
+                                        "x2":0.66,
+                                        "y2":0.9,
+                                        "textSize":0.030,
                                         "legendNColumns": 2
                                     }
                                 }
@@ -717,11 +721,11 @@ class PMSSM:
             
             
             self.legend = self.createLegend(
-                x1=canvasStyle.get("legend",{}).get("x1",0.15),
-                y1=canvasStyle.get("legend",{}).get("y1",0.81),
-                x2=canvasStyle.get("legend",{}).get("x2",0.55),
+                x1=canvasStyle.get("legend",{}).get("x1",0.19),
+                y1=canvasStyle.get("legend",{}).get("y1",0.76),
+                x2=canvasStyle.get("legend",{}).get("x2",0.66),
                 y2=canvasStyle.get("legend",{}).get("y2",0.90),
-                textSize=canvasStyle.get("legend",{}).get("textSize",0.025)
+                textSize=canvasStyle.get("legend",{}).get("textSize",0.030)
                 )
             self.legend.SetHeader(analysis.upper())  
             
@@ -757,7 +761,7 @@ class PMSSM:
                     self.legend.AddEntry(posterior_data[interval][0],str(int(100*(interval)))+"% posterior CI","l",)
             self.legend.SetNColumns(canvasStyle.get("legend",{}).get("legendNColumns",2))
             self.legend.Draw("same")
-            CMS.UpdatePalettePosition(hist,X1=0.87,X2=0.90,Y1=0.1097,Y2=0.93)
+            CMS.UpdatePalettePosition(hist,X1=0.855,X2=0.89,Y1=0.145,Y2=0.93)
         else:
             
             self.setCanvas(
@@ -810,11 +814,11 @@ class PMSSM:
                         "ymax":0.1
                     },
                     "legend": {
-                        "x1":0.15,
-                        "y1":0.8,
-                        "x2":0.32,
+                        "x1":0.19,
+                        "y1":0.73,
+                        "x2":0.36,
                         "y2":0.9,
-                        "textSize":0.025
+                        "textSize":0.035
                     }
                 },
                 ):
@@ -877,7 +881,7 @@ class PMSSM:
                             "ymin":canvasStyle.get("offset",{}).get("ymin",0.0),
                             "ymax":canvasStyle.get("offset",{}).get("ymax",0.0)
                             },
-                       range=axis_range)
+                       range=axis_range,y_offset = 0.5, leftMarginOffset=0.02)
         
         if xaxisDrawConfig.get("logScale", False):
             self.canvas.SetLogx()
@@ -885,11 +889,11 @@ class PMSSM:
             self.canvas.SetLogy()
         
         self.legend = self.createLegend(
-            x1=canvasStyle.get("legend",{}).get("x1",0.15),
-            y1=canvasStyle.get("legend",{}).get("y1",0.8),
-            x2=canvasStyle.get("legend",{}).get("x2",0.32),
+            x1=canvasStyle.get("legend",{}).get("x1",0.19),
+            y1=canvasStyle.get("legend",{}).get("y1",0.73),
+            x2=canvasStyle.get("legend",{}).get("x2",0.36),
             y2=canvasStyle.get("legend",{}).get("y2",0.9),
-            textSize=canvasStyle.get("legend",{}).get("textSize",0.025)
+            textSize=canvasStyle.get("legend",{}).get("textSize",0.035)
             )
         self.legend.SetHeader(analysis.upper())
         
@@ -924,7 +928,11 @@ class PMSSM:
                         "ymax":0.002
                     },
                     "legend": {
-                        "textSize":0.025,
+                        "x1":0.14,
+                        "y1":0.86,
+                        "x2":0.66,
+                        "y2":0.9,
+                        "textSize":0.030,
                         "legendNColumns": 2
                     }
                 }
@@ -992,7 +1000,7 @@ class PMSSM:
                 },
             range=axisRange,
             with_z_axis=True,
-            y_offset=0.13 if yaxisDrawConfig.get("logScale", False) else 0
+            y_offset=0.125 if yaxisDrawConfig.get("logScale", False) else 0
             )
         if xaxisDrawConfig.get("logScale", False):
             self.canvas.SetLogx()
@@ -1011,13 +1019,13 @@ class PMSSM:
         # CMS.SetRootPalette(kBird)
         
         self.legend = self.createLegend(
-            x1=canvasStyle.get("legend",{}).get("x1",0.15),
-            y1=canvasStyle.get("legend",{}).get("y1",0.87),
-            x2=canvasStyle.get("legend",{}).get("x2",0.55),
-            y2=canvasStyle.get("legend",{}).get("y2",0.91),
-            textSize=canvasStyle.get("legend",{}).get("textSize",0.025)
+            x1=canvasStyle.get("legend",{}).get("x1",0.14),
+            y1=canvasStyle.get("legend",{}).get("y1",0.86),
+            x2=canvasStyle.get("legend",{}).get("x2",0.66),
+            y2=canvasStyle.get("legend",{}).get("y2",0.9),
+            textSize=canvasStyle.get("legend",{}).get("textSize",0.030)
             )
         self.legend.SetHeader(analysis.upper())
         self.legend.SetTextColor(canvasStyle.get("legend",{}).get("textColor",kBlack))
-        CMS.UpdatePalettePosition(hist,X1=0.87,X2=0.90,Y1=0.1097,Y2=0.93)
+        CMS.UpdatePalettePosition(hist,X1=0.855,X2=0.89,Y1=0.145,Y2=0.93)
         CMS.SaveCanvas(self.canvas,self.outdir+name+"."+self.fileFormat)
