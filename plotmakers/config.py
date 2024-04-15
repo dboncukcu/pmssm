@@ -35,6 +35,15 @@ leftbottom = {
     }
 }
 
+lefttop = {
+    "legend": {
+        "x1":0.22,
+        "y1":0.65,
+        "x2":0.32,
+        "y2":0.90,
+        "textSize":0.030,
+    }
+}
 
 yaxisFor2D =  ["abs(chi10)","abs(chi1pm-chi10)","abs(chi20-chi10)"]
 

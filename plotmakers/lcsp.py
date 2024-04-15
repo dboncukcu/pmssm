@@ -11,7 +11,7 @@ particleName = "lcsp"
 
 root_file_path = "pmssmtree_11aug2023.root"
 tree_name = "mcmc"
-outdir = pltconfig.plotsdir+particleName
+outdir = pltconfig.plotsdir.replace("(","").replace(")","")+particleName
 
 if pltconfig.refreshDir:
     shutil.rmtree(outdir, ignore_errors=True)
@@ -28,28 +28,31 @@ pmssm_plotter = PMSSM(
     )
 
 print("impact1D for: ", particleName, "\n\n")
-pmssm_plotter.impact1D(drawstring=particleName, canvasStyle=pltconfig.righttop)
+pmssm_plotter.impact1D(drawstring=particleName)
 
 print("quantile 1D for: ", particleName, "\n\n")
-pmssm_plotter.quantilePlots1D(drawstring=particleName, canvasStyle=pltconfig.rightbottom)
+pmssm_plotter.quantilePlots1D(drawstring=particleName)
 
 for ypar in pltconfig.yaxisFor2D:
     
     quantilePlots2DCanvasStyle = pltconfig.righttop.copy()
     quantilePlots2DCanvasStyle["legend"] = {"textColor":kWhite}
-    
+    quantilePlots2DCanvasStyle["legend"]["x1"] = 0.70
+    quantilePlots2DCanvasStyle["legend"]["x2"] = 0.70
     print("survivalProbability2D for: ", ypar, particleName, "\n\n")
     if ypar != "abs(chi10)":
         
         
         survivalProbability2DCanvasStyle = pltconfig.righttop.copy()
-        survivalProbability2DCanvasStyle["legend"]["x1"] = 0.3
+        survivalProbability2DCanvasStyle["legend"]["x1"] = 0.40
+        survivalProbability2DCanvasStyle["legend"]["x2"] = 0.82
         survivalProbability2DCanvasStyle["legend"]["y2"] = 0.8
         survivalProbability2DCanvasStyle["legend"]["y1"] = 0.7
+        survivalProbability2DCanvasStyle["legend"]={"textColor":kWhite}
 
-        pmssm_plotter.survivalProbability2D(drawstring = ypar+":"+particleName,analysis=pltconfig.analysisName,contourSwitch=True, canvasStyle=survivalProbability2DCanvasStyle)
+        pmssm_plotter.survivalProbability2D(drawstring = ypar+":"+particleName,analysis=pltconfig.analysisName,contourSwitch=True, canvasStyle= survivalProbability2DCanvasStyle)
     else:
-        pmssm_plotter.survivalProbability2D(drawstring = ypar+":"+particleName,analysis=pltconfig.analysisName,contourSwitch=True)
+        pmssm_plotter.survivalProbability2D(drawstring = ypar+":"+particleName,analysis=pltconfig.analysisName,contourSwitch=True,)
     print("0.5 quantile 2D for: ", ypar, particleName, "\n\n")
     if ypar != "abs(chi10)": 
         pmssm_plotter.quantilePlots2D(drawstring=ypar+":"+particleName,analysis=pltconfig.analysisName, quantile = 0.5, canvasStyle=quantilePlots2DCanvasStyle)
