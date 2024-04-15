@@ -597,6 +597,106 @@ class PMSSM:
         self.legend.Draw("same")
         CMS.SaveCanvas(self.canvas,self.outdir+name+"."+self.fileFormat)
     
+    def survivalProbability1D(
+        self,
+        drawstring : str, 
+        analysis : str = "combined",
+        moreconstraints : list = [], 
+        moreconstraints_prior : bool =False,
+        xaxisDrawConfig : dict = None,
+        canvasStyle : dict = {
+            "offset": {
+                "ymax":0.002
+            },
+            "legend": {
+                "x1":0.19,
+                "y1":0.71,
+                "x2":0.36,
+                "y2":0.9,
+                "textSize":0.035
+            }
+        }
+        ):
+        
+        self.flushCanvas()
+        self.flushLegend()
+        
+        xaxisParticleName = drawstring
+        
+        name = self.createName(drawstring,analysis,"survival1D")
+        
+        xaxisDrawConfig = self.getParticleConfig(xaxisParticleName,xaxisDrawConfig)
+
+        survive_plots = get_SP_plot_1D(
+            localtree = self.intree,
+            analysis = analysis,
+            hname = name,
+            xtitle = xaxisDrawConfig["title"] + " ["+xaxisDrawConfig["unit"]+"]",
+            xbins = xaxisDrawConfig["nbin"],
+            xlow = xaxisDrawConfig["min"],
+            xup = xaxisDrawConfig["max"],
+            _logx = xaxisDrawConfig.get("logScale", False), # TODO DEBUG THIS
+            drawstring = drawstring,
+            moreconstraints = moreconstraints,
+            moreconstraints_prior = moreconstraints_prior)
+                
+        for key in survive_plots:
+            hist = survive_plots[key]
+            if not xaxisDrawConfig.get("logScale", False):
+                scaleXaxis(hist,scaleFactor=xaxisDrawConfig.get("linearScale"))
+                
+                
+        axis_range = {
+            "xmin": None,
+            "xmax": None,
+            "ymin": None,
+            "ymax": None
+        }
+        for key in survive_plots:
+            hist = survive_plots[key]
+            xmin,xmax,ymin,ymax = self.getAxisRange(hist)    
+            if xaxisDrawConfig.get("1Dlogy", False) and ymin==0:
+                hist.GetYaxis().SetRangeUser(1,ymax)
+                ymin = 1
+            if axis_range["xmin"] is None or xmin < axis_range["xmin"]:
+                axis_range["xmin"] = xmin
+            if axis_range["xmax"] is None or xmax > axis_range["xmax"]:
+                axis_range["xmax"] = xmax
+            if axis_range["ymin"] is None or ymin < axis_range["ymin"]:
+                axis_range["ymin"] = ymin
+            if axis_range["ymax"] is None or ymax > axis_range["ymax"]:
+                axis_range["ymax"] = ymax                
+        self.setCanvas(survive_plots["posterior"],xaxisDrawConfig["title"]+ " ["+xaxisDrawConfig["unit"]+"]", "Survival Probability", offset={
+            "xmin":canvasStyle.get("offset",{}).get("xmin",0.0),
+            "xmax":canvasStyle.get("offset",{}).get("xmax",0.0),
+            "ymin":canvasStyle.get("offset",{}).get("ymin",0.0),
+            "ymax":canvasStyle.get("offset",{}).get("ymax",0.002)
+            },range=axis_range, y_offset = 0.63, leftMarginOffset=0.03)
+        
+        if xaxisDrawConfig.get("logScale", False):
+            self.canvas.SetLogx()
+        if xaxisDrawConfig.get("1Dlogy", False):
+            self.canvas.SetLogy()
+        
+        self.legend = self.createLegend(
+            x1=canvasStyle.get("legend",{}).get("x1",0.19),
+            y1=canvasStyle.get("legend",{}).get("y1",0.73),
+            x2=canvasStyle.get("legend",{}).get("x2",0.36),
+            y2=canvasStyle.get("legend",{}).get("y2",0.9),
+            textSize=canvasStyle.get("legend",{}).get("textSize",0.035)
+            )
+        self.legend.SetHeader(analysis.upper())
+        self.legend.AddEntry(survive_plots["posterior"],"posterior (#sigma = #sigma_{nominal} )")
+        self.legend.AddEntry(survive_plots["posterior_up"],"posterior (#sigma = 1.5#times#sigma_{nominal} )")
+        self.legend.AddEntry(survive_plots["posterior_down"],"posterior (#sigma =0.5#times#sigma_{nominal} )")
+                
+        survive_plots["posterior"].Draw("histsame")
+        survive_plots["posterior_up"].Draw("histsame")
+        survive_plots["posterior_down"].Draw("histsame")
+        self.legend.SetTextColor(canvasStyle.get("legend",{}).get("textColor",kBlack))
+        self.legend.Draw("same")
+        CMS.SaveCanvas(self.canvas,self.outdir+name+"."+self.fileFormat)
+    
     def survivalProbability2D(self,
                                 drawstring : str,
                                 analysis : str = "combined" ,
