@@ -46,7 +46,6 @@ pmssm_plotter.quantilePlots1D(drawstring=particleName, canvasStyle=quantilePlots
 
 print("survivalProbability1D for:",particleName, "\n\n")
 pmssm_plotter.survivalProbability1D(drawstring=particleName, canvasStyle=survivalPlots1DCanvasStyle)
-exit()
 for ypar in pltconfig.yaxisFor2D:
     
     quantilePlots2DCanvasStyle = pltconfig.righttop.copy()
