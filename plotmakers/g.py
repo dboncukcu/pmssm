@@ -34,6 +34,9 @@ pmssm_plotter.impact1D(drawstring=particleName)
 print("quantile 1D for: ", particleName, "\n\n")
 pmssm_plotter.quantilePlots1D(drawstring=particleName, canvasStyle= pltconfig.rightbottom)
 
+print("survivalProbability1D for: ", particleName, "\n\n")
+pmssm_plotter.survivalProbability1D(drawstring=particleName, analysis=pltconfig.analysisName)
+
 for ypar in pltconfig.yaxisFor2D:
     print("survivalProbability2D for: ", ypar, particleName, "\n\n")
     if ypar != "abs(chi10)":
