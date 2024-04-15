@@ -44,7 +44,7 @@ theconstraints["cms_sus_21_007_simplified"] = "(exp(llhd_cms_sus_21_007_100s-llh
 theconstraints["cms_sus_21_007_simplified_down"] = "(exp(llhd_cms_sus_21_007_050s-llhd_cms_sus_21_007_0s))"
 theconstraints["cms_sus_21_007_simplified_up"] = "(exp(llhd_cms_sus_21_007_150s-llhd_cms_sus_21_007_0s))"
 
-
+# TODO remove atlas_susy_2018
 theconstraints["atlas_susy_2018_32"] = "(exp(llhd_atlas_susy_2018_32_100s-llhd_atlas_susy_2018_32_0s))"
 theconstraints["atlas_susy_2018_32_down"] = "(exp(llhd_atlas_susy_2018_32_150s-llhd_atlas_susy_2018_32_0s))"
 theconstraints["atlas_susy_2018_32_up"] = "(exp(llhd_atlas_susy_2018_32_050s-llhd_atlas_susy_2018_32_0s))"
@@ -227,7 +227,7 @@ def get_impact_plots(localtree, analysis, hname, xtitle, xbins, xlow, xup, _logx
 
 
 def get_quantile_plot_1D(localtree, analysis, hname, xtitle, xbins, xlow, xup, _logx, drawstring, moreconstraints=[],
-                         quantiles=[0.]):
+                         quantiles=[0.],_logy=False):
     """
     This creates a 1D survival probability plot. Returns dictionary with N Bayes factor quantile histograms, one for each of the N quantiles given.
     @param localtree: Function needs to be passed the ROOT tree from which to operate
@@ -277,7 +277,7 @@ def get_quantile_plot_1D(localtree, analysis, hname, xtitle, xbins, xlow, xup, _
     qs = list(np.array([0.]) for x in _quantiles)
 
     hists = {}
-    qhist = mkhistlogxy("qhist", "", xbins, xlow, xup, 3000, 0, 30, logy=False, logx=_logx)
+    qhist = mkhistlogxy("qhist", "", xbins, xlow, xup, 3000, 0, 30, logy=_logy, logx=_logx)
     localtree.Draw(_drawstring + ">>" + qhist.GetName(), constraintstring, "")
     htemplate = qhist.ProfileX('OF UF')
     xax = htemplate.GetXaxis()

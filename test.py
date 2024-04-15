@@ -1,16 +1,9 @@
 from ROOT import *
 from pmssm import PMSSM, particleDrawConfig_TeV
-import os
-import shutil
-
-
 
 root_file_path = "pmssmtree_11aug2023.root"
 tree_name = "mcmc"
-outdir = "plots_sun"
-
-if os.path.exists(outdir):
-    shutil.rmtree(outdir)
+outdir = "plotsdmtest"
 
 root_file = TFile(root_file_path) # type: ignore
 intree = root_file.Get(tree_name)
@@ -19,51 +12,38 @@ pmssm_plotter = PMSSM(
     intree = intree, 
     outdir = outdir,
     particleDrawConfig= particleDrawConfig_TeV,
-    canvasStyle= {
-        "energy" : "13",
-        "extraText" : "Preliminary",
-        "lumi" : "",
-        "analysisName" : "",
-    }
+    canvasStyle = {
+                    "energy" : "13",
+                    "extraText" : "Preliminary",
+                    "lumi" : "(137-139)",
+                }
     )
 
-# pmssm_plotter.impact(
-#     drawstring="b1",
-#     name="buttom",
-# )
+pmssm_plotter.printConfig("abs(chi1pm-chi10)")
 
-# pmssm_plotter.impact(
-#     drawstring="g",
-#     name="gluon",
-# )
+pmssm_plotter.quantilePlots1D(drawstring="abs(chi1pm-chi10)", xaxisDrawConfig={"1Dlogy":True,}, canvasStyle={"offset": {"ymax":5}})
 
-# pmssm_plotter.survivalProbability2D(
-#     drawstring = "abs(chi10):g",
-#     name = "gluino_chi10_higgsino_RDPlanck",
-#     moreconstraints = []
-#     )
+pmssm_plotter.impact1D(drawstring="abs(chi1pm-chi10)")
+
+# print("#"*50)
 
 
-pmssm_plotter.survivalProbability2D(
-    drawstring = "abs(chi10):g",
-    name = "gluino_chi10_higgsino_RDPlanck_contour",
-    moreconstraints = [],
-    contourSwitch = True
-    )
 
-pmssm_plotter.quantilePlots1D(
-    drawstring = "g",
-    name = "gluino",
-    moreconstraints = [],
-    canvasStyle= {
-        "offset" : {
-            "ymax" : 0
-        }
-    }
-    )
+# print("#"*50)
+# pmssm_plotter.survivalProbability2D(drawstring="abs(chi10):abs(chi1pm-chi10)", xaxisDrawConfig={"logScale":False,})
 
-pmssm_plotter.quantilePlots1D(
-    drawstring = "b1",
-    name = "bottom",
-    moreconstraints = []
-    )
+
+# print("#"*50)
+
+# pmssm_plotter.quantilePlots2D(
+#     drawstring="abs(chi1pm-chi10):abs(chi10)", 
+#     quantile=0.99,
+#     canvasStyle={
+#         "legend" :{
+#             "textColor":kWhite,
+#         }
+#     })
+
+# pmssm_plotter.quantilePlots2D(
+#     drawstring="abs(chi10):abs(chi1pm-chi10)", 
+#     quantile=0.99)

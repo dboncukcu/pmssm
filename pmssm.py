@@ -3,6 +3,7 @@ import os,sys
 from utils.utils import *
 import argparse
 import numpy as np
+from array import array
 
 from utils.plots import get_impact_plots, get_quantile_plot_1D, get_SP_plot_1D, get_SP_plot_2D, get_quantile_plot_2D, get_prior_CI, get_posterior_CI,sprobcontours
 import utils.cmsstyle as CMS
@@ -55,6 +56,16 @@ particleDrawConfig_TeV = {
         "unit": "TeV",
         "name" : "chi10"
         },
+    "abs(chi20)" : {
+        "title" : "m_{#tilde{#chi}^{0}_{2}}",
+        "nbin" : 50,
+        "min" : 0,
+        "max" : 2500,
+        "logScale" : False,
+        "linearScale": 1000, # for TeV, 1GeV/1000
+        "unit": "TeV",
+        "name" : "chi20"
+    },
     "g": {
         "title" : "m_{#tilde{g}}",
         "nbin" : 100,
@@ -73,7 +84,18 @@ particleDrawConfig_TeV = {
         "logScale": False,
         "linearScale": 1000.0,
         "unit": "TeV",
-        "name": "stop"
+        "name": "stop1"
+        
+    },
+    "t2" : {
+        "title": "m_{#tilde{t}_{2}}",
+        "nbin" : 100,
+        "min" : 0,
+        "max" : 6500,
+        "logScale": False,
+        "linearScale": 1000.0,
+        "unit": "TeV",
+        "name": "stop2"
         
     },
     "b1" : {
@@ -86,6 +108,48 @@ particleDrawConfig_TeV = {
         "unit": "TeV",
         "name": "sbottom"
     },
+    "lcsp" : {
+        "title" : "m_{lcsp}",
+        "nbin" : 50,
+        "min" : 0,
+        "max" : 2500,
+        "logScale" : False,
+        "linearScale": 1000, # for TeV, 1GeV/1000
+        "unit": "TeV",
+        "name" : "lcsp"
+        },
+    "abs(chi1pm-chi10)": {
+        "title": "#Deltam(#tilde{#chi}^{#pm}_{1},#tilde{#chi}^{0}_{1})",
+        "nbin" : 100,
+        "min" : 0,
+        "max" : 2000,
+        "logScale": True,
+        "linearScale": 1.0,
+        "unit": "GeV",
+        "name" : "deltaM_pm10",
+        "1Dlogy": True
+    },
+    "abs(chi20-chi10)": {
+        "title": "#Deltam(#tilde{#chi}^{0}_{2},#tilde{#chi}^{0}_{1})",
+        "nbin" : 100,
+        "min" : 0,
+        "max" : 2000,
+        "logScale": True,
+        "linearScale": 1.0,
+        "unit": "GeV",
+        "name" : "deltaM_20_10",
+        "1Dlogy": True
+    },
+    "abs(chi1pm)" : {
+        "title" : "m_{#tilde{#chi}^{#pm}_{1}}",
+        "nbin" : 50,
+        "min" : 0,
+        "max" : 2500,
+        "logScale" : False,
+        "linearScale": 1000,
+        "unit": "TeV",
+        "name" : "chipm"
+        },
     }
 
 
@@ -354,6 +418,22 @@ class PMSSM:
                 print("-Linear Scale:",self.particleDrawConfig[particleName].get("linearScale"))
                 print("-Unit:",self.particleDrawConfig[particleName].get("unit"))
 
+    def getParticleConfig(self,particleName:str,overWrite:dict=None):
+                
+        try:
+            if self.particleDrawConfig.get(particleName) is not None:
+                particleConfig = self.particleDrawConfig[particleName].copy()
+            else:
+                particleConfig = self.particleDrawConfig["defaults"].copy()
+                particleConfig["title"] = particleName 
+        except:
+                raise Exception("Missing Config for ",particleName)
+        if overWrite is not None:
+            for key in overWrite.keys():
+                particleConfig[key] = overWrite[key]
+        return particleConfig
+
+
     def createName(self,drawstring:str,analysis:str="combined",plotType:str=""):
         splitted = drawstring.split(":")
         name = ""
@@ -375,9 +455,11 @@ class PMSSM:
                 yname = yaxisDrawConfig.get("name","")
             else:
                 yname = ""
-        
-            
-            name = xname + "_" + yname
+
+            if yname == "":
+                name = xname
+            else:
+                name = yname + "_" + xname
         else:
             if self.particleDrawConfig.get(drawstring) is not None:
                 xaxisDrawConfig = self.particleDrawConfig[drawstring]
@@ -390,6 +472,9 @@ class PMSSM:
         if plotType !="":
             name += "_"+plotType
         
+        
+        name = name.replace(".","p")
+        
         return  name
         
     @staticmethod
@@ -397,7 +482,7 @@ class PMSSM:
         palette.SetTitleFont(cmsStyle.GetTitleFont())
         palette.SetTitleSize(0.042)
         palette.SetLabelSize(0.0381)
-        palette.SetTitleOffset(1.1)
+        palette.SetTitleOffset(1.14)
         palette.SetLabelFont(cmsStyle.GetLabelFont())
                     
     
@@ -422,13 +507,14 @@ class PMSSM:
                 "ymax":0.002
             },
             "legend": {
-                "x1":0.17,
+                "x1":0.19,
                 "y1":0.78,
-                "x2":0.34,
+                "x2":0.36,
                 "y2":0.9,
                 "textSize":0.025
             }
-        }):
+        }
+        ):
         
         self.flushCanvas()
         self.flushLegend()
@@ -437,17 +523,8 @@ class PMSSM:
         
         name = self.createName(drawstring,analysis,"impact1D")
         
-        if xaxisDrawConfig is None:
-            try:
-                if self.particleDrawConfig.get(xaxisParticleName) is not None:
-                    xaxisDrawConfig = self.particleDrawConfig[xaxisParticleName]
-                else:
-                    xaxisDrawConfig = self.particleDrawConfig["defaults"]
-                    xaxisDrawConfig["title"] = xaxisParticleName 
-            except:
-                print("Missing Config for ",xaxisParticleName)
-                return
-                
+        xaxisDrawConfig = self.getParticleConfig(xaxisParticleName,xaxisDrawConfig)
+
         impact_plots = get_impact_plots(
             localtree = self.intree,
             analysis = analysis,
@@ -456,14 +533,14 @@ class PMSSM:
             xbins = xaxisDrawConfig["nbin"],
             xlow = xaxisDrawConfig["min"],
             xup = xaxisDrawConfig["max"],
-            _logx = xaxisDrawConfig.get("logScale",False), # TODO DEBUG THIS
+            _logx = xaxisDrawConfig.get("logScale", False), # TODO DEBUG THIS
             drawstring = drawstring,
             moreconstraints = moreconstraints,
             moreconstraints_prior = moreconstraints_prior)
                 
         for key in impact_plots:
             hist = impact_plots[key]
-            if xaxisDrawConfig.get("linearScale",1.0) != 1.0:
+            if not xaxisDrawConfig.get("logScale", False):
                 scaleXaxis(hist,scaleFactor=xaxisDrawConfig.get("linearScale"))
                 
                 
@@ -475,8 +552,10 @@ class PMSSM:
         }
         for key in impact_plots:
             hist = impact_plots[key]
-            xmin,xmax,ymin,ymax = self.getAxisRange(hist)
-            
+            xmin,xmax,ymin,ymax = self.getAxisRange(hist)    
+            if xaxisDrawConfig.get("1Dlogy", False) and ymin==0:
+                hist.GetYaxis().SetRangeUser(1,ymax)
+                ymin = 1
             if axis_range["xmin"] is None or xmin < axis_range["xmin"]:
                 axis_range["xmin"] = xmin
             if axis_range["xmax"] is None or xmax > axis_range["xmax"]:
@@ -484,14 +563,18 @@ class PMSSM:
             if axis_range["ymin"] is None or ymin < axis_range["ymin"]:
                 axis_range["ymin"] = ymin
             if axis_range["ymax"] is None or ymax > axis_range["ymax"]:
-                axis_range["ymax"] = ymax
-        
+                axis_range["ymax"] = ymax                
         self.setCanvas(impact_plots["prior"],xaxisDrawConfig["title"]+ " ["+xaxisDrawConfig["unit"]+"]", "pMSSM Density", offset={
             "xmin":canvasStyle.get("offset",{}).get("xmin",0.0),
             "xmax":canvasStyle.get("offset",{}).get("xmax",0.0),
             "ymin":canvasStyle.get("offset",{}).get("ymin",0.0),
-            "ymax":canvasStyle.get("offset",{}).get("ymax",0.0)
+            "ymax":canvasStyle.get("offset",{}).get("ymax",0.2)
             },range=axis_range, y_offset = 0.5, leftMarginOffset=0.02)
+        
+        if xaxisDrawConfig.get("logScale", False):
+            self.canvas.SetLogx()
+        if xaxisDrawConfig.get("1Dlogy", False):
+            self.canvas.SetLogy()
         
         self.legend = self.createLegend(
             x1=canvasStyle.get("legend",{}).get("x1",0.15),
@@ -538,28 +621,9 @@ class PMSSM:
         
         name = self.createName(drawstring,analysis,"contours_survival2D"if contourSwitch else "survival2D")
 
-        
-        if xaxisDrawConfig is None:
-            try:
-                if self.particleDrawConfig.get(xaxisParticleName) is not None:
-                    xaxisDrawConfig = self.particleDrawConfig[xaxisParticleName]
-                else:
-                    xaxisDrawConfig = self.particleDrawConfig["defaults"]
-                    xaxisDrawConfig["title"] = xaxisParticleName 
-            except:
-                print("Missing Config for ",xaxisParticleName)
-                return
-        
-        if yaxisDrawConfig is None:
-            try:
-                if self.particleDrawConfig.get(yaxisParticleName) is not None:
-                    yaxisDrawConfig = self.particleDrawConfig[yaxisParticleName]
-                else:
-                    yaxisDrawConfig = self.particleDrawConfig["defaults"]
-                    yaxisDrawConfig["title"] = yaxisParticleName 
-            except:
-                print("Missing Config for ",yaxisParticleName)
-                return
+        xaxisDrawConfig = self.getParticleConfig(xaxisParticleName,xaxisDrawConfig)
+        yaxisDrawConfig = self.getParticleConfig(yaxisParticleName,yaxisDrawConfig)
+
         
         hist = get_SP_plot_2D(
             localtree=self.intree,
@@ -579,9 +643,9 @@ class PMSSM:
             moreconstraints = moreconstraints,
             moreconstraints_prior = moreconstraints_prior)
         
-        if xaxisDrawConfig.get("linearScale",1.0) != 1.0:
+        if not xaxisDrawConfig.get("logScale", False):
             scaleXaxis(hist,scaleFactor=xaxisDrawConfig.get("linearScale"))
-        if yaxisDrawConfig.get("linearScale",1.0) != 1.0:
+        if not yaxisDrawConfig.get("logScale", False):
             scaleYaxis(hist,scaleFactor=yaxisDrawConfig.get("linearScale"))
         
         axisRange = {
@@ -590,6 +654,16 @@ class PMSSM:
             "ymin": yaxisDrawConfig["min"]/yaxisDrawConfig.get("linearScale",1.0),
             "ymax": yaxisDrawConfig["max"]/yaxisDrawConfig.get("linearScale",1.0)
         }
+        
+        
+        if xaxisDrawConfig.get("logScale", False):
+            for key in ["xmin","xmax"]:
+                if axisRange[key] == 0:
+                    axisRange[key] = 1
+        if yaxisDrawConfig.get("logScale", False):
+            for key in ["ymin","ymax"]:
+                if axisRange[key] == 0:
+                    axisRange[key] = 1
         
         if contourSwitch:
         
@@ -635,6 +709,13 @@ class PMSSM:
                 range=axisRange,
                 with_z_axis=True,
                 )
+            
+            if xaxisDrawConfig.get("logScale", False):
+                self.canvas.SetLogx()
+            if yaxisDrawConfig.get("logScale", False):
+                self.canvas.SetLogy()
+            
+            
             self.legend = self.createLegend(
                 x1=canvasStyle.get("legend",{}).get("x1",0.15),
                 y1=canvasStyle.get("legend",{}).get("y1",0.81),
@@ -657,13 +738,17 @@ class PMSSM:
             CMS.SetAlternative2DColor(hist=hist)
             for ix,interval in enumerate(prior_data):
                 for cont in prior_data[interval]:
-                    scaleGraphXaxis(cont,scaleFactor=xaxisDrawConfig.get("linearScale"))
-                    scaleGraphYaxis(cont,scaleFactor=yaxisDrawConfig.get("linearScale"))
+                    if not xaxisDrawConfig.get("logScale", False):
+                        scaleGraphXaxis(cont,scaleFactor=xaxisDrawConfig.get("linearScale"))
+                    if not yaxisDrawConfig.get("logScale", False):
+                        scaleGraphYaxis(cont,scaleFactor=yaxisDrawConfig.get("linearScale"))
                     cont.Draw("same")
             for ix,interval in enumerate(posterior_data):
                 for cont in posterior_data[interval]:
-                    scaleGraphXaxis(cont,scaleFactor=xaxisDrawConfig.get("linearScale"))
-                    scaleGraphYaxis(cont,scaleFactor=yaxisDrawConfig.get("linearScale"))
+                    if not xaxisDrawConfig.get("logScale", False):
+                        scaleGraphXaxis(cont,scaleFactor=xaxisDrawConfig.get("linearScale"))
+                    if not yaxisDrawConfig.get("logScale", False):
+                        scaleGraphYaxis(cont,scaleFactor=yaxisDrawConfig.get("linearScale"))
                     cont.Draw("same")
             for ix,interval in enumerate(prior_data):
                 if len(prior_data[interval])>0:
@@ -731,10 +816,8 @@ class PMSSM:
                         "y2":0.9,
                         "textSize":0.025
                     }
-                }):
-    
-    # get_quantile_plot_1D(localtree, analysis, hname, xtitle, xbins, xlow, xup, _logx, drawstring, moreconstraints=[],quantiles=[0.])
-
+                },
+                ):
         self.flushCanvas()
         self.flushLegend()
         
@@ -742,17 +825,7 @@ class PMSSM:
         
         name = self.createName(drawstring,analysis,"quantile1D")
         
-        if xaxisDrawConfig is None:
-            try:
-                if self.particleDrawConfig.get(xaxisParticleName) is not None:
-                    xaxisDrawConfig = self.particleDrawConfig[xaxisParticleName]
-                else:
-                    xaxisDrawConfig = self.particleDrawConfig["defaults"]
-                    xaxisDrawConfig["title"] = xaxisParticleName 
-            except:
-                print("Missing Config for ",xaxisParticleName)
-                return
-
+        xaxisDrawConfig = self.getParticleConfig(xaxisParticleName,xaxisDrawConfig)
         quantiles_hists = get_quantile_plot_1D(
             localtree = self.intree,
             analysis = analysis,
@@ -764,12 +837,13 @@ class PMSSM:
             _logx = xaxisDrawConfig.get("logScale",False),
             drawstring = drawstring,
             moreconstraints = moreconstraints,
-            quantiles = [float(i) for i in quantiles.keys()]
-        )
+            quantiles = [float(i) for i in quantiles.keys()],
+            _logy = xaxisDrawConfig.get("1Dlogy", False)
+         )
                 
         for key in quantiles_hists:
             hist = quantiles_hists[key]
-            if xaxisDrawConfig.get("linearScale",1.0) != 1.0:
+            if not xaxisDrawConfig.get("logScale", False):
                 scaleXaxis(hist,scaleFactor=xaxisDrawConfig.get("linearScale"))
         axis_range = {
             "xmin": None,
@@ -779,8 +853,10 @@ class PMSSM:
         }
         for key in quantiles_hists:
             hist = quantiles_hists[key]
-            xmin,xmax,ymin,ymax = self.getAxisRange(hist)
-            
+            xmin,xmax,ymin,ymax = self.getAxisRange(hist)    
+            if xaxisDrawConfig.get("1Dlogy", False) and ymin==0:
+                hist.GetYaxis().SetRangeUser(1,ymax)
+                ymin = 1
             if axis_range["xmin"] is None or xmin < axis_range["xmin"]:
                 axis_range["xmin"] = xmin
             if axis_range["xmax"] is None or xmax > axis_range["xmax"]:
@@ -788,7 +864,7 @@ class PMSSM:
             if axis_range["ymin"] is None or ymin < axis_range["ymin"]:
                 axis_range["ymin"] = ymin
             if axis_range["ymax"] is None or ymax > axis_range["ymax"]:
-                axis_range["ymax"] = ymax
+                axis_range["ymax"] = ymax  
             
                             
         
@@ -802,6 +878,11 @@ class PMSSM:
                             "ymax":canvasStyle.get("offset",{}).get("ymax",0.0)
                             },
                        range=axis_range)
+        
+        if xaxisDrawConfig.get("logScale", False):
+            self.canvas.SetLogx()
+        if xaxisDrawConfig.get("1Dlogy", False):
+            self.canvas.SetLogy()
         
         self.legend = self.createLegend(
             x1=canvasStyle.get("legend",{}).get("x1",0.15),
@@ -855,29 +936,10 @@ class PMSSM:
         
         yaxisParticleName, xaxisParticleName = drawstring.split(":")
         
-        name = self.createName(drawstring,analysis,"_"+ str(quantile) +"quantile2D")
+        name = self.createName(drawstring,analysis, str(quantile)+ "_"+"quantile2D")
         
-        if xaxisDrawConfig is None:
-            try:
-                if self.particleDrawConfig.get(xaxisParticleName) is not None:
-                    xaxisDrawConfig = self.particleDrawConfig[xaxisParticleName]
-                else:
-                    xaxisDrawConfig = self.particleDrawConfig["defaults"]
-                    xaxisDrawConfig["title"] = xaxisParticleName 
-            except:
-                print("Missing Config for ",xaxisParticleName)
-                return
-        
-        if yaxisDrawConfig is None:
-            try:
-                if self.particleDrawConfig.get(yaxisParticleName) is not None:
-                    yaxisDrawConfig = self.particleDrawConfig[yaxisParticleName]
-                else:
-                    yaxisDrawConfig = self.particleDrawConfig["defaults"]
-                    yaxisDrawConfig["title"] = yaxisParticleName 
-            except:
-                print("Missing Config for ",yaxisParticleName)
-                return
+        xaxisDrawConfig = self.getParticleConfig(xaxisParticleName,xaxisDrawConfig)
+        yaxisDrawConfig = self.getParticleConfig(yaxisParticleName,yaxisDrawConfig)
 
         hist = get_quantile_plot_2D(
             localtree = self.intree,
@@ -898,9 +960,9 @@ class PMSSM:
             moreconstraints = moreconstraints,
             moreconstraints_prior = moreconstraints_prior)
         
-        if xaxisDrawConfig.get("linearScale",1.0) != 1.0:
+        if not xaxisDrawConfig.get("logScale", False):
             scaleXaxis(hist,scaleFactor=xaxisDrawConfig.get("linearScale"))
-        if yaxisDrawConfig.get("linearScale",1.0) != 1.0:
+        if not yaxisDrawConfig.get("logScale", False):
             scaleYaxis(hist,scaleFactor=yaxisDrawConfig.get("linearScale"))
             
         axisRange = {
@@ -909,6 +971,14 @@ class PMSSM:
             "ymin": yaxisDrawConfig["min"]/yaxisDrawConfig.get("linearScale",1.0),
             "ymax": yaxisDrawConfig["max"]/yaxisDrawConfig.get("linearScale",1.0)
         }
+        if xaxisDrawConfig.get("logScale", False):
+            for key in ["xmin","xmax"]:
+                if axisRange[key] == 0:
+                    axisRange[key] = 1
+        if yaxisDrawConfig.get("logScale", False):
+            for key in ["ymin","ymax"]:
+                if axisRange[key] == 0:
+                    axisRange[key] = 1
         
         self.setCanvas(
             hist,
@@ -922,17 +992,24 @@ class PMSSM:
                 },
             range=axisRange,
             with_z_axis=True,
+            y_offset=0.13 if yaxisDrawConfig.get("logScale", False) else 0
             )
-        
-        hist.GetZaxis().SetTitle(str(int(100 * quantile)) + "th Percentile Bayes Factor")
-        hist.GetZaxis().SetLabelSize(0.03)
-        hist.GetZaxis().SetTitleSize(0.04)
-        hist.GetZaxis().SetTitleOffset(1)
-        #hist.SetContour(999)
-        # CMS.SetCMSPalette()
-        #CMS.SetRootPalette(kBird)
-        
+        if xaxisDrawConfig.get("logScale", False):
+            self.canvas.SetLogx()
+        if yaxisDrawConfig.get("logScale", False):
+            self.canvas.SetLogy()
+            # self.canvas.GetPrimitive("hframe").GetYaxis().CenterTitle(True)
         hist.Draw("same colz")
+        hist.GetZaxis().SetTitle(str(int(100 * quantile)) + "th Percentile Bayes Factor")
+        cmsStyle = CMS.getCMSStyle()
+        palette = CMS.GetPalette(hist)
+        self.setPaletteStyle(palette,cmsStyle)
+        CMS.SetAlternativePalette(self.createSurvivalPlotPalette())
+        #CMS.SetAlternative2DColor(hist=hist)
+        hist.SetContour(999)
+        CMS.SetCMSPalette()
+        # CMS.SetRootPalette(kBird)
+        
         self.legend = self.createLegend(
             x1=canvasStyle.get("legend",{}).get("x1",0.15),
             y1=canvasStyle.get("legend",{}).get("y1",0.87),
@@ -940,6 +1017,7 @@ class PMSSM:
             y2=canvasStyle.get("legend",{}).get("y2",0.91),
             textSize=canvasStyle.get("legend",{}).get("textSize",0.025)
             )
-        self.legend.SetHeader(analysis.upper())  
-        CMS.UpdatePalettePosition(hist,X1=0.88,X2=0.91,Y1=0.108,Y2=0.93)
+        self.legend.SetHeader(analysis.upper())
+        self.legend.SetTextColor(canvasStyle.get("legend",{}).get("textColor",kBlack))
+        CMS.UpdatePalettePosition(hist,X1=0.87,X2=0.90,Y1=0.1097,Y2=0.93)
         CMS.SaveCanvas(self.canvas,self.outdir+name+"."+self.fileFormat)

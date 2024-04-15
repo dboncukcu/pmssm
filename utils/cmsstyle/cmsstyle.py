@@ -526,11 +526,11 @@ def cmsCanvas(
     
     if with_z_axis:
         h.GetYaxis().SetTitleOffset(1.2 + y_offset)
-        h.GetXaxis().SetTitleOffset(1.1)
+        h.GetXaxis().SetTitleOffset(1.25)
 
     else:
         h.GetYaxis().SetTitleOffset(1.5 + y_offset)
-        h.GetXaxis().SetTitleOffset(1.3)
+        h.GetXaxis().SetTitleOffset(1.35)
     
     h.GetXaxis().SetTitle(nameXaxis)
     h.GetYaxis().SetTitle(nameYaxis)

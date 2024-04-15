@@ -16,8 +16,15 @@ epsi = "#scale[1.3]{#font[122]{e}}"
 
 def mkhistlogx(name, title, nbins, xmin, xmax,logx=True):
     if logx:
-        logxmin = TMath.Log10(xmin)
-        logxmax = TMath.Log10(xmax)
+    
+        if xmin == 0:
+            logxmin = 0
+        else:                
+            logxmin = TMath.Log10(xmin)
+        if xmax == 0:
+            logxmax = 0
+        else:
+            logxmax = TMath.Log10(xmax)
     else:
         logxmin=xmin
         logxmax=xmax
@@ -35,14 +42,26 @@ def mkhistlogx(name, title, nbins, xmin, xmax,logx=True):
     return h
 def mkhistlogxy(name, title, nbinsx, xmin, xmax,nbinsy,ymin,ymax,logx=True,logy=True):
     if logx:
-        logxmin = TMath.Log10(xmin)
-        logxmax = TMath.Log10(xmax)
+        if xmin == 0:
+            logxmin = 0
+        else:                
+            logxmin = TMath.Log10(xmin)
+        if xmax == 0:
+            logxmax = 0
+        else:
+            logxmax = TMath.Log10(xmax)
     else:
         logxmin=xmin
         logxmax=xmax
     if logy:
-        logymin = TMath.Log10(ymin)
-        logymax = TMath.Log10(ymax)
+        if ymin == 0:
+            logymin = 0
+        else:                
+            logymin = TMath.Log10(ymin)
+        if ymax == 0:
+            logymax = 0
+        else:
+            logymax = TMath.Log10(ymax)
     else:
         logymin=ymin
         logymax=ymax
@@ -67,20 +86,38 @@ def mkhistlogxy(name, title, nbinsx, xmin, xmax,nbinsy,ymin,ymax,logx=True,logy=
     return h
 def mkhistlogxyz(name, title, nbinsx, xmin, xmax,nbinsy,ymin,ymax,nbinsz,zmin,zmax,logx=True,logy=True,logz=True):
     if logx:
-        logxmin = TMath.Log10(xmin)
-        logxmax = TMath.Log10(xmax)
+        if xmin == 0:
+            logxmin = 0
+        else:                
+            logxmin = TMath.Log10(xmin)
+        if xmax == 0:
+            logxmax = 0
+        else:
+            logxmax = TMath.Log10(xmax)
     else:
         logxmin=xmin
         logxmax=xmax
     if logy:
-        logymin = TMath.Log10(ymin)
-        logymax = TMath.Log10(ymax)
+        if ymin == 0:
+            logymin = 0
+        else:                
+            logymin = TMath.Log10(ymin)
+        if ymax == 0:
+            logymax = 0
+        else:
+            logymax = TMath.Log10(ymax)
     else:
         logymin=ymin
         logymax=ymax
     if logz:
-        logzmin = TMath.Log10(zmin)
-        logzmax = TMath.Log10(zmax)
+        if zmin == 0:
+            logzmin = 0
+        else:                
+            logzmin = TMath.Log10(zmin)
+        if zmax == 0:
+            logzmax = 0
+        else:
+            logzmax = TMath.Log10(zmax)
     else:
         logzmin=zmin
         logzmax=zmax
