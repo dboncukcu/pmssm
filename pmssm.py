@@ -127,7 +127,7 @@ particleDrawConfig_TeV = {
         "linearScale": 1.0,
         "unit": "GeV",
         "name" : "deltaM_pm10",
-        "1Dlogy": True
+        "1Dlogy": False
     },
     "abs(chi20-chi10)": {
         "title": "#Deltam(#tilde{#chi}^{0}_{2},#tilde{#chi}^{0}_{1})",
@@ -138,7 +138,7 @@ particleDrawConfig_TeV = {
         "linearScale": 1.0,
         "unit": "GeV",
         "name" : "deltaM_20_10",
-        "1Dlogy": True
+        "1Dlogy": False
     },
     "abs(chi1pm)" : {
         "title" : "m_{#tilde{#chi}^{#pm}_{1}}",
