@@ -508,7 +508,7 @@ class PMSSM:
             },
             "legend": {
                 "x1":0.19,
-                "y1":0.73,
+                "y1":0.71,
                 "x2":0.36,
                 "y2":0.9,
                 "textSize":0.035
@@ -568,8 +568,8 @@ class PMSSM:
             "xmin":canvasStyle.get("offset",{}).get("xmin",0.0),
             "xmax":canvasStyle.get("offset",{}).get("xmax",0.0),
             "ymin":canvasStyle.get("offset",{}).get("ymin",0.0),
-            "ymax":canvasStyle.get("offset",{}).get("ymax",0.2)
-            },range=axis_range, y_offset = 0.5, leftMarginOffset=0.02)
+            "ymax":canvasStyle.get("offset",{}).get("ymax",0.002)
+            },range=axis_range, y_offset = 0.63, leftMarginOffset=0.03)
         
         if xaxisDrawConfig.get("logScale", False):
             self.canvas.SetLogx()
@@ -593,6 +593,7 @@ class PMSSM:
         impact_plots["posterior"].Draw("histsame")
         impact_plots["posterior_up"].Draw("histsame")
         impact_plots["posterior_down"].Draw("histsame")
+        self.legend.SetTextColor(canvasStyle.get("legend",{}).get("textColor",kBlack))
         self.legend.Draw("same")
         CMS.SaveCanvas(self.canvas,self.outdir+name+"."+self.fileFormat)
     
@@ -617,7 +618,7 @@ class PMSSM:
                                         "legendNColumns": 2
                                     }
                                 }
-                            ):
+                            ):        
         self.flushCanvas()
         self.flushLegend()
     
@@ -761,6 +762,7 @@ class PMSSM:
                     self.legend.AddEntry(posterior_data[interval][0],str(int(100*(interval)))+"% posterior CI","l",)
             self.legend.SetNColumns(canvasStyle.get("legend",{}).get("legendNColumns",2))
             self.legend.Draw("same")
+            self.legend.SetTextColor(canvasStyle.get("legend",{}).get("textColor",kBlack))
             CMS.UpdatePalettePosition(hist,X1=0.855,X2=0.89,Y1=0.145,Y2=0.93)
         else:
             
@@ -793,7 +795,8 @@ class PMSSM:
                 y2=canvasStyle.get("legend",{}).get("y2",0.91),
                 textSize=canvasStyle.get("legend",{}).get("textSize",0.025)
                 )
-            self.legend.SetHeader(analysis.upper())  
+            self.legend.SetHeader(analysis.upper())
+            self.legend.SetTextColor(canvasStyle.get("legend",{}).get("textColor",kBlack))
             CMS.UpdatePalettePosition(hist,X1=0.88,X2=0.91,Y1=0.108,Y2=0.93)
             
         CMS.SaveCanvas(self.canvas,self.outdir+name+"."+self.fileFormat)
