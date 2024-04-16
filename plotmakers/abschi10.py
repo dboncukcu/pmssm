@@ -28,6 +28,7 @@ pmssm_plotter = PMSSM(
 
 print("impact1D for: ", particleName, "\n\n")
 pmssm_plotter.impact1D(drawstring=particleName, canvasStyle=pltconfig.righttop)
+pmssm_plotter.impact1D(drawstring=particleName, xaxisDrawConfig={"1Dlogy":True}, canvasStyle=pltconfig.righttop)
 
 print("quantile 1D for: ", particleName, "\n\n")
 quantilePlots1DCanvasStyle = {
@@ -36,6 +37,7 @@ quantilePlots1DCanvasStyle = {
 quantilePlots1DCanvasStyle["legend"]["x1"] = 0.70
 quantilePlots1DCanvasStyle["legend"]["x2"] = 0.90
 pmssm_plotter.quantilePlots1D(drawstring=particleName, canvasStyle=quantilePlots1DCanvasStyle)
+pmssm_plotter.quantilePlots1D(drawstring=particleName, xaxisDrawConfig={"1Dlogy":True}, canvasStyle=pltconfig.righttop)
 
 print("survivalProbability1D for:",particleName, "\n\n")
 survivalPlots1DCanvasStyle = {
@@ -44,6 +46,7 @@ survivalPlots1DCanvasStyle = {
 survivalPlots1DCanvasStyle["legend"]["x1"] = 0.58
 survivalPlots1DCanvasStyle["legend"]["x2"] = 0.78
 pmssm_plotter.survivalProbability1D(drawstring=particleName, canvasStyle=survivalPlots1DCanvasStyle)
+survivalPlots1DCanvasStyle["ymin"] = 0.2
 pmssm_plotter.survivalProbability1D(drawstring=particleName, xaxisDrawConfig={"1Dlogy":True} ,canvasStyle=survivalPlots1DCanvasStyle)
 
 for ypar in pltconfig.yaxisFor2D:

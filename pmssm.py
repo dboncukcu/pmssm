@@ -452,11 +452,6 @@ class PMSSM:
         if plotType !="":
             name += "_"+plotType
         
-        if analysis !="":
-            name += "_"+analysis.upper()
-        if plotType !="":
-            name += "_"+plotType
-        
         
         name = name.replace(".","p")
         name = name.replace("(","")
@@ -540,7 +535,7 @@ class PMSSM:
             xmin,xmax,ymin,ymax = self.getAxisRange(hist)    
             if xaxisDrawConfig.get("1Dlogy", False) and ymin==0:
                 hist.GetYaxis().SetRangeUser(1,ymax)
-                ymin = 1
+                ymin = canvasStyle.get("ymin",1)
             if axis_range["xmin"] is None or xmin < axis_range["xmin"]:
                 axis_range["xmin"] = xmin
             if axis_range["xmax"] is None or xmax > axis_range["xmax"]:
@@ -643,7 +638,7 @@ class PMSSM:
             xmin,xmax,ymin,ymax = self.getAxisRange(hist)    
             if xaxisDrawConfig.get("1Dlogy", False) and ymin==0:
                 hist.GetYaxis().SetRangeUser(1,ymax)
-                ymin = 1
+                ymin = canvasStyle.get("ymin",1)
             if axis_range["xmin"] is None or xmin < axis_range["xmin"]:
                 axis_range["xmin"] = xmin
             if axis_range["xmax"] is None or xmax > axis_range["xmax"]:
@@ -651,7 +646,8 @@ class PMSSM:
             if axis_range["ymin"] is None or ymin < axis_range["ymin"]:
                 axis_range["ymin"] = ymin
             if axis_range["ymax"] is None or ymax > axis_range["ymax"]:
-                axis_range["ymax"] = ymax                
+                axis_range["ymax"] = ymax
+                
         self.setCanvas(survive_plots["posterior"],xaxisDrawConfig["title"]+ " ["+xaxisDrawConfig["unit"]+"]", "Survival Probability", offset={
             "xmin":canvasStyle.get("offset",{}).get("xmin",0.0),
             "xmax":canvasStyle.get("offset",{}).get("xmax",0.0),
@@ -953,7 +949,7 @@ class PMSSM:
             xmin,xmax,ymin,ymax = self.getAxisRange(hist)    
             if xaxisDrawConfig.get("1Dlogy", False) and ymin==0:
                 hist.GetYaxis().SetRangeUser(1,ymax)
-                ymin = 1
+                ymin = canvasStyle.get("ymin",1)
             if axis_range["xmin"] is None or xmin < axis_range["xmin"]:
                 axis_range["xmin"] = xmin
             if axis_range["xmax"] is None or xmax > axis_range["xmax"]:

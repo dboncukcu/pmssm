@@ -29,9 +29,31 @@ pmssm_plotter = PMSSM(
 
 print("impact1D for: ", particleName, "\n\n")
 pmssm_plotter.impact1D(drawstring=particleName)
+impactPlots1DCanvasStyle = {
+    "legend":pltconfig.rightbottom["legend"].copy()
+}
+impactPlots1DCanvasStyle["legend"]["x1"] = 0.58
+impactPlots1DCanvasStyle["legend"]["x2"] = 0.78
+pmssm_plotter.impact1D(drawstring=particleName, xaxisDrawConfig={"1Dlogy":True}, canvasStyle=impactPlots1DCanvasStyle)
 
 print("quantile 1D for: ", particleName, "\n\n")
 pmssm_plotter.quantilePlots1D(drawstring=particleName, canvasStyle= pltconfig.rightbottom)
+quantilePlots1DCanvasStyle = {
+    "legend":pltconfig.righttop["legend"].copy()
+}
+quantilePlots1DCanvasStyle["legend"]["x1"] = 0.75
+quantilePlots1DCanvasStyle["legend"]["x2"] = 0.85
+pmssm_plotter.quantilePlots1D(drawstring=particleName, xaxisDrawConfig={"1Dlogy":True}, canvasStyle=quantilePlots1DCanvasStyle)
+
+print("survivalProbability1D for:",particleName, "\n\n")
+survivalPlots1DCanvasStyle = {
+    "legend":pltconfig.rightbottom["legend"].copy()
+}
+survivalPlots1DCanvasStyle["legend"]["x1"] = 0.58
+survivalPlots1DCanvasStyle["legend"]["x2"] = 0.78
+pmssm_plotter.survivalProbability1D(drawstring=particleName, canvasStyle=survivalPlots1DCanvasStyle)
+survivalPlots1DCanvasStyle["ymin"] = 0.2
+pmssm_plotter.survivalProbability1D(drawstring=particleName, xaxisDrawConfig={"1Dlogy":True} ,canvasStyle=survivalPlots1DCanvasStyle)
 
 for ypar in pltconfig.yaxisFor2D:
     print("survivalProbability2D for: ", ypar, particleName, "\n\n")
