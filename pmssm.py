@@ -443,7 +443,7 @@ class PMSSM:
         yname = ""
         if yaxisDrawConfig is not None:
             yname = yaxisDrawConfig.get("name","")
-            name = yname + "_" + xname
+            name = xname + "_" + yname
         else:
             name = xname
         
