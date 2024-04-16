@@ -129,6 +129,17 @@ particleDrawConfig_TeV = {
         "name" : "deltaM_pm10",
         "1Dlogy": False
     },
+    "abs(g-chi10)": {
+        "title": "#Deltam(m_{#tilde{g}},#tilde{#chi}^{0}_{1})",
+        "nbin" : 100,
+        "min" : 0,
+        "max" : 2000,
+        "logScale": True,
+        "linearScale": 1.0,
+        "unit": "GeV",
+        "name" : "deltaM_glsp",
+        "1Dlogy": False
+    },
     "abs(chi20-chi10)": {
         "title": "#Deltam(#tilde{#chi}^{0}_{2},#tilde{#chi}^{0}_{1})",
         "nbin" : 100,
