@@ -650,6 +650,7 @@ class PMSSM:
             if xaxisDrawConfig.get("1Dlogy", False) and ymin==0:
                 hist.GetYaxis().SetRangeUser(1,ymax)
                 ymin = canvasStyle.get("ymin",1)
+
             if axis_range["xmin"] is None or xmin < axis_range["xmin"]:
                 axis_range["xmin"] = xmin
             if axis_range["xmax"] is None or xmax > axis_range["xmax"]:
@@ -658,7 +659,7 @@ class PMSSM:
                 axis_range["ymin"] = ymin
             if axis_range["ymax"] is None or ymax > axis_range["ymax"]:
                 axis_range["ymax"] = ymax
-                
+        
         self.setCanvas(survive_plots["posterior"],xaxisDrawConfig["title"]+ " ["+xaxisDrawConfig["unit"]+"]", "Survival Probability", offset={
             "xmin":canvasStyle.get("offset",{}).get("xmin",0.0),
             "xmax":canvasStyle.get("offset",{}).get("xmax",0.0),
@@ -961,6 +962,7 @@ class PMSSM:
             if xaxisDrawConfig.get("1Dlogy", False) and ymin==0:
                 hist.GetYaxis().SetRangeUser(1,ymax)
                 ymin = canvasStyle.get("ymin",1)
+
             if axis_range["xmin"] is None or xmin < axis_range["xmin"]:
                 axis_range["xmin"] = xmin
             if axis_range["xmax"] is None or xmax > axis_range["xmax"]:
