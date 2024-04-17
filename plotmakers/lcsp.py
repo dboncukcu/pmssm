@@ -85,7 +85,7 @@ for ypar in pltconfig.yaxisFor2D:
         survivalProbability2DCanvasStyle["legend"]["x1"]=0.3
         survivalProbability2DCanvasStyle["legend"]["x2"]=0.75
         # survivalProbability2DCanvasStyle["legend"]["y1"]=0.75
-        if ypar == "abs(chi1pm-chi10)":
+        if ypar == "abs(chipm)-abs(chi10)":
             survivalProbability2DCanvasStyle["legend"]["x1"]=0.6
             survivalProbability2DCanvasStyle["legend"]["x2"]=0.77
             survivalProbability2DCanvasStyle["legend"]["y2"]=0.39

@@ -27,7 +27,7 @@ pmssm_plotter = PMSSM(
     )
 
 
-deltaM = ["abs(chi1pm-chi10)","abs(chi20-chi10)","g-abs(chi10)","t1-abs(chi10)","b1-abs(chi10)","lcsp-abs(chi10)"]
+deltaM = ["abs(chipm)-abs(chi10)","abs(chi20-chi10)","g-abs(chi10)","t1-abs(chi10)","b1-abs(chi10)","lcsp-abs(chi10)"]
 for ypar in deltaM:
     
     survivalProbability2DCanvasStyle2 = pltconfig.righttop.copy()
@@ -48,7 +48,7 @@ for ypar in deltaM:
         drawstring = ypar+":"+particleName,
         analysis=pltconfig.analysisName,
         contourSwitch=True, 
-        canvasStyle= survivalProbability2DCanvasStyle if ypar != "abs(chi1pm-chi10)" else survivalProbability2DCanvasStyle2,
+        canvasStyle= survivalProbability2DCanvasStyle if ypar != "abs(chipm)-abs(chi10)" else survivalProbability2DCanvasStyle2,
         yaxisDrawConfig={"nbin":50},
         )
     

@@ -7,7 +7,7 @@ from ROOT import *
 from pmssm import PMSSM, particleDrawConfig_TeV
 import config as pltconfig
 
-particleName = "abs(chi1pm-chi10)"
+particleName = "abs(chipm)-abs(chi10)"
 
 root_file_path = "pmssmtree_11aug2023.root"
 tree_name = "mcmc"
@@ -66,7 +66,7 @@ for ypar in pltconfig.yaxisFor2D:
     quantilePlots2DCanvasStyle["legend"]["x1"] = 0.15
     quantilePlots2DCanvasStyle["legend"]["x2"] = 0.15
 
-    if ypar == "abs(chi1pm-chi10)":
+    if ypar == "abs(chipm)-abs(chi10)":
         continue
     
     if ypar != "abs(chi10)":

@@ -45,7 +45,7 @@ lefttop = {
     }
 }
 
-yaxisFor2D =  ["abs(chi10)","abs(chi1pm-chi10)","abs(chi20-chi10)"]
+yaxisFor2D =  ["abs(chi10)","abs(chipm)-abs(chi10)","abs(chi20-chi10)"]
 
 analysisName = "combined"
 

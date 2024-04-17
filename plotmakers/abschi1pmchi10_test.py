@@ -7,7 +7,7 @@ from ROOT import *
 from pmssm import PMSSM, particleDrawConfig_TeV
 import config as pltconfig
 
-particleName = "abs(chi1pm-chi10)"
+particleName = "abs(chipm)-abs(chi10)"
 
 root_file_path = "pmssmtree_11aug2023.root"
 tree_name = "mcmc"

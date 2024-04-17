@@ -118,7 +118,7 @@ particleDrawConfig_TeV = {
         "unit": "TeV",
         "name" : "lcsp"
         },
-    "abs(chi1pm-chi10)": {
+    "abs(chipm)-abs(chi10)": {
         "title": "#Deltam(#tilde{#chi}^{#pm}_{1},#tilde{#chi}^{0}_{1})",
         "nbin" : 100,
         "min" : 0.1,
