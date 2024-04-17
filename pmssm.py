@@ -112,7 +112,7 @@ particleDrawConfig_TeV = {
         "title" : "m_{LCSP}",
         "nbin" : 50,
         "min" : 0,
-        "max" : 2500,
+        "max" : 7000,
         "logScale" : False,
         "linearScale": 1000, # for TeV, 1GeV/1000
         "unit": "TeV",
@@ -148,7 +148,7 @@ particleDrawConfig_TeV = {
         "logScale": True,
         "linearScale": 1.0,
         "unit": "GeV",
-        "name" : "DmStopChi10",
+        "name" : "DmStop1Chi10",
         "1Dlogy": False
     },
     "b1-abs(chi10)": {
@@ -159,7 +159,7 @@ particleDrawConfig_TeV = {
         "logScale": True,
         "linearScale": 1.0,
         "unit": "GeV",
-        "name" : "DmSbottomChi10",
+        "name" : "DmSbottom1Chi10",
         "1Dlogy": False
     },
     "lcsp-abs(chi10)": {
@@ -170,7 +170,7 @@ particleDrawConfig_TeV = {
         "logScale": True,
         "linearScale": 1.0,
         "unit": "GeV",
-        "name" : "DmLCSPChi10",
+        "name" : "DmLcspChi10",
         "1Dlogy": False
     },
     "abs(chi20-chi10)": {
@@ -1068,9 +1068,9 @@ class PMSSM:
                         "ymax":0.002
                     },
                     "legend": {
-                        "x1":0.14,
+                        "x1":0.17,
                         "y1":0.86,
-                        "x2":0.66,
+                        "x2":0.68,
                         "y2":0.9,
                         "textSize":0.030,
                         "legendNColumns": 2
@@ -1143,7 +1143,8 @@ class PMSSM:
                 },
             range=axisRange,
             with_z_axis=True,
-            y_offset=0.125 if yaxisDrawConfig.get("logScale", False) else 0
+            y_offset=0.35 if yaxisDrawConfig.get("logScale", False) else 0,
+            leftMarginOffset = 0.031 if yaxisDrawConfig.get("logScale", False) else 0,
             )
         if xaxisDrawConfig.get("logScale", False):
             self.canvas.SetLogx()
@@ -1162,9 +1163,9 @@ class PMSSM:
         # CMS.SetRootPalette(kBird)
         
         self.legend = self.createLegend(
-            x1=canvasStyle.get("legend",{}).get("x1",0.14),
+            x1=canvasStyle.get("legend",{}).get("x1",0.17),
             y1=canvasStyle.get("legend",{}).get("y1",0.86),
-            x2=canvasStyle.get("legend",{}).get("x2",0.66),
+            x2=canvasStyle.get("legend",{}).get("x2",0.68),
             y2=canvasStyle.get("legend",{}).get("y2",0.9),
             textSize=canvasStyle.get("legend",{}).get("textSize",0.030)
             )

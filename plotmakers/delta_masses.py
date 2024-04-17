@@ -30,8 +30,8 @@ pmssm_plotter = PMSSM(
 deltaM = ["abs(chi1pm-chi10)","abs(chi20-chi10)","g-abs(chi10)","t1-abs(chi10)","b1-abs(chi10)","lcsp-abs(chi10)"]
 for ypar in deltaM:
     
-    quantilePlots2DCanvasStyle = pltconfig.righttop.copy()
-    quantilePlots2DCanvasStyle["legend"]["legendNColumns"] = 1
+    survivalProbability2DCanvasStyle2 = pltconfig.righttop.copy()
+    survivalProbability2DCanvasStyle2["legend"]["legendNColumns"] = 1
 
 
     print("survivalProbability2D for: ", ypar, particleName, "\n\n")
@@ -48,6 +48,17 @@ for ypar in deltaM:
         drawstring = ypar+":"+particleName,
         analysis=pltconfig.analysisName,
         contourSwitch=True, 
-        canvasStyle= survivalProbability2DCanvasStyle if ypar != "abs(chi1pm-chi10)" else quantilePlots2DCanvasStyle,
+        canvasStyle= survivalProbability2DCanvasStyle if ypar != "abs(chi1pm-chi10)" else survivalProbability2DCanvasStyle2,
         yaxisDrawConfig={"nbin":50},
         )
+    
+    quantilePlots2DStyle = {
+        "legend" : {
+            "textColor":kWhite
+        }
+    }
+
+    pmssm_plotter.quantilePlots2D(drawstring=ypar+":"+particleName,analysis=pltconfig.analysisName, quantile = 0.5,yaxisDrawConfig={"nbin":50},canvasStyle = quantilePlots2DStyle)
+    pmssm_plotter.quantilePlots2D(drawstring=ypar+":"+particleName,analysis=pltconfig.analysisName, quantile = 0.75,yaxisDrawConfig={"nbin":50},canvasStyle = quantilePlots2DStyle)
+    pmssm_plotter.quantilePlots2D(drawstring=ypar+":"+particleName,analysis=pltconfig.analysisName, quantile = 0.9,yaxisDrawConfig={"nbin":50},canvasStyle = quantilePlots2DStyle)
+    pmssm_plotter.quantilePlots2D(drawstring=ypar+":"+particleName,analysis=pltconfig.analysisName, quantile = 0.99,yaxisDrawConfig={"nbin":50},canvasStyle = quantilePlots2DStyle)

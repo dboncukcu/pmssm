@@ -279,6 +279,7 @@ def get_quantile_plot_1D(localtree, analysis, hname, xtitle, xbins, xlow, xup, _
     hists = {}
     qhist = mkhistlogxy("qhist", "", xbins, xlow, xup, 3000, 0, 30, logy=_logy, logx=_logx)
     localtree.Draw(_drawstring + ">>" + qhist.GetName(), constraintstring, "")
+    print("\n\n\nlocaltree.Draw:", _drawstring + ">>" + qhist.GetName(),"constraintstring:",constraintstring,"\n\n\n")
     htemplate = qhist.ProfileX('OF UF')
     xax = htemplate.GetXaxis()
     for prob in probs:
