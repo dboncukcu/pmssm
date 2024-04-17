@@ -109,7 +109,7 @@ particleDrawConfig_TeV = {
         "name": "sbottom"
     },
     "lcsp" : {
-        "title" : "m_{lcsp}",
+        "title" : "m_{LCSP}",
         "nbin" : 50,
         "min" : 0,
         "max" : 2500,
@@ -121,8 +121,8 @@ particleDrawConfig_TeV = {
     "abs(chi1pm-chi10)": {
         "title": "#Deltam(#tilde{#chi}^{#pm}_{1},#tilde{#chi}^{0}_{1})",
         "nbin" : 100,
-        "min" : 0,
-        "max" : 2000,
+        "min" : 0.1,
+        "max" : 3000,
         "logScale": True,
         "linearScale": 1.0,
         "unit": "GeV",
@@ -133,7 +133,7 @@ particleDrawConfig_TeV = {
         "title": "#Deltam(#tilde{g},#tilde{#chi}^{0}_{1})",
         "nbin" : 100,
         "min" : 0,
-        "max" : 2000,
+        "max" : 7000,
         "logScale": True,
         "linearScale": 1.0,
         "unit": "GeV",
@@ -144,7 +144,7 @@ particleDrawConfig_TeV = {
         "title": "#Deltam(#tilde{t}_{1},#tilde{#chi}^{0}_{1})",
         "nbin" : 100,
         "min" : 0,
-        "max" : 2000,
+        "max" : 7000,
         "logScale": True,
         "linearScale": 1.0,
         "unit": "GeV",
@@ -155,7 +155,7 @@ particleDrawConfig_TeV = {
         "title": "#Deltam(#tilde{b}_{1},#tilde{#chi}^{0}_{1})",
         "nbin" : 100,
         "min" : 0,
-        "max" : 2000,
+        "max" : 7000,
         "logScale": True,
         "linearScale": 1.0,
         "unit": "GeV",
@@ -163,10 +163,10 @@ particleDrawConfig_TeV = {
         "1Dlogy": False
     },
     "lcsp-abs(chi10)": {
-        "title": "#Deltam(lcsp,#tilde{#chi}^{0}_{1})",
+        "title": "#Deltam(LCSP,#tilde{#chi}^{0}_{1})",
         "nbin" : 100,
         "min" : 0,
-        "max" : 2000,
+        "max" : 7000,
         "logScale": True,
         "linearScale": 1.0,
         "unit": "GeV",
@@ -176,8 +176,8 @@ particleDrawConfig_TeV = {
     "abs(chi20-chi10)": {
         "title": "#Deltam(#tilde{#chi}^{0}_{2},#tilde{#chi}^{0}_{1})",
         "nbin" : 100,
-        "min" : 0,
-        "max" : 2000,
+        "min" : 0.1,
+        "max" : 3000,
         "logScale": True,
         "linearScale": 1.0,
         "unit": "GeV",
@@ -845,7 +845,8 @@ class PMSSM:
                     },
                 range=axisRange,
                 with_z_axis=True,
-                y_offset=0.125 if yaxisDrawConfig.get("logScale", False) else 0
+                y_offset=0.35 if yaxisDrawConfig.get("logScale", False) else 0,
+                leftMarginOffset = 0.031 if yaxisDrawConfig.get("logScale", False) else 0,
                 )
             
             if xaxisDrawConfig.get("logScale", False):

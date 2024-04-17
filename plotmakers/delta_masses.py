@@ -31,9 +31,7 @@ deltaM = ["abs(chi1pm-chi10)","abs(chi20-chi10)","g-abs(chi10)","t1-abs(chi10)",
 for ypar in deltaM:
     
     quantilePlots2DCanvasStyle = pltconfig.righttop.copy()
-    quantilePlots2DCanvasStyle["legend"]={"textColor":kWhite}
-    quantilePlots2DCanvasStyle["legend"]["x1"] = 0.15
-    quantilePlots2DCanvasStyle["legend"]["x2"] = 0.15
+    quantilePlots2DCanvasStyle["legend"]["legendNColumns"] = 1
 
 
     print("survivalProbability2D for: ", ypar, particleName, "\n\n")
@@ -50,6 +48,6 @@ for ypar in deltaM:
         drawstring = ypar+":"+particleName,
         analysis=pltconfig.analysisName,
         contourSwitch=True, 
-        canvasStyle= survivalProbability2DCanvasStyle,
+        canvasStyle= survivalProbability2DCanvasStyle if ypar != "abs(chi1pm-chi10)" else quantilePlots2DCanvasStyle,
         yaxisDrawConfig={"nbin":50},
         )
