@@ -74,7 +74,7 @@ particleDrawConfig_TeV = {
         "logScale" : False,
         "linearScale": 1000, # for TeV, 1GeV/1000
         "unit": "TeV",
-        "name" : "gluon"
+        "name" : "gluino"
         },
     "t1" : {
         "title": "m_{#tilde{t}_{1}}",
@@ -126,18 +126,51 @@ particleDrawConfig_TeV = {
         "logScale": True,
         "linearScale": 1.0,
         "unit": "GeV",
-        "name" : "deltaM_pm10",
+        "name" : "DmChi1pmChi10",
         "1Dlogy": False
     },
-    "abs(g-chi10)": {
-        "title": "#Deltam(m_{#tilde{g}},#tilde{#chi}^{0}_{1})",
+    "g-abs(chi10)": {
+        "title": "#Deltam(#tilde{g},#tilde{#chi}^{0}_{1})",
         "nbin" : 100,
         "min" : 0,
         "max" : 2000,
         "logScale": True,
         "linearScale": 1.0,
         "unit": "GeV",
-        "name" : "deltaM_glsp",
+        "name" : "DmGluinoChi10",
+        "1Dlogy": False
+    },
+    "t1-abs(chi10)": {
+        "title": "#Deltam(#tilde{t}_{1},#tilde{#chi}^{0}_{1})",
+        "nbin" : 100,
+        "min" : 0,
+        "max" : 2000,
+        "logScale": True,
+        "linearScale": 1.0,
+        "unit": "GeV",
+        "name" : "DmStopChi10",
+        "1Dlogy": False
+    },
+    "b1-abs(chi10)": {
+        "title": "#Deltam(#tilde{b}_{1},#tilde{#chi}^{0}_{1})",
+        "nbin" : 100,
+        "min" : 0,
+        "max" : 2000,
+        "logScale": True,
+        "linearScale": 1.0,
+        "unit": "GeV",
+        "name" : "DmSbottomChi10",
+        "1Dlogy": False
+    },
+    "lcsp-abs(chi10)": {
+        "title": "#Deltam(lcsp,#tilde{#chi}^{0}_{1})",
+        "nbin" : 100,
+        "min" : 0,
+        "max" : 2000,
+        "logScale": True,
+        "linearScale": 1.0,
+        "unit": "GeV",
+        "name" : "DmLCSPChi10",
         "1Dlogy": False
     },
     "abs(chi20-chi10)": {
@@ -148,7 +181,7 @@ particleDrawConfig_TeV = {
         "logScale": True,
         "linearScale": 1.0,
         "unit": "GeV",
-        "name" : "deltaM_20_10",
+        "name" : "DmChi20Chi10",
         "1Dlogy": False
     },
     "abs(chi1pm)" : {
@@ -159,7 +192,7 @@ particleDrawConfig_TeV = {
         "logScale" : False,
         "linearScale": 1000,
         "unit": "TeV",
-        "name" : "chipm"
+        "name" : "chi1pm"
         },
     }
 
@@ -585,6 +618,7 @@ class PMSSM:
         impact_plots["posterior_up"].Draw("histsame")
         impact_plots["posterior_down"].Draw("histsame")
         self.legend.SetTextColor(canvasStyle.get("legend",{}).get("textColor",kBlack))
+        self.legend.SetFillColor(canvasStyle.get("legend",{}).get("fillColor",TColor.GetColorTransparent(kBlue, 0)))
         self.legend.Draw("same")
         CMS.SaveCanvas(self.canvas,self.outdir+name+"."+self.fileFormat)
     
@@ -688,6 +722,7 @@ class PMSSM:
         survive_plots["posterior_up"].Draw("histsame")
         survive_plots["posterior_down"].Draw("histsame")
         self.legend.SetTextColor(canvasStyle.get("legend",{}).get("textColor",kBlack))
+        self.legend.SetFillColor(canvasStyle.get("legend",{}).get("fillColor",TColor.GetColorTransparent(kBlue, 0)))
         self.legend.Draw("same")
         CMS.SaveCanvas(self.canvas,self.outdir+name+"."+self.fileFormat)
     
@@ -853,12 +888,14 @@ class PMSSM:
                     if not yaxisDrawConfig.get("logScale", False):
                         scaleGraphYaxis(cont,scaleFactor=yaxisDrawConfig.get("linearScale"))
                     cont.Draw("same")
+            print(prior_data.keys(),posterior_data.keys())
             for ix,interval in enumerate(prior_data):
-                if len(prior_data[interval])>0:
+                if interval in prior_data.keys() and len(prior_data[interval])>0:
                     self.legend.AddEntry(prior_data[interval][0],str(int(100*(interval)))+"%  prior CI","l",)
-                if len(posterior_data[interval])>0:
+                if interval in posterior_data.keys() and len(posterior_data[interval])>0:
                     self.legend.AddEntry(posterior_data[interval][0],str(int(100*(interval)))+"% posterior CI","l",)
             self.legend.SetNColumns(canvasStyle.get("legend",{}).get("legendNColumns",2))
+            self.legend.SetFillColor(canvasStyle.get("legend",{}).get("fillColor",TColor.GetColorTransparent(kBlue, 0)))
             self.legend.Draw("same")
             self.legend.SetTextColor(canvasStyle.get("legend",{}).get("textColor",kBlack))
             CMS.UpdatePalettePosition(hist,X1=0.855,X2=0.89,Y1=0.145,Y2=0.93)
@@ -1132,5 +1169,7 @@ class PMSSM:
             )
         self.legend.SetHeader(analysis.upper())
         self.legend.SetTextColor(canvasStyle.get("legend",{}).get("textColor",kBlack))
+        self.legend.SetFillColor(canvasStyle.get("legend",{}).get("fillColor",TColor.GetColorTransparent(kBlue, 0)))
+        self.legend.Draw("same")
         CMS.UpdatePalettePosition(hist,X1=0.855,X2=0.89,Y1=0.145,Y2=0.93)
         CMS.SaveCanvas(self.canvas,self.outdir+name+"."+self.fileFormat)

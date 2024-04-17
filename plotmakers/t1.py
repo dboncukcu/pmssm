@@ -82,3 +82,53 @@ for ypar in pltconfig.yaxisFor2D:
         pmssm_plotter.quantilePlots2D(drawstring=ypar+":"+particleName,analysis=pltconfig.analysisName, quantile = 0.99, canvasStyle={"legend" :{"textColor":kWhite}})
     else:
         pmssm_plotter.quantilePlots2D(drawstring=ypar+":"+particleName,analysis=pltconfig.analysisName, quantile = 0.99)
+
+
+deltaMParticle = "t1-abs(chi10)"
+
+for ypar in pltconfig.yaxisFor2D:
+    print("survivalProbability2D for: ", ypar, deltaMParticle, "\n\n")
+    
+    canvasStyle2D = {
+            "legend":pltconfig.leftbottom["legend"].copy()
+        }
+    canvasStyle2D["legend"]["legendNColumns"] = 1
+    
+    if ypar != "abs(chi10)":
+        pmssm_plotter.survivalProbability2D(drawstring = ypar+":"+deltaMParticle,analysis=pltconfig.analysisName,contourSwitch=True, canvasStyle=canvasStyle2D)
+    else:
+        pmssm_plotter.survivalProbability2D(drawstring = ypar+":"+deltaMParticle,analysis=pltconfig.analysisName,contourSwitch=True)
+    print("0.5 quantile 2D for: ", ypar, deltaMParticle, "\n\n")
+    if ypar != "abs(chi10)":
+        pmssm_plotter.quantilePlots2D(drawstring=ypar+":"+deltaMParticle,analysis=pltconfig.analysisName, quantile = 0.5, canvasStyle=canvasStyle2D)
+    else:
+        pmssm_plotter.quantilePlots2D(drawstring=ypar+":"+deltaMParticle,analysis=pltconfig.analysisName, quantile = 0.5)
+    print("0.75 quantile 2D for: ", ypar, deltaMParticle, "\n\n")
+    if ypar != "abs(chi10)":
+        pmssm_plotter.quantilePlots2D(drawstring=ypar+":"+deltaMParticle,analysis=pltconfig.analysisName, quantile = 0.75, canvasStyle=canvasStyle2D)
+    else:
+        pmssm_plotter.quantilePlots2D(drawstring=ypar+":"+deltaMParticle,analysis=pltconfig.analysisName, quantile = 0.75)
+
+    print("0.9 quantile 2D for: ", ypar, deltaMParticle, "\n\n")
+    if ypar != "abs(chi10)":
+        pmssm_plotter.quantilePlots2D(drawstring=ypar+":"+deltaMParticle,analysis=pltconfig.analysisName, quantile = 0.9, canvasStyle=canvasStyle2D)
+    else:
+        pmssm_plotter.quantilePlots2D(drawstring=ypar+":"+deltaMParticle,analysis=pltconfig.analysisName, quantile = 0.9)
+    print("0.99 quantile 2D for: ", ypar, deltaMParticle, "\n\n")
+    if ypar != "abs(chi10)":
+        pmssm_plotter.quantilePlots2D(drawstring=ypar+":"+deltaMParticle,analysis=pltconfig.analysisName, quantile = 0.99, canvasStyle=canvasStyle2D)
+    else:
+        pmssm_plotter.quantilePlots2D(drawstring=ypar+":"+deltaMParticle,analysis=pltconfig.analysisName, quantile = 0.99)
+
+survivalProbability2DCanvasStyle = {
+    "legend":pltconfig.rightbottom["legend"].copy()
+}
+survivalProbability2DCanvasStyle["legend"]["x1"] = 0.37
+survivalProbability2DCanvasStyle["legend"]["x2"] = 0.79
+survivalProbability2DCanvasStyle["legend"]["y2"] = 0.37
+survivalProbability2DCanvasStyle["legend"]["y1"] = 0.17
+pmssm_plotter.survivalProbability2D(drawstring = deltaMParticle+":"+particleName,analysis=pltconfig.analysisName,contourSwitch=True, canvasStyle=survivalProbability2DCanvasStyle)
+pmssm_plotter.quantilePlots2D(drawstring=deltaMParticle+":"+particleName,analysis=pltconfig.analysisName, quantile = 0.5)
+pmssm_plotter.quantilePlots2D(drawstring=deltaMParticle+":"+particleName,analysis=pltconfig.analysisName, quantile = 0.75)
+pmssm_plotter.quantilePlots2D(drawstring=deltaMParticle+":"+particleName,analysis=pltconfig.analysisName, quantile = 0.9,)
+pmssm_plotter.quantilePlots2D(drawstring=deltaMParticle+":"+particleName,analysis=pltconfig.analysisName, quantile = 0.99)
