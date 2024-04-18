@@ -44,15 +44,6 @@ theconstraints["cms_sus_21_007_simplified"] = "(exp(llhd_cms_sus_21_007_100s-llh
 theconstraints["cms_sus_21_007_simplified_down"] = "(exp(llhd_cms_sus_21_007_050s-llhd_cms_sus_21_007_0s))"
 theconstraints["cms_sus_21_007_simplified_up"] = "(exp(llhd_cms_sus_21_007_150s-llhd_cms_sus_21_007_0s))"
 
-# TODO remove atlas_susy_2018
-theconstraints["atlas_susy_2018_32"] = "(exp(llhd_atlas_susy_2018_32_100s-llhd_atlas_susy_2018_32_0s))"
-theconstraints["atlas_susy_2018_32_down"] = "(exp(llhd_atlas_susy_2018_32_150s-llhd_atlas_susy_2018_32_0s))"
-theconstraints["atlas_susy_2018_32_up"] = "(exp(llhd_atlas_susy_2018_32_050s-llhd_atlas_susy_2018_32_0s))"
-
-theconstraints["atlas_susy_2018_06"] = "(exp(llhd_atlas_susy_2018_06_100s-llhd_atlas_susy_2018_06_0s))"
-theconstraints["atlas_susy_2018_06_down"] = "(exp(llhd_atlas_susy_2018_06_050s-llhd_atlas_susy_2018_06_0s))"
-theconstraints["atlas_susy_2018_06_up"] = "(exp(llhd_atlas_susy_2018_06_150s-llhd_atlas_susy_2018_06_0s))"
-
 theconstraints["cms_sus_21_006_simplified"] = "(exp(llhd_cms_sus_21_006_100s-llhd_cms_sus_21_006_0s))"
 theconstraints["cms_sus_21_006_simplified_down"] = "(exp(llhd_cms_sus_21_006_050s-llhd_cms_sus_21_006_0s))"
 theconstraints["cms_sus_21_006_simplified_up"] = "(exp(llhd_cms_sus_21_006_150s-llhd_cms_sus_21_006_0s))"
@@ -64,10 +55,10 @@ theconstraints["cms_sus_21_006_up"] = "(max(bf_cms_sus_21_006_mu1p0f,1E-5))"
 
 #this part combines the various analysis Bayes factors, once including full combine likelihoods where possible, and once using only counts-based simplified likelihoods
 #This sums up the likelihoods assuming the different signal strengths, and the SM-only likelihoods. The sum does not include the analyses where the Bayes factor is saved in the tree instead of the likelihoods
-signals = "+".join(["llhd_cms_sus_19_006_100s","llhd_atlas_susy_2018_32_100s","llhd_atlas_susy_2018_06_100s"])
-signals_down = "+".join(["llhd_cms_sus_19_006_050s","llhd_atlas_susy_2018_32_050s","llhd_atlas_susy_2018_06_050s"])
-signals_up = "+".join(["llhd_cms_sus_19_006_150s","llhd_atlas_susy_2018_32_150s","llhd_atlas_susy_2018_06_150s"])
-_backgrounds = "+".join(["llhd_cms_sus_19_006_0s","llhd_atlas_susy_2018_32_0s","llhd_atlas_susy_2018_06_0s"])
+signals = "+".join(["llhd_cms_sus_19_006_100s"])
+signals_down = "+".join(["llhd_cms_sus_19_006_050s"])
+signals_up = "+".join(["llhd_cms_sus_19_006_150s"])
+_backgrounds = "+".join(["llhd_cms_sus_19_006_0s"])
 #Because we switched to saving Bayes factors, this became a little more complicated
 #again, the max is taken because ROOT has problems with small floats
 
@@ -83,10 +74,10 @@ bfs_up.append("(max(bf_cms_sus_18_004_mu1p5f,1E-20))")
 
 
 #We only started storing the Bayes factors for the full combine likelihoods, so the simplified version is simpler
-signals_simplified = "+".join(["llhd_cms_sus_19_006_100s","llhd_atlas_susy_2018_32_100s","llhd_atlas_susy_2018_06_100s","llhd_cms_sus_21_006_100s","llhd_cms_sus_18_004_100s"])
-signals_simplified_down = "+".join(["llhd_cms_sus_19_006_050s","llhd_atlas_susy_2018_32_050s","llhd_atlas_susy_2018_06_050s","llhd_cms_sus_21_006_050s","llhd_cms_sus_18_004_050s"])
-signals_simplified_up = "+".join(["llhd_cms_sus_19_006_150s","llhd_atlas_susy_2018_32_150s","llhd_atlas_susy_2018_06_150s","llhd_cms_sus_21_006_150s","llhd_cms_sus_18_004_150s"])
-_backgrounds_simplified = "+".join(["llhd_cms_sus_19_006_0s","llhd_atlas_susy_2018_32_0s","llhd_atlas_susy_2018_06_0s","llhd_cms_sus_21_006_0s","llhd_cms_sus_18_004_0s"])
+signals_simplified = "+".join(["llhd_cms_sus_19_006_100s","llhd_cms_sus_21_006_100s","llhd_cms_sus_18_004_100s"])
+signals_simplified_down = "+".join(["llhd_cms_sus_19_006_050s","llhd_cms_sus_21_006_050s","llhd_cms_sus_18_004_050s"])
+signals_simplified_up = "+".join(["llhd_cms_sus_19_006_150s","llhd_cms_sus_21_006_150s","llhd_cms_sus_18_004_150s"])
+_backgrounds_simplified = "+".join(["llhd_cms_sus_19_006_0s","llhd_cms_sus_21_006_0s","llhd_cms_sus_18_004_0s"])
 
 #these are the Bayes factors for the combination of all analyses. The first term handles the analyses where the log likelihood is stored, the second term handles the analyses where the Bayes factor is stored in the tree 
 theconstraints["combined"] = "(exp(("+signals+")-("+_backgrounds+"))*"+"*".join(bfs)+")"
@@ -120,7 +111,7 @@ custompalette = np.intc(custompalette)
 
 #dictionary mapping the z-scores for the different analyses to the tree branches 
 branchnames = {}
-for analysis in ["cms_sus_19_006","cms_sus_21_006","cms_sus_18_004","atlas_susy_2018_32","atlas_susy_2018_06","combined","cms_sus_21_006_simplified","cms_sus_21_007","cms_sus_21_007_simplified"]:
+for analysis in ["cms_sus_19_006","cms_sus_21_006","cms_sus_18_004","combined","cms_sus_21_006_simplified","cms_sus_21_007","cms_sus_21_007_simplified"]:
     branchnames[analysis] = {}
     branchnames[analysis+"_up"] = {}
     branchnames[analysis+"_down"] = {}
@@ -135,7 +126,7 @@ for analysis in ["cms_sus_19_006","cms_sus_21_006","cms_sus_18_004","atlas_susy_
         branchnames[analysis]["Z"] = "Zsig_"+analysis.replace("_simplified","")
         branchnames[analysis+"_up"]["Z"] = "Zsig_"+analysis.replace("_simplified","")+"_15s"
         branchnames[analysis+"_down"]["Z"] = "Zsig_"+analysis.replace("_simplified","")+"_05s"
-
+print(branchnames)
 
 
 def get_impact_plots(localtree, analysis, hname, xtitle, xbins, xlow, xup, _logx, drawstring, moreconstraints=[],
@@ -169,11 +160,14 @@ def get_impact_plots(localtree, analysis, hname, xtitle, xbins, xlow, xup, _logx
     # get the scales to normalize all histograms to one
     htest = TH1F("scale", "", 1000, -1000, 1000)
     localtree.Draw("PickProbability>>" + htest.GetName(), constraintstring_prior)
+    print(constraintstring_prior)
     prior_scalar = 1. / htest.Integral(-1, 9999999)
     htest.Delete()
     htest = TH1F("scale", "", 1000, -1000, 1000)
     localtree.Draw("PickProbability>>" + htest.GetName(),
                    "*".join([constraintstring, "(" + branchnames[analysis]["Z"] + ">-1.64)"]))
+    print("\n\n")
+    print("*".join([constraintstring, "(" + branchnames[analysis]["Z"] + ">-1.64)"]))
     posterior_scalar = 1. / htest.Integral(-1, 9999999)
     htest.Delete()
     htest = TH1F("scale", "", 1000, -1000, 1000)
