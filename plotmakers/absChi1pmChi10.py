@@ -7,7 +7,7 @@ from ROOT import *
 from pmssm import PMSSM, particleDrawConfig_TeV
 import config as pltconfig
 
-particleName = "abs(chipm)-abs(chi10)"
+particleName = "abs(chi1pm)-abs(chi10)"
 
 root_file_path = "pmssmtree_11aug2023.root"
 tree_name = "mcmc"
@@ -51,9 +51,9 @@ pmssm_plotter.quantilePlots1D(drawstring=particleName, xaxisDrawConfig={"1Dlogy"
 
 print("survivalProbability1D for:",particleName, "\n\n")
 pmssm_plotter.survivalProbability1D(drawstring=particleName, canvasStyle=survivalPlots1DCanvasStyle)
-survivalPlots1DCanvasStyle["legend"]["x1"] = 0.17
-survivalPlots1DCanvasStyle["legend"]["x2"] = 0.67
-survivalPlots1DCanvasStyle["ymin"] = 0.1
+# survivalPlots1DCanvasStyle["legend"]["x1"] = 0.17
+# survivalPlots1DCanvasStyle["legend"]["x2"] = 0.67
+# survivalPlots1DCanvasStyle["ymin"] = 0.1
 survivalPlots1DCanvasStyle["offset"] = {
     "ymax" : 0.1,
 }
@@ -66,7 +66,7 @@ for ypar in pltconfig.yaxisFor2D:
     quantilePlots2DCanvasStyle["legend"]["x1"] = 0.15
     quantilePlots2DCanvasStyle["legend"]["x2"] = 0.15
 
-    if ypar == "abs(chipm)-abs(chi10)":
+    if ypar == "abs(chi1pm)-abs(chi10)":
         continue
     
     if ypar != "abs(chi10)":

@@ -33,7 +33,7 @@ def mkhistlogx(name, title, nbins, xmin, xmax,logx=True):
     #xbins[0] = TMath.Power(10,logxmin)#xmin
     for i in range(0,nbins+1):
         if logx:
-            xbins[i] = xmin + TMath.Power(10,logxmin+i*binwidth)
+            xbins[i] =  TMath.Power(10,logxmin+i*binwidth)
         else:
             xbins[i]= xmin + i*binwidth
 
@@ -72,17 +72,17 @@ def mkhistlogxy(name, title, nbinsx, xmin, xmax,nbinsy,ymin,ymax,logx=True,logy=
     #xbins[0] = TMath.Power(10,logxmin)#xmin
     for i in range(0,nbinsx+1):
         if logx:
-            xbins[i] = xmin + TMath.Power(10,logxmin+i*binwidthx)
+            xbins[i] = 0 + TMath.Power(10,logxmin+i*binwidthx)
         else:
             xbins[i]= xmin + i*binwidthx
     for i in range(0,nbinsy+1):
         if logy:
-            ybins[i] = ymin + TMath.Power(10,logymin+i*binwidthy)
+            ybins[i] = 0 + TMath.Power(10,logymin+i*binwidthy)
         else:
             ybins[i] = ymin + i*binwidthy
 #    print 'xbins', xbins[0],xbins[-1]
-#    print 'ybins', ybins        
-    h = TH2F(name,title,nbinsx,xbins,nbinsy,ybins);
+#    print 'ybins', ybins
+    h = TH2F(name,title,nbinsx,xbins,nbinsy,ybins)
     return h
 def mkhistlogxyz(name, title, nbinsx, xmin, xmax,nbinsy,ymin,ymax,nbinsz,zmin,zmax,logx=True,logy=True,logz=True):
     if logx:
@@ -130,22 +130,22 @@ def mkhistlogxyz(name, title, nbinsx, xmin, xmax,nbinsy,ymin,ymax,nbinsz,zmin,zm
     #xbins[0] = TMath.Power(10,logxmin)#xmin
     for i in range(0,nbinsx+1):
         if logx:
-            xbins[i] = xmin + TMath.Power(10,logxmin+i*binwidthx)
+            xbins[i] = TMath.Power(10,logxmin+i*binwidthx)
         else:
             xbins[i]= xmin + i*binwidthx
     for i in range(0,nbinsy+1):
         if logy:
-            ybins[i] = ymin + TMath.Power(10,logymin+i*binwidthy)
+            ybins[i] =  TMath.Power(10,logymin+i*binwidthy)
         else:
             ybins[i] = ymin + i*binwidthy
     for i in range(0,nbinsz+1):
         if logz:
-            zbins[i] = zmin + TMath.Power(10,logzmin+i*binwidthz)
+            zbins[i] =  TMath.Power(10,logzmin+i*binwidthz)
         else:
             zbins[i] = zmin + i*binwidthz
 #    print 'xbins', xbins[0],xbins[-1]
 #    print 'ybins', ybins        
-    h = TH3F(name,title,nbinsx,xbins,nbinsy,ybins,nbinsz,zbins);
+    h = TH3F(name,title,nbinsx,xbins,nbinsy,ybins,nbinsz,zbins)
     return h
 
 def histoStyler(h,color = kBlue,fill = False,linestyle = 1,linewidth = 3,fillstyle = 3009,markerstyle = 1,markersize = 1):

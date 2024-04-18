@@ -5,8 +5,9 @@ python3 plotmakers/g.py
 python3 plotmakers/lcsp.py
 python3 plotmakers/abschi10.py
 python3 plotmakers/abschipm.py
+python3 plotmakers/abschi20.py
 python3 plotmakers/abschi1pmchi10.py
 python3 plotmakers/abschi20chi10.py
-
+python3 plotmakers/delta_masses.py
 
 python3 plotmakers/collect_plots.py

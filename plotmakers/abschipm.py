@@ -65,7 +65,7 @@ for ypar in pltconfig.yaxisFor2D:
         survivalProbability2DCanvasStyle["legend"]["x2"] = 0.81
         survivalProbability2DCanvasStyle["legend"]["y2"] = 0.33
         survivalProbability2DCanvasStyle["legend"]["y1"] = 0.15
-    elif ypar == "abs(chipm)-abs(chi10)":
+    elif ypar == "abs(chi1pm)-abs(chi10)":
         quantilePlots2DCanvasStyle = {"legend":pltconfig.righttop["legend"].copy()}
         quantilePlots2DCanvasStyle["legend"]={"textColor":kBlack}
         quantilePlots2DCanvasStyle["legend"]["x1"] = 0.13

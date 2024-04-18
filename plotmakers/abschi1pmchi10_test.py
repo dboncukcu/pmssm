@@ -7,7 +7,7 @@ from ROOT import *
 from pmssm import PMSSM, particleDrawConfig_TeV
 import config as pltconfig
 
-particleName = "abs(chipm)-abs(chi10)"
+particleName = "abs(chi1pm)-abs(chi10)"
 
 root_file_path = "pmssmtree_11aug2023.root"
 tree_name = "mcmc"
@@ -35,6 +35,17 @@ quantilePlots1DCanvasStyle["offset"] = {
     "ymax" : 5.5,
 }
 
-print("quantile 1D for: ", particleName, "\n\n")
-pmssm_plotter.quantilePlots1D(drawstring=particleName)
-pmssm_plotter.quantilePlots1D(drawstring=particleName, xaxisDrawConfig={"1Dlogy":True}, canvasStyle=quantilePlots1DCanvasStyle)
+# print("quantile 1D for: ", particleName, "\n\n")
+# pmssm_plotter.quantilePlots1D(drawstring=particleName)
+# pmssm_plotter.quantilePlots1D(drawstring=particleName, xaxisDrawConfig={"1Dlogy":True}, canvasStyle=quantilePlots1DCanvasStyle)
+quantilePlots1DCanvasStyle["legend"]["x1"] = 0.6
+quantilePlots1DCanvasStyle["legend"]["x2"] = 0.72
+quantilePlots1DCanvasStyle["legend"]["legendNColumns"] = 1
+quantilePlots1DCanvasStyle["offset"]  = {}
+
+
+pmssm_plotter.survivalProbability2D(drawstring = particleName+":abs(chi10)",
+                                    analysis=pltconfig.analysisName,
+                                    contourSwitch=True,
+                                    canvasStyle=quantilePlots1DCanvasStyle,
+                                    yaxisDrawConfig={"min":0.01,"logScale":True})

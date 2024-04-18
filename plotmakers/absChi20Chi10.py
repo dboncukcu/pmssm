@@ -49,7 +49,8 @@ pmssm_plotter.quantilePlots1D(drawstring=particleName, xaxisDrawConfig={"1Dlogy"
 
 print("survivalProbability1D for:",particleName, "\n\n")
 pmssm_plotter.survivalProbability1D(drawstring=particleName, canvasStyle=survivalPlots1DCanvasStyle)
-pmssm_plotter.survivalProbability1D(drawstring=particleName, xaxisDrawConfig={"1Dlogy":True} ,canvasStyle=survivalPlots1DCanvasStyle)
+survivalPlots1DCanvasStyle["ymin"] = 0.1
+pmssm_plotter.survivalProbability1D(drawstring=particleName, xaxisDrawConfig={"1Dlogy":True,} ,canvasStyle=survivalPlots1DCanvasStyle)
 
 for ypar in pltconfig.yaxisFor2D:
     
@@ -61,7 +62,7 @@ for ypar in pltconfig.yaxisFor2D:
             "y2":0.93,
         }
     }
-    quantilePlots2DCanvasStyle["legend"]["textColor"] = kWhite
+    # quantilePlots2DCanvasStyle["legend"]["textColor"] = kWhite
 
 
     if ypar == "abs(chi20-chi10)":
@@ -83,22 +84,22 @@ for ypar in pltconfig.yaxisFor2D:
         pmssm_plotter.survivalProbability2D(drawstring = ypar+":"+particleName,analysis=pltconfig.analysisName,contourSwitch=True)
     print("0.5 quantile 2D for: ", ypar, particleName, "\n\n")
     if ypar != "abs(chi10)": 
-        pmssm_plotter.quantilePlots2D(drawstring=ypar+":"+particleName,analysis=pltconfig.analysisName, quantile = 0.5, canvasStyle=quantilePlots2DCanvasStyle)
+        pmssm_plotter.quantilePlots2D(drawstring=ypar+":"+particleName,analysis=pltconfig.analysisName, quantile = 0.5, )
     else:
         pmssm_plotter.quantilePlots2D(drawstring=ypar+":"+particleName,analysis=pltconfig.analysisName, quantile = 0.5)
     print("0.75 quantile 2D for: ", ypar, particleName, "\n\n")
     if ypar != "abs(chi10)":
-        pmssm_plotter.quantilePlots2D(drawstring=ypar+":"+particleName,analysis=pltconfig.analysisName, quantile = 0.75, canvasStyle=quantilePlots2DCanvasStyle)
+        pmssm_plotter.quantilePlots2D(drawstring=ypar+":"+particleName,analysis=pltconfig.analysisName, quantile = 0.75,)
     else:
         pmssm_plotter.quantilePlots2D(drawstring=ypar+":"+particleName,analysis=pltconfig.analysisName, quantile = 0.75)
 
     print("0.9 quantile 2D for: ", ypar, particleName, "\n\n")
     if ypar != "abs(chi10)":
-        pmssm_plotter.quantilePlots2D(drawstring=ypar+":"+particleName,analysis=pltconfig.analysisName, quantile = 0.9, canvasStyle=quantilePlots2DCanvasStyle)
+        pmssm_plotter.quantilePlots2D(drawstring=ypar+":"+particleName,analysis=pltconfig.analysisName, quantile = 0.9, )
     else:
         pmssm_plotter.quantilePlots2D(drawstring=ypar+":"+particleName,analysis=pltconfig.analysisName, quantile = 0.9)
     print("0.99 quantile 2D for: ", ypar, particleName, "\n\n")
     if ypar != "abs(chi10)":
-        pmssm_plotter.quantilePlots2D(drawstring=ypar+":"+particleName,analysis=pltconfig.analysisName, quantile = 0.99, canvasStyle=quantilePlots2DCanvasStyle)
+        pmssm_plotter.quantilePlots2D(drawstring=ypar+":"+particleName,analysis=pltconfig.analysisName, quantile = 0.99,)
     else:
         pmssm_plotter.quantilePlots2D(drawstring=ypar+":"+particleName,analysis=pltconfig.analysisName, quantile = 0.99)

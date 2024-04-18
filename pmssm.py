@@ -118,7 +118,7 @@ particleDrawConfig_TeV = {
         "unit": "TeV",
         "name" : "lcsp"
         },
-    "abs(chipm)-abs(chi10)": {
+    "abs(chi1pm)-abs(chi10)": {
         "title": "#Deltam(#tilde{#chi}^{#pm}_{1},#tilde{#chi}^{0}_{1})",
         "nbin" : 100,
         "min" : 0.1,
@@ -312,7 +312,6 @@ class PMSSM:
         Returns:
             canvas
         """
-        
         if canvName=="":
             canvName = "default"+str(np.random.randint(0,100000))
         
@@ -791,7 +790,7 @@ class PMSSM:
             "ymin": yaxisDrawConfig["min"]/yaxisDrawConfig.get("linearScale",1.0),
             "ymax": yaxisDrawConfig["max"]/yaxisDrawConfig.get("linearScale",1.0)
         }
-        
+
         
         if xaxisDrawConfig.get("logScale", False):
             for key in ["xmin","xmax"]:
@@ -801,7 +800,7 @@ class PMSSM:
             for key in ["ymin","ymax"]:
                 if axisRange[key] == 0:
                     axisRange[key] = 1
-        
+
         if contourSwitch:
         
             prior_data =  get_prior_CI(
@@ -854,6 +853,7 @@ class PMSSM:
             if yaxisDrawConfig.get("logScale", False):
                 self.canvas.SetLogy()
             
+            # CMS.cmsCanvasResetAxes(self.canvas,axisRange["xmin"],axisRange["xmax"],0.001,axisRange["ymax"])
             
             self.legend = self.createLegend(
                 x1=canvasStyle.get("legend",{}).get("x1",0.15),
@@ -889,7 +889,6 @@ class PMSSM:
                     if not yaxisDrawConfig.get("logScale", False):
                         scaleGraphYaxis(cont,scaleFactor=yaxisDrawConfig.get("linearScale"))
                     cont.Draw("same")
-            print(prior_data.keys(),posterior_data.keys())
             for ix,interval in enumerate(prior_data):
                 if interval in prior_data.keys() and len(prior_data[interval])>0:
                     self.legend.AddEntry(prior_data[interval][0],str(int(100*(interval)))+"%  prior CI","l",)
@@ -916,7 +915,6 @@ class PMSSM:
                 with_z_axis=True,
                 y_offset=0.125 if yaxisDrawConfig.get("logScale", False) else 0
                 )
-            
             hist.GetZaxis().SetTitle("Survival Probability")
             hist.GetZaxis().SetLabelSize(0.03)
             hist.GetZaxis().SetTitleSize(0.04)
@@ -933,6 +931,8 @@ class PMSSM:
                 )
             self.legend.SetHeader(analysis.upper())
             self.legend.SetTextColor(canvasStyle.get("legend",{}).get("textColor",kBlack))
+            self.legend.SetNColumns(canvasStyle.get("legend",{}).get("legendNColumns",2))
+            self.legend.SetFillColor(canvasStyle.get("legend",{}).get("fillColor",TColor.GetColorTransparent(kBlue, 0)))
             CMS.UpdatePalettePosition(hist,X1=0.88,X2=0.91,Y1=0.108,Y2=0.93)
             
         CMS.SaveCanvas(self.canvas,self.outdir+name+"."+self.fileFormat)
