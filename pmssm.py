@@ -211,7 +211,8 @@ class PMSSM:
                     "extraText" : "Preliminary",
                     "lumi" : "",
                 },
-                defaultExportFileFormat : str = "pdf"
+                defaultExportFileFormat : str = "pdf",
+                friendAnalysis : list[dict] = []
                 ):
         
         if outdir[-1]!="/":
@@ -228,6 +229,19 @@ class PMSSM:
         self.outdir = outdir
         self.particleDrawConfig = particleDrawConfig
         self.fileFormat = defaultExportFileFormat
+        
+        self.add_friends(intree,friendAnalysis)
+
+    
+    @staticmethod
+    def add_friends(intree,friendAnalysis):
+        
+        for friend in friendAnalysis:
+            friendTreeName = friend["treeName"]
+            friendTreePath = friend["path"]
+            intree.AddFriend(friendTreeName,TFile(friendTreePath))
+        
+        
     @staticmethod
     def createLegend(x1,y1,x2,y2,textSize=0.03):
         return CMS.cmsLeg(x1,y1,x2,y2,textSize)
@@ -509,7 +523,6 @@ class PMSSM:
         palette.SetTitleOffset(1.15)
         palette.SetLabelFont(cmsStyle.GetLabelFont())
                     
-    
     ##################################################################################################################
     #  ##########  ##       #########  ##########   ######     ##########  ##      ##  ##########  #######   ######  #                       
     #  ##      ##  ##       ##     ##      ##      ##    ##        ##       ##    ##   ##      ##  ##       ##    ## #             

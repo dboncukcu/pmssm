@@ -34,10 +34,16 @@ theconstraints["cms_sus_21_007_simplified"] = "(exp(llhd_cms_sus_21_007_100s-llh
 theconstraints["cms_sus_21_006_simplified"] = "(exp(llhd_cms_sus_21_006_100s-llhd_cms_sus_21_006_0s))"
 theconstraints["cms_sus_21_006"] = "(max(bf_cms_sus_21_006_mu1p0f,1E-5))"
 
+
+theconstraints["cms_sus_20_001"] = "(max(bf_cms_sus_20_001_mu1p0s,1E-5))"
+theconstraints["cms_sus_20_001_simplified"] = "(exp(llhd_cms_sus_20_001_mu1p0s-llhd_cms_sus_20_001_mu0p0s))"
+
+
+
 #this part combines the various analysis Bayes factors, once including full combine likelihoods where possible, and once using only counts-based simplified likelihoods
 #This sums up the likelihoods assuming the different signal strengths, and the SM-only likelihoods. The sum does not include the analyses where the Bayes factor is saved in the tree instead of the likelihoods
-signals       = "+".join(["llhd_cms_sus_19_006_100s"])
-_backgrounds  = "+".join(["llhd_cms_sus_19_006_0s"])
+signals       = "+".join(["llhd_cms_sus_19_006_100s","llhd_cms_sus_20_001_mu1p0s"])
+_backgrounds  = "+".join(["llhd_cms_sus_19_006_0s","llhd_cms_sus_20_001_mu0p0s"])
 #Because we switched to saving Bayes factors, this became a little more complicated
 #again, the max is taken because ROOT has problems with small floats
 
@@ -47,8 +53,8 @@ bfs.append("(max(bf_cms_sus_18_004_mu1p0f,1E-20))")
 
 
 #We only started storing the Bayes factors for the full combine likelihoods, so the simplified version is simpler
-signals_simplified = "+".join(["llhd_cms_sus_19_006_100s","llhd_cms_sus_21_006_100s","llhd_cms_sus_18_004_100s"])
-_backgrounds_simplified = "+".join(["llhd_cms_sus_19_006_0s","llhd_cms_sus_21_006_0s","llhd_cms_sus_18_004_0s"])
+signals_simplified = "+".join(["llhd_cms_sus_19_006_100s","llhd_cms_sus_21_006_100s","llhd_cms_sus_18_004_100s","llhd_cms_sus_19_006_mu1p0s"])
+_backgrounds_simplified = "+".join(["llhd_cms_sus_19_006_0s","llhd_cms_sus_21_006_0s","llhd_cms_sus_18_004_0s","llhd_cms_sus_19_006_mu0p0s"])
 
 #these are the Bayes factors for the combination of all analyses. The first term handles the analyses where the log likelihood is stored, the second term handles the analyses where the Bayes factor is stored in the tree 
 theconstraints["combined"] = "(exp(("+signals+")-("+_backgrounds+"))"+(len(bfs)>0)*"*"+"*".join(bfs)+")"
@@ -101,7 +107,7 @@ for analysis in ["cms_sus_19_006","cms_sus_21_006","cms_sus_18_004","combined", 
         branchnames[analysis]["Z"] = "Zsig_"+analysis.replace("_simplified","")
         branchnames[analysis+"_up"]["Z"] = "Zsig_"+analysis.replace("_simplified","")+"_15s"
         branchnames[analysis+"_down"]["Z"] = "Zsig_"+analysis.replace("_simplified","")+"_05s"
-print(branchnames)
+# print(branchnames)
 
 
 def get_impact_plots(localtree, analysis, hname, xtitle, xbins, xlow, xup, _logx, drawstring, moreconstraints=[],
@@ -134,14 +140,14 @@ def get_impact_plots(localtree, analysis, hname, xtitle, xbins, xlow, xup, _logx
 
     # get the scales to normalize all histograms to one
     htest = TH1F("scale", "", 1000, -1000, 1000)
-    print('constraintstring_prior', constraintstring_prior)    
+    # print('constraintstring_prior', constraintstring_prior)    
     localtree.Draw("PickProbability>>" + htest.GetName(), constraintstring_prior)
     prior_scalar = 1. / htest.Integral(-1, 9999999)
     htest.Delete()
     htest = TH1F("scale", "", 1000, -1000, 1000)
-    print('constraintstring posterior', constraintstring)
+    # print('constraintstring posterior', constraintstring)
     localtree.Draw("PickProbability>>" + htest.GetName(),constraintstring)
-    print("\n\n")
+    # print("\n\n")
     posterior_scalar = 1. / htest.Integral(-1, 9999999)
     htest.Delete()
     htest = TH1F("scale", "", 1000, -1000, 1000)
@@ -304,9 +310,9 @@ def get_SP_plot_1D(localtree, analysis, hname, xtitle, xbins, xlow, xup, _logx, 
     posterior_down = mkhistlogx(hname + "_down", "", xbins, xlow, xup, logx=_logx)
 
     localtree.Draw(drawstring + ">>" + prior.GetName(), constraintstring_prior, "")
-    print('constraint denominator', constraintstring)
+    # print('constraint denominator', constraintstring)
     z = zscore[analysis]    
-    print('constraint numerator',  "*".join([constraintstring, "(" + z + ">-1.64)"]))    
+    # print('constraint numerator',  "*".join([constraintstring, "(" + z + ">-1.64)"]))    
     localtree.Draw(drawstring + ">>" + posterior.GetName(),
                    "*".join([constraintstring, "(" + z + ">-1.64)"]), "")
     z = zscore[analysis].replace('mu1p0','mu1p5').replace('_100s','_150s')

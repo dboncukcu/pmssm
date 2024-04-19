@@ -23,7 +23,8 @@ pmssm_plotter = PMSSM(
     intree = intree, 
     outdir = outdir,
     particleDrawConfig= particleDrawConfig_TeV,
-    canvasStyle = pltconfig.generalProperties
+    canvasStyle = pltconfig.generalProperties,
+    friendAnalysis=[{"treeName":"cms_sus_20_001","path":"/Users/dorukhan/Desktop/cern/pmssm/sus_20_001_likelihood.root"}],
     )
 
 
@@ -52,13 +53,13 @@ for ypar in deltaM:
         yaxisDrawConfig={"nbin":50},
         )
     
-    quantilePlots2DStyle = {
-        "legend" : {
-            "textColor":kWhite
-        }
-    }
+    # quantilePlots2DStyle = {
+    #     "legend" : {
+    #         "textColor":kWhite
+    #     }
+    # }
 
-    pmssm_plotter.quantilePlots2D(drawstring=ypar+":"+particleName,analysis=pltconfig.analysisName, quantile = 0.5,yaxisDrawConfig={"nbin":50},canvasStyle = quantilePlots2DStyle)
-    pmssm_plotter.quantilePlots2D(drawstring=ypar+":"+particleName,analysis=pltconfig.analysisName, quantile = 0.75,yaxisDrawConfig={"nbin":50},canvasStyle = quantilePlots2DStyle)
-    pmssm_plotter.quantilePlots2D(drawstring=ypar+":"+particleName,analysis=pltconfig.analysisName, quantile = 0.9,yaxisDrawConfig={"nbin":50},canvasStyle = quantilePlots2DStyle)
-    pmssm_plotter.quantilePlots2D(drawstring=ypar+":"+particleName,analysis=pltconfig.analysisName, quantile = 0.99,yaxisDrawConfig={"nbin":50},canvasStyle = quantilePlots2DStyle)
+    # pmssm_plotter.quantilePlots2D(drawstring=ypar+":"+particleName,analysis=pltconfig.analysisName, quantile = 0.5,yaxisDrawConfig={"nbin":50},canvasStyle = quantilePlots2DStyle)
+    # pmssm_plotter.quantilePlots2D(drawstring=ypar+":"+particleName,analysis=pltconfig.analysisName, quantile = 0.75,yaxisDrawConfig={"nbin":50},canvasStyle = quantilePlots2DStyle)
+    # pmssm_plotter.quantilePlots2D(drawstring=ypar+":"+particleName,analysis=pltconfig.analysisName, quantile = 0.9,yaxisDrawConfig={"nbin":50},canvasStyle = quantilePlots2DStyle)
+    # pmssm_plotter.quantilePlots2D(drawstring=ypar+":"+particleName,analysis=pltconfig.analysisName, quantile = 0.99,yaxisDrawConfig={"nbin":50},canvasStyle = quantilePlots2DStyle)
