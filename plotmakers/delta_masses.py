@@ -53,6 +53,15 @@ for ypar in deltaM:
         yaxisDrawConfig={"nbin":50},
         )
     
+    
+    pmssm_plotter.survivalProbability2D(
+        drawstring = ypar+":"+particleName,
+        analysis="cms_sus_20_001",
+        contourSwitch=True, 
+        canvasStyle= survivalProbability2DCanvasStyle if ypar != "abs(chi1pm)-abs(chi10)" else survivalProbability2DCanvasStyle2,
+        yaxisDrawConfig={"nbin":50},
+        )
+    
     # quantilePlots2DStyle = {
     #     "legend" : {
     #         "textColor":kWhite

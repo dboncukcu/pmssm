@@ -70,7 +70,7 @@ theconstraints["bino-higgsino mix"] = "(!("+"||".join([theconstraints["pure bino
 theconstraints["wino-higgsino mix"] = "(!("+"||".join([theconstraints["pure bino"],theconstraints["pure wino"],theconstraints["pure higgsino"]])+") && "+terms["bino"]+"<"+terms["wino"]+" && "+terms["bino"]+"<"+terms["higgsino"]+")"
 
 zscore = {}
-for key in ['combined']:#, 'combined_simplified']:
+for key in ['combined',"cms_sus_20_001"]:#, 'combined_simplified']:
     value = theconstraints[key]
     zscore[key] = "TMath::Abs(TMath::Log(%s))/(TMath::Log(%s)) * TMath::Sqrt(2 * TMath::Abs(TMath::Log(%s)))" % (value,value,value)
 
