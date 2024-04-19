@@ -43,23 +43,15 @@ _backgrounds  = "+".join(["llhd_cms_sus_19_006_0s"])
 
 bfs = []
 bfs.append("(max(bf_cms_sus_21_006_mu1p0f,1E-20))")
-##bfs_down.append("(max(bf_cms_sus_21_006_mu0p5f,1E-20))")
-##bfs_up.append("(max(bf_cms_sus_21_006_mu1p5f,1E-20))")
 bfs.append("(max(bf_cms_sus_18_004_mu1p0f,1E-20))")
-##bfs_down.append("(max(bf_cms_sus_18_004_mu0p5f,1E-20))")
-##bfs_up.append("(max(bf_cms_sus_18_004_mu1p5f,1E-20))")
 
 
 #We only started storing the Bayes factors for the full combine likelihoods, so the simplified version is simpler
 signals_simplified = "+".join(["llhd_cms_sus_19_006_100s","llhd_cms_sus_21_006_100s","llhd_cms_sus_18_004_100s"])
-#signals_simplified_down = "+".join(["llhd_cms_sus_19_006_050s","llhd_cms_sus_21_006_050s","llhd_cms_sus_18_004_050s"])
-#signals_simplified_up = "+".join(["llhd_cms_sus_19_006_150s","llhd_cms_sus_21_006_150s","llhd_cms_sus_18_004_150s"])
 _backgrounds_simplified = "+".join(["llhd_cms_sus_19_006_0s","llhd_cms_sus_21_006_0s","llhd_cms_sus_18_004_0s"])
 
 #these are the Bayes factors for the combination of all analyses. The first term handles the analyses where the log likelihood is stored, the second term handles the analyses where the Bayes factor is stored in the tree 
 theconstraints["combined"] = "(exp(("+signals+")-("+_backgrounds+"))"+(len(bfs)>0)*"*"+"*".join(bfs)+")"
-#theconstraints["combined_up"] = "(exp(("+signals_up+")-("+_backgrounds_up+"))"+(len(bfs_up)>0)*"*"+"*".join(bfs_up)+")"
-#theconstraints["combined_down"] = "(exp(("+signals_down+")-("+_backgrounds_down+"))"+(len(bfs_down)>0)*"*"+"*".join(bfs_down)+")"
 theconstraints["combined_simplified"] = "(exp(("+signals_simplified+")-("+_backgrounds_simplified+")))"
 
 #some useful constraints
