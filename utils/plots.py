@@ -21,67 +21,47 @@ theconstraints["reason_simplified"] = "(1)"
 theconstraints["reweight"] = "(1/PickProbability)" #this reweights each point to remove the effect of over-sampling and under-sampling. Important for Bayesian interpretation of results that require a meaningful prior.
 
 #The following are Bayes factors using simplified or (where available) full combine likelihoods
+
+#Note from Sam 18 April, 2024: I am doing away with all the up and down keys and using replace() statements
 #*_100s is the likelihood assuming a signal strength of 1, *_050s assumes a signal strength of 0.5, *_150s assumes a signal strength of 1.5, and *_0s assumes no signal (SM-only likelihood)
 theconstraints["cms_sus_19_006"] = "(exp(llhd_cms_sus_19_006_100s-llhd_cms_sus_19_006_0s))"
-theconstraints["cms_sus_19_006_down"] = "(exp(llhd_cms_sus_19_006_050s-llhd_cms_sus_19_006_0s))"
-theconstraints["cms_sus_19_006_up"] = "(exp(llhd_cms_sus_19_006_150s-llhd_cms_sus_19_006_0s))"
-
 theconstraints["cms_sus_18_004_simplified"] = "(exp(llhd_cms_sus_18_004_100s-llhd_cms_sus_18_004_0s))"
-theconstraints["cms_sus_18_004_simplified_down"] = "(exp(llhd_cms_sus_18_004_050s-llhd_cms_sus_18_004_0s))"
-theconstraints["cms_sus_18_004_simplified_up"] = "(exp(llhd_cms_sus_18_004_150s-llhd_cms_sus_18_004_0s))"
-
 #At some point we switches to saving the Bayes factor directly in the tree, instead of the signal and signal-less likelihoods
 #Here, muXpYf refers to signal strength of X.Y, and f refers to "full" as in full combine likelihood. The max sometimes has to be taken because root can't handle extremely small floats.
 theconstraints["cms_sus_18_004"] = "(max(bf_cms_sus_18_004_mu1p0f,1E-5))"
-theconstraints["cms_sus_18_004_down"] = "max((bf_cms_sus_18_004_mu0p5f,1E-5))"
-theconstraints["cms_sus_18_004_up"] = "max((bf_cms_sus_18_004_mu1p5f,1E-5))"
-
 theconstraints["cms_sus_21_007"] = "(exp(llhd_cms_sus_21_007_100s-llhd_cms_sus_21_007_0s))"
-theconstraints["cms_sus_21_007_down"] = "(exp(llhd_cms_sus_21_007_050s-llhd_cms_sus_21_007_0s))"
-theconstraints["cms_sus_21_007_up"] = "(exp(llhd_cms_sus_21_007_150s-llhd_cms_sus_21_007_0s))"
-
 theconstraints["cms_sus_21_007_simplified"] = "(exp(llhd_cms_sus_21_007_100s-llhd_cms_sus_21_007_0s))"
-theconstraints["cms_sus_21_007_simplified_down"] = "(exp(llhd_cms_sus_21_007_050s-llhd_cms_sus_21_007_0s))"
-theconstraints["cms_sus_21_007_simplified_up"] = "(exp(llhd_cms_sus_21_007_150s-llhd_cms_sus_21_007_0s))"
-
 theconstraints["cms_sus_21_006_simplified"] = "(exp(llhd_cms_sus_21_006_100s-llhd_cms_sus_21_006_0s))"
-theconstraints["cms_sus_21_006_simplified_down"] = "(exp(llhd_cms_sus_21_006_050s-llhd_cms_sus_21_006_0s))"
-theconstraints["cms_sus_21_006_simplified_up"] = "(exp(llhd_cms_sus_21_006_150s-llhd_cms_sus_21_006_0s))"
-
 theconstraints["cms_sus_21_006"] = "(max(bf_cms_sus_21_006_mu1p0f,1E-5))"
-theconstraints["cms_sus_21_006_down"] = "(max(bf_cms_sus_21_006_mu1p0f,1E-5))"
-theconstraints["cms_sus_21_006_up"] = "(max(bf_cms_sus_21_006_mu1p0f,1E-5))"
-
 
 #this part combines the various analysis Bayes factors, once including full combine likelihoods where possible, and once using only counts-based simplified likelihoods
 #This sums up the likelihoods assuming the different signal strengths, and the SM-only likelihoods. The sum does not include the analyses where the Bayes factor is saved in the tree instead of the likelihoods
-signals = "+".join(["llhd_cms_sus_19_006_100s"])
-signals_down = "+".join(["llhd_cms_sus_19_006_050s"])
-signals_up = "+".join(["llhd_cms_sus_19_006_150s"])
-_backgrounds = "+".join(["llhd_cms_sus_19_006_0s"])
+signals       = "+".join(["llhd_cms_sus_19_006_100s"])
+_backgrounds  = "+".join(["llhd_cms_sus_19_006_0s"])
 #Because we switched to saving Bayes factors, this became a little more complicated
 #again, the max is taken because ROOT has problems with small floats
 
 bfs = []
-bfs_down = []
-bfs_up = []
 bfs.append("(max(bf_cms_sus_21_006_mu1p0f,1E-20))")
-bfs_down.append("(max(bf_cms_sus_21_006_mu0p5f,1E-20))")
-bfs_up.append("(max(bf_cms_sus_21_006_mu1p5f,1E-20))")
+##bfs_down.append("(max(bf_cms_sus_21_006_mu0p5f,1E-20))")
+##bfs_up.append("(max(bf_cms_sus_21_006_mu1p5f,1E-20))")
 bfs.append("(max(bf_cms_sus_18_004_mu1p0f,1E-20))")
-bfs_down.append("(max(bf_cms_sus_18_004_mu0p5f,1E-20))")
-bfs_up.append("(max(bf_cms_sus_18_004_mu1p5f,1E-20))")
+##bfs_down.append("(max(bf_cms_sus_18_004_mu0p5f,1E-20))")
+##bfs_up.append("(max(bf_cms_sus_18_004_mu1p5f,1E-20))")
 
 
 #We only started storing the Bayes factors for the full combine likelihoods, so the simplified version is simpler
 signals_simplified = "+".join(["llhd_cms_sus_19_006_100s","llhd_cms_sus_21_006_100s","llhd_cms_sus_18_004_100s"])
-signals_simplified_down = "+".join(["llhd_cms_sus_19_006_050s","llhd_cms_sus_21_006_050s","llhd_cms_sus_18_004_050s"])
-signals_simplified_up = "+".join(["llhd_cms_sus_19_006_150s","llhd_cms_sus_21_006_150s","llhd_cms_sus_18_004_150s"])
+#signals_simplified_down = "+".join(["llhd_cms_sus_19_006_050s","llhd_cms_sus_21_006_050s","llhd_cms_sus_18_004_050s"])
+#signals_simplified_up = "+".join(["llhd_cms_sus_19_006_150s","llhd_cms_sus_21_006_150s","llhd_cms_sus_18_004_150s"])
 _backgrounds_simplified = "+".join(["llhd_cms_sus_19_006_0s","llhd_cms_sus_21_006_0s","llhd_cms_sus_18_004_0s"])
 
 #these are the Bayes factors for the combination of all analyses. The first term handles the analyses where the log likelihood is stored, the second term handles the analyses where the Bayes factor is stored in the tree 
-theconstraints["combined"] = "(exp(("+signals+")-("+_backgrounds+"))*"+"*".join(bfs)+")"
+theconstraints["combined"] = "(exp(("+signals+")-("+_backgrounds+"))"+(len(bfs)>0)*"*"+"*".join(bfs)+")"
+#theconstraints["combined_up"] = "(exp(("+signals_up+")-("+_backgrounds_up+"))"+(len(bfs_up)>0)*"*"+"*".join(bfs_up)+")"
+#theconstraints["combined_down"] = "(exp(("+signals_down+")-("+_backgrounds_down+"))"+(len(bfs_down)>0)*"*"+"*".join(bfs_down)+")"
 theconstraints["combined_simplified"] = "(exp(("+signals_simplified+")-("+_backgrounds_simplified+")))"
+
 #some useful constraints
 theconstraints["pure higgsino"] = "("+terms["higgsino"]+">0.95)"
 theconstraints["pure wino"] = "("+terms["wino"]+">0.95)"
@@ -91,7 +71,10 @@ theconstraints["bino-wino mix"] = "(!("+"||".join([theconstraints["pure bino"],t
 theconstraints["bino-higgsino mix"] = "(!("+"||".join([theconstraints["pure bino"],theconstraints["pure wino"],theconstraints["pure higgsino"]])+") && "+terms["bino"]+">"+terms["wino"]+" && "+terms["higgsino"]+">"+terms["wino"]+")"
 theconstraints["wino-higgsino mix"] = "(!("+"||".join([theconstraints["pure bino"],theconstraints["pure wino"],theconstraints["pure higgsino"]])+") && "+terms["bino"]+"<"+terms["wino"]+" && "+terms["bino"]+"<"+terms["higgsino"]+")"
 
-
+zscore = {}
+for key in ['combined']:#, 'combined_simplified']:
+    value = theconstraints[key]
+    zscore[key] = "TMath::Abs(TMath::Log(%s))/(TMath::Log(%s)) * TMath::Sqrt(2 * TMath::Abs(TMath::Log(%s)))" % (value,value,value)
 
 #z-axis colors
 sprobcontours = np.float64([-0.01,1E-5,0.05,0.1,0.15,0.2,0.25,0.3,0.35,0.4,0.45,0.5,0.55,0.6,0.65,0.7,0.75,0.8,0.85,0.9,0.95,1-1E-5,1.01])
@@ -111,7 +94,7 @@ custompalette = np.intc(custompalette)
 
 #dictionary mapping the z-scores for the different analyses to the tree branches 
 branchnames = {}
-for analysis in ["cms_sus_19_006","cms_sus_21_006","cms_sus_18_004","combined","cms_sus_21_006_simplified","cms_sus_21_007","cms_sus_21_007_simplified"]:
+for analysis in ["cms_sus_19_006","cms_sus_21_006","cms_sus_18_004","combined", "combined_simplified","cms_sus_21_006_simplified","cms_sus_21_007","cms_sus_21_007_simplified"]:
     branchnames[analysis] = {}
     branchnames[analysis+"_up"] = {}
     branchnames[analysis+"_down"] = {}
@@ -146,11 +129,11 @@ def get_impact_plots(localtree, analysis, hname, xtitle, xbins, xlow, xup, _logx
     @param moreconstraints_prior: list of logical expressions that should apply to the prior. Default is to NOT apply constraints on the prior. Can use tree branches and mathematical operations. Each constrain in the list is logically multiplied
     """
     if "simplified" in analysis:  # reweighting is always done, in addition to removing unreasonable points
-        constraintstring = "*".join([theconstraints["reweight"], theconstraints["reason_simplified"]])
-        constraintstring_prior = "*".join([theconstraints["reweight"], theconstraints["reason_simplified"]])
+        constraintstring_prior = "*".join([theconstraints["reweight"], theconstraints["reason_simplified"]])    
+        constraintstring = "*".join([theconstraints["reweight"], theconstraints["reason_simplified"], theconstraints["combined_simplified"]])
     else:
-        constraintstring = "*".join([theconstraints["reweight"], theconstraints["reason"]])
-        constraintstring_prior = "*".join([theconstraints["reweight"], theconstraints["reason"]])
+        constraintstring_prior = "*".join([theconstraints["reweight"], theconstraints["reason"]]) 
+        constraintstring = "*".join([theconstraints["reweight"], theconstraints["reason"], theconstraints["combined"]])
     for newc in moreconstraints:
         constraintstring += "*(" + newc + ")"
     if moreconstraints_prior:
@@ -159,25 +142,22 @@ def get_impact_plots(localtree, analysis, hname, xtitle, xbins, xlow, xup, _logx
 
     # get the scales to normalize all histograms to one
     htest = TH1F("scale", "", 1000, -1000, 1000)
+    print('constraintstring_prior', constraintstring_prior)    
     localtree.Draw("PickProbability>>" + htest.GetName(), constraintstring_prior)
-    print(constraintstring_prior)
     prior_scalar = 1. / htest.Integral(-1, 9999999)
     htest.Delete()
     htest = TH1F("scale", "", 1000, -1000, 1000)
-    localtree.Draw("PickProbability>>" + htest.GetName(),
-                   "*".join([constraintstring, "(" + branchnames[analysis]["Z"] + ">-1.64)"]))
+    print('constraintstring posterior', constraintstring)
+    localtree.Draw("PickProbability>>" + htest.GetName(),constraintstring)
     print("\n\n")
-    print("*".join([constraintstring, "(" + branchnames[analysis]["Z"] + ">-1.64)"]))
     posterior_scalar = 1. / htest.Integral(-1, 9999999)
     htest.Delete()
     htest = TH1F("scale", "", 1000, -1000, 1000)
-    localtree.Draw("PickProbability>>" + htest.GetName(),
-                   "*".join([constraintstring, "(" + branchnames[analysis + "_up"]["Z"] + ">-1.64)"]))
+    localtree.Draw("PickProbability>>" + htest.GetName(),constraintstring.replace('mu1p0','mu1p5').replace('_100s','_150s'))#UP
     posterior_scalar_up = 1. / htest.Integral(-1, 9999999)
     htest.Delete()
     htest = TH1F("scale", "", 1000, -1000, 1000)
-    localtree.Draw("PickProbability>>" + htest.GetName(),
-                   "*".join([constraintstring, "(" + branchnames[analysis + "_down"]["Z"] + ">-1.64)"]))
+    localtree.Draw("PickProbability>>" + htest.GetName(),constraintstring.replace('mu1p0','mu0p5').replace('_100s','_050s'))#Down
     posterior_scalar_down = 1. / htest.Integral(-1, 9999999)
     htest.Delete()
 
@@ -188,12 +168,9 @@ def get_impact_plots(localtree, analysis, hname, xtitle, xbins, xlow, xup, _logx
     posterior_up = mkhistlogx(hname + "_up", "", xbins, xlow, xup, logx=_logx)  # prior.Clone(hname+"_up")
     posterior_down = mkhistlogx(hname + "_down", "", xbins, xlow, xup, logx=_logx)  # prior.Clone(hname+"_down")
     localtree.Draw(drawstring + ">>" + prior.GetName(), constraintstring_prior)
-    localtree.Draw(drawstring + ">>" + posterior.GetName(),
-                   "*".join([constraintstring, "(" + branchnames[analysis]["Z"] + ">-1.64)"]))
-    localtree.Draw(drawstring + ">>" + posterior_up.GetName(),
-                   "*".join([constraintstring, "(" + branchnames[analysis + "_up"]["Z"] + ">-1.64)"]))
-    localtree.Draw(drawstring + ">>" + posterior_down.GetName(),
-                   "*".join([constraintstring, "(" + branchnames[analysis + "_down"]["Z"] + ">-1.64)"]))
+    localtree.Draw(drawstring + ">>" + posterior.GetName(), constraintstring)
+    localtree.Draw(drawstring + ">>" + posterior_up.GetName(), constraintstring.replace('mu1p0','mu1p5').replace('_100s','_150s'))#UP
+    localtree.Draw(drawstring + ">>" + posterior_down.GetName(), constraintstring.replace('mu1p0','mu0p5').replace('_100s','_050s'))#Down
 
     histoStyler(prior, kBlue - 9, fill=True)
     histoStyler(posterior, kBlack)
@@ -335,12 +312,17 @@ def get_SP_plot_1D(localtree, analysis, hname, xtitle, xbins, xlow, xup, _logx, 
     posterior_down = mkhistlogx(hname + "_down", "", xbins, xlow, xup, logx=_logx)
 
     localtree.Draw(drawstring + ">>" + prior.GetName(), constraintstring_prior, "")
+    print('constraint denominator', constraintstring)
+    z = zscore[analysis]    
+    print('constraint numerator',  "*".join([constraintstring, "(" + z + ">-1.64)"]))    
     localtree.Draw(drawstring + ">>" + posterior.GetName(),
-                   "*".join([constraintstring, "(" + branchnames[analysis]["Z"] + ">-1.64)"]), "")
+                   "*".join([constraintstring, "(" + z + ">-1.64)"]), "")
+    z = zscore[analysis].replace('mu1p0','mu1p5').replace('_100s','_150s')
     localtree.Draw(drawstring + ">>" + posterior_up.GetName(),
-                   "*".join([constraintstring, "(" + branchnames[analysis + "_up"]["Z"] + ">-1.64)"]), "")
+                   "*".join([constraintstring, "(" + z + ">-1.64)"]), "")#Up
+    z = zscore[analysis].replace('mu1p0','mu0p5').replace('_100s','_050s')
     localtree.Draw(drawstring + ">>" + posterior_down.GetName(),
-                   "*".join([constraintstring, "(" + branchnames[analysis + "_down"]["Z"] + ">-1.64)"]), "")
+                   "*".join([constraintstring, "(" + z + ">-1.64)"]), "")#Down
     histoStyler(posterior, kBlack)
     histoStyler(posterior_up, kMagenta, linestyle=kDashed)
     histoStyler(posterior_down, kRed, linestyle=kDashed)
@@ -397,8 +379,8 @@ def get_SP_plot_2D(localtree, analysis, hname, xtitle, xbins, xlow, xup, ytitle,
             constraintstring_prior += "*(" + newc_p + ")"
 
     localtree.Draw(drawstring + ">>" + hdenom.GetName(), constraintstring_prior, "colz")
-    localtree.Draw(drawstring + ">>" + hret.GetName(),
-                   "*".join([constraintstring, "(" + branchnames[analysis]["Z"] + ">-1.64)"]), "colz")
+    z = zscore[analysis]
+    localtree.Draw(drawstring + ">>" + hret.GetName(), "*".join([constraintstring, "(" + z + ">-1.64)"]), "colz")
     hret.GetZaxis().SetRangeUser(-0.001, 1)
     cutoff = 1E-3
     hret.GetZaxis().SetTitle("survival probability")
