@@ -1,0 +1,18 @@
+survivalProbability2D for:  abs(chi1pm)-abs(chi10) abs(chi10) 
+
+
+survivalProbability2D for:  abs(chi20-chi10) abs(chi10) 
+
+
+survivalProbability2D for:  g-abs(chi10) abs(chi10) 
+
+
+survivalProbability2D for:  t1-abs(chi10) abs(chi10) 
+
+
+survivalProbability2D for:  b1-abs(chi10) abs(chi10) 
+
+
+survivalProbability2D for:  lcsp-abs(chi10) abs(chi10) 
+
+

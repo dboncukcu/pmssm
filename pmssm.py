@@ -121,7 +121,7 @@ particleDrawConfig_TeV = {
     "abs(chi1pm)-abs(chi10)": {
         "title": "#Deltam(#tilde{#chi}^{#pm}_{1},#tilde{#chi}^{0}_{1})",
         "nbin" : 100,
-        "min" : 0.11,
+        "min" : 0.001,
         "max" : 3000,
         "logScale": True,
         "linearScale": 1.0,
@@ -211,7 +211,7 @@ class PMSSM:
                     "extraText" : "Preliminary",
                     "lumi" : "",
                 },
-                defaultExportFileFormat : str = "png",
+                defaultExportFileFormat : str = "pdf",
                 friendAnalysis : list[dict] = [{"treeName":"cms_sus_20_001","path":"/Users/dorukhan/Desktop/cern/pmssm/sus_20_001_likelihood.root"}],
                 ):
         
