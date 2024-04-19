@@ -34,23 +34,23 @@ for ypar in deltaM:
 
     print("survivalProbability2D for: ", ypar, particleName, "\n\n")
     survivalProbability2DCanvasStyle = {
-        "legend":pltconfig.righttop["legend"].copy()
+        "legend":pltconfig.rightbottom["legend"].copy()
     }
-        #survivalProbability2DCanvasStyle["legend"]={"textColor":kWhite}
-        #survivalProbability2DCanvasStyle["legend"]["x1"] = 0.52
-        #survivalProbability2DCanvasStyle["legend"]["x2"] = 0.93
-        #survivalProbability2DCanvasStyle["legend"]["y2"] = 0.40
-        #survivalProbability2DCanvasStyle["legend"]["y1"] = 0.15
+    # survivalProbability2DCanvasStyle["legend"]={"textColor":kWhite}
+    survivalProbability2DCanvasStyle["legend"]["x1"] = 0.52
+    survivalProbability2DCanvasStyle["legend"]["x2"] = 0.93
+    survivalProbability2DCanvasStyle["legend"]["y2"] = 0.40
+    survivalProbability2DCanvasStyle["legend"]["y1"] = 0.15
     survivalProbability2DCanvasStyle["legend"]["legendNColumns"] = 1
 
 
-    # pmssm_plotter.survivalProbability2D(
-    #     drawstring = ypar+":"+particleName,
-    #     analysis="combined",
-    #     contourSwitch=True, 
-    #     canvasStyle= survivalProbability2DCanvasStyle,
-    #     yaxisDrawConfig={"nbin":50},
-    #     )
+    pmssm_plotter.survivalProbability2D(
+        drawstring = ypar+":"+particleName,
+        analysis="combined",
+        contourSwitch=True, 
+        canvasStyle= survivalProbability2DCanvasStyle,
+        yaxisDrawConfig={"nbin":50},
+        )
     
     # pmssm_plotter.survivalProbability2D(
     #     drawstring = ypar+":"+particleName,
@@ -60,13 +60,13 @@ for ypar in deltaM:
     #     yaxisDrawConfig={"nbin":50},
     #     )
     
-    pmssm_plotter.survivalProbability2D(
-        drawstring = ypar+":"+particleName,
-        analysis="cms_sus_20_001",
-        contourSwitch=True, 
-        canvasStyle= survivalProbability2DCanvasStyle,
-        yaxisDrawConfig={"nbin":50},
-        )
+    # pmssm_plotter.survivalProbability2D(
+    #     drawstring = ypar+":"+particleName,
+    #     analysis="cms_sus_20_001",
+    #     contourSwitch=True, 
+    #     canvasStyle= survivalProbability2DCanvasStyle,
+    #     yaxisDrawConfig={"nbin":50},
+    #     )
     
     # quantilePlots2DStyle = {
     #     "legend" : {
