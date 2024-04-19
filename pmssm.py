@@ -212,7 +212,7 @@ class PMSSM:
                     "lumi" : "",
                 },
                 defaultExportFileFormat : str = "pdf",
-                friendAnalysis : list[dict] = [{"treeName":"cms_sus_20_001","path":"/Users/dorukhan/Desktop/cern/pmssm/sus_20_001_likelihood.root"}],
+                friendAnalysis : list[dict] = [{"treeName":"cms_sus_20_001","path":"/Users/denizgungordu/Desktop/pmssm/sus_20_001_likelihood.root"}],
                 ):
         
         if outdir[-1]!="/":

@@ -1,7 +1,7 @@
 import sys
 import shutil
 
-sys.path.append("/Users/dorukhan/Desktop/cern/pmssm/")
+sys.path.append("/Users/denizgungordu/Desktop/pmssm/")
 
 from ROOT import *
 from pmssm import PMSSM, particleDrawConfig_TeV
@@ -24,7 +24,7 @@ pmssm_plotter = PMSSM(
     outdir = outdir,
     particleDrawConfig= particleDrawConfig_TeV,
     canvasStyle = pltconfig.generalProperties,
-    friendAnalysis=[{"treeName":"cms_sus_20_001","path":"/Users/dorukhan/Desktop/cern/pmssm/sus_20_001_likelihood.root"}],
+    friendAnalysis=[{"treeName":"cms_sus_20_001","path":"/Users/denizgungordu/Desktop/pmssm/sus_20_001_likelihood.root"}],
     )
 
 
@@ -34,13 +34,11 @@ for ypar in deltaM:
 
     print("survivalProbability2D for: ", ypar, particleName, "\n\n")
     survivalProbability2DCanvasStyle = {
-        "legend":pltconfig.rightbottom["legend"].copy()
+        "legend":pltconfig.righttop["legend"].copy()
     }
-    # survivalProbability2DCanvasStyle["legend"]={"textColor":kWhite}
+    #survivalProbability2DCanvasStyle["legend"]={"textColor":kWhite}
     survivalProbability2DCanvasStyle["legend"]["x1"] = 0.52
-    survivalProbability2DCanvasStyle["legend"]["x2"] = 0.93
-    survivalProbability2DCanvasStyle["legend"]["y2"] = 0.40
-    survivalProbability2DCanvasStyle["legend"]["y1"] = 0.15
+    survivalProbability2DCanvasStyle["legend"]["x2"] = 0.95
     survivalProbability2DCanvasStyle["legend"]["legendNColumns"] = 1
 
 
