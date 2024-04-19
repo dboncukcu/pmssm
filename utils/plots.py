@@ -59,6 +59,8 @@ _backgrounds_simplified = "+".join(["llhd_cms_sus_19_006_0s","llhd_cms_sus_21_00
 #these are the Bayes factors for the combination of all analyses. The first term handles the analyses where the log likelihood is stored, the second term handles the analyses where the Bayes factor is stored in the tree 
 theconstraints["combined"] = "(exp(("+signals+")-("+_backgrounds+"))"+(len(bfs)>0)*"*"+"*".join(bfs)+")"
 theconstraints["combined_simplified"] = "(exp(("+signals_simplified+")-("+_backgrounds_simplified+")))"
+# theconstraints["combined_with_cms_sus_20_001"] = "(exp(("+signals+"+llhd_cms_sus_20_001_mu1p0s"+")-("+_backgrounds+"+llhd_cms_sus_20_001_mu0p0s"+"))"+(len(bfs)>0)*"*"+"*".join(bfs)+")"
+
 
 #some useful constraints
 theconstraints["pure higgsino"] = "("+terms["higgsino"]+">0.95)"
@@ -73,6 +75,16 @@ zscore = {}
 for key in ['combined',"cms_sus_20_001"]:#, 'combined_simplified']:
     value = theconstraints[key]
     zscore[key] = "TMath::Abs(TMath::Log(%s))/(TMath::Log(%s)) * TMath::Sqrt(2 * TMath::Abs(TMath::Log(%s)))" % (value,value,value)
+
+# print(zscore)
+# print("-"*50)
+# print(theconstraints["cms_sus_20_001"])
+# print("-"*50)
+# # print(theconstraints["combined_with_cms_sus_20_001"])
+# print("-"*50)
+# print(theconstraints["combined"])
+# print("-"*50)
+
 
 #z-axis colors
 sprobcontours = np.float64([-0.01,1E-5,0.05,0.1,0.15,0.2,0.25,0.3,0.35,0.4,0.45,0.5,0.55,0.6,0.65,0.7,0.75,0.8,0.85,0.9,0.95,1-1E-5,1.01])

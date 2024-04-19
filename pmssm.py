@@ -121,7 +121,7 @@ particleDrawConfig_TeV = {
     "abs(chi1pm)-abs(chi10)": {
         "title": "#Deltam(#tilde{#chi}^{#pm}_{1},#tilde{#chi}^{0}_{1})",
         "nbin" : 100,
-        "min" : 0.1,
+        "min" : 0.11,
         "max" : 3000,
         "logScale": True,
         "linearScale": 1.0,
@@ -211,8 +211,8 @@ class PMSSM:
                     "extraText" : "Preliminary",
                     "lumi" : "",
                 },
-                defaultExportFileFormat : str = "pdf",
-                friendAnalysis : list[dict] = []
+                defaultExportFileFormat : str = "png",
+                friendAnalysis : list[dict] = [{"treeName":"cms_sus_20_001","path":"/Users/dorukhan/Desktop/cern/pmssm/sus_20_001_likelihood.root"}],
                 ):
         
         if outdir[-1]!="/":
@@ -875,7 +875,8 @@ class PMSSM:
                 y2=canvasStyle.get("legend",{}).get("y2",0.90),
                 textSize=canvasStyle.get("legend",{}).get("textSize",0.030)
                 )
-            self.legend.SetHeader(analysis.upper())  
+            self.legend.SetHeader(analysis.upper() if "combined" not in analysis.lower() else "combined".upper())
+
             
                         
             hist.GetZaxis().SetTitle("Survival Probability")
@@ -1182,7 +1183,9 @@ class PMSSM:
             y2=canvasStyle.get("legend",{}).get("y2",0.9),
             textSize=canvasStyle.get("legend",{}).get("textSize",0.030)
             )
-        self.legend.SetHeader(analysis.upper())
+        
+        print(analysis.upper() if "combined" not in analysis.lower() else "combined".upper())
+        self.legend.SetHeader(analysis.upper() if "combined" not in analysis.lower() else "combined".upper())
         self.legend.SetTextColor(canvasStyle.get("legend",{}).get("textColor",kBlack))
         self.legend.SetFillColor(canvasStyle.get("legend",{}).get("fillColor",TColor.GetColorTransparent(kBlue, 0)))
         self.legend.Draw("same")

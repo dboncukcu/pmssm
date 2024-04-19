@@ -31,34 +31,40 @@ pmssm_plotter = PMSSM(
 deltaM = ["abs(chi1pm)-abs(chi10)","abs(chi20-chi10)","g-abs(chi10)","t1-abs(chi10)","b1-abs(chi10)","lcsp-abs(chi10)"]
 for ypar in deltaM:
     
-    survivalProbability2DCanvasStyle2 = pltconfig.righttop.copy()
-    survivalProbability2DCanvasStyle2["legend"]["legendNColumns"] = 1
-
 
     print("survivalProbability2D for: ", ypar, particleName, "\n\n")
-    survivalProbability2DCanvasStyle = pltconfig.rightbottom.copy()
-    #survivalProbability2DCanvasStyle["legend"]={"textColor":kWhite}
-    survivalProbability2DCanvasStyle["legend"]["x1"] = 0.52
-    survivalProbability2DCanvasStyle["legend"]["x2"] = 0.93
-    survivalProbability2DCanvasStyle["legend"]["y2"] = 0.40
-    survivalProbability2DCanvasStyle["legend"]["y1"] = 0.15
+    survivalProbability2DCanvasStyle = {
+        "legend":pltconfig.righttop["legend"].copy()
+    }
+        #survivalProbability2DCanvasStyle["legend"]={"textColor":kWhite}
+        #survivalProbability2DCanvasStyle["legend"]["x1"] = 0.52
+        #survivalProbability2DCanvasStyle["legend"]["x2"] = 0.93
+        #survivalProbability2DCanvasStyle["legend"]["y2"] = 0.40
+        #survivalProbability2DCanvasStyle["legend"]["y1"] = 0.15
     survivalProbability2DCanvasStyle["legend"]["legendNColumns"] = 1
 
 
-    pmssm_plotter.survivalProbability2D(
-        drawstring = ypar+":"+particleName,
-        analysis=pltconfig.analysisName,
-        contourSwitch=True, 
-        canvasStyle= survivalProbability2DCanvasStyle if ypar != "abs(chi1pm)-abs(chi10)" else survivalProbability2DCanvasStyle2,
-        yaxisDrawConfig={"nbin":50},
-        )
+    # pmssm_plotter.survivalProbability2D(
+    #     drawstring = ypar+":"+particleName,
+    #     analysis="combined",
+    #     contourSwitch=True, 
+    #     canvasStyle= survivalProbability2DCanvasStyle,
+    #     yaxisDrawConfig={"nbin":50},
+    #     )
     
+    # pmssm_plotter.survivalProbability2D(
+    #     drawstring = ypar+":"+particleName,
+    #     analysis="combined_with_cms_sus_20_001",
+    #     contourSwitch=True, 
+    #     canvasStyle= survivalProbability2DCanvasStyle,
+    #     yaxisDrawConfig={"nbin":50},
+    #     )
     
     pmssm_plotter.survivalProbability2D(
         drawstring = ypar+":"+particleName,
         analysis="cms_sus_20_001",
         contourSwitch=True, 
-        canvasStyle= survivalProbability2DCanvasStyle if ypar != "abs(chi1pm)-abs(chi10)" else survivalProbability2DCanvasStyle2,
+        canvasStyle= survivalProbability2DCanvasStyle,
         yaxisDrawConfig={"nbin":50},
         )
     
