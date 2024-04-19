@@ -1,0 +1,68 @@
+plots/abschi20
+plots/abschi20/
+impact1D for:  abs(chi20) 
+
+
+quantile 1D for:  abs(chi20) 
+
+
+survivalProbability1D for: abs(chi20) 
+
+
+survivalProbability2D for:  abs(chi10) abs(chi20) 
+
+
+0.5 quantile 2D for:  abs(chi10) abs(chi20) 
+
+
+COMBINED
+0.75 quantile 2D for:  abs(chi10) abs(chi20) 
+
+
+COMBINED
+0.9 quantile 2D for:  abs(chi10) abs(chi20) 
+
+
+COMBINED
+0.99 quantile 2D for:  abs(chi10) abs(chi20) 
+
+
+COMBINED
+survivalProbability2D for:  abs(chi1pm)-abs(chi10) abs(chi20) 
+
+
+0.5 quantile 2D for:  abs(chi1pm)-abs(chi10) abs(chi20) 
+
+
+COMBINED
+0.75 quantile 2D for:  abs(chi1pm)-abs(chi10) abs(chi20) 
+
+
+COMBINED
+0.9 quantile 2D for:  abs(chi1pm)-abs(chi10) abs(chi20) 
+
+
+COMBINED
+0.99 quantile 2D for:  abs(chi1pm)-abs(chi10) abs(chi20) 
+
+
+COMBINED
+survivalProbability2D for:  abs(chi20-chi10) abs(chi20) 
+
+
+0.5 quantile 2D for:  abs(chi20-chi10) abs(chi20) 
+
+
+COMBINED
+0.75 quantile 2D for:  abs(chi20-chi10) abs(chi20) 
+
+
+COMBINED
+0.9 quantile 2D for:  abs(chi20-chi10) abs(chi20) 
+
+
+COMBINED
+0.99 quantile 2D for:  abs(chi20-chi10) abs(chi20) 
+
+
+COMBINED

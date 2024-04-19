@@ -1,0 +1,127 @@
+impact1D for:  g 
+
+
+quantile 1D for:  g 
+
+
+survivalProbability1D for: g 
+
+
+survivalProbability2D for:  abs(chi10) g 
+
+
+0.5 quantile 2D for:  abs(chi10) g 
+
+
+COMBINED
+0.75 quantile 2D for:  abs(chi10) g 
+
+
+COMBINED
+0.9 quantile 2D for:  abs(chi10) g 
+
+
+COMBINED
+0.99 quantile 2D for:  abs(chi10) g 
+
+
+COMBINED
+survivalProbability2D for:  abs(chi1pm)-abs(chi10) g 
+
+
+0.5 quantile 2D for:  abs(chi1pm)-abs(chi10) g 
+
+
+COMBINED
+0.75 quantile 2D for:  abs(chi1pm)-abs(chi10) g 
+
+
+COMBINED
+0.9 quantile 2D for:  abs(chi1pm)-abs(chi10) g 
+
+
+COMBINED
+0.99 quantile 2D for:  abs(chi1pm)-abs(chi10) g 
+
+
+COMBINED
+survivalProbability2D for:  abs(chi20-chi10) g 
+
+
+0.5 quantile 2D for:  abs(chi20-chi10) g 
+
+
+COMBINED
+0.75 quantile 2D for:  abs(chi20-chi10) g 
+
+
+COMBINED
+0.9 quantile 2D for:  abs(chi20-chi10) g 
+
+
+COMBINED
+0.99 quantile 2D for:  abs(chi20-chi10) g 
+
+
+COMBINED
+survivalProbability2D for:  abs(chi10) g-abs(chi10) 
+
+
+0.5 quantile 2D for:  abs(chi10) g-abs(chi10) 
+
+
+COMBINED
+0.75 quantile 2D for:  abs(chi10) g-abs(chi10) 
+
+
+COMBINED
+0.9 quantile 2D for:  abs(chi10) g-abs(chi10) 
+
+
+COMBINED
+0.99 quantile 2D for:  abs(chi10) g-abs(chi10) 
+
+
+COMBINED
+survivalProbability2D for:  abs(chi1pm)-abs(chi10) g-abs(chi10) 
+
+
+0.5 quantile 2D for:  abs(chi1pm)-abs(chi10) g-abs(chi10) 
+
+
+COMBINED
+0.75 quantile 2D for:  abs(chi1pm)-abs(chi10) g-abs(chi10) 
+
+
+COMBINED
+0.9 quantile 2D for:  abs(chi1pm)-abs(chi10) g-abs(chi10) 
+
+
+COMBINED
+0.99 quantile 2D for:  abs(chi1pm)-abs(chi10) g-abs(chi10) 
+
+
+COMBINED
+survivalProbability2D for:  abs(chi20-chi10) g-abs(chi10) 
+
+
+0.5 quantile 2D for:  abs(chi20-chi10) g-abs(chi10) 
+
+
+COMBINED
+0.75 quantile 2D for:  abs(chi20-chi10) g-abs(chi10) 
+
+
+COMBINED
+0.9 quantile 2D for:  abs(chi20-chi10) g-abs(chi10) 
+
+
+COMBINED
+0.99 quantile 2D for:  abs(chi20-chi10) g-abs(chi10) 
+
+
+COMBINED
+COMBINED
+COMBINED
+COMBINED
+COMBINED

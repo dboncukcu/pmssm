@@ -1,0 +1,66 @@
+impact1D for:  lcsp 
+
+
+quantile 1D for:  lcsp 
+
+
+survivalProbability1D for: lcsp 
+
+
+survivalProbability2D for:  abs(chi10) lcsp 
+
+
+0.5 quantile 2D for:  abs(chi10) lcsp 
+
+
+COMBINED
+0.75 quantile 2D for:  abs(chi10) lcsp 
+
+
+COMBINED
+0.9 quantile 2D for:  abs(chi10) lcsp 
+
+
+COMBINED
+0.99 quantile 2D for:  abs(chi10) lcsp 
+
+
+COMBINED
+survivalProbability2D for:  abs(chi1pm)-abs(chi10) lcsp 
+
+
+0.5 quantile 2D for:  abs(chi1pm)-abs(chi10) lcsp 
+
+
+COMBINED
+0.75 quantile 2D for:  abs(chi1pm)-abs(chi10) lcsp 
+
+
+COMBINED
+0.9 quantile 2D for:  abs(chi1pm)-abs(chi10) lcsp 
+
+
+COMBINED
+0.99 quantile 2D for:  abs(chi1pm)-abs(chi10) lcsp 
+
+
+COMBINED
+survivalProbability2D for:  abs(chi20-chi10) lcsp 
+
+
+0.5 quantile 2D for:  abs(chi20-chi10) lcsp 
+
+
+COMBINED
+0.75 quantile 2D for:  abs(chi20-chi10) lcsp 
+
+
+COMBINED
+0.9 quantile 2D for:  abs(chi20-chi10) lcsp 
+
+
+COMBINED
+0.99 quantile 2D for:  abs(chi20-chi10) lcsp 
+
+
+COMBINED
