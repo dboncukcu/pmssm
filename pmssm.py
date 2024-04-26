@@ -197,9 +197,7 @@ particleDrawConfig_TeV = {
     }
 
 
-individualAnalysis = {
-    
-}
+individualAnalysis = {}
 
 
 class PMSSM:
