@@ -72,7 +72,7 @@ theconstraints["bino-higgsino mix"] = "(!("+"||".join([theconstraints["pure bino
 theconstraints["wino-higgsino mix"] = "(!("+"||".join([theconstraints["pure bino"],theconstraints["pure wino"],theconstraints["pure higgsino"]])+") && "+terms["bino"]+"<"+terms["wino"]+" && "+terms["bino"]+"<"+terms["higgsino"]+")"
 
 zscore = {}
-for key in ['combined',"cms_sus_20_001"]:#, 'combined_simplified']:
+for key in ['combined',"cms_sus_20_001","cms_sus_21_007","cms_sus_21_006"]:#, 'combined_simplified']:
     value = theconstraints[key]
     zscore[key] = "TMath::Abs(TMath::Log(%s))/(TMath::Log(%s)) * TMath::Sqrt(2 * TMath::Abs(TMath::Log(%s)))" % (value,value,value)
 
@@ -407,7 +407,7 @@ def get_SP_plot_2D(localtree, analysis, hname, xtitle, xbins, xlow, xup, ytitle,
 
     # always run gStyle.SetPalette(len(custompalette),custompalette) when drawing SP, otherwise gStyle.SetPalette(kBird) or other preferred Palette
     # gStyle.SetNumberContours(999)
-    histoStyler(hret)
+    # histoStyler(hret)
     hret.GetXaxis().SetTitle(xtitle)
     hret.GetYaxis().SetTitle(ytitle)
     hret.GetZaxis().SetTitle("survival probability")

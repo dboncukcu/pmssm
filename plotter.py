@@ -1,9 +1,9 @@
 ## This styling is for CMS plots. It uses cmsstyle library 0.3.0 version.
 import cmsstyle as CMS
-
+from ROOT import *
 
 class Plotter:
-    def __init__(self,canvasSettings:dict = {},canvasLabel:dict = {"energy" : 132,"extraText" : "Preliminary","lumi" : "(137-139)"},):
+    def __init__(self,canvasSettings:dict = {},canvasLabel:dict = {"energy" : 13,"extraText" : "Preliminary","lumi" : "(137-139)"},):
         
         self.setCanvasLabel(canvasLabel)
         
@@ -21,10 +21,10 @@ class Plotter:
             with_z_axis = canvasSettings.get("is3D",False),
             scaleLumi = canvasSettings.get("scaleLumi",None)
         )
-        
         self.canvasSettings = canvasSettings
         
-    
+        self.setPalette()
+        
     def setCanvasLabel(self,canvasLabel:dict):
         '''
         Set the canvas labels for the plot.
@@ -83,13 +83,21 @@ class Plotter:
             scaleLumi = scaleLumi)
         self.hframe = CMS.GetcmsCanvasHist(self.canvas)
     
-    def Draw(self,obj,option=""):
+    def Draw2D(self,obj,option=""):
         '''
         Draw the object to the canvas.
         '''
         obj.Draw(option+ " same")
+        CMS.UpdatePalettePosition(obj,self.canvas)
+        # CMS.UpdatePad(self.canvas)
     
-    def tuning(self,tuning:dict = {}):
+    def UpdatePalettePosition(self,hist2D):
+        '''
+        Update the palette position.
+        '''
+        CMS.UpdatePalettePosition(hist2D,self.canvas)
+    
+    def tuning(self,tuning:dict = {},hist=None):
         '''
         Tune the canvas.
         '''
@@ -99,24 +107,75 @@ class Plotter:
             self.hframe.GetXaxis().SetTitleOffset(tuning.get("XaxisSetTitleOffset"))
         if (tuning.get("YaxisSetTitleOffset") is not None):
             self.hframe.GetYaxis().SetTitleOffset(tuning.get("YaxisSetTitleOffset"))
+        if (tuning.get("ZaxisSetTitleOffset") is not None and hist is not None):
+            hist.GetZaxis().SetTitleOffset(tuning.get("ZaxisSetTitleOffset"))
 
         ## SetMaxDigits
         if (tuning.get("XaxisSetMaxDigits") is not None):
             self.hframe.GetXaxis().SetMaxDigits(tuning.get("XaxisSetMaxDigits"))
         if (tuning.get("YaxisSetMaxDigits") is not None):
             self.hframe.GetYaxis().SetMaxDigits(tuning.get("YaxisSetMaxDigits"))
+        if (tuning.get("ZaxisSetMaxDigits") is not None and hist is not None):
+            hist.GetZaxis().SetMaxDigits(tuning.get("ZaxisSetMaxDigits"))
             
         ##GetBottomMargin
         if (tuning.get("SetBottomMargin") is not None):
             self.canvas.SetBottomMargin( self.canvas.GetBottomMargin() + float(tuning.get("SetBottomMargin")))
-
-    def SaveAs(self,path,redraw=True):
+        
+        CMS.UpdatePad(self.canvas)
+        
+    def SaveAs(self,path,redraw=False):
         '''
         Save the canvas.
         '''
         if redraw:
             CMS.CMS_lumi(self.canvas, self.canvasSettings.get("iPos",11), self.canvasSettings.get("scaleLumi",None))
         CMS.SaveCanvas(self.canvas, path, close=True)
+    
+    
+    ## LEGEND ##
+    def createLegend(self,x1,x2,y1,y2,textSize=0.02, columns=None, header=None):
+        self.legend = CMS.cmsLeg(x1=x1,x2=x2,y1=y1,y2=y2,textSize = textSize, columns=columns)
+        if header is not None:
+            self.legend.SetHeader(header)
+    
+    def moveLegend(self, x1=None, x2=None, y1=None, y2=None):
+        if not hasattr(self, 'legend'):
+            print("Legend does not exist.")
+            return
+
+        if x1 is not None:
+            self.legend.SetX1NDC(x1)
+        if x2 is not None:
+            self.legend.SetX2NDC(x2)
+        if y1 is not None:
+            self.legend.SetY1NDC(y1)
+        if y2 is not None:
+            self.legend.SetY2NDC(y2)
+    
+    def addEntryToLegend(self,entry,text,option):
+        if not hasattr(self, 'legend'):
+            print("Legend does not exist.")
+            return
+        self.legend.AddEntry(entry,text,option)
+
+    def fillWhiteLegend(self):
+        if not hasattr(self, 'legend'):
+            print("Legend does not exist.")
+            return
+        self.legend.SetFillStyle(1001)
+        self.legend.SetFillColor(kWhite)
+    ## LEGEND ##
+
+    ## Color Palette ##
+    @staticmethod
+    def setPalette(palette = None):
+        if palette is not None:
+            global ColorPalette
+            ColorPalette = palette
+        if ColorPalette is not None:
+            gStyle.SetPalette(len(ColorPalette),ColorPalette)
+    ## Color Palette ##
     
     def __del__(self):
         '''
@@ -127,3 +186,38 @@ class Plotter:
             del(self.hframe)
         except:
             pass
+    
+    # utils
+    @staticmethod            
+    def ScaleAxis(axis, scale_function):
+        if axis.GetXbins().GetSize():
+            # Variable bin sizes
+            X = TArrayD(axis.GetXbins())
+            for i in range(X.GetSize()):
+                X[i] = scale_function(X[i])
+            axis.Set(X.GetSize() - 1, X.GetArray())
+        else:
+            # Fixed bin sizes
+            axis.Set(axis.GetNbins(), scale_function(axis.GetXmin()), scale_function(axis.GetXmax()))
+    @staticmethod
+    def scaleXaxis(histogram,scaleFactor=1.0):
+        x_axis = histogram.GetXaxis()
+
+        Plotter.ScaleAxis(x_axis,lambda x: x / scaleFactor)
+    @staticmethod
+    def scaleYaxis(histogram,scaleFactor=1.0):
+        y_axis = histogram.GetYaxis()
+
+        Plotter.ScaleAxis(y_axis,lambda y: y / scaleFactor)
+    @staticmethod
+    def scaleGraphXaxis(graph, scaleFactor=1.0):
+        n = graph.GetN()
+        for i in range(n):
+            x = graph.GetPointX(i)
+            graph.SetPointX(i, x / scaleFactor)
+    @staticmethod
+    def scaleGraphYaxis(graph, scaleFactor=1.0):
+        n = graph.GetN()
+        for i in range(n):
+            y = graph.GetPointY(i)
+            graph.SetPointY(i, y / scaleFactor)

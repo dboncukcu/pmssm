@@ -38,7 +38,7 @@ def mkhistlogx(name, title, nbins, xmin, xmax,logx=True):
             xbins[i]= xmin + i*binwidth
 
 #    print ('xbins', xbins )       
-    h = TH1F(name,title,nbins,xbins);
+    h = TH1F(name,title,nbins,xbins)
     return h
 def mkhistlogxy(name, title, nbinsx, xmin, xmax,nbinsy,ymin,ymax,logx=True,logy=True):
     if logx:
