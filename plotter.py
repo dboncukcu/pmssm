@@ -3,6 +3,7 @@
 ## This styling is for CMS plots. It uses cmsstyle library 0.3.0 version.
 import cmsstyle as CMS
 from ROOT import *
+from collections.abc import Iterable
 
 class Plotter:
     def __init__(self,canvasSettings:dict = {},canvasLabel:dict = {"energy" : 13,"extraText" : "Preliminary","lumi" : "(137-139)"},):
@@ -85,7 +86,7 @@ class Plotter:
             scaleLumi = scaleLumi)
         self.hframe = CMS.GetcmsCanvasHist(self.canvas)
     
-    def Draw2D(self,obj,option=""):
+    def Draw2D(self,obj,option="colz"):
         '''
         Draw the object to the canvas.
         '''
@@ -125,7 +126,21 @@ class Plotter:
             self.canvas.SetBottomMargin( self.canvas.GetBottomMargin() + float(tuning.get("SetBottomMargin")))
         
         CMS.UpdatePad(self.canvas)
+    
+    ## CANVAS ##
+    def SetLog(self,logx : bool | None = None,logy: bool | None = None,logz: bool | None = None):
         
+        if hasattr(self, 'canvas'):
+            if logx is not None:
+                self.canvas.SetLogx(logx)
+            if logy is not None:
+                self.canvas.SetLogy(logy)
+            if logz is not None:
+                self.canvas.SetLogz(logz)
+        else:
+            print("Canvas is not defined.")
+        
+    ## CANVAS ##
     def SaveAs(self,path,redraw=False):
         '''
         Save the canvas.
@@ -133,7 +148,6 @@ class Plotter:
         if redraw:
             CMS.CMS_lumi(self.canvas, self.canvasSettings.get("iPos",11), self.canvasSettings.get("scaleLumi",None))
         CMS.SaveCanvas(self.canvas, path, close=True)
-    
     
     ## LEGEND ##
     def createLegend(self,x1,x2,y1,y2,textSize=0.02, columns=None, header=None):
@@ -155,7 +169,7 @@ class Plotter:
         if y2 is not None:
             self.legend.SetY2NDC(y2)
     
-    def addEntryToLegend(self,entry,text,option):
+    def addEntryToLegend(self,entry,text,option = "l"):
         if not hasattr(self, 'legend'):
             print("Legend does not exist.")
             return
@@ -167,6 +181,14 @@ class Plotter:
             return
         self.legend.SetFillStyle(1001)
         self.legend.SetFillColor(kWhite)
+    
+    def whiteColorLegend(self):
+        if not hasattr(self, 'legend'):
+            print("Legend does not exist.")
+            return
+        self.legend.SetTextColor(kWhite)
+        
+    
     ## LEGEND ##
 
     ## Color Palette ##
@@ -176,7 +198,10 @@ class Plotter:
             global ColorPalette
             ColorPalette = palette
         if ColorPalette is not None:
-            gStyle.SetPalette(len(ColorPalette),ColorPalette)
+            if isinstance(ColorPalette, Iterable):
+                gStyle.SetPalette(len(ColorPalette),ColorPalette)
+            else:
+                gStyle.SetPalette(ColorPalette)
     ## Color Palette ##
     
     def __del__(self):

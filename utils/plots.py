@@ -503,7 +503,7 @@ def get_quantile_plot_2D(localtree, quantile, analysis, hname, xtitle, xbins, xl
     returnhist.GetXaxis().SetTitle(xtitle)
     returnhist.GetYaxis().SetTitle(ytitle)
     returnhist.GetZaxis().SetTitle(str(int(100 * quantile)) + "th percentile Bayes factor")
-    histoStyler(returnhist)
+    # histoStyler(returnhist)
     return returnhist
 
 
