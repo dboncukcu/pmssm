@@ -20,7 +20,7 @@ particleDrawConfig_TeV = {
         "title" : "m_{#tilde{#chi}^{0}_{1}}",
         "nbin" : 50,
         "min" : 0,
-        "max" : 1000,
+        "max" : 2500,
         "logScale" : False,
         "linearScale": 1000, # for TeV, 1GeV/1000
         "unit": "TeV",
@@ -184,9 +184,69 @@ plot_settings = DotDict({
     "survival2D" : {
         "legend" : {
             "leftTop" : {"x1":0.18,"x2":0.52,"y1":0.8,"y2":0.9},
-            "rightTop" : {"x1":0.48,"x2":0.82,"y1":0.8,"y2":0.9},
-            "rightBottom" : {"x1":0.48,"x2":0.82,"y1":0.18,"y2":0.28},
+            "rightTop" : {"x1":0.5,"x2":0.82,"y1":0.8,"y2":0.9},
+            "rightBottom" : {"x1":0.2,"x2":0.82,"y1":0.18,"y2":0.28},
             "leftBottom" : {"x1":0.18,"x2":0.52,"y1":0.18,"y2":0.28},
+        },
+        "variant" : {
+            "variant1": {
+                "fillWhiteLegend" : True,
+                "whiteColorLegend": False,
+                "extraSpace": 0.04,
+                "iPos": 0,
+                "YaxisSetTitleOffset":1.25,
+                "XaxisSetTitleOffset":1,
+                "YaxisSetMaxDigits":None,
+                "ZaxisSetMaxDigits":3,
+                "ZaxisSetTitleOffset":1.28,
+                "SetBottomMargin":0.02,
+                "loc" : "rightTop",
+                
+            },
+            "variant2": {
+                "fillWhiteLegend" : False,
+                "whiteColorLegend": True,
+                "extraSpace": 0.04,
+                "iPos": 0,
+                "YaxisSetTitleOffset":1.25,
+                "XaxisSetTitleOffset":1,
+                "YaxisSetMaxDigits":None,
+                "ZaxisSetMaxDigits":3,
+                "ZaxisSetTitleOffset":1.28,
+                "SetBottomMargin":0.02,
+                "loc" : "leftBottom",
+                
+            },
+        }
+    },
+    "survival1D" : {
+        "legend" : {
+            "leftTop" : {"x1":0.17,"x2":0.47,"y1":0.8,"y2":0.9},
+            "rightTop" : {"x1":0.72,"x2":0.93,"y1":0.8,"y2":0.9},
+            "rightBottom" : {"x1":0.67,"x2":0.88,"y1":0.2,"y2":0.32},
+            "leftBottom" : {"x1":0.17,"x2":0.47, "y1":0.2,"y2":0.32},
+        },
+        "variant" : {
+            "variant1": {
+                "fillWhiteLegend" : True,
+                "extraSpace": 0.02,
+                "iPos": 11,
+                "YaxisSetTitleOffset":1.15,
+                "XaxisSetTitleOffset":1.12,
+                "YaxisSetMaxDigits":None,
+                "SetBottomMargin":0.025,
+                "loc" : "rightBottom"
+            },
+            "variant2": {
+                "fillWhiteLegend" : True,
+                "extraSpace": 0.01,
+                "iPos": 0,
+                "YaxisSetTitleOffset":1,
+                "XaxisSetTitleOffset":1,
+                "YaxisSetMaxDigits":None,
+                "SetBottomMargin":0.02,
+                "loc" : "leftTop"
+            }
         }
     },
     "impact1D" : {
@@ -202,10 +262,10 @@ plot_settings = DotDict({
                 "extraSpace": 0.01,
                 "iPos": 11,
                 "YaxisSetTitleOffset":1,
-                "XaxisSetTitleOffset":1,
+                "XaxisSetTitleOffset":1.1,
                 "YaxisSetMaxDigits":2,
-                "SetBottomMargin":0.02,
-                "loc" : "rightBottom"
+                "SetBottomMargin":0.025,
+                "loc" : "rightTop"
             },
             "variant2": {
                 "fillWhiteLegend" : True,
@@ -504,6 +564,8 @@ class PMSSM:
             if axis_range["ymax"] is None or ymax > axis_range["ymax"]:
                 axis_range["ymax"] = ymax
         
+        # axis_range["ymax"] += 0.01
+        
         p = Plotter(
             canvasSettings={
                 **axis_range,
@@ -657,7 +719,8 @@ class PMSSM:
         customVariant : dict|None = None,
         variant : str = "variant1"
         ):
-        
+        Plotter.Reset()
+
         if customVariant is not None:
             styleSettings = self.getCustomVariant(customVariant, "quantile2D", basedOn=variant)
         else:
@@ -740,4 +803,244 @@ class PMSSM:
             p.fillWhiteLegend()
         
         p.SaveAs(self.outdir+name+"."+self.outputFormat)
+
+        del(p)
+        
+    def survival2D(
+            self,
+            drawstring : str, 
+            analysis : str = "combined",
+            contourSwitch : bool= True,  
+            moreconstraints : list = [], 
+            moreconstraints_prior : bool =False,
+            xaxisDrawConfig : dict = None,
+            yaxisDrawConfig : dict = None,
+            customVariant : dict|None = None,
+            variant : str = "variant1"
+        ):
+        Plotter.Reset()
+        if customVariant is not None:
+            styleSettings = self.getCustomVariant(customVariant, "survival2D", basedOn=variant)
+        else:
+            styleSettings = plot_settings.quantile2D.variant[variant]
+        
+        yaxisParticleName, xaxisParticleName = drawstring.split(":")
+        
+        xaxisDrawConfig = self.getParticleConfig(xaxisParticleName,xaxisDrawConfig)
+        
+        yaxisDrawConfig = self.getParticleConfig(yaxisParticleName,yaxisDrawConfig)
+        
+        name = self.createName(xaxisDrawConfig = xaxisDrawConfig ,analysis = analysis, plotType = "survival2D")
+                
+        hist = get_SP_plot_2D(
+            localtree=self.intree,
+            analysis = analysis,
+            hname = name,
+            xtitle = xaxisDrawConfig["title"] + " ["+xaxisDrawConfig["unit"]+"]",
+            xbins = xaxisDrawConfig["nbin"],
+            xlow = xaxisDrawConfig["min"],
+            xup = xaxisDrawConfig["max"],
+            ytitle = yaxisDrawConfig["title"] + " ["+yaxisDrawConfig["unit"]+"]",
+            ybins = yaxisDrawConfig["nbin"],
+            ylow = yaxisDrawConfig["min"],
+            yup = yaxisDrawConfig["max"],
+            _logx = xaxisDrawConfig.get("logScale",False),
+            _logy = yaxisDrawConfig.get("logScale",False),
+            drawstring = drawstring,
+            moreconstraints = moreconstraints,
+            moreconstraints_prior = moreconstraints_prior)
+        
+        if contourSwitch:
+        
+            prior_data =  get_prior_CI(
+                self.intree, 
+                hname = name + "_priorcontours",
+                xbins = xaxisDrawConfig["nbin"], 
+                xlow = xaxisDrawConfig["min"], 
+                xup = xaxisDrawConfig["max"],
+                ybins = yaxisDrawConfig["nbin"], 
+                ylow = yaxisDrawConfig["min"], 
+                yup = yaxisDrawConfig["max"], 
+                _logx = xaxisDrawConfig.get("logScale",False), 
+                _logy = yaxisDrawConfig.get("logScale",False), 
+                drawstring = drawstring,
+                moreconstraints= moreconstraints)
+            
+            posterior_data = get_posterior_CI(
+                self.intree, 
+                analysis = analysis, 
+                hname = name + "_priorcontours", 
+                xbins = xaxisDrawConfig["nbin"], 
+                xlow = xaxisDrawConfig["min"], 
+                xup = xaxisDrawConfig["max"], 
+                ybins = yaxisDrawConfig["nbin"], 
+                ylow = yaxisDrawConfig["min"], 
+                yup = yaxisDrawConfig["max"], 
+                _logx = xaxisDrawConfig.get("logScale",False), 
+                _logy = yaxisDrawConfig.get("logScale",False), 
+                drawstring = drawstring,
+                moreconstraints = moreconstraints)
+
+        
+        if not xaxisDrawConfig.get("logScale", False):
+            Plotter.scaleXaxis(hist,scaleFactor=xaxisDrawConfig.get("linearScale"))
+        if not yaxisDrawConfig.get("logScale", False):
+            Plotter.scaleYaxis(hist,scaleFactor=yaxisDrawConfig.get("linearScale"))
+        
+        axis_range = {
+            "xmin": xaxisDrawConfig["min"]/xaxisDrawConfig.get("linearScale",1.0),
+            "xmax": xaxisDrawConfig["max"]/xaxisDrawConfig.get("linearScale",1.0),
+            "ymin": yaxisDrawConfig["min"]/yaxisDrawConfig.get("linearScale",1.0),
+            "ymax": yaxisDrawConfig["max"]/yaxisDrawConfig.get("linearScale",1.0)
+        }
+        if xaxisDrawConfig.get("logScale", False):
+            for key in ["xmin","xmax"]:
+                if axis_range[key] == 0:
+                    axis_range[key] = self.globalSettings.setdefault("logEps",1e-5)
+                axis_range[key] = np.log10(axis_range[key])
+        if yaxisDrawConfig.get("logScale", False):
+            for key in ["ymin","ymax"]:
+                if axis_range[key] == 0:
+                    axis_range[key] = self.globalSettings.setdefault("logEps",1e-5)
+                axis_range[key] = np.log10(axis_range[key])
+                    
+        
+        p = Plotter(
+            canvasSettings={
+                **axis_range,
+                "nameXaxis": xaxisDrawConfig["title"]+ " ["+xaxisDrawConfig["unit"]+"]",
+                "nameYaxis": yaxisDrawConfig["title"]+ " ["+yaxisDrawConfig["unit"]+"]",
+                "canvName": f"canvas_{name}",
+                "extraSpace": 0.04,
+                "iPos": 0,
+                "is3D": True,
+                })
+        p.setPalette(self.createSurvivalPlotPalette())
+
+        p.SetLog(logx = xaxisDrawConfig.get("logScale", False), logy=yaxisDrawConfig.get("logScale", False))
+        
+        p.tuning(tuning=styleSettings,hist=hist)
+        hist.GetZaxis().SetTitle("Survival Probability")
+        p.Draw2D(hist,"colz")
+        
+        if contourSwitch:
+            for ix,interval in enumerate(prior_data):
+                for cont in prior_data[interval]:
+                    p.scaleGraphXaxis(cont,xaxisDrawConfig.get("linearScale",1.0))
+                    p.scaleGraphYaxis(cont,yaxisDrawConfig.get("linearScale",1.0))
+                    cont.Draw("same")
+            for ix,interval in enumerate(posterior_data):
+                for cont in posterior_data[interval]:
+                    p.scaleGraphXaxis(cont,xaxisDrawConfig.get("linearScale",1.0))
+                    p.scaleGraphYaxis(cont,yaxisDrawConfig.get("linearScale",1.0))
+                    cont.Draw("same")
+            
+            p.createLegend(**plot_settings.survival2D.legend[styleSettings.get("loc","rightBottom")],header=analysis.upper(),columns=2)
+        
+            for ix,interval in enumerate(prior_data):
+                if interval in prior_data.keys() and len(prior_data[interval])>0:
+                    p.addEntryToLegend(prior_data[interval][0],str(int(100*(interval)))+"%  prior CI","l",)
+                if interval in posterior_data.keys() and len(posterior_data[interval])>0:
+                    p.addEntryToLegend(posterior_data[interval][0],str(int(100*(interval)))+"% posterior CI","l",)
+        else:
+            p.createLegend(**plot_settings.survival2D.legend[styleSettings.get("loc","rightBottom")],header=analysis.upper(),columns=2)
+
+        
+        if styleSettings.get("whiteColorLegend",True):
+            p.whiteColorLegend()
+        
+        if (styleSettings.get("fillWhiteLegend",True)):
+            p.fillWhiteLegend()
+        
+        p.SaveAs(self.outdir+name+"."+self.outputFormat)
+        del(p)
+
+    def survival1D(
+        self,
+        drawstring : str, 
+        analysis : str = "combined",
+        moreconstraints : list = [],
+        moreconstraints_prior : bool =False,
+        xaxisDrawConfig : dict = None,
+        customVariant : dict|None = None,
+        variant : str = "variant1"
+        ):
+        
+        if customVariant is not None:
+            styleSettings = self.getCustomVariant(customVariant, "survival1D", basedOn=variant)
+        else:
+            styleSettings = plot_settings.survival1D.variant[variant]
+        
+        xaxisParticleName = drawstring
+        xaxisDrawConfig = self.getParticleConfig(xaxisParticleName,xaxisDrawConfig)
+        
+        name = self.createName(xaxisDrawConfig = xaxisDrawConfig ,analysis = analysis, plotType = "survival1D")
+        
+        survive_plots = get_SP_plot_1D(
+            localtree = self.intree,
+            analysis = analysis,
+            hname = name,
+            xtitle = xaxisDrawConfig["title"] + " ["+xaxisDrawConfig["unit"]+"]",
+            xbins = xaxisDrawConfig["nbin"],
+            xlow = xaxisDrawConfig["min"],
+            xup = xaxisDrawConfig["max"],
+            _logx = xaxisDrawConfig.get("logScale",False),
+            drawstring = drawstring,
+            moreconstraints = moreconstraints,
+            moreconstraints_prior = moreconstraints_prior)
+        
+        
+        for key in survive_plots:
+            hist = survive_plots[key]
+            if not xaxisDrawConfig.get("logScale", False):
+                Plotter.scaleXaxis(hist,scaleFactor=xaxisDrawConfig.get("linearScale"))
+                
+        axis_range = {"xmin": None,"xmax": None,"ymin": None,"ymax": None}
+        for key in survive_plots:
+            hist = survive_plots[key]
+            xmin,xmax,ymin,ymax = self.getAxisRange(hist)    
+            if xaxisDrawConfig.get("1Dlogy", False) and ymin==0:
+                ymin = self.globalSettings.setdefault("logEps",1e-5)
+                hist.GetYaxis().SetRangeUser(ymin,ymax)
+
+            if axis_range["xmin"] is None or xmin < axis_range["xmin"]:
+                axis_range["xmin"] = xmin
+            if axis_range["xmax"] is None or xmax > axis_range["xmax"]:
+                axis_range["xmax"] = xmax
+            if axis_range["ymin"] is None or ymin < axis_range["ymin"]:
+                axis_range["ymin"] = ymin
+            if axis_range["ymax"] is None or ymax > axis_range["ymax"]:
+                axis_range["ymax"] = ymax
+        
+        p = Plotter(
+            canvasSettings={
+                **axis_range,
+                "nameXaxis": xaxisDrawConfig["title"]+ " ["+xaxisDrawConfig["unit"]+"]",
+                "nameYaxis": "Survival Probability",
+                "canvName": f"canvas_{name}",
+                "extraSpace": styleSettings.get("extraSpace",0.01),
+                "iPos": styleSettings.get("iPos",11),
+                })
+        
+        p.SetLog(logx = xaxisDrawConfig.get("logScale", False), logy=xaxisDrawConfig.get("1Dlogy", False))
+        
+        p.createLegend(**plot_settings.survival1D.legend[styleSettings.get("loc","rightBottom")],header=analysis.upper())
     
+        p.addEntryToLegend(survive_plots["posterior"],"posterior (#sigma = #sigma_{nominal} )")
+        p.addEntryToLegend(survive_plots["posterior_up"],"posterior (#sigma = 1.5#times#sigma_{nominal} )")
+        p.addEntryToLegend(survive_plots["posterior_down"],"posterior (#sigma =0.5#times#sigma_{nominal} )")
+
+        survive_plots["posterior"].Draw("histsame")
+        survive_plots["posterior_up"].Draw("histsame")
+        survive_plots["posterior_down"].Draw("histsame")
+        
+        p.tuning(tuning={"YaxisSetTitleOffset": styleSettings.get("YaxisSetTitleOffset",1.2)})
+        p.tuning(tuning={"XaxisSetTitleOffset": styleSettings.get("XaxisSetTitleOffset",1.2)})
+        p.tuning(tuning={"YaxisSetMaxDigits": styleSettings.get("YaxisSetMaxDigits",2)})
+        p.tuning(tuning={"SetBottomMargin": styleSettings.get("SetBottomMargin",0.02)})
+        
+        
+        if (styleSettings.get("fillWhiteLegend",True)):
+            p.fillWhiteLegend()
+        
+        p.SaveAs(self.outdir+name+"."+self.outputFormat)

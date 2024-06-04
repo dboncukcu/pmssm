@@ -77,3 +77,19 @@ p.tuning(tuning={"XaxisSetTitleOffset":1})
 p.tuning(tuning={"XaxisSetMaxDigits":2})
 p.tuning(tuning={"SetBottomMargin":0.02})
 p.SaveAs("histogram_with_gauss3d.png")
+
+del(p)
+
+
+p = Plotter(canvasSettings={
+    "xmin": -3,
+    "xmax": 3,
+    "ymin": -3,
+    "ymax": 3,
+    "nameXaxis": "#Deltam(#tilde{#chi}^{#pm}_{1},#tilde{#chi}^{0}_{1})",
+    "nameYaxis": "m_{#tilde{#chi}^{0}_{1}}",
+    "canvName": "gaussian2",
+    "extraSpace": 0,
+    "iPos": 0,
+    "is3D": True
+})

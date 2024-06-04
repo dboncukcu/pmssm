@@ -7,7 +7,7 @@ from collections.abc import Iterable
 
 class Plotter:
     def __init__(self,canvasSettings:dict = {},canvasLabel:dict = {"energy" : 13,"extraText" : "Preliminary","lumi" : "(137-139)"},):
-        
+
         self.setCanvasLabel(canvasLabel)
         
         self.createCanvas(
@@ -25,8 +25,13 @@ class Plotter:
             scaleLumi = canvasSettings.get("scaleLumi",None)
         )
         self.canvasSettings = canvasSettings
-        
         self.setPalette()
+    
+    @staticmethod
+    def Reset():
+        gROOT.GetListOfCanvases().Clear()
+        gStyle.Reset()
+            
         
     def setCanvasLabel(self,canvasLabel:dict):
         '''
@@ -194,14 +199,17 @@ class Plotter:
     ## Color Palette ##
     @staticmethod
     def setPalette(palette = None):
-        if palette is not None:
-            global ColorPalette
-            ColorPalette = palette
+        
+        # if palette is not None:
+        #     global ColorPalette
+        #     ColorPalette = palette
+        ColorPalette = palette    
         if ColorPalette is not None:
             if isinstance(ColorPalette, Iterable):
                 gStyle.SetPalette(len(ColorPalette),ColorPalette)
             else:
                 gStyle.SetPalette(ColorPalette)
+        
     ## Color Palette ##
     
     def __del__(self):
