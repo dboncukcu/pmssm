@@ -450,6 +450,27 @@ class PMSSM:
     
     @staticmethod
     def getAxisRange(obj, offset:dict = {"xmin":0.0,"xmax":0.0,"ymin":0.0,"ymax":0.0}):
+        """
+        Get the range of the x and y axes of a TH1 or TGraph object.
+        Parameters:
+        obj : TH1|TGraph
+            The object for which to get the axis range
+        offset : dict
+            A dictionary with the following
+            keys:
+            - xmin : float
+                The offset for the lower limit of the x-axis
+            - xmax : float
+                The offset for the upper limit of the x-axis
+            - ymin : float
+                The offset for the lower limit of the y-axis
+            - ymax : float
+                The offset for the upper limit of the y-axis
+        Returns:
+        float,float,float,float
+            The lower limit of the x-axis, the upper limit of the x-axis,
+            the lower limit of the y-axis, and the upper limit of the y-axis
+        """
         if isinstance(obj, TH1):
             xmin = obj.GetXaxis().GetXmin()
             xmax = obj.GetXaxis().GetXmax()
