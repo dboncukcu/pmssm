@@ -2,3 +2,4 @@
 **/__pycache__/
 *.root
 **/.vscode/
+**/.ipynb_checkpoints/
