@@ -3,6 +3,9 @@ from PlotterConfig import PlotterConfig
 import PlotterUtils
 from cmsstylelib import cmsstyle as CMS
 from Constraints import Constraints
+from typing import Union
+
+gROOT.SetBatch(True)
 
 class PMSSM:
     def __init__(
@@ -70,8 +73,8 @@ class PMSSM:
         moreconstraints : list = [], 
         moreconstraints_prior : bool =False,
         xaxisDrawConfig : dict = None,
-        drawConfig: dict|str = None,
-        legendStyle: dict|str = None):
+        drawConfig: Union[dict, str] = None,
+        legendStyle: Union[dict, str] = None):
         print("->Drawing 1D Impact for", drawstring)
         if drawConfig is None:
             drawConfig = self.c.drawConfig["impact1D"]

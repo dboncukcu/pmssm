@@ -72,11 +72,11 @@ class PlotterConfig:
                 "bins" : 100,
                 "min" : 0,
                 "max" : 7000,
-                "logScale" : True,
+                "logScale" : False,
                 "linearScale": 1000,
                 "unit": "TeV",
                 "name" : "gluino",
-                "1Dlogy" : True
+                "1Dlogy" : False
                 },
             "t1" : {
                 "title": "m_{#tilde{t}_{1}}",
