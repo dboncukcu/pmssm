@@ -72,7 +72,7 @@ class PMSSM:
         xaxisDrawConfig : dict = None,
         drawConfig: dict|str = None,
         legendStyle: dict|str = None):
-        
+        print("->Drawing 1D Impact for", drawstring)
         if drawConfig is None:
             drawConfig = self.c.drawConfig["impact1D"]
         
@@ -155,13 +155,16 @@ class PMSSM:
         posterior_down.Scale(posterior_scalar_down)
         
         maxy = max([prior.GetMaximum(), posterior.GetMaximum(), posterior_down.GetMaximum(), posterior_up.GetMaximum()])
-        prior.GetYaxis().SetRangeUser(0, 1.1 * maxy)
+        
+        miny = 0 if not xaxisDrawConfig.get("1Dlogy", False) else self.c.global_settings["logEps"]
+        
+        prior.GetYaxis().SetRangeUser(miny, 1.1 * maxy)
         prior.GetXaxis().SetTitle(xtitle)
-        posterior.GetYaxis().SetRangeUser(0, 1.1 * maxy)
+        posterior.GetYaxis().SetRangeUser(miny, 1.1 * maxy)
         posterior.GetXaxis().SetTitle(xtitle)
-        posterior_up.GetYaxis().SetRangeUser(0, 1.1 * maxy)
+        posterior_up.GetYaxis().SetRangeUser(miny, 1.1 * maxy)
         posterior_up.GetXaxis().SetTitle(xtitle)
-        posterior_down.GetYaxis().SetRangeUser(0, 1.1 * maxy)
+        posterior_down.GetYaxis().SetRangeUser(miny, 1.1 * maxy)
         posterior_down.GetXaxis().SetTitle(xtitle)
         prior.GetYaxis().SetTitle("pMSSM density")
         posterior.GetYaxis().SetTitle("pMSSM density")
@@ -175,6 +178,10 @@ class PMSSM:
         
         
         cxmin, cxmax, cymin, cymax = PlotterUtils.getAxisRangeOfList([prior, posterior, posterior_up, posterior_down])
+        
+        if xaxisDrawConfig.get("1Dlogy", False):
+            if cymin == 0:
+                cymin = self.c.global_settings["logEps"]
         
         canvas = CMS.cmsCanvas(
             x_min = cxmin,
@@ -224,3 +231,4 @@ class PMSSM:
 
         legend.Draw("same")
         CMS.SaveCanvas(canvas, self.outputpath+name+"."+self.defaultFileFormat, close=True)
+        print("-> Done Drawing 1D Impact for", drawstring)
