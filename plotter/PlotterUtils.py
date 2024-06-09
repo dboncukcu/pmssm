@@ -213,7 +213,7 @@ def create_tree(root_dict):
     main_tree = main_file.Get(mainTreeName)
 
     if len(root_dict) == 1:
-        return main_tree
+        return main_tree,main_file
 
     # Add remaining elements as friends
     for friend in root_dict[1:]:

@@ -198,6 +198,79 @@ class PlotterConfig:
             }
         
         ###################################################################
+        ################### Analysis Configs ###################
+        
+        self.analysisConfigs = {
+            'cms_sus_20_001': {
+                'analysisName': 'SUS-20-001',
+                'simplified': {
+                    'llhd': {
+                        'signal': 'llhd_cms_sus_20_001_mu1p0s',
+                        'background': 'llhd_cms_sus_20_001_mu0p0s'
+                    },
+                    'bf': 'bf_cms_sus_20_001_mu1p0s'
+                },
+                'full': {
+                    'llhd': {
+                        'signal': 'llhd_cms_sus_20_001_mu1p0s',
+                        'background': 'llhd_cms_sus_20_001_mu0p0s'
+                    },
+                    'bf': 'bf_cms_sus_20_001_mu1p0s'
+                }
+            },
+            'cms_sus_19_006': {
+                'analysisName': 'SUS-19-006',
+                'simplified': {
+                    'llhd': {
+                        'signal': 'llhd_cms_sus_19_006_100s',
+                        'background': 'llhd_cms_sus_19_006_0s'
+                    },
+                    'bf': None
+                },
+                'full': {
+                    'llhd': {
+                        'signal': 'llhd_cms_sus_19_006_100s',
+                        'background': 'llhd_cms_sus_19_006_0s'
+                    },
+                    'bf': None
+                }
+            },
+            'cms_sus_21_006': {
+                'analysisName': 'SUS-21-006',
+                'simplified': {
+                    'llhd': {
+                        'signal': 'llhd_cms_sus_21_006_100s',
+                        'background': 'llhd_cms_sus_21_006_0s'
+                    },
+                    'bf': None
+                },
+                'full': {
+                    'llhd': {
+                        'signal': None,
+                        'background': None
+                    },
+                    'bf': 'bf_cms_sus_21_006_mu1p0f'
+                }
+            },
+            'cms_sus_18_004': {
+                'analysisName': 'SUS-18-004',
+                'simplified': {
+                    'llhd': {
+                        'signal': 'llhd_cms_sus_18_004_100s',
+                        'background': 'llhd_cms_sus_18_004_0s'
+                    },
+                    'bf': None
+                },
+                'full': {
+                    'llhd': {
+                        'signal': None,
+                        'background': None
+                    },
+                    'bf': 'bf_cms_sus_18_004_mu1p0f'
+                }
+            }
+        }
+        ###################################################################
         ################### Physical Definings ###################
         
         self.terms = {}
@@ -241,7 +314,7 @@ class PlotterConfig:
         self.theconstraints["cms_sus_20_001"] = "(max(bf_cms_sus_20_001_mu1p0s,1E-5))"
         self.theconstraints["cms_sus_20_001_simplified"] = "(exp(llhd_cms_sus_20_001_mu1p0s-llhd_cms_sus_20_001_mu0p0s))"
         self.theconstraints["combined"] = "(exp(("+self.signals+")-("+self._backgrounds+"))"+(len(self.bfs)>0)*"*"+"*".join(self.bfs)+")"
-        self.theconstraints["combined_simplified"] = "(exp(("+self.signals_simplified+")-("+self._backgrounds_simplified+")))"
+        self.theconstraints["combined_simplified"] = "(exp(("+self.signals_simplified+")-("+self._backgrounds_simplified+")))" ## ?????
         #some useful constraints
         self.theconstraints["pure higgsino"] = "("+self.terms["higgsino"]+">0.95)"
         self.theconstraints["pure wino"] = "("+self.terms["wino"]+">0.95)"

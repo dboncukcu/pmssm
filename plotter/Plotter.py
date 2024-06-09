@@ -2,6 +2,7 @@ from ROOT import *
 from PlotterConfig import PlotterConfig
 import PlotterUtils
 from cmsstylelib import cmsstyle as CMS
+from Constraints import Constraints
 
 class PMSSM:
     def __init__(
@@ -15,6 +16,8 @@ class PMSSM:
             self.c = PlotterConfig()
         else:
             self.c = config
+        
+        self.constraints = Constraints(self.c.analysisConfigs)
         
         if self.c.cms_label.get("energy") is not None:
             CMS.SetEnergy(str(self.c.cms_label.get("energy")))
@@ -44,6 +47,7 @@ class PMSSM:
         else:
             name = xname
         
+        analysis = analysis.replace(" ","_")
         if analysis !="":
             name += "_"+analysis.upper()
         if plotType !="":
@@ -97,10 +101,10 @@ class PMSSM:
         
         if "simplified" in analysis:  # reweighting is always done, in addition to removing unreasonable points
             constraintstring_prior = "*".join([self.c.theconstraints["reweight"], self.c.theconstraints["reason_simplified"]])    
-            constraintstring = "*".join([self.c.theconstraints["reweight"], self.c.theconstraints["reason_simplified"], self.c.theconstraints["combined_simplified"]])
+            constraintstring = "*".join([self.c.theconstraints["reweight"], self.c.theconstraints["reason_simplified"], self.constraints.getConstraint(analysis,isSimplified=True)])
         else:
             constraintstring_prior = "*".join([self.c.theconstraints["reweight"], self.c.theconstraints["reason"]]) 
-            constraintstring = "*".join([self.c.theconstraints["reweight"], self.c.theconstraints["reason"], self.c.theconstraints["combined"]])
+            constraintstring = "*".join([self.c.theconstraints["reweight"], self.c.theconstraints["reason"],self.constraints.getConstraint(analysis,isSimplified=False)])
             
         for newc in moreconstraints:
             constraintstring += "*(" + newc + ")"
@@ -110,12 +114,12 @@ class PMSSM:
                 
         # get the scales to normalize all histograms to one
         htest = TH1F("scale", "", 1000, -1000, 1000)
-        print('constraintstring prior', constraintstring_prior)    
+        # print('constraintstring prior', constraintstring_prior)
         self.tree.Draw("PickProbability>>" + htest.GetName(), constraintstring_prior)
         prior_scalar = 1. / htest.Integral(-1, 9999999)
         htest.Delete()
         htest = TH1F("scale", "", 1000, -1000, 1000)
-        print('constraintstring posterior', constraintstring)
+        # print('constraintstring posterior', constraintstring)
         self.tree.Draw("PickProbability>>" + htest.GetName(),constraintstring)
         # print("\n\n")
         posterior_scalar = 1. / htest.Integral(-1, 9999999)
@@ -204,7 +208,9 @@ class PMSSM:
             y2 = legendConfig["y2"],
             columns = legendConfig.get("numberOfColumns",1),
             textSize = 0.03)
-        legend.SetHeader(analysis.upper(),"C")
+        
+
+        legend.SetHeader(self.constraints.getAnalysisName(analysis),"C")
         legend.AddEntry(prior,"prior")
         legend.AddEntry(posterior,"posterior (#sigma = #sigma_{nominal} )")
         legend.AddEntry(posterior_up,"posterior (#sigma = 1.5#times#sigma_{nominal} )")
