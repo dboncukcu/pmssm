@@ -28,7 +28,7 @@ pmssm.quantile1D("abs(chi1pm)",legendStyle="rightTop")
 pmssm.quantile1D("abs(chi20)",drawConfig={"yMaxOffsett": 0.035},legendStyle="rightBottom")
 pmssm.quantile1D("g",drawConfig={"yMaxOffsett": 0.65},legendStyle="leftTop")
 pmssm.quantile1D("t1",legendStyle="rightTop")
-pmssm.quantile1D("lcsp")
+pmssm.quantile1D("lcsp",drawConfig={"yMaxOffsett": 0.2})
 pmssm.quantile1D("b1")
 
 #pmssm.impact1D("g")

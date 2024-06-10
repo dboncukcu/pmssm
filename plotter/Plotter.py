@@ -5,6 +5,8 @@ from cmsstylelib import cmsstyle as CMS
 from Constraints import Constraints
 from typing import Union
 import numpy as np
+import copy
+
 gROOT.SetBatch(True)
 
 YELLOW = '\033[93m'
@@ -89,7 +91,7 @@ class PMSSM:
         if drawConfig is None:
             drawConfig = self.c.drawConfig["impact1D"]
         else:
-            drawConfigCopy = self.c.drawConfig["impact1D"]
+            drawConfigCopy = copy.copy(self.c.drawConfig["impact1D"])
             drawConfigCopy.update(drawConfig)
             drawConfig = drawConfigCopy
             
@@ -105,7 +107,7 @@ class PMSSM:
         if xaxisDrawConfig is None:
             xaxisDrawConfig = self.c.particleConfig[drawstring]
         else:
-            particleConfigCopy = self.c.particleConfig[drawstring].copy()
+            particleConfigCopy = copy.copy(self.c.particleConfig[drawstring])
             particleConfigCopy.update(xaxisDrawConfig)
             xaxisDrawConfig = particleConfigCopy
         ## Variables
@@ -276,7 +278,7 @@ class PMSSM:
         if drawConfig is None:
             drawConfig = self.c.drawConfig["survival1D"]
         else:
-            drawConfigCopy = self.c.drawConfig["survival1D"]
+            drawConfigCopy = copy.copy(self.c.drawConfig["survival1D"])
             drawConfigCopy.update(drawConfig)
             drawConfig = drawConfigCopy
             
@@ -292,7 +294,7 @@ class PMSSM:
         if xaxisDrawConfig is None:
             xaxisDrawConfig = self.c.particleConfig[drawstring]
         else:
-            particleConfigCopy = self.c.particleConfig[drawstring].copy()
+            particleConfigCopy = copy.copy(self.c.particleConfig[drawstring])
             particleConfigCopy.update(xaxisDrawConfig)
             xaxisDrawConfig = particleConfigCopy
             
@@ -449,7 +451,7 @@ class PMSSM:
         if drawConfig is None:
             drawConfig = self.c.drawConfig["quantile1D"]
         else:
-            drawConfigCopy = self.c.drawConfig["quantile1D"]
+            drawConfigCopy = copy.copy(self.c.drawConfig["quantile1D"])
             drawConfigCopy.update(drawConfig)
             drawConfig = drawConfigCopy
             
@@ -464,7 +466,7 @@ class PMSSM:
         if xaxisDrawConfig is None:
             xaxisDrawConfig = self.c.particleConfig[drawstring]
         else:
-            particleConfigCopy = self.c.particleConfig[drawstring].copy()
+            particleConfigCopy = copy.copy(self.c.particleConfig[drawstring])
             particleConfigCopy.update(xaxisDrawConfig)
             xaxisDrawConfig = particleConfigCopy
         
@@ -615,7 +617,7 @@ class PMSSM:
             if drawConfig is None:
                 drawConfig = self.c.drawConfig["quantile2D"]
             else:
-                drawConfigCopy = self.c.drawConfig["quantile2D"]
+                drawConfigCopy = copy.copy(self.c.drawConfig["quantile2D"])
                 drawConfigCopy.update(drawConfig)
                 drawConfig = drawConfigCopy
                 
@@ -632,14 +634,14 @@ class PMSSM:
             if xaxisDrawConfig is None:
                 xaxisDrawConfig = self.c.particleConfig[xaxisParticleName]
             else:
-                particleConfigCopy = self.c.particleConfig[xaxisParticleName].copy()
+                particleConfigCopy = copy.copy(self.c.particleConfig[xaxisParticleName])
                 particleConfigCopy.update(xaxisDrawConfig)
                 xaxisDrawConfig = particleConfigCopy
             
             if yaxisDrawConfig is None:
                 yaxisDrawConfig = self.c.particleConfig[yaxisParticleName]
             else:
-                particleConfigCopy = self.c.particleConfig[yaxisParticleName].copy()
+                particleConfigCopy = copy.copy(self.c.particleConfig[yaxisParticleName])
                 particleConfigCopy.update(yaxisDrawConfig)
                 yaxisDrawConfig = particleConfigCopy
             

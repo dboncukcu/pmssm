@@ -32,12 +32,20 @@ pmssm.constraints.printAnalysisList()
 
 
 
-pmssm.quantile1D("g",drawConfig={"yMaxOffsett": 0.1})
-pmssm.quantile1D("abs(chi10)",drawConfig={"yMaxOffsett": 0.1})
-pmssm.quantile1D("t1",drawConfig={"yMaxOffsett": 0.1})
-pmssm.quantile1D("abs(chi20)",drawConfig={"yMaxOffsett": 0.1})
-pmssm.quantile1D("abs(chi1pm)",drawConfig={"yMaxOffsett": 0.1})
-pmssm.quantile1D("lcsp",drawConfig={"yMaxOffsett": 0.1})
+# pmssm.quantile1D("g",drawConfig={"yMaxOffsett": 0.1})
+# pmssm.quantile1D("abs(chi10)",drawConfig={"yMaxOffsett": 0.1})
+# pmssm.quantile1D("t1",drawConfig={"yMaxOffsett": 0.1})
+# pmssm.quantile1D("abs(chi20)",drawConfig={"yMaxOffsett": 0.1})
+# pmssm.quantile1D("abs(chi1pm)",drawConfig={"yMaxOffsett": 0.1})
+# pmssm.quantile1D("lcsp",drawConfig={"yMaxOffsett": 0.1})
+
+
+pmssm.quantile2D("abs(chi10):abs(chi1pm)",quantile=0.99)
+pmssm.quantile2D("abs(chi10):abs(chi20)",quantile=0.99)
+pmssm.quantile2D("abs(chi10):t1",quantile=0.99)
+pmssm.quantile2D("abs(chi10):b1",quantile=0.99)
+pmssm.quantile2D("abs(chi10):lcsp",quantile=0.99)
+pmssm.quantile2D("abs(chi10):g",quantile=0.99)
 
 
 
