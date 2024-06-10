@@ -1,3 +1,10 @@
+import os
+import sys
+current_file_path = os.path.abspath(__file__)
+parent_directory = os.path.dirname(os.path.dirname(current_file_path))
+sys.path.append(parent_directory)
+
+
 from ROOT import  *
 
 from PlotterConfig import PlotterConfig
