@@ -368,3 +368,14 @@ class PlotterConfig:
             "XaxisSetTitleOffset" : 1.05, 
             "legendFillWhite" : True,
         }
+        
+        self.drawConfig["quantile2D"] = {
+            "leftTop" : {"x1":0.23,"x2":0.66,"y1":0.67,"y2":0.9},
+            "rightTop" : {"x1":0.63,"x2":0.93,"y1":0.8,"y2":0.9},
+            "rightBottom" : {"x1":0.49,"x2":0.92,"y1":0.17,"y2":0.4},
+            "leftBottom" : {"x1":0.23,"x2":0.53,"y1":0.2,"y2":0.32},
+            "YaxisSetTitleOffset" : 1.3,
+            "XaxisSetTitleOffset" : 1.05,
+            "ZaxisSetTitleOffset" : 0.75,
+            "legendFillWhite" : True,
+        }

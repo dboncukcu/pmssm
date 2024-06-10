@@ -483,7 +483,7 @@ class PMSSM:
         
         if "simplified" in analysis:  # reweighting is always done, in addition to removing unreasonable points
             constraintstring = "*".join([self.c.theconstraints["reweight"], self.c.theconstraints["reason_simplified"]])
-            _drawstring = self.constraints.getConstraint(analysis,isSimplified=True)
+            _drawstring = self.constraints.getConstraint(analysis,isSimplified=True) + ":" + drawstring
         else:
             constraintstring = "*".join([self.c.theconstraints["reweight"], self.c.theconstraints["reason"]])
             _drawstring = self.constraints.getConstraint(analysis,isSimplified=True) + ":" + drawstring
@@ -597,3 +597,180 @@ class PMSSM:
         legend.Draw("same")
         CMS.SaveCanvas(canvas, self.outputpath+name+"."+self.defaultFileFormat, close=True)
         print("_______________________________________________________________________________________\n\n")
+    
+    def quantile2D(
+            self,
+            drawstring : str,
+            quantile: float,
+            analysis : str = "combined",
+            moreconstraints : list = [],
+            moreconstraints_prior : bool =False,
+            xaxisDrawConfig : dict = None,
+            yaxisDrawConfig : dict = None,
+            drawConfig: Union[dict, str] = None,
+            legendStyle: Union[dict, str] = None):
+            print("_____________________________",f"{BOLD}{ORANGE}2D Quantile {str(quantile)} Percentile {RESET} for{BOLD}{BLUE}", drawstring, f"{RESET}","_____________________________")
+            
+            
+            if drawConfig is None:
+                drawConfig = self.c.drawConfig["quantile2D"]
+            else:
+                drawConfigCopy = self.c.drawConfig["quantile2D"]
+                drawConfigCopy.update(drawConfig)
+                drawConfig = drawConfigCopy
+                
+            if legendStyle is None:
+                legendStyle = "rightBottom"
+            if isinstance(legendStyle, str):
+                legendConfig = drawConfig.get("legendStyle",legendStyle)
+            if isinstance(legendStyle, dict):
+                legendConfig = legendStyle
+            legendConfig = self.c.drawConfig["quantile2D"][legendConfig]
+            
+            yaxisParticleName, xaxisParticleName = drawstring.split(":")
+
+            if xaxisDrawConfig is None:
+                xaxisDrawConfig = self.c.particleConfig[xaxisParticleName]
+            else:
+                particleConfigCopy = self.c.particleConfig[xaxisParticleName].copy()
+                particleConfigCopy.update(xaxisDrawConfig)
+                xaxisDrawConfig = particleConfigCopy
+            
+            if yaxisDrawConfig is None:
+                yaxisDrawConfig = self.c.particleConfig[yaxisParticleName]
+            else:
+                particleConfigCopy = self.c.particleConfig[yaxisParticleName].copy()
+                particleConfigCopy.update(yaxisDrawConfig)
+                yaxisDrawConfig = particleConfigCopy
+            
+            
+            
+            ## Variables
+            xbins = self.getParticleConfigValue(xaxisDrawConfig, "bins")
+            xlow = self.getParticleConfigValue(xaxisDrawConfig, "min")
+            xup = self.getParticleConfigValue(xaxisDrawConfig, "max")
+            xlog = self.getParticleConfigValue(xaxisDrawConfig, "logScale")
+            xtitle = self.getParticleConfigValue(xaxisDrawConfig, "title")
+            xunit = self.getParticleConfigValue(xaxisDrawConfig, "unit")
+            
+            ## Variables
+            ybins = self.getParticleConfigValue(yaxisDrawConfig, "bins")
+            ylow = self.getParticleConfigValue(yaxisDrawConfig, "min")
+            yup = self.getParticleConfigValue(yaxisDrawConfig, "max")
+            ylog = self.getParticleConfigValue(yaxisDrawConfig, "logScale")
+            ytitle = self.getParticleConfigValue(yaxisDrawConfig, "title")
+            yunit = self.getParticleConfigValue(yaxisDrawConfig, "unit")
+            
+            ## Create Histogram Name
+                    
+            name = self.createName(xaxisDrawConfig, yaxisDrawConfig ,analysis=analysis, plotType = str(quantile)+ "_"+"quantile2D")
+    
+            if quantile < 0 or quantile > 1:
+                raise ValueError("Invalid quantile provided, please use values between 0 and 1")
+            
+            if "simplified" in analysis:
+                constraintstring = "*".join([self.c.theconstraints["reweight"], self.c.theconstraints["reason_simplified"]])
+                constraintstring_prior = "*".join([self.c.theconstraints["reweight"], self.c.theconstraints["reason_simplified"]])
+                _drawstring = self.constraints.getConstraint(analysis,isSimplified=True) + ":" + drawstring
+            else:
+                constraintstring = "*".join([self.c.theconstraints["reweight"], self.c.theconstraints["reason"]])
+                constraintstring_prior = "*".join([self.c.theconstraints["reweight"], self.c.theconstraints["reason"]])
+                _drawstring = self.constraints.getConstraint(analysis,isSimplified=False) + ":" + drawstring
+
+            prob = np.array([quantile])
+            q = np.array([0.])
+            htemp = PlotterUtils.mkhistlogxyz("htemp", '', xbins, xlow, xup, ybins, ylow, yup, 3000, 0, 30, logx=xlog, logy=ylog, logz=False)
+            
+            for newc in moreconstraints:
+                constraintstring += "*(" + newc + ")"
+            if moreconstraints_prior:
+                for newc_p in moreconstraints_prior:
+                    constraintstring_prior += "*(" + newc_p + ")"
+                    
+            prior = PlotterUtils.mkhistlogxy("prior", '', xbins, xlow, xup, ybins, ylow, yup, logx=xlog, logy=ylog)
+            self.tree.Draw(drawstring + ">>" + prior.GetName(), constraintstring_prior, "")
+            self.tree.Draw(_drawstring + ">>" + htemp.GetName(), constraintstring, "")
+
+            htemplate = htemp.Project3DProfile('yx UF OF')
+            xax, yax = htemplate.GetXaxis(), htemplate.GetYaxis()
+            returnhist = htemplate.ProjectionXY().Clone(name)
+            returnhist.Reset()
+            cutoff = 1E-3
+            
+            for ibinx in range(1, xax.GetNbins() + 1):
+                for ibiny in range(1, yax.GetNbins() + 1):
+                    hz = htemp.ProjectionZ('hz', ibinx, ibinx, ibiny, ibiny)
+                    try:
+                        hz.Scale(1.0 / hz.Integral())
+                    except:
+                        returnhist.SetBinContent(ibinx, ibiny, 0)
+                        continue
+                    quant = hz.GetQuantiles(1, q, prob)
+                    returnhist.SetBinContent(ibinx, ibiny, q[0])
+            zaxis_max = -1
+            
+            for i in range(1, returnhist.GetNbinsX() + 1):
+                for j in range(1, returnhist.GetNbinsY() + 1):
+                    if returnhist.GetBinContent(i, j) == 0 and prior.GetBinContent(i, j) > 0:
+                        returnhist.SetBinContent(i, j, 0)
+                    elif returnhist.GetBinContent(i, j) == 0 and prior.GetBinContent(i, j) == 0:
+                        returnhist.SetBinContent(i, j, -1)
+                    elif returnhist.GetBinContent(i, j) < cutoff and prior.GetBinContent(i, j) > 0:
+                        returnhist.SetBinContent(i, j, cutoff)
+                    zaxis_max = max(zaxis_max, returnhist.GetBinContent(i, j))
+                    
+            returnhist.GetZaxis().SetRangeUser(-0.001, max(1, zaxis_max + 0.1))
+            returnhist.SetContour(999)
+            returnhist.GetZaxis().SetTitle(str(int(100 * quantile)) + "th percentile Bayes factor"),
+            print(drawConfig.get("ZaxisSetTitleOffset",0.25))
+            returnhist.GetZaxis().SetTitleOffset(drawConfig.get("ZaxisSetTitleOffset",0.25))
+            returnhist.GetZaxis().SetTitleSize(0.06)
+            if not xlog:
+                PlotterUtils.scaleXaxis(returnhist,scaleFactor=xaxisDrawConfig.get("linearScale"))
+            if not ylog:
+                PlotterUtils.scaleYaxis(returnhist,scaleFactor=yaxisDrawConfig.get("linearScale"))
+            
+            cxmin = xlow/xaxisDrawConfig.get("linearScale")
+            cxmax = xup/xaxisDrawConfig.get("linearScale")
+            cymin = ylow/yaxisDrawConfig.get("linearScale")
+            cymax = yup/yaxisDrawConfig.get("linearScale")
+
+                        
+            if xlog:
+                if cxmin == 0:
+                    cxmin = self.c.global_settings["logEps"]
+            if ylog:
+                if cymin == 0:
+                    cymin = self.c.global_settings["logEps"]
+                    
+            canvas = CMS.cmsCanvas(
+                x_min = cxmin,
+                x_max = cxmax,
+                y_min = cymin,
+                y_max = cymax,
+                nameXaxis = f"{xtitle} [{xunit}]",
+                nameYaxis = f"{ytitle} [{yunit}]",
+                canvName = name,
+                square = CMS.kSquare,
+                iPos = 0,
+                leftMargin = 0.04,
+                bottomMargin = 0.037,
+                with_z_axis = True,
+                scaleLumi = None,
+                customStyle= {
+                    "SetXNdivisions": xaxisDrawConfig.get("Ndivisions",510),
+                    "SetYNdivisions": yaxisDrawConfig.get("Ndivisions",510)
+                })
+            CMS.SetCMSPalette()
+            if xlog:
+                canvas.SetLogx()
+            if ylog:
+                canvas.SetLogy()
+            returnhist.Draw("same colz")
+
+            hframe = CMS.GetcmsCanvasHist(canvas)
+            hframe.GetYaxis().SetTitleOffset(drawConfig.get("YaxisSetTitleOffset",1.2))
+            hframe.GetXaxis().SetTitleOffset(drawConfig.get("XaxisSetTitleOffset",1.05))
+
+            CMS.SaveCanvas(canvas, self.outputpath+name+"."+self.defaultFileFormat, close=True)
+            print("_______________________________________________________________________________________\n\n")
