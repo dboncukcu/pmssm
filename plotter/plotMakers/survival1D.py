@@ -12,7 +12,7 @@ from Plotter import PMSSM
 
 c = PlotterConfig()
 c.global_settings["outputFileFormat"] = "pdf"
-c.global_settings["outputPath"] = "../../output/impact1D"
+c.global_settings["outputPath"] = "../../output/survival1D"
 
 root_dict = [
     {"treeName": "mcmc", "filePath" : "/eos/user/d/dboncukc/rootFiles/pmssmtree_11aug2023.root "},
@@ -23,20 +23,20 @@ pmssm = PMSSM(root_dict,config=c)
 
 pmssm.constraints.printAnalysisList()
 
-# pmssm.survivalProbability1D("abs(chi10)")
-# pmssm.survivalProbability1D("abs(chi1pm)")
-# pmssm.survivalProbability1D("abs(chi20)")
-# pmssm.survivalProbability1D("g")
-# pmssm.survivalProbability1D("t1")
-# pmssm.survivalProbability1D("lcsp")
+pmssm.survivalProbability1D("abs(chi10)")
+pmssm.survivalProbability1D("abs(chi1pm)")
+pmssm.survivalProbability1D("abs(chi20)")
+pmssm.survivalProbability1D("g")
+pmssm.survivalProbability1D("t1")
+pmssm.survivalProbability1D("lcsp")
 
-pmssm.impact1D("g")
-pmssm.impact1D("abs(chi10)",drawConfig={"yMaxOffsett": 0.0035},legendStyle="rightTop")
+#pmssm.impact1D("g")
+#pmssm.impact1D("abs(chi10)",drawConfig={"yMaxOffsett": 0.0035},legendStyle="rightTop")
 #pmssm.impact1D("abs(chi10)")
-pmssm.impact1D("abs(chi20)")
-pmssm.impact1D("abs(chi1pm)",drawConfig={"yMaxOffsett": 0.0035},legendStyle="rightTop")
-pmssm.impact1D("lcsp",drawConfig={"yMaxOffsett": 0.0035},legendStyle="rightTop")
-pmssm.impact1D("t1",drawConfig={"yMaxOffsett": 0.001},legendStyle="leftTop")
+#pmssm.impact1D("abs(chi20)")
+#pmssm.impact1D("abs(chi1pm)",drawConfig={"yMaxOffsett": 0.0035},legendStyle="rightTop")
+#pmssm.impact1D("lcsp",drawConfig={"yMaxOffsett": 0.0035},legendStyle="rightTop")
+#pmssm.impact1D("t1",drawConfig={"yMaxOffsett": 0.001},legendStyle="leftTop")
 
 
 
