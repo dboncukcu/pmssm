@@ -49,7 +49,7 @@ class Constraints:
     def printAnalysisList(self):
         analysisList = list(self.config.keys())
         for i,analysis in enumerate(analysisList):
-            print(f"{i}. {analysis}")
+            print(f"{i+1}. {analysis}")
     def getAnalysisList(self):
         return list(self.config.keys())
     def findMetric(self,analysisConfig):
@@ -78,7 +78,7 @@ class Constraints:
         if "combined" in analysis or len(analysisList) > 1:
             
             if len(analysisList) == 1:
-                analysisList = list(self.config.keys())
+                analysisList = self.getAnalysisList()
         
             analysisConstraintList = []
             ## analysis list given

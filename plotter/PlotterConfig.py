@@ -52,6 +52,7 @@ class PlotterConfig:
                 "bins" : 50,
                 "min" : 0,
                 "max" : 1000,
+                "Ndivisions" : 505,
                 "logScale" : False,
                 "linearScale": 1000,
                 "unit": "TeV",

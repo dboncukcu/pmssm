@@ -7,6 +7,16 @@ from typing import Union
 
 gROOT.SetBatch(True)
 
+YELLOW = '\033[93m'
+BLUE = '\033[94m'
+ORANGE = '\033[38;5;214m'
+GREEN = '\033[92m'
+STRIKETHROUGH = '\033[9m'
+BOLD = '\033[1m'
+RESET = '\033[0m'
+BULLET = '•'
+
+
 class PMSSM:
     def __init__(
         self,
@@ -75,7 +85,7 @@ class PMSSM:
         xaxisDrawConfig : dict = None,
         drawConfig: Union[dict, str] = None,
         legendStyle: Union[dict, str] = None):
-        print("->Drawing 1D Impact for", drawstring)
+        print("_____________________________",f"{BOLD}{ORANGE}1D Impact{RESET} for{BOLD}{BLUE}", drawstring, f"{RESET}","_____________________________")
         if drawConfig is None:
             drawConfig = self.c.drawConfig["impact1D"]
         
@@ -89,7 +99,10 @@ class PMSSM:
         
         if xaxisDrawConfig is None:
             xaxisDrawConfig = self.c.particleConfig[drawstring]
-        
+        else:
+            particleConfigCopy = self.c.particleConfig[drawstring].copy()
+            particleConfigCopy.update(xaxisDrawConfig)
+            xaxisDrawConfig = particleConfigCopy
         ## Variables
         xbins = self.getParticleConfigValue(xaxisDrawConfig, "bins")
         xlow = self.getParticleConfigValue(xaxisDrawConfig, "min")
@@ -163,12 +176,16 @@ class PMSSM:
         
         prior.GetYaxis().SetRangeUser(miny, 1.1 * maxy)
         prior.GetXaxis().SetTitle(xtitle)
+        
         posterior.GetYaxis().SetRangeUser(miny, 1.1 * maxy)
         posterior.GetXaxis().SetTitle(xtitle)
+        
         posterior_up.GetYaxis().SetRangeUser(miny, 1.1 * maxy)
         posterior_up.GetXaxis().SetTitle(xtitle)
+        
         posterior_down.GetYaxis().SetRangeUser(miny, 1.1 * maxy)
         posterior_down.GetXaxis().SetTitle(xtitle)
+        
         prior.GetYaxis().SetTitle("pMSSM density")
         posterior.GetYaxis().SetTitle("pMSSM density")
         posterior_up.GetYaxis().SetTitle("pMSSM density")
@@ -177,7 +194,6 @@ class PMSSM:
         for hist in [prior, posterior, posterior_up, posterior_down]:
             if not xaxisDrawConfig.get("logScale", False):
                 PlotterUtils.scaleXaxis(hist,scaleFactor=xaxisDrawConfig.get("linearScale"))
-        
         
         
         cxmin, cxmax, cymin, cymax = PlotterUtils.getAxisRangeOfList([prior, posterior, posterior_up, posterior_down])
@@ -199,17 +215,20 @@ class PMSSM:
             leftMargin = 0.08,
             bottomMargin = 0.035,
             with_z_axis = False,
-            scaleLumi = None)
+            scaleLumi = None,
+            customStyle= {
+                "SetXNdivisions": xaxisDrawConfig.get("Ndivisions",510)
+            })
         
         if xaxisDrawConfig.get("logScale", False):
             canvas.SetLogx()
         if xaxisDrawConfig.get("1Dlogy", False):
             canvas.SetLogy()
-    
+
         prior.Draw("hist same")
-        posterior.Draw("histsame")
-        posterior_up.Draw("histsame")
-        posterior_down.Draw("histsame")
+        posterior.Draw("hist same")
+        posterior_up.Draw("hist same")
+        posterior_down.Draw("hist same")
         
         legend = CMS.cmsLeg(
             x1 = legendConfig["x1"],
@@ -234,4 +253,4 @@ class PMSSM:
 
         legend.Draw("same")
         CMS.SaveCanvas(canvas, self.outputpath+name+"."+self.defaultFileFormat, close=True)
-        print("-> Done Drawing 1D Impact for", drawstring)
+        print("_______________________________________________________________________________________\n\n")

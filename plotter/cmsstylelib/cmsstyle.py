@@ -204,8 +204,7 @@ def UpdatePad(pad=None):
         rt.gPad.Modified()
         rt.gPad.Update()
 
-
-def setCMSStyle():
+def setCMSStyle(customStyle = {}):
     global cmsStyle
     if cmsStyle != None:
         del cmsStyle
@@ -286,7 +285,10 @@ def setCMSStyle():
     cmsStyle.SetAxisColor(1, "XYZ")
     cmsStyle.SetStripDecimals(True)
     cmsStyle.SetTickLength(0.03, "XYZ")
-    cmsStyle.SetNdivisions(510, "XYZ")
+    cmsStyle.SetNdivisions(customStyle.get("SetXNdivisions",510), "X")
+    cmsStyle.SetNdivisions(customStyle.get("SetYNdivisions",510), "Y")
+    cmsStyle.SetNdivisions(customStyle.get("SetZNdivisions",510), "Z")
+
     cmsStyle.SetPadTickX(1)  # To get tick marks on the opposite side of the frame
     cmsStyle.SetPadTickY(1)
     # Change for log plots:
@@ -455,6 +457,7 @@ def cmsCanvas(
     bottomMargin=0,
     with_z_axis=False,
     scaleLumi=None,
+    customStyle = {}
 ):
     """
     Draw a canvas with CMS style.
@@ -478,7 +481,7 @@ def cmsCanvas(
     """
 
     # Set CMS style
-    setCMSStyle()
+    setCMSStyle(customStyle)
 
     # Set canvas dimensions and margins
     W_ref = 600 if square else 800

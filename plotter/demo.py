@@ -16,10 +16,22 @@ pmssm = PMSSM(root_dict,config=c)
 pmssm.constraints.printAnalysisList()
 
 pmssm.impact1D("g")
+pmssm.impact1D("abs(chi10)")
+# pmssm.impact1D("abs(chi10)",xaxisDrawConfig = {"1Dlogy":True})
+pmssm.impact1D("abs(chi20)")
+pmssm.impact1D("abs(chi1pm)")
+pmssm.impact1D("lcsp")
+pmssm.impact1D("t1")
 
-pmssm.impact1D("t1",legendStyle="leftTop")
 
-pmssm.impact1D("t1",analysis="combined simplified",legendStyle="leftTop")
 
-for analysis in pmssm.constraints.getAnalysisList():
-    pmssm.impact1D("t1",analysis=analysis,legendStyle="leftTop")
+# pmssm.impact1D("t1",legendStyle="leftTop")
+
+
+
+
+
+# pmssm.impact1D("t1",analysis="combined simplified",legendStyle="leftTop")
+
+# for analysis in pmssm.constraints.getAnalysisList():
+#     pmssm.impact1D("t1",analysis=analysis,legendStyle="leftTop")
