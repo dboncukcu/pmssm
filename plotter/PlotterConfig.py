@@ -1,3 +1,4 @@
+from ROOT import *
 class PlotterConfig:
     
     def print(self, name: str):
@@ -378,4 +379,5 @@ class PlotterConfig:
             "XaxisSetTitleOffset" : 1.05,
             "ZaxisSetTitleOffset" : 0.75,
             "legendFillWhite" : True,
+            "legendColor" : kWhite
         }

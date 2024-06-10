@@ -622,7 +622,7 @@ class PMSSM:
                 drawConfig = drawConfigCopy
                 
             if legendStyle is None:
-                legendStyle = "rightBottom"
+                legendStyle = "rightTop"
             if isinstance(legendStyle, str):
                 legendConfig = drawConfig.get("legendStyle",legendStyle)
             if isinstance(legendStyle, dict):
@@ -768,6 +768,20 @@ class PMSSM:
             if ylog:
                 canvas.SetLogy()
             returnhist.Draw("same colz")
+            
+            legend = CMS.cmsLeg(
+                        x1 = legendConfig["x1"],
+                        y1 = legendConfig["y1"],
+                        x2 = legendConfig["x2"],
+                        y2 = legendConfig["y2"],
+                        columns = legendConfig.get("numberOfColumns",1),
+                        textSize = 0.03)
+            legend.SetHeader(self.constraints.getAnalysisName(analysis),"C")
+            
+            if drawConfig.get("legendColor") is not None:
+                legend.SetTextColor(drawConfig["legendColor"])
+            
+            legend.Draw("same")
 
             hframe = CMS.GetcmsCanvasHist(canvas)
             hframe.GetYaxis().SetTitleOffset(drawConfig.get("YaxisSetTitleOffset",1.2))
