@@ -43,6 +43,7 @@ class PlotterConfig:
                 "max": 1000,
                 "min": 0,
                 "logScale": False,
+                "1Dlogy" : False,
                 "linearScale": 1000.0,
                 "unit": "TeV",
                 "title": "",
@@ -354,6 +355,16 @@ class PlotterConfig:
             "rightBottom" : {"x1":0.49,"x2":0.92,"y1":0.17,"y2":0.4},
             "leftBottom" : {"x1":0.23,"x2":0.53,"y1":0.2,"y2":0.32},
             "YaxisSetTitleOffset" : 1.35,
+            "XaxisSetTitleOffset" : 1.05, 
+            "legendFillWhite" : True,
+        }
+        
+        self.drawConfig["quantile1D"] = {
+            "leftTop" : {"x1":0.23,"x2":0.66,"y1":0.67,"y2":0.9},
+            "rightTop" : {"x1":0.63,"x2":0.93,"y1":0.8,"y2":0.9},
+            "rightBottom" : {"x1":0.49,"x2":0.92,"y1":0.17,"y2":0.4},
+            "leftBottom" : {"x1":0.23,"x2":0.53,"y1":0.2,"y2":0.32},
+            "YaxisSetTitleOffset" : 1.2,
             "XaxisSetTitleOffset" : 1.05, 
             "legendFillWhite" : True,
         }

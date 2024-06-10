@@ -4,7 +4,7 @@ import PlotterUtils
 from cmsstylelib import cmsstyle as CMS
 from Constraints import Constraints
 from typing import Union
-
+import numpy as np
 gROOT.SetBatch(True)
 
 YELLOW = '\033[93m'
@@ -85,8 +85,14 @@ class PMSSM:
         drawConfig: Union[dict, str] = None,
         legendStyle: Union[dict, str] = None):
         print("_____________________________",f"{BOLD}{ORANGE}1D Impact{RESET} for{BOLD}{BLUE}", drawstring, f"{RESET}","_____________________________")
+        
         if drawConfig is None:
             drawConfig = self.c.drawConfig["impact1D"]
+        else:
+            drawConfigCopy = self.c.drawConfig["impact1D"]
+            drawConfigCopy.update(drawConfig)
+            drawConfig = drawConfigCopy
+            
         
         if legendStyle is None:
             legendStyle = "rightBottom"
@@ -269,6 +275,11 @@ class PMSSM:
         
         if drawConfig is None:
             drawConfig = self.c.drawConfig["survival1D"]
+        else:
+            drawConfigCopy = self.c.drawConfig["survival1D"]
+            drawConfigCopy.update(drawConfig)
+            drawConfig = drawConfigCopy
+            
         
         if legendStyle is None:
             legendStyle = "rightBottom"
@@ -366,6 +377,8 @@ class PMSSM:
             if cymin == 0:
                 cymin = self.c.global_settings["logEps"]
                 
+        cymax += drawConfig.get("yMaxOffsett", 0)
+        
         canvas = CMS.cmsCanvas(
             x_min = cxmin,
             x_max = cxmax,
@@ -416,3 +429,171 @@ class PMSSM:
         CMS.SaveCanvas(canvas, self.outputpath+name+"."+self.defaultFileFormat, close=True)
         print("_______________________________________________________________________________________\n\n")
         
+    def quantile1D(
+        self,
+        drawstring : str,
+        quantiles : dict = {
+            "0.5": {"color":kBlack},
+            "0.75": {"color":kOrange},
+            "0.9": {"color":kRed,"linestyle": kDashed},
+            "0.99": {"color":kMagenta,"linestyle": kDashed}
+        },
+        analysis : str = "combined",
+        moreconstraints : list = [], 
+        xaxisDrawConfig : dict = None,
+        drawConfig: Union[dict, str] = None,
+        legendStyle: Union[dict, str] = None):
+        print("_____________________________",f"{BOLD}{ORANGE}1D Quantile{RESET} for{BOLD}{BLUE}", drawstring, f"{RESET}","_____________________________")
+        
+        
+        if drawConfig is None:
+            drawConfig = self.c.drawConfig["quantile1D"]
+        else:
+            drawConfigCopy = self.c.drawConfig["quantile1D"]
+            drawConfigCopy.update(drawConfig)
+            drawConfig = drawConfigCopy
+            
+        if legendStyle is None:
+            legendStyle = "rightBottom"
+        if isinstance(legendStyle, str):
+            legendConfig = drawConfig.get("legendStyle",legendStyle)
+        if isinstance(legendStyle, dict):
+            legendConfig = legendStyle
+        legendConfig = self.c.drawConfig["quantile1D"][legendConfig]
+        
+        if xaxisDrawConfig is None:
+            xaxisDrawConfig = self.c.particleConfig[drawstring]
+        else:
+            particleConfigCopy = self.c.particleConfig[drawstring].copy()
+            particleConfigCopy.update(xaxisDrawConfig)
+            xaxisDrawConfig = particleConfigCopy
+        
+        ## Variables
+        xbins = self.getParticleConfigValue(xaxisDrawConfig, "bins")
+        xlow = self.getParticleConfigValue(xaxisDrawConfig, "min")
+        xup = self.getParticleConfigValue(xaxisDrawConfig, "max")
+        xlog = self.getParticleConfigValue(xaxisDrawConfig, "logScale")
+        ylog = self.getParticleConfigValue(xaxisDrawConfig, "1Dlogy")
+        xtitle = self.getParticleConfigValue(xaxisDrawConfig, "title")
+        xunit = self.getParticleConfigValue(xaxisDrawConfig, "unit")
+        
+        ## Create Histogram Name
+                
+        name = self.createName(xaxisDrawConfig, analysis=analysis, plotType="quantile1D")
+        
+        if "simplified" in analysis:  # reweighting is always done, in addition to removing unreasonable points
+            constraintstring = "*".join([self.c.theconstraints["reweight"], self.c.theconstraints["reason_simplified"]])
+            _drawstring = self.constraints.getConstraint(analysis,isSimplified=True)
+        else:
+            constraintstring = "*".join([self.c.theconstraints["reweight"], self.c.theconstraints["reason"]])
+            _drawstring = self.constraints.getConstraint(analysis,isSimplified=True) + ":" + drawstring
+
+        print(f"{BOLD}{GREEN}Quantile Plot DrawString:{RESET} {_drawstring}")     
+        for newc in moreconstraints:
+            constraintstring += "*(" + newc + ")"
+        
+        _quantiles = []
+        quantiles_values = [float(i) for i in quantiles.keys()]
+        
+        for qt in quantiles_values:
+            if qt > 1:
+                _quantiles.append(qt / 100.)
+            elif qt > 0:
+                _quantiles.append(qt)
+            else:
+                raise ValueError("Invalid quantile provided, please use positive values")
+
+        probs = list(np.array([x]) for x in _quantiles)
+        qs = list(np.array([0.]) for x in _quantiles)
+        hists = {}
+        
+        qhist = PlotterUtils.mkhistlogxy("qhist", "", xbins, xlow, xup, 3000, 0, 30, logy=ylog, logx=xlog)
+        self.tree.Draw(_drawstring + ">>" + qhist.GetName(), constraintstring, "")
+        htemplate = qhist.ProfileX('OF UF')
+        xax = htemplate.GetXaxis()
+        for prob in probs:
+            hists["quantile_" + str(int(100 * prob))] = htemplate.ProjectionX().Clone("quantile_" + str(int(100 * prob)))
+            hists["quantile_" + str(int(100 * prob))].Reset()
+        for ibinx in range(1, xax.GetNbins() + 1):
+            hz = qhist.ProjectionY('hz', ibinx, ibinx)
+            try:
+                hz.Scale(1.0 / hz.Integral(-1, 99999))
+            except:
+                for hname, hist in hists.items():
+                    hist.SetBinContent(ibinx, 0)
+                continue
+            quantiles_ = []
+            for ix, prob in enumerate(probs):
+                quantiles_.append(hz.GetQuantiles(1, qs[ix], prob))
+                hists["quantile_" + str(int(100 * prob))].SetBinContent(ibinx, qs[ix][0])
+        
+        for key in hists:
+            hist = hists[key]
+            if not xaxisDrawConfig.get("logScale", False):
+                PlotterUtils.scaleXaxis(hist,scaleFactor=xaxisDrawConfig.get("linearScale"))
+        
+        cxmin, cxmax, cymin, cymax = PlotterUtils.getAxisRangeOfList(list(hists.values()))
+
+        if xaxisDrawConfig.get("1Dlogy", False):
+            if cymin == 0:
+                cymin = self.c.global_settings["logEps"]
+        
+        cymax += drawConfig.get("yMaxOffsett", 0)
+
+        canvas = CMS.cmsCanvas(
+            x_min = cxmin,
+            x_max = cxmax,
+            y_min = cymin,
+            y_max = cymax,
+            nameXaxis = f"{xtitle} [{xunit}]",
+            nameYaxis = "Bayes Factor",
+            canvName = name,
+            square = CMS.kSquare,
+            iPos = 0,
+            leftMargin = 0.03,
+            bottomMargin = 0.035,
+            with_z_axis = False,
+            scaleLumi = None,
+            customStyle= {
+                "SetXNdivisions": xaxisDrawConfig.get("Ndivisions",510)
+            })
+
+        if xlog:
+            canvas.SetLogx()
+        if ylog:
+            canvas.SetLogy()
+        
+        
+        legend = CMS.cmsLeg(
+            x1 = legendConfig["x1"],
+            y1 = legendConfig["y1"],
+            x2 = legendConfig["x2"],
+            y2 = legendConfig["y2"],
+            columns = legendConfig.get("numberOfColumns",1),
+            textSize = 0.03)
+        legend.SetHeader(self.constraints.getAnalysisName(analysis),"C")
+                
+        for i in quantiles:
+            histname = "quantile_" + str(int(100 * float(i)))
+            hist_style = quantiles[i]
+            hist = hists[histname]
+            PlotterUtils.histoStyler(hist)
+            if hist_style.get("color") is not None:
+                hist.SetLineColor(hist_style["color"])
+            if hist_style.get("linestyle") is not None:
+                hist.SetLineStyle(hist_style["linestyle"])
+            legend.AddEntry(hist,str(int(100 * float(i)))+"th Percentile")
+            
+        for hist in hists.values():
+            hist.Draw("hist same")
+            
+        hframe = CMS.GetcmsCanvasHist(canvas)
+        hframe.GetYaxis().SetTitleOffset(drawConfig.get("YaxisSetTitleOffset",1.2))
+        hframe.GetXaxis().SetTitleOffset(drawConfig.get("XaxisSetTitleOffset",1.05))
+
+        if drawConfig.get("legendFillWhite",False):
+            PlotterUtils.makeLegendFillWhite(legend)
+
+        legend.Draw("same")
+        CMS.SaveCanvas(canvas, self.outputpath+name+"."+self.defaultFileFormat, close=True)
+        print("_______________________________________________________________________________________\n\n")
