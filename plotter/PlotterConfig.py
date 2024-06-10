@@ -341,7 +341,7 @@ class PlotterConfig:
         
         self.drawConfig["impact1D"] = {
             "leftTop" : {"x1":0.23,"x2":0.66,"y1":0.67,"y2":0.9},
-            "rightTop" : {"x1":0.55,"x2":0.85,"y1":0.75,"y2":0.9},
+            "rightTop" : {"x1":0.53,"x2":0.83,"y1":0.75,"y2":0.9},
             "rightBottom" : {"x1":0.49,"x2":0.92,"y1":0.17,"y2":0.4},
             "leftBottom" : {"x1":0.23,"x2":0.53,"y1":0.2,"y2":0.32},
             "YaxisSetTitleOffset" : 1.7,
@@ -360,10 +360,10 @@ class PlotterConfig:
         }
         
         self.drawConfig["quantile1D"] = {
-            "leftTop" : {"x1":0.23,"x2":0.66,"y1":0.67,"y2":0.9},
-            "rightTop" : {"x1":0.63,"x2":0.93,"y1":0.8,"y2":0.9},
-            "rightBottom" : {"x1":0.49,"x2":0.92,"y1":0.17,"y2":0.4},
-            "leftBottom" : {"x1":0.23,"x2":0.53,"y1":0.2,"y2":0.32},
+            "leftTop" : {"x1":0.19,"x2":0.49,"y1":0.67,"y2":0.9},
+            "rightTop" : {"x1":0.63,"x2":0.93,"y1":0.67,"y2":0.9},
+            "rightBottom" : {"x1":0.63,"x2":0.93,"y1":0.18,"y2":0.41},
+            "leftBottom" : {"x1":0.17,"x2":0.4,"y1":0.2,"y2":0.32},
             "YaxisSetTitleOffset" : 1.2,
             "XaxisSetTitleOffset" : 1.05, 
             "legendFillWhite" : True,

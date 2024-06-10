@@ -722,7 +722,6 @@ class PMSSM:
             returnhist.GetZaxis().SetRangeUser(-0.001, max(1, zaxis_max + 0.1))
             returnhist.SetContour(999)
             returnhist.GetZaxis().SetTitle(str(int(100 * quantile)) + "th percentile Bayes factor"),
-            print(drawConfig.get("ZaxisSetTitleOffset",0.25))
             returnhist.GetZaxis().SetTitleOffset(drawConfig.get("ZaxisSetTitleOffset",0.25))
             returnhist.GetZaxis().SetTitleSize(0.06)
             if not xlog:
