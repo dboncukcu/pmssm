@@ -104,3 +104,12 @@ class Constraints:
             return "COMBINED"
         else:
             return self.config[analysis]["analysisName"]
+    
+    def getZScore(self,analysis,isSimplified = True, verbose = True):
+        
+        constraint = self.getConstraint(
+            analysis=analysis,
+            isSimplified = isSimplified,
+            verbose = verbose)
+        
+        return "TMath::Abs(TMath::Log(%s))/(TMath::Log(%s)) * TMath::Sqrt(2 * TMath::Abs(TMath::Log(%s)))" % (constraint,constraint,constraint)

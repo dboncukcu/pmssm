@@ -23,7 +23,6 @@ class PMSSM:
         root_dict: list[dict],
         config: PlotterConfig = None
     ):  
-        
         # Binding Config to the class
         if config is None:
             self.c = PlotterConfig()
@@ -202,6 +201,8 @@ class PMSSM:
             if cymin == 0:
                 cymin = self.c.global_settings["logEps"]
         
+        cymax += drawConfig.get("yMaxOffsett", 0)
+        
         canvas = CMS.cmsCanvas(
             x_min = cxmin,
             x_max = cxmax,
@@ -254,3 +255,164 @@ class PMSSM:
         legend.Draw("same")
         CMS.SaveCanvas(canvas, self.outputpath+name+"."+self.defaultFileFormat, close=True)
         print("_______________________________________________________________________________________\n\n")
+        
+    def survivalProbability1D(
+        self,
+        drawstring : str,
+        analysis : str = "combined",
+        moreconstraints : list = [], 
+        moreconstraints_prior : bool =False,
+        xaxisDrawConfig : dict = None,
+        drawConfig: Union[dict, str] = None,
+        legendStyle: Union[dict, str] = None):
+        print("_____________________________",f"{BOLD}{ORANGE}1D Survival Probability{RESET} for{BOLD}{BLUE}", drawstring, f"{RESET}","_____________________________")
+        
+        if drawConfig is None:
+            drawConfig = self.c.drawConfig["survival1D"]
+        
+        if legendStyle is None:
+            legendStyle = "rightBottom"
+        if isinstance(legendStyle, str):
+            legendConfig = drawConfig.get("legendStyle",legendStyle)
+        if isinstance(legendStyle, dict):
+            legendConfig = legendStyle
+        legendConfig = self.c.drawConfig["survival1D"][legendConfig]
+        
+        if xaxisDrawConfig is None:
+            xaxisDrawConfig = self.c.particleConfig[drawstring]
+        else:
+            particleConfigCopy = self.c.particleConfig[drawstring].copy()
+            particleConfigCopy.update(xaxisDrawConfig)
+            xaxisDrawConfig = particleConfigCopy
+            
+            
+        ## Variables
+        xbins = self.getParticleConfigValue(xaxisDrawConfig, "bins")
+        xlow = self.getParticleConfigValue(xaxisDrawConfig, "min")
+        xup = self.getParticleConfigValue(xaxisDrawConfig, "max")
+        xlog = self.getParticleConfigValue(xaxisDrawConfig, "logScale")
+        xtitle = self.getParticleConfigValue(xaxisDrawConfig, "title")
+        xunit = self.getParticleConfigValue(xaxisDrawConfig, "unit")
+        
+        ## Create Histogram Name
+        
+        name = self.createName(xaxisDrawConfig, analysis=analysis, plotType="survival1D")
+        
+        if "simplified" in analysis:  # reweighting is always done, in addition to removing unreasonable points
+            isSimplified = True
+            constraintstring = "*".join([self.c.theconstraints["reweight"], self.c.theconstraints["reason_simplified"]])
+            constraintstring_prior = "*".join([self.c.theconstraints["reweight"], self.c.theconstraints["reason_simplified"]])
+        else:
+            isSimplified = False
+            constraintstring = "*".join([self.c.theconstraints["reweight"], self.c.theconstraints["reason"]])
+            constraintstring_prior = "*".join([self.c.theconstraints["reweight"], self.c.theconstraints["reason"]])
+        
+        for newc in moreconstraints:
+            constraintstring += "*(" + newc + ")"
+        if moreconstraints_prior:
+            for newc_p in moreconstraints_prior:
+                constraintstring_prior += "*(" + newc_p + ")"
+                
+        prior = PlotterUtils.mkhistlogx("prior", "", xbins, xlow, xup, logx=xlog)
+        posterior = prior.Clone(name)
+        posterior_up = prior.Clone(name+"_up")
+        posterior_down = prior.Clone(name+"_down")
+        
+        self.tree.Draw(drawstring + ">>" + prior.GetName(), constraintstring_prior, "")
+        
+        z = self.constraints.getZScore(analysis,isSimplified)
+        print(f"\n{BULLET}{BOLD}{YELLOW}Posterior Z Score:{RESET}\n{z}")
+        self.tree.Draw(drawstring + ">>" + posterior.GetName(),
+                "*".join([constraintstring, "(" + z + ">-1.64)"]), "")
+        
+        z_up = z.replace('mu1p0','mu1p5').replace('_100s','_150s')
+        print(f"{BULLET}{BOLD}{YELLOW}Posterior Up Z Score:{RESET}\n{z_up}")
+
+        self.tree.Draw(drawstring + ">>" + posterior_up.GetName(),
+                   "*".join([constraintstring, "(" + z_up + ">-1.64)"]), "")
+
+        z_down = z.replace('mu1p0','mu0p5').replace('_100s','_050s')
+        print(f"{BULLET}{BOLD}{YELLOW}Posterior Down Z Score:{RESET}\n{z_down}")
+        self.tree.Draw(drawstring + ">>" + posterior_down.GetName(),
+                "*".join([constraintstring, "(" + z_down + ">-1.64)"]), "")#Down
+        
+        PlotterUtils.histoStyler(posterior, kBlack)
+        PlotterUtils.histoStyler(posterior_up, kMagenta, linestyle=kDashed)
+        PlotterUtils.histoStyler(posterior_down, kRed, linestyle=kDashed)
+        posterior.Divide(prior)
+        posterior_up.Divide(prior)
+        posterior_down.Divide(prior)
+
+        maxy = max([posterior.GetMaximum(), posterior_up.GetMaximum(), posterior_down.GetMaximum()])
+        miny = 0 if not xaxisDrawConfig.get("1Dlogy", False) else self.c.global_settings["logEps"]
+                
+        posterior.GetYaxis().SetRangeUser(miny, maxy + 0.1)
+        posterior.GetXaxis().SetTitle(xtitle)
+        
+        posterior_up.GetYaxis().SetRangeUser(miny, maxy + 0.1)
+        posterior_up.GetXaxis().SetTitle(xtitle)
+        
+        posterior_down.GetYaxis().SetRangeUser(miny, maxy + 0.1)
+        posterior_down.GetXaxis().SetTitle(xtitle)
+        
+        posterior.GetYaxis().SetTitle("Survival Probability")
+                
+        for hist in [posterior, posterior_up, posterior_down]:
+            if not xaxisDrawConfig.get("logScale", False):
+                PlotterUtils.scaleXaxis(hist,scaleFactor=xaxisDrawConfig.get("linearScale"))
+        
+        cxmin, cxmax, cymin, cymax = PlotterUtils.getAxisRangeOfList([posterior, posterior_up, posterior_down])
+        if xaxisDrawConfig.get("1Dlogy", False):
+            if cymin == 0:
+                cymin = self.c.global_settings["logEps"]
+                
+        canvas = CMS.cmsCanvas(
+            x_min = cxmin,
+            x_max = cxmax,
+            y_min = cymin,
+            y_max = cymax,
+            nameXaxis = f"{xtitle} [{xunit}]",
+            nameYaxis = "Survival Probability",
+            canvName = name,
+            square = CMS.kSquare,
+            iPos = 0,
+            leftMargin = 0.05,
+            bottomMargin = 0.035,
+            with_z_axis = False,
+            scaleLumi = None,
+            customStyle= {
+                "SetXNdivisions": xaxisDrawConfig.get("Ndivisions",510)
+            })
+        
+        if xaxisDrawConfig.get("logScale", False):
+            canvas.SetLogx()
+        if xaxisDrawConfig.get("1Dlogy", False):
+            canvas.SetLogy()
+            
+        posterior.Draw("hist same")
+        posterior_up.Draw("hist same")
+        posterior_down.Draw("hist same")
+
+        legend = CMS.cmsLeg(
+            x1 = legendConfig["x1"],
+            y1 = legendConfig["y1"],
+            x2 = legendConfig["x2"],
+            y2 = legendConfig["y2"],
+            columns = legendConfig.get("numberOfColumns",1),
+            textSize = 0.03)
+        legend.SetHeader(self.constraints.getAnalysisName(analysis),"C")
+        legend.AddEntry(posterior,"posterior (#sigma = #sigma_{nominal} )")
+        legend.AddEntry(posterior_up,"posterior (#sigma = 1.5#times#sigma_{nominal} )")
+        legend.AddEntry(posterior_down,"posterior (#sigma =0.5#times#sigma_{nominal} )")
+
+        hframe = CMS.GetcmsCanvasHist(canvas)
+        hframe.GetYaxis().SetTitleOffset(drawConfig.get("YaxisSetTitleOffset",1.7))
+        hframe.GetXaxis().SetTitleOffset(drawConfig.get("XaxisSetTitleOffset",1.05))
+        
+        if drawConfig.get("legendFillWhite",False):
+            PlotterUtils.makeLegendFillWhite(legend)
+
+        legend.Draw("same")
+        CMS.SaveCanvas(canvas, self.outputpath+name+"."+self.defaultFileFormat, close=True)
+        print("_______________________________________________________________________________________\n\n")
+        

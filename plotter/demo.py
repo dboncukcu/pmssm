@@ -15,13 +15,20 @@ pmssm = PMSSM(root_dict,config=c)
 
 pmssm.constraints.printAnalysisList()
 
-pmssm.impact1D("g")
-pmssm.impact1D("abs(chi10)")
-# pmssm.impact1D("abs(chi10)",xaxisDrawConfig = {"1Dlogy":True})
-pmssm.impact1D("abs(chi20)")
-pmssm.impact1D("abs(chi1pm)")
-pmssm.impact1D("lcsp")
-pmssm.impact1D("t1")
+# pmssm.survivalProbability1D("abs(chi10)")
+# pmssm.survivalProbability1D("abs(chi1pm)")
+# pmssm.survivalProbability1D("abs(chi20)")
+# pmssm.survivalProbability1D("g")
+# pmssm.survivalProbability1D("t1")
+# pmssm.survivalProbability1D("lcsp")
+
+# pmssm.impact1D("g")
+# pmssm.impact1D("abs(chi10)")
+# pmssm.impact1D("abs(chi10)")
+# pmssm.impact1D("abs(chi20)")
+# pmssm.impact1D("abs(chi1pm)")
+# pmssm.impact1D("lcsp")
+pmssm.impact1D("t1",drawConfig={"yMaxOffsett": 0.001},legendStyle="leftTop")
 
 
 
