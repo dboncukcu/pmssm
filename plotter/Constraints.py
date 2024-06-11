@@ -95,7 +95,7 @@ class Constraints:
             individualConstraint = self.getIndividualConstraint(analysisConfig, analysisType = "individual")
             if verbose:
                 print(f"_____________________________{BOLD}{GREEN}" + ("SIMPLIFIED" if isSimplified else "FULL") + f" {analysis}{RESET}_______________________")  
-                print(f"{ORANGE}Constraint{RESET}: {individualConstraint}")
+                print(f"{BULLET}{YELLOW}Analysis:{RESET} {analysis} {ORANGE}Constraint{RESET}: {individualConstraint}")
             return individualConstraint
         
     def getAnalysisName(self, analysis):

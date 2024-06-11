@@ -13,6 +13,15 @@ class PlotterConfig:
     
     def __init__(self):
         ###################################################################
+        ###################### root Files ######################
+        
+        self.root_dict = [
+            {"treeName": "mcmc", "filePath" : "/eos/user/d/dboncukc/rootFiles/pmssmtree_11aug2023.root "},
+            {"treeName": "cms_sus_20_001",  "filePath" :"/eos/user/d/dboncukc/rootFiles/sus_20_001_likelihood.root"},
+            {"treeName": "cms_sus_21_007_mb",  "filePath" :"/eos/user/d/dboncukc/rootFiles/sus_21_007_mb_likelihood.root"},
+        ]
+        
+        ###################################################################
         ###################### Global Settings ######################
         self.global_settings = {}
         self.global_settings["logEps"] = 1e-5 # Minimum Treshold for log scaling
@@ -272,7 +281,41 @@ class PlotterConfig:
                     },
                     'bf': 'bf_cms_sus_18_004_mu1p0f'
                 }
-            }
+            },
+            'cms_sus_21_007': {
+                'analysisName': 'SUS-21-007',
+                'simplified': {
+                    'llhd': {
+                        'signal': 'llhd_cms_sus_21_007_100s',
+                        'background': 'llhd_cms_sus_21_007_0s'
+                    },
+                    'bf': None
+                },
+                'full': {
+                    'llhd': {
+                        'signal': 'llhd_cms_sus_21_007_100s',
+                        'background': 'llhd_cms_sus_21_007_0s'
+                    },
+                    'bf': None
+                }
+            },
+            'cms_sus_21_007_mb': {
+                'analysisName': 'SUS-21-007 MB',
+                'simplified': {
+                    'llhd': {
+                        'signal': None,
+                        'background': None
+                    },
+                    'bf': "bf_cms_sus_21_007_mb_mu1p0s"
+                },
+                'full': {
+                    'llhd': {
+                        'signal': None,
+                        'background': None
+                    },
+                    'bf': "bf_cms_sus_21_007_mb_mu1p0s"
+                }
+            },
         }
         ###################################################################
         ################### Physical Definings ###################

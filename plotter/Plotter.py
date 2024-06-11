@@ -22,7 +22,7 @@ BULLET = '•'
 class PMSSM:
     def __init__(
         self,
-        root_dict: list[dict],
+        root_dict: list[dict] = None,
         config: PlotterConfig = None
     ):  
         # Binding Config to the class
@@ -30,6 +30,9 @@ class PMSSM:
             self.c = PlotterConfig()
         else:
             self.c = config
+        
+        if root_dict is None:
+            root_dict = self.c.root_dict
         
         self.constraints = Constraints(self.c.analysisConfigs)
         
@@ -801,7 +804,8 @@ class PMSSM:
         xaxisDrawConfig : dict = None,
         yaxisDrawConfig : dict = None,
         drawConfig: Union[dict, str] = None,
-        legendStyle: Union[dict, str] = None):
+        legendStyle: Union[dict, str] = None,
+        showLegend: bool = False):
         CMS.setCMSStyle()
         print("_____________________________",f"{BOLD}{ORANGE}2D Survival Probability{RESET} for{BOLD}{BLUE}", drawstring, f"{RESET}","_____________________________")
         
@@ -1020,16 +1024,19 @@ class PMSSM:
             canvas.SetLogx()
         if ylog:
             canvas.SetLogy()
-        
-        # legend.Draw("same")
-        
+            
+        if showLegend:
+            legend.Draw("same")
+            if drawConfig.get("legendFillWhite",False):
+                PlotterUtils.makeLegendFillWhite(legend)
+        else:
+            del legend
+            
         hframe = CMS.GetcmsCanvasHist(canvas)
         hframe.GetYaxis().SetTitleOffset(drawConfig.get("YaxisSetTitleOffset",1.2))
         hframe.GetXaxis().SetTitleOffset(drawConfig.get("XaxisSetTitleOffset",1.05))
         
-        if drawConfig.get("legendFillWhite",False):
-            PlotterUtils.makeLegendFillWhite(legend)
-        del legend
+
         CMS.UpdatePalettePosition(hret, canvas)
         CMS.SaveCanvas(canvas, self.outputpath+name+"."+self.defaultFileFormat, close=True)
         print("_______________________________________________________________________________________\n\n")

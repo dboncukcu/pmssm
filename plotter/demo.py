@@ -6,12 +6,7 @@ from Plotter import PMSSM
 c = PlotterConfig()
 c.global_settings["outputFileFormat"] = "pdf"
 
-root_dict = [
-    {"treeName": "mcmc", "filePath" : "/eos/user/d/dboncukc/rootFiles/pmssmtree_11aug2023.root "},
-    {"treeName": "cms_sus_20_001",  "filePath" :"/eos/user/d/dboncukc/rootFiles/sus_20_001_likelihood.root"}
-]
-
-pmssm = PMSSM(root_dict,config=c)
+pmssm = PMSSM(config=c)
 
 pmssm.constraints.printAnalysisList()
 
@@ -52,7 +47,10 @@ pmssm.constraints.printAnalysisList()
 # pmssm.survivalProbability2D("abs(chi10):t1")
 # pmssm.survivalProbability2D("abs(chi10):b1")
 # pmssm.survivalProbability2D("abs(chi10):lcsp")
-pmssm.survivalProbability2D("abs(chi10):g")
+pmssm.survivalProbability2D("abs(chi10):g", showLegend=True)
+for analysis in pmssm.constraints.getAnalysisList():
+    pmssm.survivalProbability2D("abs(chi10):g",analysis=analysis)
+
  
 # pmssm.quantile2D("abs(chi10):g",analysis="combined simplified",quantile=0.99) 
 # pmssm.quantile2D("abs(chi10):g",analysis="combined",quantile=0.99) 
