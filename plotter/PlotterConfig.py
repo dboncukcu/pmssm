@@ -372,12 +372,26 @@ class PlotterConfig:
         
         self.drawConfig["quantile2D"] = {
             "leftTop" : {"x1":0.23,"x2":0.66,"y1":0.67,"y2":0.9},
-            "rightTop" : {"x1":0.63,"x2":0.93,"y1":0.8,"y2":0.9},
-            "rightBottom" : {"x1":0.49,"x2":0.92,"y1":0.17,"y2":0.4},
-            "leftBottom" : {"x1":0.23,"x2":0.53,"y1":0.2,"y2":0.32},
+            "rightTop" : {"x1":0.60,"x2":0.90,"y1":0.85,"y2":0.95},
+            "rightBottom" : {"x1":0.49,"x2":0.92,"y1":0.10,"y2":0.33},
+            "leftBottom" : {"x1":0.15,"x2":0.38,"y1":0.15,"y2":0.27},
             "YaxisSetTitleOffset" : 1.3,
             "XaxisSetTitleOffset" : 1.05,
-            "ZaxisSetTitleOffset" : 0.75,
+            "ZaxisSetTitleOffset" : 1.05,
             "legendFillWhite" : True,
             "legendColor" : kWhite
         }
+
+        self.drawConfig["survival2D"] = {
+            "leftTop" : {"x1":0.23,"x2":0.66,"y1":0.67,"y2":0.9},
+            "rightTop" : {"x1":0.60,"x2":0.90,"y1":0.85,"y2":0.95},
+            "rightBottom" : {"x1":0.49,"x2":0.92,"y1":0.17,"y2":0.4},
+            "leftBottom" : {"x1":0.23,"x2":0.53,"y1":0.2,"y2":0.32},
+            "numberOfColumns" : 2,
+            "YaxisSetTitleOffset" : 1.25,
+            "XaxisSetTitleOffset" : 1.05,
+            "ZaxisSetTitleOffset" : 1.17,
+            "legendFillWhite" : True,
+            "legendColor" : kWhite
+        }
+              

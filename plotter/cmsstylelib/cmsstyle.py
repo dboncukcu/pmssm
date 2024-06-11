@@ -136,6 +136,9 @@ def SetCMSPalette():
     cmsStyle.SetPalette(rt.kViridis)
     #cmsStyle.SetPalette(rt.kCividis)
 
+def SetCustomPalette(palette):
+    cmsStyle.SetPalette(len(palette),palette)
+
 def GetPalette(hist):
     """Allow to retrieve palette option. Must update the pad to access the palette"""
     UpdatePad()
@@ -151,7 +154,7 @@ def UpdatePalettePosition(
     if canv != None:
         hframe = GetcmsCanvasHist(canv)
         X1 = 1 - canv.GetRightMargin() * 0.95
-        X2 = 1 - canv.GetRightMargin() * 0.70
+        X2 = 1 - canv.GetRightMargin() * 0.80
         Y1 = canv.GetBottomMargin()
         Y2 = 1 - canv.GetTopMargin()
     if isNDC:

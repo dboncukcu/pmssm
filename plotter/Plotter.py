@@ -39,7 +39,7 @@ class PMSSM:
             CMS.SetExtraText(self.c.cms_label.get("extraText"))
         if self.c.cms_label.get("lumi") is not None:
             CMS.SetLumi(self.c.cms_label.get("lumi"))
-        
+        CMS.setCMSStyle()
         # Reading root files
         self.tree,self.file = PlotterUtils.create_tree(root_dict)
         
@@ -611,6 +611,7 @@ class PMSSM:
             yaxisDrawConfig : dict = None,
             drawConfig: Union[dict, str] = None,
             legendStyle: Union[dict, str] = None):
+            CMS.setCMSStyle()
             print("_____________________________",f"{BOLD}{ORANGE}2D Quantile {str(quantile)} Percentile {RESET} for{BOLD}{BLUE}", drawstring, f"{RESET}","_____________________________")
             
             
@@ -644,8 +645,6 @@ class PMSSM:
                 particleConfigCopy = copy.copy(self.c.particleConfig[yaxisParticleName])
                 particleConfigCopy.update(yaxisDrawConfig)
                 yaxisDrawConfig = particleConfigCopy
-            
-            
             
             ## Variables
             xbins = self.getParticleConfigValue(xaxisDrawConfig, "bins")
@@ -724,7 +723,7 @@ class PMSSM:
             returnhist.GetZaxis().SetRangeUser(-0.001, max(1, zaxis_max + 0.1))
             returnhist.SetContour(999)
             returnhist.GetZaxis().SetTitle(str(int(100 * quantile)) + "th percentile Bayes factor"),
-            returnhist.GetZaxis().SetTitleOffset(drawConfig.get("ZaxisSetTitleOffset",0.25))
+            returnhist.GetZaxis().SetTitleOffset(drawConfig.get("ZaxisSetTitleOffset",0.75))
             returnhist.GetZaxis().SetTitleSize(0.06)
             if not xlog:
                 PlotterUtils.scaleXaxis(returnhist,scaleFactor=xaxisDrawConfig.get("linearScale"))
@@ -786,6 +785,390 @@ class PMSSM:
             hframe = CMS.GetcmsCanvasHist(canvas)
             hframe.GetYaxis().SetTitleOffset(drawConfig.get("YaxisSetTitleOffset",1.2))
             hframe.GetXaxis().SetTitleOffset(drawConfig.get("XaxisSetTitleOffset",1.05))
+            CMS.UpdatePalettePosition(returnhist, canvas)
 
             CMS.SaveCanvas(canvas, self.outputpath+name+"."+self.defaultFileFormat, close=True)
             print("_______________________________________________________________________________________\n\n")
+         
+    def survivalProbability2D(
+        self,
+        drawstring : str,
+        analysis : str = "combined",
+        moreconstraints : list = [], 
+        moreconstraints_prior : bool =False,
+        xaxisDrawConfig : dict = None,
+        yaxisDrawConfig : dict = None,
+        drawConfig: Union[dict, str] = None,
+        legendStyle: Union[dict, str] = None):
+        CMS.setCMSStyle()
+        print("_____________________________",f"{BOLD}{ORANGE}2D Survival Probability{RESET} for{BOLD}{BLUE}", drawstring, f"{RESET}","_____________________________")
+        
+        if drawConfig is None:
+            drawConfig = self.c.drawConfig["survival2D"]
+        else:
+            drawConfigCopy = copy.copy(self.c.drawConfig["survival2D"])
+            drawConfigCopy.update(drawConfig)
+            drawConfig = drawConfigCopy
+
+        if legendStyle is None:
+            legendStyle = "rightBottom"
+        if isinstance(legendStyle, str):
+            legendConfig = drawConfig.get("legendStyle",legendStyle)
+        if isinstance(legendStyle, dict):
+            legendConfig = legendStyle
+        legendConfig = self.c.drawConfig["survival2D"][legendConfig]
+        
+        yaxisParticleName, xaxisParticleName = drawstring.split(":")
+
+        if xaxisDrawConfig is None:
+                xaxisDrawConfig = self.c.particleConfig[xaxisParticleName]
+        else:
+            particleConfigCopy = copy.copy(self.c.particleConfig[xaxisParticleName])
+            particleConfigCopy.update(xaxisDrawConfig)
+            xaxisDrawConfig = particleConfigCopy
+            
+        if yaxisDrawConfig is None:
+                yaxisDrawConfig = self.c.particleConfig[yaxisParticleName]
+        else:
+            particleConfigCopy = copy.copy(self.c.particleConfig[yaxisParticleName])
+            particleConfigCopy.update(yaxisDrawConfig)
+            yaxisDrawConfig = particleConfigCopy
+            
+            
+        ## Variables
+        xbins = self.getParticleConfigValue(xaxisDrawConfig, "bins")
+        xlow = self.getParticleConfigValue(xaxisDrawConfig, "min")
+        xup = self.getParticleConfigValue(xaxisDrawConfig, "max")
+        xlog = self.getParticleConfigValue(xaxisDrawConfig, "logScale")
+        xtitle = self.getParticleConfigValue(xaxisDrawConfig, "title")
+        xunit = self.getParticleConfigValue(xaxisDrawConfig, "unit")
+        
+        ## Variables
+        ybins = self.getParticleConfigValue(yaxisDrawConfig, "bins")
+        ylow = self.getParticleConfigValue(yaxisDrawConfig, "min")
+        yup = self.getParticleConfigValue(yaxisDrawConfig, "max")
+        ylog = self.getParticleConfigValue(yaxisDrawConfig, "logScale")
+        ytitle = self.getParticleConfigValue(yaxisDrawConfig, "title")
+        yunit = self.getParticleConfigValue(yaxisDrawConfig, "unit")
+        
+        ## Create Histogram Name
+                
+        name = self.createName(xaxisDrawConfig, yaxisDrawConfig ,analysis=analysis, plotType = "survival2D")
+        
+        ## color palette
+        
+        sprobcontours = np.float64([-0.01,1E-5,0.05,0.1,0.15,0.2,0.25,0.3,0.35,0.4,0.45,0.5,0.55,0.6,0.65,0.7,0.75,0.8,0.85,0.9,0.95,1-1E-5,1.01])
+        custompalette = []
+        cols = TColor.GetNumberOfColors()# This gets the colors of the Palette currently set in ROOT
+        #This part sets bins with a survival probability of zero (less than second entry of sprobcontours list to be exact) to Black color. Bins with a survival probability of exactly 1 (greater than second last entry of sprobcontours list) to Grey.
+        for i in range(cols):
+            if i<19: # The exact i was found by trial and error. Sorry.
+                col = kBlack
+            # elif i > 253:
+            #     col = kGray
+            else:
+                col = TColor.GetColorPalette(i) # This part keeps the color from the currently set palette
+                
+            custompalette.append(col)
+        custompalette = np.intc(custompalette)
+
+        hdenom = PlotterUtils.mkhistlogxy("hdenom", '', xbins, xlow, xup, ybins, ylow, yup, logx=xlog, logy=ylog)
+        
+        hret = hdenom.Clone(name)
+        
+        hret.SetContour(len(sprobcontours) - 1, sprobcontours)
+
+        if "simplified" in analysis:  # reweighting is always done, in addition to removing unreasonable points
+                isSimplified = True
+                constraintstring = "*".join([self.c.theconstraints["reweight"], self.c.theconstraints["reason_simplified"]])
+                constraintstring_prior = "*".join([self.c.theconstraints["reweight"], self.c.theconstraints["reason_simplified"]])
+        else:
+            isSimplified = False
+            constraintstring = "*".join([self.c.theconstraints["reweight"], self.c.theconstraints["reason"]])
+            constraintstring_prior = "*".join([self.c.theconstraints["reweight"], self.c.theconstraints["reason"]])
+        for newc in moreconstraints:
+            constraintstring += "*(" + newc + ")"
+        if moreconstraints_prior:
+            for newc_p in moreconstraints_prior:
+                constraintstring_prior += "*(" + newc_p + ")"
+
+        self.tree.Draw(drawstring + ">>" + hdenom.GetName(), constraintstring_prior, "colz")
+        z = self.constraints.getZScore(analysis,isSimplified)
+        self.tree.Draw(drawstring + ">>" + hret.GetName(), "*".join([constraintstring, "(" + z + ">-1.64)"]), "colz")
+        hret.GetZaxis().SetRangeUser(-0.001, 1)
+        cutoff = 1E-3
+        hret.GetZaxis().SetTitle("Survival Probability")
+        hret.Divide(hdenom)
+        for i in range(1, hret.GetNbinsX() + 1):
+            for j in range(1, hret.GetNbinsY() + 1):
+                if hret.GetBinContent(i, j) == 0 and hdenom.GetBinContent(i, j) > 0:
+                    hret.SetBinContent(i, j, 0)
+                elif hret.GetBinContent(i, j) == 0 and hdenom.GetBinContent(i, j) == 0:
+                    hret.SetBinContent(i, j, -1)
+                elif hret.GetBinContent(i, j) < cutoff and hdenom.GetBinContent(i, j) > 0:
+                    hret.SetBinContent(i, j, cutoff)
+        hret.SetContour(len(sprobcontours) - 1, sprobcontours)
+        
+        hret.GetZaxis().SetTitleOffset(drawConfig.get("ZaxisSetTitleOffset",0.85))
+        hret.GetZaxis().SetTitleSize(0.06)
+        
+
+
+
+        prior_data =  self.get_prior_CI(
+            analysis=analysis,
+            hname = name + "_priorcontours",
+            xbins = xbins, 
+            xlow = xlow, 
+            xup = xup,
+            ybins = ybins, 
+            ylow = ylow, 
+            yup = yup, 
+            _logx = xlog, 
+            _logy = ylog, 
+            drawstring = drawstring,
+            moreconstraints= moreconstraints)
+            
+        posterior_data = self.get_posterior_CI(
+            analysis = analysis, 
+            hname = name + "_priorcontours", 
+            xbins = xbins, 
+            xlow = xlow, 
+            xup = xup, 
+            ybins = ybins, 
+            ylow = ylow, 
+            yup = yup, 
+            _logx = xlog, 
+            _logy = ylow, 
+            drawstring = drawstring,
+            moreconstraints = moreconstraints)
+
+
+        if not xlog:
+            PlotterUtils.scaleXaxis(hret,scaleFactor=xaxisDrawConfig.get("linearScale"))
+        if not ylog:
+            PlotterUtils.scaleYaxis(hret,scaleFactor=yaxisDrawConfig.get("linearScale"))
+            
+        cxmin = xlow/xaxisDrawConfig.get("linearScale")
+        cxmax = xup/xaxisDrawConfig.get("linearScale")
+        cymin = ylow/yaxisDrawConfig.get("linearScale")
+        cymax = yup/yaxisDrawConfig.get("linearScale")
+        
+        if xlog:
+            if cxmin == 0:
+                cxmin = self.c.global_settings["logEps"]
+        if ylog:
+            if cymin == 0:
+                cymin = self.c.global_settings["logEps"]
+        
+        canvas = CMS.cmsCanvas(
+            x_min = cxmin,
+            x_max = cxmax,
+            y_min = cymin,
+            y_max = cymax,
+            nameXaxis = f"{xtitle} [{xunit}]",
+            nameYaxis = f"{ytitle} [{yunit}]",
+            canvName = name,
+            square = CMS.kSquare,
+            iPos = 0,
+            leftMargin = 0.04,
+            bottomMargin = 0.037,
+            rightMargin = 0.045,
+            with_z_axis = True,
+            scaleLumi = None,
+            customStyle= {
+                "SetXNdivisions": xaxisDrawConfig.get("Ndivisions",510),
+                "SetYNdivisions": yaxisDrawConfig.get("Ndivisions",510)
+            })
+        
+
+        legend = CMS.cmsLeg(
+            x1 = legendConfig["x1"],
+            y1 = legendConfig["y1"],
+            x2 = legendConfig["x2"],
+            y2 = legendConfig["y2"],
+            columns = legendConfig.get("numberOfColumns",2),
+            textSize = 0.03)
+        legend.SetHeader(self.constraints.getAnalysisName(analysis),"C")
+
+        hret.Draw("colz same")
+        for ix,interval in enumerate(prior_data):
+            for cont in prior_data[interval]:
+                if not xaxisDrawConfig.get("logScale", False):
+                    PlotterUtils.scaleGraphXaxis(cont,scaleFactor=xaxisDrawConfig.get("linearScale"))
+                if not yaxisDrawConfig.get("logScale", False):
+                    PlotterUtils.scaleGraphYaxis(cont,scaleFactor=yaxisDrawConfig.get("linearScale"))
+                cont.Draw("same")
+        for ix,interval in enumerate(posterior_data):
+            for cont in posterior_data[interval]:
+                if not xaxisDrawConfig.get("logScale", False):
+                    PlotterUtils.scaleGraphXaxis(cont,scaleFactor=xaxisDrawConfig.get("linearScale"))
+                if not yaxisDrawConfig.get("logScale", False):
+                    PlotterUtils.scaleGraphYaxis(cont,scaleFactor=yaxisDrawConfig.get("linearScale"))
+                cont.Draw("same")
+        for ix,interval in enumerate(prior_data):
+            if interval in prior_data.keys() and len(prior_data[interval])>0:
+                legend.AddEntry(prior_data[interval][0],str(int(100*(interval)))+"%  prior CI","l",)
+            if interval in posterior_data.keys() and len(posterior_data[interval])>0:
+                legend.AddEntry(posterior_data[interval][0],str(int(100*(interval)))+"% posterior CI","l",)
+        
+        
+        CMS.SetCustomPalette(custompalette)
+        if xlog:
+            canvas.SetLogx()
+        if ylog:
+            canvas.SetLogy()
+        
+        legend.Draw("same")
+        
+        hframe = CMS.GetcmsCanvasHist(canvas)
+        hframe.GetYaxis().SetTitleOffset(drawConfig.get("YaxisSetTitleOffset",1.2))
+        hframe.GetXaxis().SetTitleOffset(drawConfig.get("XaxisSetTitleOffset",1.05))
+        
+        if drawConfig.get("legendFillWhite",False):
+            PlotterUtils.makeLegendFillWhite(legend)
+        
+        CMS.UpdatePalettePosition(hret, canvas)
+        CMS.SaveCanvas(canvas, self.outputpath+name+"."+self.defaultFileFormat, close=True)
+        print("_______________________________________________________________________________________\n\n")
+        
+        
+    def get_prior_CI(self,analysis, hname, xbins, xlow, xup, ybins, ylow, yup, _logx, _logy, drawstring, moreconstraints=[],
+                 intervals=[0.1, 0.67, 0.95], contourcolors=[kRed, kRed + 2, kMagenta],
+                 contourstyle=[kSolid, kSolid, kSolid]):
+        """
+        Produce credibility intervals for the prior, defined here as the smallest number of bins that contain X% of the prior density.
+        Returns the contours for the given intervals
+        @param localtree: Function needs to be passed the ROOT tree from which to operate
+        @param hname: Name of the returned histogram
+        @param xbins: number of x-axis bins. The choice of binning can have some impact on the shape of the credibility intervals
+        @param xlow: lower edge of zero'th bin. The axis ranges should always encompass ALL model points
+        @param xup: upper edge of xbins's bin. The axis ranges should always encompass ALL model points
+        @param ybins: number of y-axis bins
+        @param ylow: lower edge of zero'th bin. The axis ranges should always encompass ALL model points
+        @param yup: upper edge of ybins's bin. The axis ranges should always encompass ALL model points
+        @param _logx: sets x-axis to logarithmic (base 10). If you use this, use linear Y:X in drawstring, not Y:log(X)
+        @param _logy: sets y-axis to logarithmic (base 10). If you use this, use linear Y:X in drawstring, not log(Y):X
+        @param drawstring: Draw string passed to root .Draw() function, of the form Y:X, where Y is drawn on the y-axis and X is drawn on the x-axis. Accepts tree branches and mathematical operations acted on them, such as for example log(Y):10*X. This should always be the same as the underlying histogram
+        @param moreconstraints: list of logical expressions that constrain the tree. Can use tree branches and mathematical operations. Each constrain in the list is logically multiplied. For the prior, this should usually be empty.
+        @param intervals: List of X% prior credibility intervals to produce if possible
+        @param contourcolors: Specifies the colors for the contours. Must be a list of the same length as the intervals.
+        @param contourstyle: Specifies the line style for the contours. Must be a list of the same length as the intervals.
+        
+        """
+        if "simplified" in analysis:  # reweighting is always done, in addition to removing unreasonable points
+            constraintstring = "*".join([self.c.theconstraints["reweight"], self.c.theconstraints["reason_simplified"]])
+        else:
+            constraintstring = "*".join([self.c.theconstraints["reweight"], self.c.theconstraints["reason"]])
+        for newc in moreconstraints:
+            constraintstring += "*(" + newc + ")"
+
+        contours = PlotterUtils.mkhistlogxy(hname, '', xbins, xlow, xup, ybins, ylow, yup, logx=_logx, logy=_logy)
+        self.tree.Draw(drawstring + ">>" + contours.GetName(), constraintstring, "cont2")
+        contarrays = np.array(self.getThresholdForContainment(contours, intervals))
+        # redraw the histogram with cont list option
+        self.tree.Draw(drawstring + ">>" + contours.GetName(), constraintstring, "cont list")
+        # optionally smooth the histogram, as the exact boundary is not important and this makes the intervals look nicer
+        contours.Smooth()
+        contours.SetContour(len(contarrays),
+                            contarrays)  # this produces the contours for the thresholds given in contarrays
+        the_contours = {}
+        gPad.Update()
+        conts = gROOT.GetListOfSpecials().FindObject("contours")
+        for ix, contlist in enumerate(conts):
+            the_contours[intervals[len(intervals) - ix - 1]] = []
+            for cont in contlist:
+                if cont.GetN() < 5: continue  # optionally only consider contours that are somewhat large
+                cont.SetLineColor(contourcolors[ix])
+                cont.SetMarkerColor(contourcolors[ix])
+                cont.SetLineStyle(contourstyle[ix])
+                cont.SetLineWidth(3)
+                the_contours[intervals[len(intervals) - ix - 1]].append(cont.Clone())
+        return the_contours
+
+    def get_posterior_CI(self,analysis, hname, xbins, xlow, xup, ybins, ylow, yup, _logx, _logy, drawstring,
+                        moreconstraints=[], intervals=[0.1, 0.67, 0.95], contourcolors=[kRed, kRed + 2, kMagenta],
+                        contourstyle=[kDashed, kDashed, kDashed]):
+        """
+        Produce credibility intervals for the prior, defined here as the smallest number of bins that contain X% of the prior density.
+        Returns the contours for the given intervals
+        @param localtree: Function needs to be passed the ROOT tree from which to operate
+        @param analysis: The analysis to use for LHC constraints. Can be any string for which a dictionary entry and corresponding ROOT branch exists in "branchnames". Currently does not allow for arbitrary combinations of analyses
+        @param hname: Name of the returned histogram
+        @param xbins: number of x-axis bins. The choice of binning can have some impact on the shape of the credibility intervals
+        @param xlow: lower edge of zero'th bin. The axis ranges should always encompass ALL model points
+        @param xup: upper edge of xbins's bin. The axis ranges should always encompass ALL model points
+        @param ybins: number of y-axis bins
+        @param ylow: lower edge of zero'th bin. The axis ranges should always encompass ALL model points
+        @param yup: upper edge of ybins's bin. The axis ranges should always encompass ALL model points
+        @param _logx: sets x-axis to logarithmic (base 10). If you use this, use linear Y:X in drawstring, not Y:log(X)
+        @param _logy: sets y-axis to logarithmic (base 10). If you use this, use linear Y:X in drawstring, not log(Y):X
+        @param drawstring: Draw string passed to root .Draw() function, of the form Y:X, where Y is drawn on the y-axis and X is drawn on the x-axis. Accepts tree branches and mathematical operations acted on them, such as for example log(Y):10*X. This should always be the same as the underlying histogram
+        @param moreconstraints: list of logical expressions that constrain the tree. Can use tree branches and mathematical operations. Each constrain in the list is logically multiplied. For the prior, this should usually be empty.
+        @param intervals: List of X% prior credibility intervals to produce if possible
+        @param contourcolors: Specifies the colors for the contours. Must be a list of the same length as the intervals.
+        @param contourstyle: Specifies the line style for the contours. Must be a list of the same length as the intervals.
+        
+        """
+        if "simplified" in analysis:  # reweighting is always done, in addition to removing unreasonable points
+            constraintstring = "*".join(
+                [self.c.theconstraints["reweight"], self.c.theconstraints["reason_simplified"], self.constraints.getConstraint(analysis,isSimplified=True,verbose=False)])
+        else:
+            constraintstring = "*".join([self.c.theconstraints["reweight"], self.c.theconstraints["reason"], self.constraints.getConstraint(analysis,isSimplified=False,verbose=False)])
+        for newc in moreconstraints:
+            constraintstring += "*(" + newc + ")"
+
+        contours = PlotterUtils.mkhistlogxy(hname, '', xbins, xlow, xup, ybins, ylow, yup, logx=_logx, logy=_logy)
+        self.tree.Draw(drawstring + ">>" + contours.GetName(), constraintstring, "cont2")
+        contarrays = np.array(self.getThresholdForContainment(contours, intervals))
+        # redraw the histogram with cont list option
+        self.tree.Draw(drawstring + ">>" + contours.GetName(), constraintstring, "cont list")
+        # optionally smooth the histogram, as the exact boundary is not important and this makes the intervals look nicer
+        contours.Smooth()
+        contours.SetContour(len(contarrays),
+                            contarrays)  # this produces the contours for the thresholds given in contarrays
+        the_contours = {}
+        gPad.Update()
+        conts = gROOT.GetListOfSpecials().FindObject("contours")
+        for ix, contlist in enumerate(conts):
+            the_contours[intervals[len(intervals) - ix - 1]] = []
+            for cont in contlist:
+                if cont.GetN() < 5: continue  # optionally only consider contours that are somewhat large
+                cont.SetLineColor(contourcolors[ix])
+                cont.SetMarkerColor(contourcolors[ix])
+                cont.SetLineStyle(contourstyle[ix])
+                cont.SetLineWidth(3)
+                the_contours[intervals[len(intervals) - ix - 1]].append(cont.Clone())
+        return the_contours
+
+    @staticmethod
+    def getThresholdForContainment(hist, intervals):
+        """
+        Returns the thresholds for the given credibility intervals
+        @param hist: Histogram from which to generate the thresholds
+        @param intervals: list of credibility intervals for which to generate the thresholds
+        """
+        # interval needs to be sorted from low to high
+        contents = []
+        thresholds = []  # returned thresholds corresponding to asked containment intervals
+        total = 0
+        # sort the bin contentss in descending order
+        for xbin in range(hist.GetNbinsX() + 1):
+            for ybin in range(hist.GetNbinsY() + 1):
+                val = hist.GetBinContent(xbin, ybin)
+                if val >= 0:
+                    contents.append(val)
+                    total += val
+        contents.sort(reverse=True)
+
+        threshold = 0
+        intervalix = 0
+        for ix, val in enumerate(contents):
+            threshold += val
+            if threshold >= intervals[intervalix] * total:
+                thresholds.append(val)
+                intervalix += 1
+                if intervalix == len(intervals):
+                    break
+        thresholds.sort()
+        return thresholds

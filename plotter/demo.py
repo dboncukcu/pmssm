@@ -40,14 +40,21 @@ pmssm.constraints.printAnalysisList()
 # pmssm.quantile1D("lcsp",drawConfig={"yMaxOffsett": 0.1})
 
 
-pmssm.quantile2D("abs(chi10):abs(chi1pm)",quantile=0.99)
-pmssm.quantile2D("abs(chi10):abs(chi20)",quantile=0.99)
-pmssm.quantile2D("abs(chi10):t1",quantile=0.99)
-pmssm.quantile2D("abs(chi10):b1",quantile=0.99)
-pmssm.quantile2D("abs(chi10):lcsp",quantile=0.99)
-pmssm.quantile2D("abs(chi10):g",quantile=0.99)
+# pmssm.quantile2D("abs(chi10):abs(chi1pm)",quantile=0.99)
+# pmssm.quantile2D("abs(chi10):abs(chi20)",quantile=0.99)
+# pmssm.quantile2D("abs(chi10):t1",quantile=0.99)
+# pmssm.quantile2D("abs(chi10):b1",quantile=0.99)
+# pmssm.quantile2D("abs(chi10):lcsp",quantile=0.99)
+# pmssm.quantile2D("abs(chi10):g",quantile=0.99)
 
+pmssm.survivalProbability2D("abs(chi10):abs(chi1pm)")
+pmssm.survivalProbability2D("abs(chi10):abs(chi20)")
+pmssm.survivalProbability2D("abs(chi10):t1")
+pmssm.survivalProbability2D("abs(chi10):b1")
+pmssm.survivalProbability2D("abs(chi10):lcsp")
+pmssm.survivalProbability2D("abs(chi10):g")
 
+# pmssm.quantile2D("abs(chi10):lcsp",quantile=0.99)
 
 # pmssm.impact1D("t1",legendStyle="leftTop")
 
