@@ -51,7 +51,7 @@ class PlotterConfig:
             "default" : {
                 "bins": 100,
                 "max": 1000,
-                "min": 0,
+                "min": 50,
                 "logScale": False,
                 "1Dlogy" : False,
                 "linearScale": 1000.0,
@@ -61,7 +61,7 @@ class PlotterConfig:
             "abs(chi10)" : {
                 "title" : "m_{#tilde{#chi}^{0}_{1}}",
                 "bins" : 50,
-                "min" : 0,
+                "min" : 50,
                 "max" : 1000,
                 "Ndivisions" : 505,
                 "logScale" : False,
@@ -72,7 +72,7 @@ class PlotterConfig:
             "abs(chi20)" : {
                 "title" : "m_{#tilde{#chi}^{0}_{2}}",
                 "bins" : 50,
-                "min" : 0,
+                "min" : 50,
                 "max" : 2500,
                 "logScale" : False,
                 "linearScale": 1000,
@@ -82,7 +82,7 @@ class PlotterConfig:
             "g": {
                 "title" : "m_{#tilde{g}}",
                 "bins" : 100,
-                "min" : 0,
+                "min" : 50,
                 "max" : 7000,
                 "logScale" : False,
                 "linearScale": 1000,
@@ -93,7 +93,7 @@ class PlotterConfig:
             "t1" : {
                 "title": "m_{#tilde{t}_{1}}",
                 "bins" : 100,
-                "min" : 0,
+                "min" : 50,
                 "max" : 7000,
                 "logScale": False,
                 "linearScale": 1000.0,
@@ -104,7 +104,7 @@ class PlotterConfig:
             "t2" : {
                 "title": "m_{#tilde{t}_{2}}",
                 "bins" : 100,
-                "min" : 0,
+                "min" : 50,
                 "max" : 7000,
                 "logScale": False,
                 "linearScale": 1000.0,
@@ -115,7 +115,7 @@ class PlotterConfig:
             "b1" : {
                 "title": "m_{#tilde{b}_{1}}",
                 "bins" : 100,
-                "min" : 0,
+                "min" : 50,
                 "max" : 7000,
                 "logScale": False,
                 "linearScale": 1000.0,
@@ -125,7 +125,7 @@ class PlotterConfig:
             "lcsp" : {
                 "title" : "m_{LCSP}",
                 "bins" : 50,
-                "min" : 0,
+                "min" : 50,
                 "max" : 7000,
                 "logScale" : False,
                 "linearScale": 1000, # for TeV, 1GeV/1000
@@ -201,7 +201,7 @@ class PlotterConfig:
             "abs(chi1pm)" : {
                 "title" : "m_{#tilde{#chi}^{#pm}_{1}}",
                 "bins" : 50,
-                "min" : 0,
+                "min" : 50,
                 "max" : 2500,
                 "logScale" : False,
                 "linearScale": 1000,
