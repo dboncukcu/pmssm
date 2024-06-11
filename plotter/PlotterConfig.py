@@ -372,12 +372,12 @@ class PlotterConfig:
         
         self.drawConfig["quantile2D"] = {
             "leftTop" : {"x1":0.23,"x2":0.66,"y1":0.67,"y2":0.9},
-            "rightTop" : {"x1":0.60,"x2":0.90,"y1":0.85,"y2":0.95},
-            "rightBottom" : {"x1":0.49,"x2":0.92,"y1":0.10,"y2":0.33},
+            "rightTop" : {"x1":0.57,"x2":0.87,"y1":0.83,"y2":0.93},
+            "rightBottom" : {"x1":0.42,"x2":0.85,"y1":0.10,"y2":0.33},
             "leftBottom" : {"x1":0.15,"x2":0.38,"y1":0.15,"y2":0.27},
-            "YaxisSetTitleOffset" : 1.3,
+            "YaxisSetTitleOffset" : 1.25,
             "XaxisSetTitleOffset" : 1.05,
-            "ZaxisSetTitleOffset" : 1.05,
+            "ZaxisSetTitleOffset" : 1.35,
             "legendFillWhite" : True,
             "legendColor" : kWhite
         }
@@ -390,7 +390,7 @@ class PlotterConfig:
             "numberOfColumns" : 2,
             "YaxisSetTitleOffset" : 1.25,
             "XaxisSetTitleOffset" : 1.05,
-            "ZaxisSetTitleOffset" : 1.17,
+            "ZaxisSetTitleOffset" : 1.2,
             "legendFillWhite" : True,
             "legendColor" : kWhite
         }

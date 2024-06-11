@@ -47,14 +47,22 @@ pmssm.constraints.printAnalysisList()
 # pmssm.quantile2D("abs(chi10):lcsp",quantile=0.99)
 # pmssm.quantile2D("abs(chi10):g",quantile=0.99)
 
-pmssm.survivalProbability2D("abs(chi10):abs(chi1pm)")
-pmssm.survivalProbability2D("abs(chi10):abs(chi20)")
-pmssm.survivalProbability2D("abs(chi10):t1")
-pmssm.survivalProbability2D("abs(chi10):b1")
-pmssm.survivalProbability2D("abs(chi10):lcsp")
+# pmssm.survivalProbability2D("abs(chi10):abs(chi1pm)")
+# pmssm.survivalProbability2D("abs(chi10):abs(chi20)")
+# pmssm.survivalProbability2D("abs(chi10):t1")
+# pmssm.survivalProbability2D("abs(chi10):b1")
+# pmssm.survivalProbability2D("abs(chi10):lcsp")
 pmssm.survivalProbability2D("abs(chi10):g")
+ 
+# pmssm.quantile2D("abs(chi10):g",analysis="combined simplified",quantile=0.99) 
+# pmssm.quantile2D("abs(chi10):g",analysis="combined",quantile=0.99) 
 
-# pmssm.quantile2D("abs(chi10):lcsp",quantile=0.99)
+
+# pmssm.quantile2D("abs(chi10):g",analysis="cms_sus_20_001",quantile=0.99) 
+# pmssm.quantile2D("abs(chi10):g",analysis="cms_sus_19_006",quantile=0.99) 
+# pmssm.quantile2D("abs(chi10):g",analysis="cms_sus_21_006",quantile=0.99) 
+# pmssm.quantile2D("abs(chi10):g",analysis="cms_sus_18_004",quantile=0.99) 
+# pmssm.quantile2D("abs(chi10):g",analysis="cms_sus_18_004,cms_sus_21_006,cms_sus_19_006",quantile=0.99) 
 
 # pmssm.impact1D("t1",legendStyle="leftTop")
 

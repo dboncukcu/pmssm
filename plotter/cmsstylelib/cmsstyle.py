@@ -153,8 +153,8 @@ def UpdatePalettePosition(
     palette = GetPalette(hist)
     if canv != None:
         hframe = GetcmsCanvasHist(canv)
-        X1 = 1 - canv.GetRightMargin() * 0.95
-        X2 = 1 - canv.GetRightMargin() * 0.80
+        X1 = 1 - canv.GetRightMargin()
+        X2 = 1 - canv.GetRightMargin() * 0.85
         Y1 = canv.GetBottomMargin()
         Y2 = 1 - canv.GetTopMargin()
     if isNDC:

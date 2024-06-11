@@ -707,7 +707,7 @@ class PMSSM:
                         returnhist.SetBinContent(ibinx, ibiny, 0)
                         continue
                     quant = hz.GetQuantiles(1, q, prob)
-                    returnhist.SetBinContent(ibinx, ibiny, q[0])
+                    returnhist.SetBinContent(ibinx, ibiny, max(q[0], cutoff))
             zaxis_max = -1
             
             for i in range(1, returnhist.GetNbinsX() + 1):
@@ -720,7 +720,7 @@ class PMSSM:
                         returnhist.SetBinContent(i, j, cutoff)
                     zaxis_max = max(zaxis_max, returnhist.GetBinContent(i, j))
                     
-            returnhist.GetZaxis().SetRangeUser(-0.001, max(1, zaxis_max + 0.1))
+            returnhist.GetZaxis().SetRangeUser(cutoff, max(1, zaxis_max + 0.1))
             returnhist.SetContour(999)
             returnhist.GetZaxis().SetTitle(str(int(100 * quantile)) + "th percentile Bayes factor"),
             returnhist.GetZaxis().SetTitleOffset(drawConfig.get("ZaxisSetTitleOffset",0.75))
@@ -753,8 +753,9 @@ class PMSSM:
                 canvName = name,
                 square = CMS.kSquare,
                 iPos = 0,
-                leftMargin = 0.04,
+                leftMargin = 0.035,
                 bottomMargin = 0.037,
+                rightMargin= 0.045,
                 with_z_axis = True,
                 scaleLumi = None,
                 customStyle= {
@@ -766,6 +767,7 @@ class PMSSM:
                 canvas.SetLogx()
             if ylog:
                 canvas.SetLogy()
+            canvas.SetLogz()
             returnhist.Draw("same colz")
             
             legend = CMS.cmsLeg(
@@ -973,7 +975,7 @@ class PMSSM:
             iPos = 0,
             leftMargin = 0.04,
             bottomMargin = 0.037,
-            rightMargin = 0.045,
+            rightMargin = 0.04,
             with_z_axis = True,
             scaleLumi = None,
             customStyle= {
@@ -1019,7 +1021,7 @@ class PMSSM:
         if ylog:
             canvas.SetLogy()
         
-        legend.Draw("same")
+        # legend.Draw("same")
         
         hframe = CMS.GetcmsCanvasHist(canvas)
         hframe.GetYaxis().SetTitleOffset(drawConfig.get("YaxisSetTitleOffset",1.2))
@@ -1027,7 +1029,7 @@ class PMSSM:
         
         if drawConfig.get("legendFillWhite",False):
             PlotterUtils.makeLegendFillWhite(legend)
-        
+        del legend
         CMS.UpdatePalettePosition(hret, canvas)
         CMS.SaveCanvas(canvas, self.outputpath+name+"."+self.defaultFileFormat, close=True)
         print("_______________________________________________________________________________________\n\n")
