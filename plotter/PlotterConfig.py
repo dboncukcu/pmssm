@@ -146,7 +146,7 @@ class PlotterConfig:
             "g-abs(chi10)": {
                 "title": "#Deltam(#tilde{g},#tilde{#chi}^{0}_{1})",
                 "bins" : 100,
-                "min" : 0,
+                "min" : 0.001,
                 "max" : 7000,
                 "logScale": True,
                 "linearScale": 1.0,
@@ -157,7 +157,7 @@ class PlotterConfig:
             "t1-abs(chi10)": {
                 "title": "#Deltam(#tilde{t}_{1},#tilde{#chi}^{0}_{1})",
                 "bins" : 100,
-                "min" : 0,
+                "min" : 0.001,
                 "max" : 7000,
                 "logScale": True,
                 "linearScale": 1.0,
@@ -168,7 +168,7 @@ class PlotterConfig:
             "b1-abs(chi10)": {
                 "title": "#Deltam(#tilde{b}_{1},#tilde{#chi}^{0}_{1})",
                 "bins" : 100,
-                "min" : 0,
+                "min" :0.001,
                 "max" : 7000,
                 "logScale": True,
                 "linearScale": 1.0,
@@ -179,7 +179,7 @@ class PlotterConfig:
             "lcsp-abs(chi10)": {
                 "title": "#Deltam(LCSP,#tilde{#chi}^{0}_{1})",
                 "bins" : 100,
-                "min" : 0,
+                "min" : 0.001,
                 "max" : 7000,
                 "logScale": True,
                 "linearScale": 1.0,
