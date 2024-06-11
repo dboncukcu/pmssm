@@ -426,15 +426,15 @@ class PlotterConfig:
         }
 
         self.drawConfig["survival2D"] = {
-            "leftTop" : {"x1":0.23,"x2":0.66,"y1":0.67,"y2":0.9},
+           "leftTop" : {"x1":0.23,"x2":0.66,"y1":0.70,"y2":0.93},
             "rightTop" : {"x1":0.60,"x2":0.90,"y1":0.85,"y2":0.95},
-            "rightBottom" : {"x1":0.49,"x2":0.92,"y1":0.17,"y2":0.4},
+            "rightBottom" : {"x1":0.30,"x2":0.77,"y1":0.17,"y2":0.4},
             "leftBottom" : {"x1":0.23,"x2":0.53,"y1":0.2,"y2":0.32},
             "numberOfColumns" : 2,
             "YaxisSetTitleOffset" : 1.25,
             "XaxisSetTitleOffset" : 1.05,
             "ZaxisSetTitleOffset" : 1.2,
-            "legendFillWhite" : True,
+            "legendFillWhite" : False ,
             "legendColor" : kWhite
         }
               
