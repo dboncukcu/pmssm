@@ -22,9 +22,9 @@ pmssm.constraints.printAnalysisList()
 
 
 
-for analyis in pmssm.constraints.getAnalysisList():
-    pmssm.survivalProbability2D("abs(chi1pm)-abs(chi10):abs(chi10)",analysis=analyis)
-    pmssm.quantile2D("t1-abs(chi10):abs(chi10)",quantile=0.99,analysis=analyis)
+# for analyis in pmssm.constraints.getAnalysisList():
+#     pmssm.survivalProbability2D("abs(chi1pm)-abs(chi10):abs(chi10)",analysis=analyis)
+#     pmssm.quantile2D("t1-abs(chi10):abs(chi10)",quantile=0.99,analysis=analyis)
 
 
 # pmssm.quantile2D("abs(chi1pm)-abs(chi10):abs(chi10)",quantile=0.99)
