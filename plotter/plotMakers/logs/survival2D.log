@@ -1,26 +1,19 @@
 Info in <TCanvas::MakeDefCanvas>:  created default TCanvas with name c1
-Info in <TCanvas::Print>: pdf file ../../output/quantile2D/chi1pm_chi10_COMBINED_0p99_quantile2D.pdf has been created
-TFile::Append:0: RuntimeWarning: Replacing existing TH1: htemp_pyx  _pxy (Potential memory leak).
-Info in <TCanvas::Print>: pdf file ../../output/quantile2D/chi20_chi10_COMBINED_0p99_quantile2D.pdf has been created
-TFile::Append:0: RuntimeWarning: Replacing existing TH1: htemp_pyx  _pxy (Potential memory leak).
-Info in <TCanvas::Print>: pdf file ../../output/quantile2D/stop1_chi10_COMBINED_0p99_quantile2D.pdf has been created
-TFile::Append:0: RuntimeWarning: Replacing existing TH1: htemp_pyx  _pxy (Potential memory leak).
-Info in <TCanvas::Print>: pdf file ../../output/quantile2D/sbottom_chi10_COMBINED_0p99_quantile2D.pdf has been created
-TFile::Append:0: RuntimeWarning: Replacing existing TH1: htemp_pyx  _pxy (Potential memory leak).
-Info in <TCanvas::Print>: pdf file ../../output/quantile2D/lcsp_chi10_COMBINED_0p99_quantile2D.pdf has been created
-TFile::Append:0: RuntimeWarning: Replacing existing TH1: htemp_pyx  _pxy (Potential memory leak).
-Info in <TCanvas::Print>: pdf file ../../output/quantile2D/gluino_chi10_COMBINED_0p99_quantile2D.pdf has been created
-TFile::Append:0: RuntimeWarning: Replacing existing TH1: htemp_pyx  _pxy (Potential memory leak).
-Info in <TCanvas::Print>: pdf file ../../output/quantile2D/chi10_DmChi1pmChi10_COMBINED_0p99_quantile2D.pdf has been created
-TFile::Append:0: RuntimeWarning: Replacing existing TH1: htemp_pyx  _pxy (Potential memory leak).
-Info in <TCanvas::Print>: pdf file ../../output/quantile2D/chi10_DmGluinoChi10_COMBINED_0p99_quantile2D.pdf has been created
+Info in <TCanvas::Print>: pdf file ../../output/survival2D/chi20_chi10_COMBINED_survival2D.pdf has been created
+Info in <TCanvas::Print>: pdf file ../../output/survival2D/chi1pm_chi10_COMBINED_survival2D.pdf has been created
+Info in <TCanvas::Print>: pdf file ../../output/survival2D/chi10_chi1pm_COMBINED_survival2D.pdf has been created
+Info in <TCanvas::Print>: pdf file ../../output/survival2D/gluino_chi10_COMBINED_survival2D.pdf has been created
+Info in <TCanvas::Print>: pdf file ../../output/survival2D/stop1_chi10_COMBINED_survival2D.pdf has been created
+Info in <TCanvas::Print>: pdf file ../../output/survival2D/sbottom_chi10_COMBINED_survival2D.pdf has been created
+Info in <TCanvas::Print>: pdf file ../../output/survival2D/lcsp_chi10_COMBINED_survival2D.pdf has been created
+Info in <TCanvas::Print>: pdf file ../../output/survival2D/chi10_DmChi20Chi10_COMBINED_survival2D.pdf has been created
 1. cms_sus_20_001
 2. cms_sus_19_006
 3. cms_sus_21_006
 4. cms_sus_18_004
 5. cms_sus_21_007
 6. cms_sus_21_007_mb
-_____________________________ [1m[38;5;214m2D Quantile 0.99 Percentile [0m for[1m[94m abs(chi10):abs(chi1pm) [0m _____________________________
+_____________________________ [1m[38;5;214m2D Survival Probability[0m for[1m[94m abs(chi10):abs(chi20) [0m _____________________________
 _____________________________[1m[92mFULL COMBINED[0m_______________________
 •[93mAnalysis:[0m cms_sus_20_001 [38;5;214mConstraint[0m: (exp(llhd_cms_sus_20_001_mu1p0s-llhd_cms_sus_20_001_mu0p0s))
 •[93mAnalysis:[0m cms_sus_19_006 [38;5;214mConstraint[0m: (exp(llhd_cms_sus_19_006_100s-llhd_cms_sus_19_006_0s))
@@ -31,7 +24,7 @@ _____________________________[1m[92mFULL COMBINED[0m_______________________
 _______________________________________________________________________________________
 
 
-_____________________________ [1m[38;5;214m2D Quantile 0.99 Percentile [0m for[1m[94m abs(chi10):abs(chi20) [0m _____________________________
+_____________________________ [1m[38;5;214m2D Survival Probability[0m for[1m[94m abs(chi10):abs(chi1pm) [0m _____________________________
 _____________________________[1m[92mFULL COMBINED[0m_______________________
 •[93mAnalysis:[0m cms_sus_20_001 [38;5;214mConstraint[0m: (exp(llhd_cms_sus_20_001_mu1p0s-llhd_cms_sus_20_001_mu0p0s))
 •[93mAnalysis:[0m cms_sus_19_006 [38;5;214mConstraint[0m: (exp(llhd_cms_sus_19_006_100s-llhd_cms_sus_19_006_0s))
@@ -42,7 +35,7 @@ _____________________________[1m[92mFULL COMBINED[0m_______________________
 _______________________________________________________________________________________
 
 
-_____________________________ [1m[38;5;214m2D Quantile 0.99 Percentile [0m for[1m[94m abs(chi10):t1 [0m _____________________________
+_____________________________ [1m[38;5;214m2D Survival Probability[0m for[1m[94m abs(chi1pm):abs(chi10) [0m _____________________________
 _____________________________[1m[92mFULL COMBINED[0m_______________________
 •[93mAnalysis:[0m cms_sus_20_001 [38;5;214mConstraint[0m: (exp(llhd_cms_sus_20_001_mu1p0s-llhd_cms_sus_20_001_mu0p0s))
 •[93mAnalysis:[0m cms_sus_19_006 [38;5;214mConstraint[0m: (exp(llhd_cms_sus_19_006_100s-llhd_cms_sus_19_006_0s))
@@ -53,7 +46,7 @@ _____________________________[1m[92mFULL COMBINED[0m_______________________
 _______________________________________________________________________________________
 
 
-_____________________________ [1m[38;5;214m2D Quantile 0.99 Percentile [0m for[1m[94m abs(chi10):b1 [0m _____________________________
+_____________________________ [1m[38;5;214m2D Survival Probability[0m for[1m[94m abs(chi10):g [0m _____________________________
 _____________________________[1m[92mFULL COMBINED[0m_______________________
 •[93mAnalysis:[0m cms_sus_20_001 [38;5;214mConstraint[0m: (exp(llhd_cms_sus_20_001_mu1p0s-llhd_cms_sus_20_001_mu0p0s))
 •[93mAnalysis:[0m cms_sus_19_006 [38;5;214mConstraint[0m: (exp(llhd_cms_sus_19_006_100s-llhd_cms_sus_19_006_0s))
@@ -64,7 +57,7 @@ _____________________________[1m[92mFULL COMBINED[0m_______________________
 _______________________________________________________________________________________
 
 
-_____________________________ [1m[38;5;214m2D Quantile 0.99 Percentile [0m for[1m[94m abs(chi10):lcsp [0m _____________________________
+_____________________________ [1m[38;5;214m2D Survival Probability[0m for[1m[94m abs(chi10):t1 [0m _____________________________
 _____________________________[1m[92mFULL COMBINED[0m_______________________
 •[93mAnalysis:[0m cms_sus_20_001 [38;5;214mConstraint[0m: (exp(llhd_cms_sus_20_001_mu1p0s-llhd_cms_sus_20_001_mu0p0s))
 •[93mAnalysis:[0m cms_sus_19_006 [38;5;214mConstraint[0m: (exp(llhd_cms_sus_19_006_100s-llhd_cms_sus_19_006_0s))
@@ -75,7 +68,7 @@ _____________________________[1m[92mFULL COMBINED[0m_______________________
 _______________________________________________________________________________________
 
 
-_____________________________ [1m[38;5;214m2D Quantile 0.99 Percentile [0m for[1m[94m abs(chi10):g [0m _____________________________
+_____________________________ [1m[38;5;214m2D Survival Probability[0m for[1m[94m abs(chi10):b1 [0m _____________________________
 _____________________________[1m[92mFULL COMBINED[0m_______________________
 •[93mAnalysis:[0m cms_sus_20_001 [38;5;214mConstraint[0m: (exp(llhd_cms_sus_20_001_mu1p0s-llhd_cms_sus_20_001_mu0p0s))
 •[93mAnalysis:[0m cms_sus_19_006 [38;5;214mConstraint[0m: (exp(llhd_cms_sus_19_006_100s-llhd_cms_sus_19_006_0s))
@@ -86,7 +79,7 @@ _____________________________[1m[92mFULL COMBINED[0m_______________________
 _______________________________________________________________________________________
 
 
-_____________________________ [1m[38;5;214m2D Quantile 0.99 Percentile [0m for[1m[94m abs(chi1pm)-abs(chi10):abs(chi10) [0m _____________________________
+_____________________________ [1m[38;5;214m2D Survival Probability[0m for[1m[94m abs(chi10):lcsp [0m _____________________________
 _____________________________[1m[92mFULL COMBINED[0m_______________________
 •[93mAnalysis:[0m cms_sus_20_001 [38;5;214mConstraint[0m: (exp(llhd_cms_sus_20_001_mu1p0s-llhd_cms_sus_20_001_mu0p0s))
 •[93mAnalysis:[0m cms_sus_19_006 [38;5;214mConstraint[0m: (exp(llhd_cms_sus_19_006_100s-llhd_cms_sus_19_006_0s))
@@ -97,7 +90,7 @@ _____________________________[1m[92mFULL COMBINED[0m_______________________
 _______________________________________________________________________________________
 
 
-_____________________________ [1m[38;5;214m2D Quantile 0.99 Percentile [0m for[1m[94m g-abs(chi10):abs(chi10) [0m _____________________________
+_____________________________ [1m[38;5;214m2D Survival Probability[0m for[1m[94m abs(chi20-chi10):abs(chi10) [0m _____________________________
 _____________________________[1m[92mFULL COMBINED[0m_______________________
 •[93mAnalysis:[0m cms_sus_20_001 [38;5;214mConstraint[0m: (exp(llhd_cms_sus_20_001_mu1p0s-llhd_cms_sus_20_001_mu0p0s))
 •[93mAnalysis:[0m cms_sus_19_006 [38;5;214mConstraint[0m: (exp(llhd_cms_sus_19_006_100s-llhd_cms_sus_19_006_0s))
@@ -108,15 +101,12 @@ _____________________________[1m[92mFULL COMBINED[0m_______________________
 _______________________________________________________________________________________
 
 
-_____________________________ [1m[38;5;214m2D Quantile 0.99 Percentile [0m for[1m[94m t1-abs(chi10):abs(chi10) [0m _____________________________
-TFile::Append:0: RuntimeWarning: Replacing existing TH1: htemp_pyx  _pxy (Potential memory leak).
-Info in <TCanvas::Print>: pdf file ../../output/quantile2D/chi10_DmStop1Chi10_COMBINED_0p99_quantile2D.pdf has been created
-TFile::Append:0: RuntimeWarning: Replacing existing TH1: htemp_pyx  _pxy (Potential memory leak).
-Info in <TCanvas::Print>: pdf file ../../output/quantile2D/chi10_DmSbottom1Chi10_COMBINED_0p99_quantile2D.pdf has been created
-TFile::Append:0: RuntimeWarning: Replacing existing TH1: htemp_pyx  _pxy (Potential memory leak).
-Info in <TCanvas::Print>: pdf file ../../output/quantile2D/chi10_DmLcspChi10_COMBINED_0p99_quantile2D.pdf has been created
-TFile::Append:0: RuntimeWarning: Replacing existing TH1: htemp_pyx  _pxy (Potential memory leak).
-Info in <TCanvas::Print>: pdf file ../../output/quantile2D/chi10_chi1pm_COMBINED_0p99_quantile2D.pdf has been created
+_____________________________ [1m[38;5;214m2D Survival Probability[0m for[1m[94m abs(chi1pm)-abs(chi10):abs(chi10) [0m _____________________________
+Info in <TCanvas::Print>: pdf file ../../output/survival2D/chi10_DmChi1pmChi10_COMBINED_survival2D.pdf has been created
+Info in <TCanvas::Print>: pdf file ../../output/survival2D/chi10_DmGluinoChi10_COMBINED_survival2D.pdf has been created
+Info in <TCanvas::Print>: pdf file ../../output/survival2D/chi10_DmStop1Chi10_COMBINED_survival2D.pdf has been created
+Info in <TCanvas::Print>: pdf file ../../output/survival2D/chi10_DmSbottom1Chi10_COMBINED_survival2D.pdf has been created
+Info in <TCanvas::Print>: pdf file ../../output/survival2D/chi10_DmLcspChi10_COMBINED_survival2D.pdf has been created
 _____________________________[1m[92mFULL COMBINED[0m_______________________
 •[93mAnalysis:[0m cms_sus_20_001 [38;5;214mConstraint[0m: (exp(llhd_cms_sus_20_001_mu1p0s-llhd_cms_sus_20_001_mu0p0s))
 •[93mAnalysis:[0m cms_sus_19_006 [38;5;214mConstraint[0m: (exp(llhd_cms_sus_19_006_100s-llhd_cms_sus_19_006_0s))
@@ -127,7 +117,7 @@ _____________________________[1m[92mFULL COMBINED[0m_______________________
 _______________________________________________________________________________________
 
 
-_____________________________ [1m[38;5;214m2D Quantile 0.99 Percentile [0m for[1m[94m b1-abs(chi10):abs(chi10) [0m _____________________________
+_____________________________ [1m[38;5;214m2D Survival Probability[0m for[1m[94m g-abs(chi10):abs(chi10) [0m _____________________________
 _____________________________[1m[92mFULL COMBINED[0m_______________________
 •[93mAnalysis:[0m cms_sus_20_001 [38;5;214mConstraint[0m: (exp(llhd_cms_sus_20_001_mu1p0s-llhd_cms_sus_20_001_mu0p0s))
 •[93mAnalysis:[0m cms_sus_19_006 [38;5;214mConstraint[0m: (exp(llhd_cms_sus_19_006_100s-llhd_cms_sus_19_006_0s))
@@ -138,7 +128,7 @@ _____________________________[1m[92mFULL COMBINED[0m_______________________
 _______________________________________________________________________________________
 
 
-_____________________________ [1m[38;5;214m2D Quantile 0.99 Percentile [0m for[1m[94m lcsp-abs(chi10):abs(chi10) [0m _____________________________
+_____________________________ [1m[38;5;214m2D Survival Probability[0m for[1m[94m t1-abs(chi10):abs(chi10) [0m _____________________________
 _____________________________[1m[92mFULL COMBINED[0m_______________________
 •[93mAnalysis:[0m cms_sus_20_001 [38;5;214mConstraint[0m: (exp(llhd_cms_sus_20_001_mu1p0s-llhd_cms_sus_20_001_mu0p0s))
 •[93mAnalysis:[0m cms_sus_19_006 [38;5;214mConstraint[0m: (exp(llhd_cms_sus_19_006_100s-llhd_cms_sus_19_006_0s))
@@ -149,7 +139,18 @@ _____________________________[1m[92mFULL COMBINED[0m_______________________
 _______________________________________________________________________________________
 
 
-_____________________________ [1m[38;5;214m2D Quantile 0.99 Percentile [0m for[1m[94m abs(chi1pm):abs(chi10) [0m _____________________________
+_____________________________ [1m[38;5;214m2D Survival Probability[0m for[1m[94m b1-abs(chi10):abs(chi10) [0m _____________________________
+_____________________________[1m[92mFULL COMBINED[0m_______________________
+•[93mAnalysis:[0m cms_sus_20_001 [38;5;214mConstraint[0m: (exp(llhd_cms_sus_20_001_mu1p0s-llhd_cms_sus_20_001_mu0p0s))
+•[93mAnalysis:[0m cms_sus_19_006 [38;5;214mConstraint[0m: (exp(llhd_cms_sus_19_006_100s-llhd_cms_sus_19_006_0s))
+•[93mAnalysis:[0m cms_sus_21_006 [38;5;214mConstraint[0m: (max(bf_cms_sus_21_006_mu1p0f,1E-20))
+•[93mAnalysis:[0m cms_sus_18_004 [38;5;214mConstraint[0m: (max(bf_cms_sus_18_004_mu1p0f,1E-20))
+•[93mAnalysis:[0m cms_sus_21_007 [38;5;214mConstraint[0m: (exp(llhd_cms_sus_21_007_100s-llhd_cms_sus_21_007_0s))
+•[93mAnalysis:[0m cms_sus_21_007_mb [38;5;214mConstraint[0m: (max(bf_cms_sus_21_007_mb_mu1p0s,1E-20))
+_______________________________________________________________________________________
+
+
+_____________________________ [1m[38;5;214m2D Survival Probability[0m for[1m[94m lcsp-abs(chi10):abs(chi10) [0m _____________________________
 _____________________________[1m[92mFULL COMBINED[0m_______________________
 •[93mAnalysis:[0m cms_sus_20_001 [38;5;214mConstraint[0m: (exp(llhd_cms_sus_20_001_mu1p0s-llhd_cms_sus_20_001_mu0p0s))
 •[93mAnalysis:[0m cms_sus_19_006 [38;5;214mConstraint[0m: (exp(llhd_cms_sus_19_006_100s-llhd_cms_sus_19_006_0s))

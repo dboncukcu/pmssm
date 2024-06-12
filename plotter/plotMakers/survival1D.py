@@ -14,12 +14,9 @@ c = PlotterConfig()
 c.global_settings["outputFileFormat"] = "pdf"
 c.global_settings["outputPath"] = "../../output/survival1D"
 
-root_dict = [
-    {"treeName": "mcmc", "filePath" : "/eos/user/d/dboncukc/rootFiles/pmssmtree_11aug2023.root "},
-    {"treeName": "cms_sus_20_001",  "filePath" :"/eos/user/d/dboncukc/rootFiles/sus_20_001_likelihood.root"}
-]
 
-pmssm = PMSSM(root_dict,config=c)
+
+pmssm = PMSSM(config=c)
 
 pmssm.constraints.printAnalysisList()
 

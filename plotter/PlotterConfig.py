@@ -135,7 +135,7 @@ class PlotterConfig:
             "abs(chi1pm)-abs(chi10)": {
                 "title": "#Deltam(#tilde{#chi}^{#pm}_{1},#tilde{#chi}^{0}_{1})",
                 "bins" : 100,
-                "min" : 0.001,
+                "min" : 0.1,
                 "max" : 3000,
                 "logScale": True,
                 "linearScale": 1.0,
@@ -146,7 +146,7 @@ class PlotterConfig:
             "g-abs(chi10)": {
                 "title": "#Deltam(#tilde{g},#tilde{#chi}^{0}_{1})",
                 "bins" : 100,
-                "min" : 0.001,
+                "min" : 1,
                 "max" : 7000,
                 "logScale": True,
                 "linearScale": 1.0,
@@ -157,7 +157,7 @@ class PlotterConfig:
             "t1-abs(chi10)": {
                 "title": "#Deltam(#tilde{t}_{1},#tilde{#chi}^{0}_{1})",
                 "bins" : 100,
-                "min" : 0.001,
+                "min" : 1,
                 "max" : 7000,
                 "logScale": True,
                 "linearScale": 1.0,
@@ -168,7 +168,7 @@ class PlotterConfig:
             "b1-abs(chi10)": {
                 "title": "#Deltam(#tilde{b}_{1},#tilde{#chi}^{0}_{1})",
                 "bins" : 100,
-                "min" :0.001,
+                "min" :1,
                 "max" : 7000,
                 "logScale": True,
                 "linearScale": 1.0,
@@ -179,7 +179,7 @@ class PlotterConfig:
             "lcsp-abs(chi10)": {
                 "title": "#Deltam(LCSP,#tilde{#chi}^{0}_{1})",
                 "bins" : 100,
-                "min" : 0.001,
+                "min" : 1,
                 "max" : 7000,
                 "logScale": True,
                 "linearScale": 1.0,
@@ -187,7 +187,7 @@ class PlotterConfig:
                 "name" : "DmLcspChi10",
                 "1Dlogy": False
             },
-            "abs(chi20-chi10)": {
+            "abs(chi20)-abs(chi10)": {
                 "title": "#Deltam(#tilde{#chi}^{0}_{2},#tilde{#chi}^{0}_{1})",
                 "bins" : 100,
                 "min" : 0.1,
@@ -380,7 +380,7 @@ class PlotterConfig:
         
         ###################################################################
         ################### drawConfig Settings ###################
-        
+
         self.drawConfig = {}
         
         self.drawConfig["impact1D"] = {
@@ -426,15 +426,14 @@ class PlotterConfig:
         }
 
         self.drawConfig["survival2D"] = {
-           "leftTop" : {"x1":0.23,"x2":0.66,"y1":0.70,"y2":0.93},
-            "rightTop" : {"x1":0.60,"x2":0.90,"y1":0.85,"y2":0.95},
+           "leftTop" : {"x1":0.19,"x2":0.67,"y1":0.70,"y2":0.93},
+            "rightTop" : {"x1":0.42,"x2":0.82,"y1":0.73,"y2":0.93},
             "rightBottom" : {"x1":0.30,"x2":0.77,"y1":0.17,"y2":0.4},
             "leftBottom" : {"x1":0.23,"x2":0.53,"y1":0.2,"y2":0.32},
             "numberOfColumns" : 2,
             "YaxisSetTitleOffset" : 1.25,
             "XaxisSetTitleOffset" : 1.05,
             "ZaxisSetTitleOffset" : 1.2,
-            "legendFillWhite" : False ,
+            "legendFillWhite" : True ,
             "legendColor" : kWhite
         }
-              

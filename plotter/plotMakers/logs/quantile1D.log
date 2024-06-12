@@ -43,6 +43,80 @@ TH1D::Sumw2:0: RuntimeWarning: Sum of squares of weights structure already creat
 TH1D::Sumw2:0: RuntimeWarning: Sum of squares of weights structure already created
 TH1D::Sumw2:0: RuntimeWarning: Sum of squares of weights structure already created
 Info in <TCanvas::Print>: pdf file ../../output/quantile1D/stop1_COMBINED_quantile1D.pdf has been created
+1. cms_sus_20_001
+2. cms_sus_19_006
+3. cms_sus_21_006
+4. cms_sus_18_004
+5. cms_sus_21_007
+6. cms_sus_21_007_mb
+_____________________________ [1m[38;5;214m1D Quantile[0m for[1m[94m abs(chi10) [0m _____________________________
+_____________________________[1m[92mSIMPLIFIED COMBINED[0m_______________________
+•[93mAnalysis:[0m cms_sus_20_001 [38;5;214mConstraint[0m: (exp(llhd_cms_sus_20_001_mu1p0s-llhd_cms_sus_20_001_mu0p0s))
+•[93mAnalysis:[0m cms_sus_19_006 [38;5;214mConstraint[0m: (exp(llhd_cms_sus_19_006_100s-llhd_cms_sus_19_006_0s))
+•[93mAnalysis:[0m cms_sus_21_006 [38;5;214mConstraint[0m: (exp(llhd_cms_sus_21_006_100s-llhd_cms_sus_21_006_0s))
+•[93mAnalysis:[0m cms_sus_18_004 [38;5;214mConstraint[0m: (exp(llhd_cms_sus_18_004_100s-llhd_cms_sus_18_004_0s))
+•[93mAnalysis:[0m cms_sus_21_007 [38;5;214mConstraint[0m: (exp(llhd_cms_sus_21_007_100s-llhd_cms_sus_21_007_0s))
+•[93mAnalysis:[0m cms_sus_21_007_mb [38;5;214mConstraint[0m: (max(bf_cms_sus_21_007_mb_mu1p0s,1E-20))
+[1m[92mQuantile Plot DrawString:[0m (exp(llhd_cms_sus_20_001_mu1p0s-llhd_cms_sus_20_001_mu0p0s))*(exp(llhd_cms_sus_19_006_100s-llhd_cms_sus_19_006_0s))*(exp(llhd_cms_sus_21_006_100s-llhd_cms_sus_21_006_0s))*(exp(llhd_cms_sus_18_004_100s-llhd_cms_sus_18_004_0s))*(exp(llhd_cms_sus_21_007_100s-llhd_cms_sus_21_007_0s))*(max(bf_cms_sus_21_007_mb_mu1p0s,1E-20)):abs(chi10)
+_______________________________________________________________________________________
+
+
+_____________________________ [1m[38;5;214m1D Quantile[0m for[1m[94m abs(chi1pm) [0m _____________________________
+_____________________________[1m[92mSIMPLIFIED COMBINED[0m_______________________
+•[93mAnalysis:[0m cms_sus_20_001 [38;5;214mConstraint[0m: (exp(llhd_cms_sus_20_001_mu1p0s-llhd_cms_sus_20_001_mu0p0s))
+•[93mAnalysis:[0m cms_sus_19_006 [38;5;214mConstraint[0m: (exp(llhd_cms_sus_19_006_100s-llhd_cms_sus_19_006_0s))
+•[93mAnalysis:[0m cms_sus_21_006 [38;5;214mConstraint[0m: (exp(llhd_cms_sus_21_006_100s-llhd_cms_sus_21_006_0s))
+•[93mAnalysis:[0m cms_sus_18_004 [38;5;214mConstraint[0m: (exp(llhd_cms_sus_18_004_100s-llhd_cms_sus_18_004_0s))
+•[93mAnalysis:[0m cms_sus_21_007 [38;5;214mConstraint[0m: (exp(llhd_cms_sus_21_007_100s-llhd_cms_sus_21_007_0s))
+•[93mAnalysis:[0m cms_sus_21_007_mb [38;5;214mConstraint[0m: (max(bf_cms_sus_21_007_mb_mu1p0s,1E-20))
+[1m[92mQuantile Plot DrawString:[0m (exp(llhd_cms_sus_20_001_mu1p0s-llhd_cms_sus_20_001_mu0p0s))*(exp(llhd_cms_sus_19_006_100s-llhd_cms_sus_19_006_0s))*(exp(llhd_cms_sus_21_006_100s-llhd_cms_sus_21_006_0s))*(exp(llhd_cms_sus_18_004_100s-llhd_cms_sus_18_004_0s))*(exp(llhd_cms_sus_21_007_100s-llhd_cms_sus_21_007_0s))*(max(bf_cms_sus_21_007_mb_mu1p0s,1E-20)):abs(chi1pm)
+_______________________________________________________________________________________
+
+
+_____________________________ [1m[38;5;214m1D Quantile[0m for[1m[94m abs(chi20) [0m _____________________________
+_____________________________[1m[92mSIMPLIFIED COMBINED[0m_______________________
+•[93mAnalysis:[0m cms_sus_20_001 [38;5;214mConstraint[0m: (exp(llhd_cms_sus_20_001_mu1p0s-llhd_cms_sus_20_001_mu0p0s))
+•[93mAnalysis:[0m cms_sus_19_006 [38;5;214mConstraint[0m: (exp(llhd_cms_sus_19_006_100s-llhd_cms_sus_19_006_0s))
+•[93mAnalysis:[0m cms_sus_21_006 [38;5;214mConstraint[0m: (exp(llhd_cms_sus_21_006_100s-llhd_cms_sus_21_006_0s))
+•[93mAnalysis:[0m cms_sus_18_004 [38;5;214mConstraint[0m: (exp(llhd_cms_sus_18_004_100s-llhd_cms_sus_18_004_0s))
+•[93mAnalysis:[0m cms_sus_21_007 [38;5;214mConstraint[0m: (exp(llhd_cms_sus_21_007_100s-llhd_cms_sus_21_007_0s))
+•[93mAnalysis:[0m cms_sus_21_007_mb [38;5;214mConstraint[0m: (max(bf_cms_sus_21_007_mb_mu1p0s,1E-20))
+[1m[92mQuantile Plot DrawString:[0m (exp(llhd_cms_sus_20_001_mu1p0s-llhd_cms_sus_20_001_mu0p0s))*(exp(llhd_cms_sus_19_006_100s-llhd_cms_sus_19_006_0s))*(exp(llhd_cms_sus_21_006_100s-llhd_cms_sus_21_006_0s))*(exp(llhd_cms_sus_18_004_100s-llhd_cms_sus_18_004_0s))*(exp(llhd_cms_sus_21_007_100s-llhd_cms_sus_21_007_0s))*(max(bf_cms_sus_21_007_mb_mu1p0s,1E-20)):abs(chi20)
+_______________________________________________________________________________________
+
+
+_____________________________ [1m[38;5;214m1D Quantile[0m for[1m[94m g [0m _____________________________
+_____________________________[1m[92mSIMPLIFIED COMBINED[0m_______________________
+•[93mAnalysis:[0m cms_sus_20_001 [38;5;214mConstraint[0m: (exp(llhd_cms_sus_20_001_mu1p0s-llhd_cms_sus_20_001_mu0p0s))
+•[93mAnalysis:[0m cms_sus_19_006 [38;5;214mConstraint[0m: (exp(llhd_cms_sus_19_006_100s-llhd_cms_sus_19_006_0s))
+•[93mAnalysis:[0m cms_sus_21_006 [38;5;214mConstraint[0m: (exp(llhd_cms_sus_21_006_100s-llhd_cms_sus_21_006_0s))
+•[93mAnalysis:[0m cms_sus_18_004 [38;5;214mConstraint[0m: (exp(llhd_cms_sus_18_004_100s-llhd_cms_sus_18_004_0s))
+•[93mAnalysis:[0m cms_sus_21_007 [38;5;214mConstraint[0m: (exp(llhd_cms_sus_21_007_100s-llhd_cms_sus_21_007_0s))
+•[93mAnalysis:[0m cms_sus_21_007_mb [38;5;214mConstraint[0m: (max(bf_cms_sus_21_007_mb_mu1p0s,1E-20))
+[1m[92mQuantile Plot DrawString:[0m (exp(llhd_cms_sus_20_001_mu1p0s-llhd_cms_sus_20_001_mu0p0s))*(exp(llhd_cms_sus_19_006_100s-llhd_cms_sus_19_006_0s))*(exp(llhd_cms_sus_21_006_100s-llhd_cms_sus_21_006_0s))*(exp(llhd_cms_sus_18_004_100s-llhd_cms_sus_18_004_0s))*(exp(llhd_cms_sus_21_007_100s-llhd_cms_sus_21_007_0s))*(max(bf_cms_sus_21_007_mb_mu1p0s,1E-20)):g
+_______________________________________________________________________________________
+
+
+_____________________________ [1m[38;5;214m1D Quantile[0m for[1m[94m t1 [0m _____________________________
+_____________________________[1m[92mSIMPLIFIED COMBINED[0m_______________________
+•[93mAnalysis:[0m cms_sus_20_001 [38;5;214mConstraint[0m: (exp(llhd_cms_sus_20_001_mu1p0s-llhd_cms_sus_20_001_mu0p0s))
+•[93mAnalysis:[0m cms_sus_19_006 [38;5;214mConstraint[0m: (exp(llhd_cms_sus_19_006_100s-llhd_cms_sus_19_006_0s))
+•[93mAnalysis:[0m cms_sus_21_006 [38;5;214mConstraint[0m: (exp(llhd_cms_sus_21_006_100s-llhd_cms_sus_21_006_0s))
+•[93mAnalysis:[0m cms_sus_18_004 [38;5;214mConstraint[0m: (exp(llhd_cms_sus_18_004_100s-llhd_cms_sus_18_004_0s))
+•[93mAnalysis:[0m cms_sus_21_007 [38;5;214mConstraint[0m: (exp(llhd_cms_sus_21_007_100s-llhd_cms_sus_21_007_0s))
+•[93mAnalysis:[0m cms_sus_21_007_mb [38;5;214mConstraint[0m: (max(bf_cms_sus_21_007_mb_mu1p0s,1E-20))
+[1m[92mQuantile Plot DrawString:[0m (exp(llhd_cms_sus_20_001_mu1p0s-llhd_cms_sus_20_001_mu0p0s))*(exp(llhd_cms_sus_19_006_100s-llhd_cms_sus_19_006_0s))*(exp(llhd_cms_sus_21_006_100s-llhd_cms_sus_21_006_0s))*(exp(llhd_cms_sus_18_004_100s-llhd_cms_sus_18_004_0s))*(exp(llhd_cms_sus_21_007_100s-llhd_cms_sus_21_007_0s))*(max(bf_cms_sus_21_007_mb_mu1p0s,1E-20)):t1
+_______________________________________________________________________________________
+
+
+_____________________________ [1m[38;5;214m1D Quantile[0m for[1m[94m lcsp [0m _____________________________
+_____________________________[1m[92mSIMPLIFIED COMBINED[0m_______________________
+•[93mAnalysis:[0m cms_sus_20_001 [38;5;214mConstraint[0m: (exp(llhd_cms_sus_20_001_mu1p0s-llhd_cms_sus_20_001_mu0p0s))
+•[93mAnalysis:[0m cms_sus_19_006 [38;5;214mConstraint[0m: (exp(llhd_cms_sus_19_006_100s-llhd_cms_sus_19_006_0s))
+•[93mAnalysis:[0m cms_sus_21_006 [38;5;214mConstraint[0m: (exp(llhd_cms_sus_21_006_100s-llhd_cms_sus_21_006_0s))
+•[93mAnalysis:[0m cms_sus_18_004 [38;5;214mConstraint[0m: (exp(llhd_cms_sus_18_004_100s-llhd_cms_sus_18_004_0s))
+•[93mAnalysis:[0m cms_sus_21_007 [38;5;214mConstraint[0m: (exp(llhd_cms_sus_21_007_100s-llhd_cms_sus_21_007_0s))
+•[93mAnalysis:[0m cms_sus_21_007_mb [38;5;214mConstraint[0m: (max(bf_cms_sus_21_007_mb_mu1p0s,1E-20))
 TFile::Append:0: RuntimeWarning: Replacing existing TH1: OF UF_px (Potential memory leak).
 TFile::Append:0: RuntimeWarning: Replacing existing TH1: OF UF_px (Potential memory leak).
 TFile::Append:0: RuntimeWarning: Replacing existing TH1: OF UF_px (Potential memory leak).
@@ -61,67 +135,7 @@ TH1D::Sumw2:0: RuntimeWarning: Sum of squares of weights structure already creat
 TH1D::Sumw2:0: RuntimeWarning: Sum of squares of weights structure already created
 TH1D::Sumw2:0: RuntimeWarning: Sum of squares of weights structure already created
 Info in <TCanvas::Print>: pdf file ../../output/quantile1D/sbottom_COMBINED_quantile1D.pdf has been created
-1. cms_sus_20_001
-2. cms_sus_19_006
-3. cms_sus_21_006
-4. cms_sus_18_004
-_____________________________ [1m[38;5;214m1D Quantile[0m for[1m[94m abs(chi10) [0m _____________________________
-_____________________________[1m[92mSIMPLIFIED COMBINED[0m_______________________
-•[93mAnalysis:[0m cms_sus_20_001 [38;5;214mConstraint[0m: (exp(llhd_cms_sus_20_001_mu1p0s-llhd_cms_sus_20_001_mu0p0s))
-•[93mAnalysis:[0m cms_sus_19_006 [38;5;214mConstraint[0m: (exp(llhd_cms_sus_19_006_100s-llhd_cms_sus_19_006_0s))
-•[93mAnalysis:[0m cms_sus_21_006 [38;5;214mConstraint[0m: (exp(llhd_cms_sus_21_006_100s-llhd_cms_sus_21_006_0s))
-•[93mAnalysis:[0m cms_sus_18_004 [38;5;214mConstraint[0m: (exp(llhd_cms_sus_18_004_100s-llhd_cms_sus_18_004_0s))
-[1m[92mQuantile Plot DrawString:[0m (exp(llhd_cms_sus_20_001_mu1p0s-llhd_cms_sus_20_001_mu0p0s))*(exp(llhd_cms_sus_19_006_100s-llhd_cms_sus_19_006_0s))*(exp(llhd_cms_sus_21_006_100s-llhd_cms_sus_21_006_0s))*(exp(llhd_cms_sus_18_004_100s-llhd_cms_sus_18_004_0s)):abs(chi10)
-_______________________________________________________________________________________
-
-
-_____________________________ [1m[38;5;214m1D Quantile[0m for[1m[94m abs(chi1pm) [0m _____________________________
-_____________________________[1m[92mSIMPLIFIED COMBINED[0m_______________________
-•[93mAnalysis:[0m cms_sus_20_001 [38;5;214mConstraint[0m: (exp(llhd_cms_sus_20_001_mu1p0s-llhd_cms_sus_20_001_mu0p0s))
-•[93mAnalysis:[0m cms_sus_19_006 [38;5;214mConstraint[0m: (exp(llhd_cms_sus_19_006_100s-llhd_cms_sus_19_006_0s))
-•[93mAnalysis:[0m cms_sus_21_006 [38;5;214mConstraint[0m: (exp(llhd_cms_sus_21_006_100s-llhd_cms_sus_21_006_0s))
-•[93mAnalysis:[0m cms_sus_18_004 [38;5;214mConstraint[0m: (exp(llhd_cms_sus_18_004_100s-llhd_cms_sus_18_004_0s))
-[1m[92mQuantile Plot DrawString:[0m (exp(llhd_cms_sus_20_001_mu1p0s-llhd_cms_sus_20_001_mu0p0s))*(exp(llhd_cms_sus_19_006_100s-llhd_cms_sus_19_006_0s))*(exp(llhd_cms_sus_21_006_100s-llhd_cms_sus_21_006_0s))*(exp(llhd_cms_sus_18_004_100s-llhd_cms_sus_18_004_0s)):abs(chi1pm)
-_______________________________________________________________________________________
-
-
-_____________________________ [1m[38;5;214m1D Quantile[0m for[1m[94m abs(chi20) [0m _____________________________
-_____________________________[1m[92mSIMPLIFIED COMBINED[0m_______________________
-•[93mAnalysis:[0m cms_sus_20_001 [38;5;214mConstraint[0m: (exp(llhd_cms_sus_20_001_mu1p0s-llhd_cms_sus_20_001_mu0p0s))
-•[93mAnalysis:[0m cms_sus_19_006 [38;5;214mConstraint[0m: (exp(llhd_cms_sus_19_006_100s-llhd_cms_sus_19_006_0s))
-•[93mAnalysis:[0m cms_sus_21_006 [38;5;214mConstraint[0m: (exp(llhd_cms_sus_21_006_100s-llhd_cms_sus_21_006_0s))
-•[93mAnalysis:[0m cms_sus_18_004 [38;5;214mConstraint[0m: (exp(llhd_cms_sus_18_004_100s-llhd_cms_sus_18_004_0s))
-[1m[92mQuantile Plot DrawString:[0m (exp(llhd_cms_sus_20_001_mu1p0s-llhd_cms_sus_20_001_mu0p0s))*(exp(llhd_cms_sus_19_006_100s-llhd_cms_sus_19_006_0s))*(exp(llhd_cms_sus_21_006_100s-llhd_cms_sus_21_006_0s))*(exp(llhd_cms_sus_18_004_100s-llhd_cms_sus_18_004_0s)):abs(chi20)
-_______________________________________________________________________________________
-
-
-_____________________________ [1m[38;5;214m1D Quantile[0m for[1m[94m g [0m _____________________________
-_____________________________[1m[92mSIMPLIFIED COMBINED[0m_______________________
-•[93mAnalysis:[0m cms_sus_20_001 [38;5;214mConstraint[0m: (exp(llhd_cms_sus_20_001_mu1p0s-llhd_cms_sus_20_001_mu0p0s))
-•[93mAnalysis:[0m cms_sus_19_006 [38;5;214mConstraint[0m: (exp(llhd_cms_sus_19_006_100s-llhd_cms_sus_19_006_0s))
-•[93mAnalysis:[0m cms_sus_21_006 [38;5;214mConstraint[0m: (exp(llhd_cms_sus_21_006_100s-llhd_cms_sus_21_006_0s))
-•[93mAnalysis:[0m cms_sus_18_004 [38;5;214mConstraint[0m: (exp(llhd_cms_sus_18_004_100s-llhd_cms_sus_18_004_0s))
-[1m[92mQuantile Plot DrawString:[0m (exp(llhd_cms_sus_20_001_mu1p0s-llhd_cms_sus_20_001_mu0p0s))*(exp(llhd_cms_sus_19_006_100s-llhd_cms_sus_19_006_0s))*(exp(llhd_cms_sus_21_006_100s-llhd_cms_sus_21_006_0s))*(exp(llhd_cms_sus_18_004_100s-llhd_cms_sus_18_004_0s)):g
-_______________________________________________________________________________________
-
-
-_____________________________ [1m[38;5;214m1D Quantile[0m for[1m[94m t1 [0m _____________________________
-_____________________________[1m[92mSIMPLIFIED COMBINED[0m_______________________
-•[93mAnalysis:[0m cms_sus_20_001 [38;5;214mConstraint[0m: (exp(llhd_cms_sus_20_001_mu1p0s-llhd_cms_sus_20_001_mu0p0s))
-•[93mAnalysis:[0m cms_sus_19_006 [38;5;214mConstraint[0m: (exp(llhd_cms_sus_19_006_100s-llhd_cms_sus_19_006_0s))
-•[93mAnalysis:[0m cms_sus_21_006 [38;5;214mConstraint[0m: (exp(llhd_cms_sus_21_006_100s-llhd_cms_sus_21_006_0s))
-•[93mAnalysis:[0m cms_sus_18_004 [38;5;214mConstraint[0m: (exp(llhd_cms_sus_18_004_100s-llhd_cms_sus_18_004_0s))
-[1m[92mQuantile Plot DrawString:[0m (exp(llhd_cms_sus_20_001_mu1p0s-llhd_cms_sus_20_001_mu0p0s))*(exp(llhd_cms_sus_19_006_100s-llhd_cms_sus_19_006_0s))*(exp(llhd_cms_sus_21_006_100s-llhd_cms_sus_21_006_0s))*(exp(llhd_cms_sus_18_004_100s-llhd_cms_sus_18_004_0s)):t1
-_______________________________________________________________________________________
-
-
-_____________________________ [1m[38;5;214m1D Quantile[0m for[1m[94m lcsp [0m _____________________________
-_____________________________[1m[92mSIMPLIFIED COMBINED[0m_______________________
-•[93mAnalysis:[0m cms_sus_20_001 [38;5;214mConstraint[0m: (exp(llhd_cms_sus_20_001_mu1p0s-llhd_cms_sus_20_001_mu0p0s))
-•[93mAnalysis:[0m cms_sus_19_006 [38;5;214mConstraint[0m: (exp(llhd_cms_sus_19_006_100s-llhd_cms_sus_19_006_0s))
-•[93mAnalysis:[0m cms_sus_21_006 [38;5;214mConstraint[0m: (exp(llhd_cms_sus_21_006_100s-llhd_cms_sus_21_006_0s))
-•[93mAnalysis:[0m cms_sus_18_004 [38;5;214mConstraint[0m: (exp(llhd_cms_sus_18_004_100s-llhd_cms_sus_18_004_0s))
-[1m[92mQuantile Plot DrawString:[0m (exp(llhd_cms_sus_20_001_mu1p0s-llhd_cms_sus_20_001_mu0p0s))*(exp(llhd_cms_sus_19_006_100s-llhd_cms_sus_19_006_0s))*(exp(llhd_cms_sus_21_006_100s-llhd_cms_sus_21_006_0s))*(exp(llhd_cms_sus_18_004_100s-llhd_cms_sus_18_004_0s)):lcsp
+[1m[92mQuantile Plot DrawString:[0m (exp(llhd_cms_sus_20_001_mu1p0s-llhd_cms_sus_20_001_mu0p0s))*(exp(llhd_cms_sus_19_006_100s-llhd_cms_sus_19_006_0s))*(exp(llhd_cms_sus_21_006_100s-llhd_cms_sus_21_006_0s))*(exp(llhd_cms_sus_18_004_100s-llhd_cms_sus_18_004_0s))*(exp(llhd_cms_sus_21_007_100s-llhd_cms_sus_21_007_0s))*(max(bf_cms_sus_21_007_mb_mu1p0s,1E-20)):lcsp
 _______________________________________________________________________________________
 
 
@@ -131,7 +145,9 @@ _____________________________[1m[92mSIMPLIFIED COMBINED[0m___________________
 •[93mAnalysis:[0m cms_sus_19_006 [38;5;214mConstraint[0m: (exp(llhd_cms_sus_19_006_100s-llhd_cms_sus_19_006_0s))
 •[93mAnalysis:[0m cms_sus_21_006 [38;5;214mConstraint[0m: (exp(llhd_cms_sus_21_006_100s-llhd_cms_sus_21_006_0s))
 •[93mAnalysis:[0m cms_sus_18_004 [38;5;214mConstraint[0m: (exp(llhd_cms_sus_18_004_100s-llhd_cms_sus_18_004_0s))
-[1m[92mQuantile Plot DrawString:[0m (exp(llhd_cms_sus_20_001_mu1p0s-llhd_cms_sus_20_001_mu0p0s))*(exp(llhd_cms_sus_19_006_100s-llhd_cms_sus_19_006_0s))*(exp(llhd_cms_sus_21_006_100s-llhd_cms_sus_21_006_0s))*(exp(llhd_cms_sus_18_004_100s-llhd_cms_sus_18_004_0s)):b1
+•[93mAnalysis:[0m cms_sus_21_007 [38;5;214mConstraint[0m: (exp(llhd_cms_sus_21_007_100s-llhd_cms_sus_21_007_0s))
+•[93mAnalysis:[0m cms_sus_21_007_mb [38;5;214mConstraint[0m: (max(bf_cms_sus_21_007_mb_mu1p0s,1E-20))
+[1m[92mQuantile Plot DrawString:[0m (exp(llhd_cms_sus_20_001_mu1p0s-llhd_cms_sus_20_001_mu0p0s))*(exp(llhd_cms_sus_19_006_100s-llhd_cms_sus_19_006_0s))*(exp(llhd_cms_sus_21_006_100s-llhd_cms_sus_21_006_0s))*(exp(llhd_cms_sus_18_004_100s-llhd_cms_sus_18_004_0s))*(exp(llhd_cms_sus_21_007_100s-llhd_cms_sus_21_007_0s))*(max(bf_cms_sus_21_007_mb_mu1p0s,1E-20)):b1
 _______________________________________________________________________________________
 
 

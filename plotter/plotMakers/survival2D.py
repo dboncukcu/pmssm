@@ -22,7 +22,7 @@ pmssm.constraints.printAnalysisList()
 
 pmssm.survivalProbability2D("abs(chi10):abs(chi20)",showLegend=True,legendStyle="leftTop")
 pmssm.survivalProbability2D("abs(chi10):abs(chi1pm)")
-#pmssm.survivalProbability2D("abs(chi1pm):abs(chi10)")
+pmssm.survivalProbability2D("abs(chi1pm):abs(chi10)")
 pmssm.survivalProbability2D("abs(chi10):g")
 pmssm.survivalProbability2D("abs(chi10):t1")
 pmssm.survivalProbability2D("abs(chi10):b1")
