@@ -14,37 +14,36 @@ c = PlotterConfig()
 c.global_settings["outputFileFormat"] = "pdf"
 c.global_settings["outputPath"] = "../../output/extra"
 
-c.global_settings["logEps"] = 1e-8
+
 
 pmssm = PMSSM(config=c)
 
 pmssm.constraints.printAnalysisList()
 
-pmssm.impact1D("deltaEW",legendStyle="rightBottom",drawConfig={"XaxisSetTitleOffset":1.2})
-pmssm.quantile1D("deltaEW",xaxisDrawConfig={"1Dlogy":False},legendStyle="leftTop")
-pmssm.survivalProbability1D("deltaEW",xaxisDrawConfig={"1Dlogy":False},drawConfig={"legendFillWhite" : False})
-
-# pmssm.impact1D("t1",analysis="cms_sus_20_001")
-# pmssm.impact1D("lcsp",analysis="cms_sus_20_001")
-# pmssm.impact1D("g",analysis="cms_sus_20_001")
-# pmssm.quantile2D("abs(chi20)-abs(chi10):abs(chi10)",quantile=0.99,analysis="cms_sus_20_001")
-
-
-# for analyis in pmssm.constraints.getAnalysisList():
-#     pmssm.survivalProbability2D("abs(chi1pm)-abs(chi10):abs(chi10)",analysis=analyis)
-#     pmssm.quantile2D("t1-abs(chi10):abs(chi10)",quantile=0.99,analysis=analyis)
+""" 
+DeltaEW = impact1D, quantile1D, survival1D
+m(A) vs tan(beta) = quantile2D, survival2D
+ctau (chargino) = impact1D, quantile1D, survival1D
+ctau(2nd neutralino chi20) = impact1D, quantile1D, survival1D
+relic density = special type
+relic density vs dm(chi1pm, chi10) = ultra special type 
+"""
 
 
-# pmssm.quantile2D("abs(chi1pm)-abs(chi10):abs(chi10)",quantile=0.99)
-# pmssm.quantile2D("abs(chi20)-abs(chi10):abs(chi10)",quantile=0.99)
-# pmssm.quantile2D("g-abs(chi10):abs(chi10)",quantile=0.99)
-# pmssm.quantile2D("t1-abs(chi10):abs(chi10)",quantile=0.99)
-# pmssm.quantile2D("b1-abs(chi10):abs(chi10)",quantile=0.99)
-# pmssm.quantile2D("lcsp-abs(chi10):abs(chi10)",quantile=0.99)
+# pmssm.impact1D("deltaEW")
+# pmssm.quantile1D("deltaEW")
+# pmssm.survivalProbability1D("deltaEW")
 
-# pmssm.survivalProbability2D("abs(chi20)-abs(chi10):abs(chi10)",showLegend=True,legendStyle="rightBottom")
-# pmssm.survivalProbability2D("abs(chi1pm)-abs(chi10):abs(chi10)")
-# pmssm.survivalProbability2D("g-abs(chi10):abs(chi10)")
-# pmssm.survivalProbability2D("t1-abs(chi10):abs(chi10)")
-# pmssm.survivalProbability2D("b1-abs(chi10):abs(chi10)")
-# pmssm.survivalProbability2D("lcsp-abs(chi10):abs(chi10)")
+# pmssm.quantile2D("mA:tanbeta",quantile=0.99)
+# pmssm.survivalProbability2D("mA:tanbeta",showLegend=True)
+
+
+# pmssm.impact1D("chi1pm_ctau",legendStyle="rightTop")
+# pmssm.impact1D("chi1pm_ctau",legendStyle="rightTop",xaxisDrawConfig={"1Dlogy":True})
+# pmssm.quantile1D("chi1pm_ctau",drawConfig={"yMaxOffsett":0.1})
+# pmssm.survivalProbability1D("chi1pm_ctau")
+
+# pmssm.impact1D("chi20_ctau",legendStyle="rightTop")
+pmssm.impact1D("chi20_ctau",legendStyle="leftTop",xaxisDrawConfig={"1Dlogy":True},drawConfig={"leftMargin":0.03,"YaxisSetTitleOffset":1.2,"rightMargin":0.09})
+pmssm.quantile1D("chi20_ctau",drawConfig={"yMaxOffsett":0.1},legendStyle="leftTop")
+pmssm.survivalProbability1D("chi20_ctau")

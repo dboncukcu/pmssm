@@ -219,6 +219,54 @@ class PlotterConfig:
                 "linearScale": 1.0,
                 "unit": "GeV",
                 "name" : "deltaEW"
+            },
+            "mA" : {
+                "title" : "m_{A}",
+                "bins" : 50,
+                "min" : 0,
+                "max" : 4000,
+                "logScale" : False,
+                "1Dlogy" : False,
+                "Ndivisions" : 510,
+                "linearScale": 1000.0,
+                "unit": "TeV",
+                "name" : "mA"
+            },
+            "tanbeta" : {
+                "title" : "tan(#beta)",
+                "bins" : 50,
+                "min" : 2,
+                "max" : 60,
+                "logScale" : False,
+                "1Dlogy" : False,
+                "Ndivisions" : 510,
+                "linearScale": 1.0,
+                "unit": "GeV",
+                "name" : "tanbeta"
+            },
+            "chi1pm_ctau" : {
+                "title" : "m_{#tilde{#chi}^{#pm}_{1,ctau}}",
+                "bins" : 50,
+                "min" : 50,
+                "max" : 2500,
+                "logScale" : False,
+                "1Dlogy" : False,
+                "Ndivisions" : 510,
+                "linearScale": 1000.0,
+                "unit": "TeV",
+                "name" : "chi1pm_ctau"
+            },
+            "chi20_ctau" : {
+                "title" : "m_{#tilde{#chi}^{0}_{2,ctau}}",
+                "bins" : 50,
+                "min" : 0,
+                "max" : 0.5,
+                "logScale" : False,
+                "1Dlogy" : False,
+                "Ndivisions" : 505,
+                "linearScale": 1000.0,
+                "unit": "TeV",
+                "name" : "chi20_ctau"
             }
             }
         
