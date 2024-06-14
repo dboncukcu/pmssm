@@ -1039,8 +1039,7 @@ class PMSSM:
 
         CMS.UpdatePalettePosition(hret, canvas)
         CMS.SaveCanvas(canvas, self.outputpath+name+"."+self.defaultFileFormat, close=True)
-        print("_______________________________________________________________________________________\n\n")
-        
+        print("_______________________________________________________________________________________\n\n")      
         
     def get_prior_CI(self,analysis, hname, xbins, xlow, xup, ybins, ylow, yup, _logx, _logy, drawstring, moreconstraints=[],
                  intervals=[0.1, 0.67, 0.95], contourcolors=[kRed, kRed + 2, kMagenta],
@@ -1181,3 +1180,62 @@ class PMSSM:
                     break
         thresholds.sort()
         return thresholds
+    
+    # def relicDensity(self):
+        
+        
+        
+    #     name = "relicDensity1D"
+        
+    #     constraintstring = "*".join([self.c.theconstraints["reweight"], self.c.theconstraints["reason"]])
+        
+        
+    #     terms = {}
+    #     terms["all"] = "1"
+    #     terms["higgsino"] = "(Re_N_13**2+Re_N_14**2)"
+    #     terms["bino"] = "Re_N_11**2"
+    #     terms["wino"] = "Re_N_12**2"
+        
+        
+        
+    #     hists = {}
+    #     for key in terms:
+            
+    #         print(key)
+    #         hists[key] = PlotterUtils.mkhistlogx(key,key,100, 0.001, 1E6)
+    #         self.tree.Draw("Omegah2>>" + hists[key].GetName(),"(1/PickProbability)*"+terms[key])
+    #     c = TCanvas("Canvas", "Canvas", 800, 800)
+    #     colors = [kBlack, kBlue, kGreen , kRed]
+    #     legend = TLegend(0.7, 0.7, 0.9, 0.9)
+        
+    #     for i,key in enumerate(hists.keys()):
+    #         # hists[key].Scale(1/hists[key].Integral())
+    #         hists[key].SetStats(0)
+    #         hists[key].SetLineWidth(2)
+    #         hists[key].SetLineColor(colors[i])
+    #         hists[key].SetXTitle("#Omega_{h^{2}}")
+    #         hists[key].Draw("hist same")
+    #         legend.AddEntry(hists[key], key, "l")
+    #     legend.Draw()
+    #     # c.SetLogy()
+    #     total = hists["all"].Integral()
+    #     for key in hists.keys():
+    #         hists[key].Scale(1/total)
+    #         hists[key].Draw("hist same")
+
+    #     hists["all"].SetLineStyle(2)
+    #     planck = 0.1199
+
+    #     ymax = max([hists[key].GetMaximum() for key in hists.keys()])
+
+    #     line = TLine(planck, c.GetUymin(), planck, ymax)
+    #     line.SetLineWidth(2)
+    #     line.Draw("same")
+    #     latex = TLatex(planck + 0.01, ymax * 0.9, "Planck")
+    #     latex.SetTextSize(0.04) 
+    #     latex.SetTextAlign(11)
+    #     latex.Draw("same")
+
+
+    #     c.SetLogx()
+    #     c.SaveAs("prototype.png")

@@ -16,7 +16,7 @@ class PlotterConfig:
         ###################### root Files ######################
         
         self.root_dict = [
-            {"treeName": "mcmc", "filePath" : "/eos/user/d/dboncukc/rootFiles/pmssmtree_11aug2023.root "},
+            {"treeName": "mcmc", "filePath" : "/eos/user/d/dboncukc/rootFiles/pmssmtree_11aug2023.root"},
             {"treeName": "cms_sus_20_001",  "filePath" :"/eos/user/d/dboncukc/rootFiles/sus_20_001_likelihood.root"},
             {"treeName": "cms_sus_21_007_mb",  "filePath" :"/eos/user/d/dboncukc/rootFiles/sus_21_007_mb_likelihood.root"},
         ]
@@ -207,7 +207,19 @@ class PlotterConfig:
                 "linearScale": 1000,
                 "unit": "TeV",
                 "name" : "chi1pm"
-                }
+                },
+            "deltaEW" : {
+                "title" : "#Delta_{EW}",
+                "bins" : 50,
+                "min" : 1,
+                "max" : 10000,
+                "logScale" : True,
+                "1Dlogy" : True,
+                "Ndivisions" : 510,
+                "linearScale": 1.0,
+                "unit": "GeV",
+                "name" : "deltaEW"
+            }
             }
         
         ###################################################################
