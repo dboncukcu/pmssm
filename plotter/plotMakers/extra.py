@@ -30,20 +30,20 @@ relic density vs dm(chi1pm, chi10) = ultra special type
 """
 
 
-# pmssm.impact1D("deltaEW")
-# pmssm.quantile1D("deltaEW")
-# pmssm.survivalProbability1D("deltaEW")
+pmssm.impact1D("deltaEW",legendStyle="rightBottom",drawConfig={"XaxisSetTitleOffset":1.2})
+pmssm.quantile1D("deltaEW",xaxisDrawConfig={"1Dlogy":False},legendStyle="leftTop")
+pmssm.survivalProbability1D("deltaEW",xaxisDrawConfig={"1Dlogy":False},drawConfig={"legendFillWhite" : False})
 
-# pmssm.quantile2D("mA:tanbeta",quantile=0.99)
-# pmssm.survivalProbability2D("mA:tanbeta",showLegend=True)
+pmssm.quantile2D("mA:tanbeta",quantile=0.99)
+pmssm.survivalProbability2D("mA:tanbeta",showLegend=True)
 
 
-# pmssm.impact1D("chi1pm_ctau",legendStyle="rightTop")
-# pmssm.impact1D("chi1pm_ctau",legendStyle="rightTop",xaxisDrawConfig={"1Dlogy":True})
-# pmssm.quantile1D("chi1pm_ctau",drawConfig={"yMaxOffsett":0.1})
-# pmssm.survivalProbability1D("chi1pm_ctau")
+pmssm.impact1D("chi1pm_ctau",legendStyle="rightTop")
+pmssm.impact1D("chi1pm_ctau",legendStyle="rightTop",xaxisDrawConfig={"1Dlogy":True})
+pmssm.quantile1D("chi1pm_ctau",drawConfig={"yMaxOffsett":0.1})
+pmssm.survivalProbability1D("chi1pm_ctau")
 
-# pmssm.impact1D("chi20_ctau",legendStyle="rightTop")
+pmssm.impact1D("chi20_ctau",legendStyle="rightTop")
 pmssm.impact1D("chi20_ctau",legendStyle="leftTop",xaxisDrawConfig={"1Dlogy":True},drawConfig={"leftMargin":0.03,"YaxisSetTitleOffset":1.2,"rightMargin":0.09})
 pmssm.quantile1D("chi20_ctau",drawConfig={"yMaxOffsett":0.1},legendStyle="leftTop")
 pmssm.survivalProbability1D("chi20_ctau")

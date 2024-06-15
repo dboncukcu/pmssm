@@ -10,6 +10,8 @@ pmssm = PMSSM(config=c)
 
 pmssm.constraints.printAnalysisList()
 
+pmssm.relicDensity1D()
+
 # pmssm.survivalProbability1D("abs(chi10)")
 # pmssm.survivalProbability1D("abs(chi1pm)")
 # pmssm.survivalProbability1D("abs(chi20)")
@@ -83,10 +85,10 @@ pmssm.constraints.printAnalysisList()
 # pmssm.quantile2D("abs(chi10):lcsp",quantile=0.99,legendStyle="leftBottom")
 # pmssm.quantile2D("abs(chi10):g",quantile=0.99)
 
-pmssm.quantile2D("abs(chi1pm)-abs(chi10):abs(chi10)",quantile=0.99)
-pmssm.quantile2D("g-abs(chi10):abs(chi10)",quantile=0.99)
-pmssm.quantile2D("t1-abs(chi10):abs(chi10)",quantile=0.99)
-pmssm.quantile2D("b1-abs(chi10):abs(chi10)",quantile=0.99)
-pmssm.quantile2D("lcsp-abs(chi10):abs(chi10)",quantile=0.99)
-pmssm.quantile2D("abs(chi20-chi10):abs(chi10)",quantile=0.99)
+# pmssm.quantile2D("abs(chi1pm)-abs(chi10):abs(chi10)",quantile=0.99)
+# pmssm.quantile2D("g-abs(chi10):abs(chi10)",quantile=0.99)
+# pmssm.quantile2D("t1-abs(chi10):abs(chi10)",quantile=0.99)
+# pmssm.quantile2D("b1-abs(chi10):abs(chi10)",quantile=0.99)
+# pmssm.quantile2D("lcsp-abs(chi10):abs(chi10)",quantile=0.99)
+# pmssm.quantile2D("abs(chi20-chi10):abs(chi10)",quantile=0.99)
 

@@ -241,7 +241,7 @@ class PlotterConfig:
                 "1Dlogy" : False,
                 "Ndivisions" : 510,
                 "linearScale": 1.0,
-                "unit": "GeV",
+                "unit": "",
                 "name" : "tanbeta"
             },
             "chi1pm_ctau" : {
@@ -381,6 +381,7 @@ class PlotterConfig:
         ################### Physical Definings ###################
         
         self.terms = {}
+        self.terms["all"] = "1"
         self.terms["higgsino"] = "(Re_N_13**2+Re_N_14**2)"
         self.terms["bino"] = "Re_N_11**2"
         self.terms["wino"] = "Re_N_12**2"
@@ -389,15 +390,15 @@ class PlotterConfig:
         ###################################################################
         ################### Signal Definings ###################
         
-        self.signals       = "+".join(["llhd_cms_sus_19_006_100s","llhd_cms_sus_20_001_mu1p0s"])
-        self._backgrounds  = "+".join(["llhd_cms_sus_19_006_0s","llhd_cms_sus_20_001_mu0p0s"])
+        # self.signals       = "+".join(["llhd_cms_sus_19_006_100s","llhd_cms_sus_20_001_mu1p0s"])
+        # self._backgrounds  = "+".join(["llhd_cms_sus_19_006_0s","llhd_cms_sus_20_001_mu0p0s"])
         
-        self.bfs = []
-        self.bfs.append("(max(bf_cms_sus_21_006_mu1p0f,1E-20))")
-        self.bfs.append("(max(bf_cms_sus_18_004_mu1p0f,1E-20))")
+        # self.bfs = []
+        # self.bfs.append("(max(bf_cms_sus_21_006_mu1p0f,1E-20))")
+        # self.bfs.append("(max(bf_cms_sus_18_004_mu1p0f,1E-20))")
         
-        self.signals_simplified = "+".join(["llhd_cms_sus_19_006_100s","llhd_cms_sus_21_006_100s","llhd_cms_sus_18_004_100s","llhd_cms_sus_19_006_mu1p0s"])
-        self._backgrounds_simplified = "+".join(["llhd_cms_sus_19_006_0s","llhd_cms_sus_21_006_0s","llhd_cms_sus_18_004_0s","llhd_cms_sus_19_006_mu0p0s"])
+        # self.signals_simplified = "+".join(["llhd_cms_sus_19_006_100s","llhd_cms_sus_21_006_100s","llhd_cms_sus_18_004_100s","llhd_cms_sus_19_006_mu1p0s"])
+        # self._backgrounds_simplified = "+".join(["llhd_cms_sus_19_006_0s","llhd_cms_sus_21_006_0s","llhd_cms_sus_18_004_0s","llhd_cms_sus_19_006_mu0p0s"])
 
         
         ###################################################################
@@ -409,19 +410,19 @@ class PlotterConfig:
         self.theconstraints["reason_simplified"] = "(!(xsec_tot_pb>1E3 && Zsig_combined_simplified==0))"# this excludes points with enormous weights that could not be excluded, almost certaintly due to these large weights and statistical chance
         self.theconstraints["reason_simplified"] = "(1)"
         self.theconstraints["reweight"] = "(1/PickProbability)" #this reweights each point to remove the effect of over-sampling and under-sampling. Important for Bayesian interpretation of results that require a meaningful prior.
-        self.theconstraints["cms_sus_19_006"] = "(exp(llhd_cms_sus_19_006_100s-llhd_cms_sus_19_006_0s))"
-        self.theconstraints["cms_sus_18_004_simplified"] = "(exp(llhd_cms_sus_18_004_100s-llhd_cms_sus_18_004_0s))"
-        #At some point we switches to saving the Bayes factor directly in the tree, instead of the signal and signal-less likelihoods
-        #Here, muXpYf refers to signal strength of X.Y, and f refers to "full" as in full combine likelihood. The max sometimes has to be taken because root can't handle extremely small floats.
-        self.theconstraints["cms_sus_18_004"] = "(max(bf_cms_sus_18_004_mu1p0f,1E-5))"
-        self.theconstraints["cms_sus_21_007"] = "(exp(llhd_cms_sus_21_007_100s-llhd_cms_sus_21_007_0s))"
-        self.theconstraints["cms_sus_21_007_simplified"] = "(exp(llhd_cms_sus_21_007_100s-llhd_cms_sus_21_007_0s))"
-        self.theconstraints["cms_sus_21_006_simplified"] = "(exp(llhd_cms_sus_21_006_100s-llhd_cms_sus_21_006_0s))"
-        self.theconstraints["cms_sus_21_006"] = "(max(bf_cms_sus_21_006_mu1p0f,1E-5))"
-        self.theconstraints["cms_sus_20_001"] = "(max(bf_cms_sus_20_001_mu1p0s,1E-5))"
-        self.theconstraints["cms_sus_20_001_simplified"] = "(exp(llhd_cms_sus_20_001_mu1p0s-llhd_cms_sus_20_001_mu0p0s))"
-        self.theconstraints["combined"] = "(exp(("+self.signals+")-("+self._backgrounds+"))"+(len(self.bfs)>0)*"*"+"*".join(self.bfs)+")"
-        self.theconstraints["combined_simplified"] = "(exp(("+self.signals_simplified+")-("+self._backgrounds_simplified+")))" ## ?????
+        # self.theconstraints["cms_sus_19_006"] = "(exp(llhd_cms_sus_19_006_100s-llhd_cms_sus_19_006_0s))"
+        # self.theconstraints["cms_sus_18_004_simplified"] = "(exp(llhd_cms_sus_18_004_100s-llhd_cms_sus_18_004_0s))"
+        # #At some point we switches to saving the Bayes factor directly in the tree, instead of the signal and signal-less likelihoods
+        # #Here, muXpYf refers to signal strength of X.Y, and f refers to "full" as in full combine likelihood. The max sometimes has to be taken because root can't handle extremely small floats.
+        # self.theconstraints["cms_sus_18_004"] = "(max(bf_cms_sus_18_004_mu1p0f,1E-5))"
+        # self.theconstraints["cms_sus_21_007"] = "(exp(llhd_cms_sus_21_007_100s-llhd_cms_sus_21_007_0s))"
+        # self.theconstraints["cms_sus_21_007_simplified"] = "(exp(llhd_cms_sus_21_007_100s-llhd_cms_sus_21_007_0s))"
+        # self.theconstraints["cms_sus_21_006_simplified"] = "(exp(llhd_cms_sus_21_006_100s-llhd_cms_sus_21_006_0s))"
+        # self.theconstraints["cms_sus_21_006"] = "(max(bf_cms_sus_21_006_mu1p0f,1E-5))"
+        # self.theconstraints["cms_sus_20_001"] = "(max(bf_cms_sus_20_001_mu1p0s,1E-5))"
+        # self.theconstraints["cms_sus_20_001_simplified"] = "(exp(llhd_cms_sus_20_001_mu1p0s-llhd_cms_sus_20_001_mu0p0s))"
+        # self.theconstraints["combined"] = "(exp(("+self.signals+")-("+self._backgrounds+"))"+(len(self.bfs)>0)*"*"+"*".join(self.bfs)+")"
+        # self.theconstraints["combined_simplified"] = "(exp(("+self.signals_simplified+")-("+self._backgrounds_simplified+")))" ## ?????
         #some useful constraints
         self.theconstraints["pure higgsino"] = "("+self.terms["higgsino"]+">0.95)"
         self.theconstraints["pure wino"] = "("+self.terms["wino"]+">0.95)"
@@ -432,10 +433,10 @@ class PlotterConfig:
         
         ###################################################################
         ################### Z Score Definings ###################
-        self.zscore = {}
-        for key in ['combined',"cms_sus_20_001","cms_sus_21_007","cms_sus_21_006"]:#, 'combined_simplified']:
-            value = self.theconstraints[key]
-            self.zscore[key] = "TMath::Abs(TMath::Log(%s))/(TMath::Log(%s)) * TMath::Sqrt(2 * TMath::Abs(TMath::Log(%s)))" % (value,value,value)
+        # self.zscore = {}
+        # for key in ['combined',"cms_sus_20_001","cms_sus_21_007","cms_sus_21_006"]:#, 'combined_simplified']:
+        #     value = self.theconstraints[key]
+        #     self.zscore[key] = "TMath::Abs(TMath::Log(%s))/(TMath::Log(%s)) * TMath::Sqrt(2 * TMath::Abs(TMath::Log(%s)))" % (value,value,value)
             
         
         ###################################################################
@@ -496,4 +497,11 @@ class PlotterConfig:
             "ZaxisSetTitleOffset" : 1.2,
             "legendFillWhite" : True ,
             "legendColor" : kWhite
+        }
+
+        self.drawConfig["relicDensity1D"] = {
+            "legendLocation" : {"x1":0.68,"x2":0.88,"y1":0.67,"y2":0.9},
+            "YaxisSetTitleOffset" : 1.25,
+            "XaxisSetTitleOffset" : 1.05,
+            "yMaxOffset" : 0.01,
         }

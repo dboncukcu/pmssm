@@ -13,6 +13,7 @@ YELLOW = '\033[93m'
 BLUE = '\033[94m'
 ORANGE = '\033[38;5;214m'
 GREEN = '\033[92m'
+RED = '\033[91m'
 STRIKETHROUGH = '\033[9m'
 BOLD = '\033[1m'
 RESET = '\033[0m'
@@ -219,7 +220,7 @@ class PMSSM:
             x_max = cxmax,
             y_min = cymin,
             y_max = cymax,
-            nameXaxis = f"{xtitle} [{xunit}]",
+            nameXaxis = f"{xtitle} [{xunit}]" if xunit != "" else xtitle,
             nameYaxis = "pMSSM density",
             canvName = name,
             square = CMS.kSquare,
@@ -390,7 +391,7 @@ class PMSSM:
             x_max = cxmax,
             y_min = cymin,
             y_max = cymax,
-            nameXaxis = f"{xtitle} [{xunit}]",
+            nameXaxis = f"{xtitle} [{xunit}]" if xunit != "" else xtitle,
             nameYaxis = "Survival Probability",
             canvName = name,
             square = CMS.kSquare,
@@ -551,7 +552,7 @@ class PMSSM:
             x_max = cxmax,
             y_min = cymin,
             y_max = cymax,
-            nameXaxis = f"{xtitle} [{xunit}]",
+            nameXaxis = f"{xtitle} [{xunit}]" if xunit != "" else xtitle,
             nameYaxis = "Bayes Factor",
             canvName = name,
             square = CMS.kSquare,
@@ -753,8 +754,8 @@ class PMSSM:
                 x_max = cxmax,
                 y_min = cymin,
                 y_max = cymax,
-                nameXaxis = f"{xtitle} [{xunit}]",
-                nameYaxis = f"{ytitle} [{yunit}]",
+                nameXaxis = f"{xtitle} [{xunit}]" if xunit != "" else xtitle,
+                nameYaxis = f"{ytitle} [{yunit}]" if yunit != "" else ytitle,
                 canvName = name,
                 square = CMS.kSquare,
                 iPos = 0,
@@ -920,9 +921,6 @@ class PMSSM:
         hret.GetZaxis().SetTitleOffset(drawConfig.get("ZaxisSetTitleOffset",0.85))
         hret.GetZaxis().SetTitleSize(0.06)
         
-
-
-
         prior_data =  self.get_prior_CI(
             analysis=analysis,
             hname = name + "_priorcontours",
@@ -974,8 +972,8 @@ class PMSSM:
             x_max = cxmax,
             y_min = cymin,
             y_max = cymax,
-            nameXaxis = f"{xtitle} [{xunit}]",
-            nameYaxis = f"{ytitle} [{yunit}]",
+            nameXaxis = f"{xtitle} [{xunit}]" if xunit != "" else xtitle,
+            nameYaxis = f"{ytitle} [{yunit}]" if yunit != "" else ytitle,
             canvName = name,
             square = CMS.kSquare,
             iPos = 0,
@@ -1183,61 +1181,118 @@ class PMSSM:
         thresholds.sort()
         return thresholds
     
-    # def relicDensity(self):
+    def relicDensity1D(
+        self,
+        analysis="combined", 
+        flavor_list = {
+            "higgsino" : {"color" : kBlue,"lineStyle"  : 1, "fillStyle": 3006, "title" : "higgsino-like #chi^{0}_{1}"},
+            "wino" : {"color" : kGreen,"lineStyle"  : 1, "fillStyle": 3004, "title" : "wino-like #chi^{0}_{1}"},
+            "bino" : {"color" : kRed,"lineStyle"  : 1, "fillStyle": 3002, "title" : "bino-like #chi^{0}_{1}"},
+            "all" : {"color" : kBlack,"lineStyle"  : 2, "title" : "All Points"},
+        },
+        xbin = 100,
+        xmin = 0.001,
+        xmax = 1E6,
+        xlog = True,
+        ylog = False,
+        ):
+        CMS.setCMSStyle()
+        print("_____________________________",f"{BOLD}{ORANGE}1D Relic Density{RESET}_____________________________")
+        
+        drawConfig = self.c.drawConfig["relicDensity1D"]
+
+        name = "relicDensity1D"
+        
+        if "simplified" in analysis:  # reweighting is always done, in addition to removing unreasonable points
+            constraintstring = "*".join(
+                [self.c.theconstraints["reweight"], self.c.theconstraints["reason_simplified"], self.constraints.getConstraint(analysis,isSimplified=True,verbose=False)])
+        else:
+            constraintstring = "*".join([self.c.theconstraints["reweight"], self.c.theconstraints["reason"], self.constraints.getConstraint(analysis,isSimplified=False,verbose=False)])
         
         
+        hists = {}
+        for key in flavor_list.keys():
+            print(f"{BULLET} {BOLD}{YELLOW}{key}{RESET}")
+            if self.c.terms.get(key) is None:
+                print(f"{BOLD}{RED}No term found for {key}{RESET}. Skipping")
+                continue
+            hists[key] = PlotterUtils.mkhistlogx(key,key,xbin, xmin, xmax,logx= xlog)
+            self.tree.Draw("Omegah2>>" + hists[key].GetName(),"("+constraintstring+")*"+self.c.terms[key])
+
+        total = hists["all"].Integral()
+        for key in hists.keys():
+            hists[key].Scale(1/total)
+
+        legend = CMS.cmsLeg(
+            **drawConfig["legendLocation"],
+            columns = 1,
+            textSize = 0.03)
+        legend.SetHeader(self.constraints.getAnalysisName(analysis),"C")
+
+        cxmin, cxmax, cymin, cymax = PlotterUtils.getAxisRangeOfList(list(hists.values()))
+
+        if xlog:
+            if cxmin == 0:
+                cxmin = self.c.global_settings["logEps"]
+        if ylog:
+            if cymin == 0:
+                cymin = self.c.global_settings["logEps"]
+                
+        canvas = CMS.cmsCanvas(
+            x_min = cxmin,
+            x_max = cxmax,
+            y_min = cymin,
+            y_max = cymax + drawConfig.get("yMaxOffset",0),
+            nameXaxis = "#Omega_{h^{2}}",
+            nameYaxis = "",
+            canvName = name,
+            square = CMS.kSquare,
+            iPos = 0,
+            leftMargin = 0.04,
+            bottomMargin = 0.037,
+            rightMargin = 0.02,
+            with_z_axis = False,
+            scaleLumi = None)
         
-    #     name = "relicDensity1D"
+        for i,key in enumerate(hists.keys()):
+            # hists[key].Scale(1/hists[key].Integral())
+            hists[key].SetStats(0)
+            hists[key].SetLineWidth(1)    
+            hists[key].SetFillColor(flavor_list[key].get("color",kBlack))
+            hists[key].SetFillStyle(flavor_list[key].get("fillStyle",0))
+            hists[key].SetLineWidth(flavor_list[key].get("lineWidth",3))
+            hists[key].SetLineColor(flavor_list[key].get("color",kBlack))
+            hists[key].SetLineStyle(flavor_list[key].get("lineStyle",1))
+            # hists[key].SetFillColorAlpha(flavor_list[key].get("fillColor",flavor_list[key].get("color",kBlack)),0.5)
+            print(key)
+            hists[key].Draw("hist same")
         
-    #     constraintstring = "*".join([self.c.theconstraints["reweight"], self.c.theconstraints["reason"]])
-        
-        
-    #     terms = {}
-    #     terms["all"] = "1"
-    #     terms["higgsino"] = "(Re_N_13**2+Re_N_14**2)"
-    #     terms["bino"] = "Re_N_11**2"
-    #     terms["wino"] = "Re_N_12**2"
-        
-        
-        
-    #     hists = {}
-    #     for key in terms:
+        flavor_list_copy = list(hists.keys())
+        flavor_list_copy.reverse()
+        for key in flavor_list_copy:
+            legend.AddEntry(hists[key], flavor_list[key].get("title", key), "lf")
+
+
+        planck = 0.1199
+
+        ymax = max([hists[key].GetMaximum() for key in hists.keys()])
+
+        line = TLine(planck, canvas.GetUymin(), planck, ymax)
+        line.SetLineWidth(2)
+        line.Draw("same")
+        latex = TLatex(planck + 0.01, ymax * 0.9, "Planck")
+        latex.SetTextSize(0.04) 
+        latex.SetTextAlign(11)
+        latex.Draw("same")
+
+        legend.Draw("same")
+        if xlog:
+            canvas.SetLogx()
+        if ylog:
+            canvas.SetLogy()
             
-    #         print(key)
-    #         hists[key] = PlotterUtils.mkhistlogx(key,key,100, 0.001, 1E6)
-    #         self.tree.Draw("Omegah2>>" + hists[key].GetName(),"(1/PickProbability)*"+terms[key])
-    #     c = TCanvas("Canvas", "Canvas", 800, 800)
-    #     colors = [kBlack, kBlue, kGreen , kRed]
-    #     legend = TLegend(0.7, 0.7, 0.9, 0.9)
-        
-    #     for i,key in enumerate(hists.keys()):
-    #         # hists[key].Scale(1/hists[key].Integral())
-    #         hists[key].SetStats(0)
-    #         hists[key].SetLineWidth(2)
-    #         hists[key].SetLineColor(colors[i])
-    #         hists[key].SetXTitle("#Omega_{h^{2}}")
-    #         hists[key].Draw("hist same")
-    #         legend.AddEntry(hists[key], key, "l")
-    #     legend.Draw()
-    #     # c.SetLogy()
-    #     total = hists["all"].Integral()
-    #     for key in hists.keys():
-    #         hists[key].Scale(1/total)
-    #         hists[key].Draw("hist same")
-
-    #     hists["all"].SetLineStyle(2)
-    #     planck = 0.1199
-
-    #     ymax = max([hists[key].GetMaximum() for key in hists.keys()])
-
-    #     line = TLine(planck, c.GetUymin(), planck, ymax)
-    #     line.SetLineWidth(2)
-    #     line.Draw("same")
-    #     latex = TLatex(planck + 0.01, ymax * 0.9, "Planck")
-    #     latex.SetTextSize(0.04) 
-    #     latex.SetTextAlign(11)
-    #     latex.Draw("same")
-
-
-    #     c.SetLogx()
-    #     c.SaveAs("prototype.png")
+        hframe = CMS.GetcmsCanvasHist(canvas)
+        hframe.GetYaxis().SetTitleOffset(drawConfig.get("YaxisSetTitleOffset",1.25))
+        hframe.GetXaxis().SetTitleOffset(drawConfig.get("XaxisSetTitleOffset",1.05))
+        CMS.SaveCanvas(canvas, self.outputpath+name+"."+self.defaultFileFormat, close=True)
+        print("_______________________________________________________________________________________\n\n")      
