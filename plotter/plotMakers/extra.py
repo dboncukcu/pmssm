@@ -47,3 +47,16 @@ pmssm.impact1D("chi20_ctau",legendStyle="rightTop")
 pmssm.impact1D("chi20_ctau",legendStyle="leftTop",xaxisDrawConfig={"1Dlogy":True},drawConfig={"leftMargin":0.03,"YaxisSetTitleOffset":1.2,"rightMargin":0.09})
 pmssm.quantile1D("chi20_ctau",drawConfig={"yMaxOffsett":0.1},legendStyle="leftTop")
 pmssm.survivalProbability1D("chi20_ctau")
+
+pmssm.relicDensity1D()
+
+
+pmssm.survivalProbability2D("abs(chi1pm)-abs(chi10):abs(chi10)", analysis="cms_sus_18_004")
+pmssm.survivalProbability2D("abs(chi1pm)-abs(chi10):abs(chi10)", analysis="cms_sus_18_004,cms_sus_20_001")
+pmssm.survivalProbability2D("abs(chi1pm)-abs(chi10):abs(chi10)", analysis="cms_sus_18_004,cms_sus_20_001,cms_sus_21_007,cms_sus_21_007_mb")
+pmssm.survivalProbability2D("abs(chi1pm)-abs(chi10):abs(chi10)", analysis="cms_sus_18_004,cms_sus_20_001,cms_sus_21_007,cms_sus_21_007_mb,cms_sus_21_006")
+pmssm.survivalProbability2D("abs(chi1pm)-abs(chi10):abs(chi10)")
+
+
+
+
