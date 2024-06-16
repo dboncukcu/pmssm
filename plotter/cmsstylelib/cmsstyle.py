@@ -507,6 +507,7 @@ def cmsCanvas(
     if with_z_axis:
         canv.SetRightMargin(B / W + 0.03 + rightMargin)
     canv.SetTopMargin(T / H + topMargin)
+    
     canv.SetBottomMargin(B / H+ bottomMargin)
 
     # Draw frame and set axis labels

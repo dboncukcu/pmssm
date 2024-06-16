@@ -50,7 +50,7 @@ class PMSSM:
         # create an output directory
         self.outputpath =  PlotterUtils.create_output_directory( self.c.global_settings["outputPath"])
         self.defaultFileFormat = self.c.global_settings["outputFileFormat"]
-    def createName(self,xaxisDrawConfig, yaxisDrawConfig:dict= None, analysis:str="combined", plotType:str=""):
+    def createName(self,xaxisDrawConfig, yaxisDrawConfig:dict= None, analysis:str="combined", plotType:str="",customName:str = ""):
         
         name = ""
         
@@ -76,6 +76,8 @@ class PMSSM:
         name = name.replace("(","")
         name = name.replace(")","")
 
+        name = name + customName
+        
         return  name
     
     def getParticleConfigValue(self, drawConfig:dict, key:str):
@@ -89,7 +91,8 @@ class PMSSM:
         moreconstraints_prior : bool =False,
         xaxisDrawConfig : dict = None,
         drawConfig: Union[dict, str] = None,
-        legendStyle: Union[dict, str] = None):
+        legendStyle: Union[dict, str] = None,
+        customName:str = ""):
         print("_____________________________",f"{BOLD}{ORANGE}1D Impact{RESET} for{BOLD}{BLUE}", drawstring, f"{RESET}","_____________________________")
         
         if drawConfig is None:
@@ -106,7 +109,7 @@ class PMSSM:
             legendConfig = drawConfig.get("legendStyle",legendStyle)
         if isinstance(legendStyle, dict):
             legendConfig = legendStyle
-        legendConfig = self.c.drawConfig["impact1D"][legendConfig]
+        legendConfig = drawConfig[legendConfig]
         
         if xaxisDrawConfig is None:
             xaxisDrawConfig = self.c.particleConfig[drawstring]
@@ -124,7 +127,7 @@ class PMSSM:
         
         ## Create Histogram Name
         
-        name = self.createName(xaxisDrawConfig, analysis=analysis, plotType="impact1D")
+        name = self.createName(xaxisDrawConfig, analysis=analysis, plotType="impact1D",customName=customName)
         
         if "simplified" in analysis:  # reweighting is always done, in addition to removing unreasonable points
             constraintstring_prior = "*".join([self.c.theconstraints["reweight"], self.c.theconstraints["reason_simplified"]])    
@@ -226,7 +229,7 @@ class PMSSM:
             square = CMS.kSquare,
             iPos = 0,
             leftMargin = drawConfig.get("leftMargin", 0.08),
-            bottomMargin = 0.035,
+            bottomMargin = drawConfig.get("bottomMargin", 0.035),
             rightMargin = drawConfig.get("rightMargin", 0),
             with_z_axis = False,
             scaleLumi = None,
@@ -277,7 +280,8 @@ class PMSSM:
         moreconstraints_prior : bool =False,
         xaxisDrawConfig : dict = None,
         drawConfig: Union[dict, str] = None,
-        legendStyle: Union[dict, str] = None):
+        legendStyle: Union[dict, str] = None,
+        customName:str = ""):
         print("_____________________________",f"{BOLD}{ORANGE}1D Survival Probability{RESET} for{BOLD}{BLUE}", drawstring, f"{RESET}","_____________________________")
         
         if drawConfig is None:
@@ -314,7 +318,7 @@ class PMSSM:
         
         ## Create Histogram Name
         
-        name = self.createName(xaxisDrawConfig, analysis=analysis, plotType="survival1D")
+        name = self.createName(xaxisDrawConfig, analysis=analysis, plotType="survival1D",customName=customName)
         
         if "simplified" in analysis:  # reweighting is always done, in addition to removing unreasonable points
             isSimplified = True
@@ -396,8 +400,8 @@ class PMSSM:
             canvName = name,
             square = CMS.kSquare,
             iPos = 0,
-            leftMargin = 0.05,
-            bottomMargin = 0.035,
+            leftMargin = drawConfig.get("leftMargin", 0.05),
+            bottomMargin = drawConfig.get("bottomMargin", 0.035),
             with_z_axis = False,
             scaleLumi = None,
             customStyle= {
@@ -449,7 +453,8 @@ class PMSSM:
         moreconstraints : list = [], 
         xaxisDrawConfig : dict = None,
         drawConfig: Union[dict, str] = None,
-        legendStyle: Union[dict, str] = None):
+        legendStyle: Union[dict, str] = None,
+        customName:str = ""):
         print("_____________________________",f"{BOLD}{ORANGE}1D Quantile{RESET} for{BOLD}{BLUE}", drawstring, f"{RESET}","_____________________________")
         
         
@@ -486,7 +491,7 @@ class PMSSM:
         
         ## Create Histogram Name
                 
-        name = self.createName(xaxisDrawConfig, analysis=analysis, plotType="quantile1D")
+        name = self.createName(xaxisDrawConfig, analysis=analysis, plotType="quantile1D",customName=customName)
         
         if "simplified" in analysis:  # reweighting is always done, in addition to removing unreasonable points
             constraintstring = "*".join([self.c.theconstraints["reweight"], self.c.theconstraints["reason_simplified"]])
@@ -559,7 +564,7 @@ class PMSSM:
             iPos = 0,
             leftMargin = drawConfig.get("leftMargin", 0.03),
             rightMargin = drawConfig.get("rightMargin", 0),
-            bottomMargin = 0.035,
+            bottomMargin = drawConfig.get("bottomMargin", 0.035),
             with_z_axis = False,
             scaleLumi = None,
             customStyle= {
@@ -616,7 +621,8 @@ class PMSSM:
             xaxisDrawConfig : dict = None,
             yaxisDrawConfig : dict = None,
             drawConfig: Union[dict, str] = None,
-            legendStyle: Union[dict, str] = None):
+            legendStyle: Union[dict, str] = None,
+            customName:str = ""):
             CMS.setCMSStyle()
             print("_____________________________",f"{BOLD}{ORANGE}2D Quantile {str(quantile)} Percentile {RESET} for{BOLD}{BLUE}", drawstring, f"{RESET}","_____________________________")
             
@@ -670,7 +676,7 @@ class PMSSM:
             
             ## Create Histogram Name
                     
-            name = self.createName(xaxisDrawConfig, yaxisDrawConfig ,analysis=analysis, plotType = str(quantile)+ "_"+"quantile2D")
+            name = self.createName(xaxisDrawConfig, yaxisDrawConfig ,analysis=analysis, plotType = str(quantile)+ "_"+"quantile2D",customName=customName)
     
             if quantile < 0 or quantile > 1:
                 raise ValueError("Invalid quantile provided, please use values between 0 and 1")
@@ -808,7 +814,8 @@ class PMSSM:
         yaxisDrawConfig : dict = None,
         drawConfig: Union[dict, str] = None,
         legendStyle: Union[dict, str] = None,
-        showLegend: bool = False):
+        showLegend: bool = False,
+        customName:str = ""):
         CMS.setCMSStyle()
         print("_____________________________",f"{BOLD}{ORANGE}2D Survival Probability{RESET} for{BOLD}{BLUE}", drawstring, f"{RESET}","_____________________________")
         
@@ -862,7 +869,7 @@ class PMSSM:
         
         ## Create Histogram Name
                 
-        name = self.createName(xaxisDrawConfig, yaxisDrawConfig ,analysis=analysis, plotType = "survival2D")
+        name = self.createName(xaxisDrawConfig, yaxisDrawConfig ,analysis=analysis, plotType = "survival2D",customName=customName)
         
         ## color palette
         
@@ -1195,13 +1202,14 @@ class PMSSM:
         xmax = 1E6,
         xlog = True,
         ylog = False,
+        customName:str = ""
         ):
         CMS.setCMSStyle()
         print("_____________________________",f"{BOLD}{ORANGE}1D Relic Density{RESET}_____________________________")
         
         drawConfig = self.c.drawConfig["relicDensity1D"]
 
-        name = "relicDensity1D"
+        name = "relicDensity1D"+customName
         
         if "simplified" in analysis:  # reweighting is always done, in addition to removing unreasonable points
             constraintstring = "*".join(
@@ -1244,7 +1252,7 @@ class PMSSM:
             y_min = cymin,
             y_max = cymax + drawConfig.get("yMaxOffset",0),
             nameXaxis = "#Omega_{h^{2}}",
-            nameYaxis = "",
+            nameYaxis = "# Scanned Points (normalized)",
             canvName = name,
             square = CMS.kSquare,
             iPos = 0,
@@ -1292,7 +1300,7 @@ class PMSSM:
             canvas.SetLogy()
             
         hframe = CMS.GetcmsCanvasHist(canvas)
-        hframe.GetYaxis().SetTitleOffset(drawConfig.get("YaxisSetTitleOffset",1.25))
-        hframe.GetXaxis().SetTitleOffset(drawConfig.get("XaxisSetTitleOffset",1.05))
+        hframe.GetYaxis().SetTitleOffset(drawConfig.get("YaxisSetTitleOffset",1.35))
+        hframe.GetXaxis().SetTitleOffset(drawConfig.get("XaxisSetTitleOffset",1.15))
         CMS.SaveCanvas(canvas, self.outputpath+name+"."+self.defaultFileFormat, close=True)
         print("_______________________________________________________________________________________\n\n")      

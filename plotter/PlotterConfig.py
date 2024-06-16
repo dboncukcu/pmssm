@@ -247,25 +247,25 @@ class PlotterConfig:
             "chi1pm_ctau" : {
                 "title" : "m_{#tilde{#chi}^{#pm}_{1,ctau}}",
                 "bins" : 50,
-                "min" : 50,
-                "max" : 2500,
+                "min" : 1e-6,
+                "max" : 10000,
                 "logScale" : False,
                 "1Dlogy" : False,
-                "Ndivisions" : 510,
-                "linearScale": 1000.0,
-                "unit": "TeV",
+                "Ndivisions" : 511,
+                "linearScale": 1.0,
+                "unit": "GeV",
                 "name" : "chi1pm_ctau"
             },
             "chi20_ctau" : {
                 "title" : "m_{#tilde{#chi}^{0}_{2,ctau}}",
                 "bins" : 50,
-                "min" : 0,
-                "max" : 0.5,
+                "min" : 1e-6,
+                "max" : 1000,
                 "logScale" : False,
-                "1Dlogy" : False,
-                "Ndivisions" : 505,
-                "linearScale": 1000.0,
-                "unit": "TeV",
+                "1Dlogy" : True,
+                "Ndivisions" : 511,
+                "linearScale": 1.0,
+                "unit": "GeV",
                 "name" : "chi20_ctau"
             }
             }
@@ -501,7 +501,7 @@ class PlotterConfig:
 
         self.drawConfig["relicDensity1D"] = {
             "legendLocation" : {"x1":0.68,"x2":0.88,"y1":0.67,"y2":0.9},
-            "YaxisSetTitleOffset" : 1.25,
-            "XaxisSetTitleOffset" : 1.05,
+            "YaxisSetTitleOffset" : 1.35,
+            "XaxisSetTitleOffset" : 1.15,
             "yMaxOffset" : 0.01,
         }
