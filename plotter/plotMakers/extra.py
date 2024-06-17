@@ -30,26 +30,26 @@ relic density vs dm(chi1pm, chi10) = ultra special type
 """
 
 
-pmssm.impact1D("deltaEW",legendStyle="rightBottom",drawConfig={"XaxisSetTitleOffset":1.2})
-pmssm.quantile1D("deltaEW",xaxisDrawConfig={"1Dlogy":False},legendStyle="leftTop",drawConfig={"legendFillWhite" : False})
-pmssm.survivalProbability1D("deltaEW",xaxisDrawConfig={"1Dlogy":False},drawConfig={"legendFillWhite" : False})
+# pmssm.impact1D("deltaEW",legendStyle="rightBottom",drawConfig={"XaxisSetTitleOffset":1.2})
+# pmssm.quantile1D("deltaEW",xaxisDrawConfig={"1Dlogy":False},legendStyle="leftTop",drawConfig={"legendFillWhite" : False})
+# pmssm.survivalProbability1D("deltaEW",xaxisDrawConfig={"1Dlogy":False},drawConfig={"legendFillWhite" : False})
 
-pmssm.quantile2D("mA:tanbeta",quantile=0.99)
-pmssm.survivalProbability2D("mA:tanbeta",showLegend=True)
+# pmssm.quantile2D("mA:tanbeta",quantile=0.99)
+# pmssm.survivalProbability2D("mA:tanbeta",showLegend=True)
 
 
-pmssm.impact1D("chi1pm_ctau",legendStyle="rightTop",xaxisDrawConfig={"logScale":True})
-pmssm.impact1D("chi1pm_ctau",
-               legendStyle="leftBottom",
-               xaxisDrawConfig={"1Dlogy":True,"logScale":True},
-               drawConfig={
-                    "XaxisSetTitleOffset":1.35,
-                    "YaxisSetTitleOffset":1.3,
-                    "leftMargin":0.03,
-                    "rightMargin":0.01,
-                    "bottomMargin":0.07,
-                    "leftBottom" : {"x1":0.18,"x2":0.59,"y1":0.21,"y2":0.36},
-                    })
+# pmssm.impact1D("chi1pm_ctau",legendStyle="rightTop",xaxisDrawConfig={"logScale":True})
+# pmssm.impact1D("chi1pm_ctau",
+#                legendStyle="leftBottom",
+#                xaxisDrawConfig={"1Dlogy":True,"logScale":True},
+#                drawConfig={
+#                     "XaxisSetTitleOffset":1.35,
+#                     "YaxisSetTitleOffset":1.3,
+#                     "leftMargin":0.03,
+#                     "rightMargin":0.01,
+#                     "bottomMargin":0.07,
+#                     "leftBottom" : {"x1":0.18,"x2":0.59,"y1":0.21,"y2":0.36},
+#                     })
 # pmssm.quantile1D("chi1pm_ctau",drawConfig={"yMaxOffsett":0.1},xaxisDrawConfig={"1Dlogy":False,"logScale":True})
 # pmssm.survivalProbability1D(" ",xaxisDrawConfig={"1Dlogy":False,"logScale":True})
 
@@ -57,13 +57,14 @@ pmssm.impact1D("chi1pm_ctau",
 pmssm_chi20_ctau = PMSSM(config=c)
 pmssm_chi20_ctau.c.global_settings["logEps"] = 1e-5
 
-pmssm_chi20_ctau.c.drawConfig["impact1D"]["bottomMargin"] = 0.07
-pmssm_chi20_ctau.c.drawConfig["impact1D"]["leftMargin"] = 0.03
-pmssm_chi20_ctau.c.drawConfig["impact1D"]["rightMargin"] = 0.01
-pmssm_chi20_ctau.c.drawConfig["impact1D"]["XaxisSetTitleOffset"] = 1.3
-pmssm_chi20_ctau.c.drawConfig["impact1D"]["YaxisSetTitleOffset"] = 1.3
-pmssm_chi20_ctau.c.drawConfig["impact1D"]["rightTop"] = {"x1":0.53,"x2":0.83,"y1":0.72,"y2":0.9}
-pmssm_chi20_ctau.impact1D("chi20_ctau",legendStyle="rightTop",xaxisDrawConfig={"1Dlogy":True,"logScale":True})
+# pmssm_chi20_ctau.c.drawConfig["impact1D"]["bottomMargin"] = 0.07
+# pmssm_chi20_ctau.c.drawConfig["impact1D"]["leftMargin"] = 0.03
+# pmssm_chi20_ctau.c.drawConfig["impact1D"]["rightMargin"] = 0.01
+# pmssm_chi20_ctau.c.drawConfig["impact1D"]["XaxisSetTitleOffset"] = 1.3
+# pmssm_chi20_ctau.c.drawConfig["impact1D"]["YaxisSetTitleOffset"] = 1.3
+# pmssm_chi20_ctau.c.drawConfig["impact1D"]["rightTop"] = {"x1":0.53,"x2":0.83,"y1":0.72,"y2":0.9}
+# pmssm_chi20_ctau.c.drawConfig["impact1D"]["leftBottom"] = {"x1":0.18,"x2":0.6,"y1":0.22,"y2":0.39}
+# pmssm_chi20_ctau.impact1D("chi20_ctau",legendStyle="leftBottom",xaxisDrawConfig={"1Dlogy":True,"logScale":True})
 
 pmssm_chi20_ctau.c.drawConfig["quantile1D"]["XaxisSetTitleOffset"] = 1.3
 pmssm_chi20_ctau.c.drawConfig["quantile1D"]["bottomMargin"] = 0.07
@@ -72,15 +73,15 @@ pmssm_chi20_ctau.c.drawConfig["quantile1D"]["leftBottom"] = {"x1":0.19,"x2":0.42
 pmssm_chi20_ctau.c.drawConfig["quantile1D"]["yMaxOffsett"] = 0.1
 pmssm_chi20_ctau.quantile1D("chi20_ctau",legendStyle="leftBottom",xaxisDrawConfig={"1Dlogy":False,"logScale":True})
 
-pmssm_chi20_ctau.c.drawConfig["survival1D"]["leftMargin"] = 0.03
-pmssm_chi20_ctau.c.drawConfig["survival1D"]["rightMargin"] = 0.01
-pmssm_chi20_ctau.c.drawConfig["survival1D"]["bottomMargin"] = 0.07
-pmssm_chi20_ctau.c.drawConfig["survival1D"]["XaxisSetTitleOffset"] = 1.3
-pmssm_chi20_ctau.c.drawConfig["survival1D"]["YaxisSetTitleOffset"] = 1.2
-pmssm_chi20_ctau.c.drawConfig["survival1D"]["rightBottom"] = {"x1":0.49,"x2":0.92,"y1":0.22,"y2":0.4}
-pmssm_chi20_ctau.survivalProbability1D("chi20_ctau",xaxisDrawConfig={"1Dlogy":False,"logScale":True})
+# pmssm_chi20_ctau.c.drawConfig["survival1D"]["leftMargin"] = 0.03
+# pmssm_chi20_ctau.c.drawConfig["survival1D"]["rightMargin"] = 0.01
+# pmssm_chi20_ctau.c.drawConfig["survival1D"]["bottomMargin"] = 0.07
+# pmssm_chi20_ctau.c.drawConfig["survival1D"]["XaxisSetTitleOffset"] = 1.3
+# pmssm_chi20_ctau.c.drawConfig["survival1D"]["YaxisSetTitleOffset"] = 1.2
+# pmssm_chi20_ctau.c.drawConfig["survival1D"]["rightBottom"] = {"x1":0.49,"x2":0.92,"y1":0.22,"y2":0.4}
+# pmssm_chi20_ctau.survivalProbability1D("chi20_ctau",xaxisDrawConfig={"1Dlogy":False,"logScale":True})
 
-pmssm.relicDensity1D()
+# pmssm.relicDensity1D()
 
 
 

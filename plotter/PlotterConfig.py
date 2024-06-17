@@ -259,11 +259,11 @@ class PlotterConfig:
             "chi20_ctau" : {
                 "title" : "m_{#tilde{#chi}^{0}_{2,ctau}}",
                 "bins" : 50,
-                "min" : 1e-6,
+                "min" : 1e-13,
                 "max" : 1000,
                 "logScale" : False,
                 "1Dlogy" : True,
-                "Ndivisions" : 511,
+                "Ndivisions" : 509,
                 "linearScale": 1.0,
                 "unit": "GeV",
                 "name" : "chi20_ctau"
