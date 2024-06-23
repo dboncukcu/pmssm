@@ -12,7 +12,7 @@ from Plotter import PMSSM
 
 c = PlotterConfig()
 c.global_settings["outputFileFormat"] = "pdf"
-c.global_settings["outputPath"] = "../../output/extra"
+c.global_settings["outputPath"] = "/afs/cern.ch/user/d/dboncukc/pmssm/output/extra"
 
 
 
@@ -29,6 +29,7 @@ relic density = special type
 relic density vs dm(chi1pm, chi10) = ultra special type 
 """
 
+pmssm.impact1D("t1",xaxisDrawConfig={"max":11000},legendStyle="leftTop",drawConfig={"yMaxOffsett":0.01})
 
 # pmssm.impact1D("deltaEW",legendStyle="rightBottom",drawConfig={"XaxisSetTitleOffset":1.2})
 # pmssm.quantile1D("deltaEW",xaxisDrawConfig={"1Dlogy":False},legendStyle="leftTop",drawConfig={"legendFillWhite" : False})
@@ -54,8 +55,8 @@ relic density vs dm(chi1pm, chi10) = ultra special type
 # pmssm.survivalProbability1D(" ",xaxisDrawConfig={"1Dlogy":False,"logScale":True})
 
 
-pmssm_chi20_ctau = PMSSM(config=c)
-pmssm_chi20_ctau.c.global_settings["logEps"] = 1e-5
+# pmssm_chi20_ctau = PMSSM(config=c)
+# pmssm_chi20_ctau.c.global_settings["logEps"] = 1e-5
 
 # pmssm_chi20_ctau.c.drawConfig["impact1D"]["bottomMargin"] = 0.07
 # pmssm_chi20_ctau.c.drawConfig["impact1D"]["leftMargin"] = 0.03
@@ -66,12 +67,12 @@ pmssm_chi20_ctau.c.global_settings["logEps"] = 1e-5
 # pmssm_chi20_ctau.c.drawConfig["impact1D"]["leftBottom"] = {"x1":0.18,"x2":0.6,"y1":0.22,"y2":0.39}
 # pmssm_chi20_ctau.impact1D("chi20_ctau",legendStyle="leftBottom",xaxisDrawConfig={"1Dlogy":True,"logScale":True})
 
-pmssm_chi20_ctau.c.drawConfig["quantile1D"]["XaxisSetTitleOffset"] = 1.3
-pmssm_chi20_ctau.c.drawConfig["quantile1D"]["bottomMargin"] = 0.07
-pmssm_chi20_ctau.c.drawConfig["quantile1D"]["rightMargin"] = 0.01
-pmssm_chi20_ctau.c.drawConfig["quantile1D"]["leftBottom"] = {"x1":0.19,"x2":0.42,"y1":0.22,"y2":0.41}
-pmssm_chi20_ctau.c.drawConfig["quantile1D"]["yMaxOffsett"] = 0.1
-pmssm_chi20_ctau.quantile1D("chi20_ctau",legendStyle="leftBottom",xaxisDrawConfig={"1Dlogy":False,"logScale":True})
+# pmssm_chi20_ctau.c.drawConfig["quantile1D"]["XaxisSetTitleOffset"] = 1.3
+# pmssm_chi20_ctau.c.drawConfig["quantile1D"]["bottomMargin"] = 0.07
+# pmssm_chi20_ctau.c.drawConfig["quantile1D"]["rightMargin"] = 0.01
+# pmssm_chi20_ctau.c.drawConfig["quantile1D"]["leftBottom"] = {"x1":0.19,"x2":0.42,"y1":0.22,"y2":0.41}
+# pmssm_chi20_ctau.c.drawConfig["quantile1D"]["yMaxOffsett"] = 0.1
+# pmssm_chi20_ctau.quantile1D("chi20_ctau",legendStyle="leftBottom",xaxisDrawConfig={"1Dlogy":False,"logScale":True})
 
 # pmssm_chi20_ctau.c.drawConfig["survival1D"]["leftMargin"] = 0.03
 # pmssm_chi20_ctau.c.drawConfig["survival1D"]["rightMargin"] = 0.01

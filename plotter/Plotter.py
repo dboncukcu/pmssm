@@ -9,15 +9,39 @@ import copy
 
 gROOT.SetBatch(True)
 
-YELLOW = '\033[93m'
-BLUE = '\033[94m'
-ORANGE = '\033[38;5;214m'
-GREEN = '\033[92m'
-RED = '\033[91m'
-STRIKETHROUGH = '\033[9m'
-BOLD = '\033[1m'
-RESET = '\033[0m'
-BULLET = '•'
+
+class printStyle:
+    YELLOW = '\033[93m'
+    BLUE = '\033[94m'
+    ORANGE = '\033[38;5;214m'
+    GREEN = '\033[92m'
+    RED = '\033[91m'
+    STRIKETHROUGH = '\033[9m'
+    BOLD = '\033[1m'
+    RESET = '\033[0m'
+    BULLET = '•'
+
+class CMSColors:
+    
+    class six:
+        blue =  TColor.GetColor("#5790fc")
+        orange =  TColor.GetColor("#f89c20")
+        red =  TColor.GetColor("#e42536")
+        purple =  TColor.GetColor("#964a8b")
+        grey =  TColor.GetColor("#9c9ca1")
+        violet =  TColor.GetColor("#7a21dd")
+    
+    class ten:
+        blue = TColor.GetColor("#3f90da")
+        lightorange = TColor.GetColor("#ffa90e")
+        red = TColor.GetColor("#bd1f01")
+        lightgrey = TColor.GetColor("#94a4a2")
+        purple = TColor.GetColor("#832db6")
+        brown = TColor.GetColor("#a96b59")
+        darkorange = TColor.GetColor("#e76300")
+        darkyellow = TColor.GetColor("#b9ac70")
+        grey = TColor.GetColor("#717581")
+        turquoise = TColor.GetColor("#92dadd")
 
 
 class PMSSM:
@@ -93,7 +117,7 @@ class PMSSM:
         drawConfig: Union[dict, str] = None,
         legendStyle: Union[dict, str] = None,
         customName:str = ""):
-        print("_____________________________",f"{BOLD}{ORANGE}1D Impact{RESET} for{BOLD}{BLUE}", drawstring, f"{RESET}","_____________________________")
+        print("_____________________________",f"{printStyle.BOLD}{printStyle.ORANGE}1D Impact{printStyle.RESET} for{printStyle.BOLD}{printStyle.BLUE}", drawstring, f"{printStyle.RESET}","_____________________________")
         
         if drawConfig is None:
             drawConfig = self.c.drawConfig["impact1D"]
@@ -173,11 +197,16 @@ class PMSSM:
         self.tree.Draw(drawstring + ">>" + posterior_up.GetName(), constraintstring.replace('mu1p0','mu1p5').replace('_100s','_150s'))
         self.tree.Draw(drawstring + ">>" + posterior_down.GetName(), constraintstring.replace('mu1p0','mu0p5').replace('_100s','_050s'))
         
+        # PlotterUtils.histoStyler(prior, kBlue - 9, fill=True)
+        # PlotterUtils.histoStyler(posterior, kBlack)
+        # PlotterUtils.histoStyler(posterior_down, kRed, linestyle=kDashed)
+        # PlotterUtils.histoStyler(posterior_up, kMagenta, linestyle=kDashed)
+        
+                
         PlotterUtils.histoStyler(prior, kBlue - 9, fill=True)
         PlotterUtils.histoStyler(posterior, kBlack)
         PlotterUtils.histoStyler(posterior_down, kRed, linestyle=kDashed)
         PlotterUtils.histoStyler(posterior_up, kMagenta, linestyle=kDashed)
-        
         
         prior.Scale(prior_scalar)
         posterior.Scale(posterior_scalar)
@@ -282,7 +311,7 @@ class PMSSM:
         drawConfig: Union[dict, str] = None,
         legendStyle: Union[dict, str] = None,
         customName:str = ""):
-        print("_____________________________",f"{BOLD}{ORANGE}1D Survival Probability{RESET} for{BOLD}{BLUE}", drawstring, f"{RESET}","_____________________________")
+        print("_____________________________",f"{printStyle.BOLD}{printStyle.ORANGE}1D Survival Probability{printStyle.RESET} for{printStyle.BOLD}{printStyle.BLUE}", drawstring, f"{printStyle.RESET}","_____________________________")
         
         if drawConfig is None:
             drawConfig = self.c.drawConfig["survival1D"]
@@ -343,18 +372,18 @@ class PMSSM:
         self.tree.Draw(drawstring + ">>" + prior.GetName(), constraintstring_prior, "")
         
         z = self.constraints.getZScore(analysis,isSimplified)
-        print(f"\n{BULLET}{BOLD}{YELLOW}Posterior Z Score:{RESET}\n{z}")
+        print(f"\n{printStyle.BULLET}{printStyle.BOLD}{printStyle.YELLOW}Posterior Z Score:{printStyle.RESET}\n{z}")
         self.tree.Draw(drawstring + ">>" + posterior.GetName(),
                 "*".join([constraintstring, "(" + z + ">-1.64)"]), "")
         
         z_up = z.replace('mu1p0','mu1p5').replace('_100s','_150s')
-        print(f"{BULLET}{BOLD}{YELLOW}Posterior Up Z Score:{RESET}\n{z_up}")
+        print(f"{printStyle.BULLET}{printStyle.BOLD}{printStyle.YELLOW}Posterior Up Z Score:{printStyle.RESET}\n{z_up}")
 
         self.tree.Draw(drawstring + ">>" + posterior_up.GetName(),
                    "*".join([constraintstring, "(" + z_up + ">-1.64)"]), "")
 
         z_down = z.replace('mu1p0','mu0p5').replace('_100s','_050s')
-        print(f"{BULLET}{BOLD}{YELLOW}Posterior Down Z Score:{RESET}\n{z_down}")
+        print(f"{printStyle.BULLET}{printStyle.BOLD}{printStyle.YELLOW}Posterior Down Z Score:{printStyle.RESET}\n{z_down}")
         self.tree.Draw(drawstring + ">>" + posterior_down.GetName(),
                 "*".join([constraintstring, "(" + z_down + ">-1.64)"]), "")#Down
         
@@ -455,7 +484,7 @@ class PMSSM:
         drawConfig: Union[dict, str] = None,
         legendStyle: Union[dict, str] = None,
         customName:str = ""):
-        print("_____________________________",f"{BOLD}{ORANGE}1D Quantile{RESET} for{BOLD}{BLUE}", drawstring, f"{RESET}","_____________________________")
+        print("_____________________________",f"{printStyle.BOLD}{printStyle.ORANGE}1D Quantile{printStyle.RESET} for{printStyle.BOLD}{printStyle.BLUE}", drawstring, f"{printStyle.RESET}","_____________________________")
         
         
         if drawConfig is None:
@@ -471,7 +500,7 @@ class PMSSM:
             legendConfig = drawConfig.get("legendStyle",legendStyle)
         if isinstance(legendStyle, dict):
             legendConfig = legendStyle
-        legendConfig = self.c.drawConfig["quantile1D"][legendConfig]
+        legendConfig = drawConfig[legendConfig]
         
         if xaxisDrawConfig is None:
             xaxisDrawConfig = self.c.particleConfig[drawstring]
@@ -500,7 +529,7 @@ class PMSSM:
             constraintstring = "*".join([self.c.theconstraints["reweight"], self.c.theconstraints["reason"]])
             _drawstring = self.constraints.getConstraint(analysis,isSimplified=True) + ":" + drawstring
 
-        print(f"{BOLD}{GREEN}Quantile Plot DrawString:{RESET} {_drawstring}")     
+        print(f"{printStyle.BOLD}{printStyle.GREEN}Quantile Plot DrawString:{printStyle.RESET} {_drawstring}")     
         for newc in moreconstraints:
             constraintstring += "*(" + newc + ")"
         
@@ -525,7 +554,7 @@ class PMSSM:
         xax = htemplate.GetXaxis()
         for prob in probs:
             hists["quantile_" + str(int(100 * prob))] = htemplate.ProjectionX().Clone("quantile_" + str(int(100 * prob)))
-            hists["quantile_" + str(int(100 * prob))].Reset()
+            hists["quantile_" + str(int(100 * prob))].printStyle.Reset()
         for ibinx in range(1, xax.GetNbins() + 1):
             hz = qhist.ProjectionY('hz', ibinx, ibinx)
             try:
@@ -563,7 +592,7 @@ class PMSSM:
             square = CMS.kSquare,
             iPos = 0,
             leftMargin = drawConfig.get("leftMargin", 0.03),
-            rightMargin = drawConfig.get("rightMargin", 0),
+            rightMargin = drawConfig.get("rightMargin", 0.01),
             bottomMargin = drawConfig.get("bottomMargin", 0.035),
             with_z_axis = False,
             scaleLumi = None,
@@ -624,7 +653,7 @@ class PMSSM:
             legendStyle: Union[dict, str] = None,
             customName:str = ""):
             CMS.setCMSStyle()
-            print("_____________________________",f"{BOLD}{ORANGE}2D Quantile {str(quantile)} Percentile {RESET} for{BOLD}{BLUE}", drawstring, f"{RESET}","_____________________________")
+            print("_____________________________",f"{printStyle.BOLD}{printStyle.ORANGE}2D Quantile {str(quantile)} Percentile {printStyle.RESET} for{printStyle.BOLD}{printStyle.BLUE}", drawstring, f"{printStyle.RESET}","_____________________________")
             
             
             if drawConfig is None:
@@ -817,7 +846,7 @@ class PMSSM:
         showLegend: bool = False,
         customName:str = ""):
         CMS.setCMSStyle()
-        print("_____________________________",f"{BOLD}{ORANGE}2D Survival Probability{RESET} for{BOLD}{BLUE}", drawstring, f"{RESET}","_____________________________")
+        print("_____________________________",f"{printStyle.BOLD}{printStyle.ORANGE}2D Survival Probability{printStyle.RESET} for{printStyle.BOLD}{printStyle.BLUE}", drawstring, f"{printStyle.RESET}","_____________________________")
         
         if drawConfig is None:
             drawConfig = self.c.drawConfig["survival2D"]
@@ -1205,7 +1234,7 @@ class PMSSM:
         customName:str = ""
         ):
         CMS.setCMSStyle()
-        print("_____________________________",f"{BOLD}{ORANGE}1D Relic Density{RESET}_____________________________")
+        print("_____________________________",f"{printStyle.BOLD}{printStyle.ORANGE}1D Relic Density{printStyle.RESET}_____________________________")
         
         drawConfig = self.c.drawConfig["relicDensity1D"]
 
@@ -1220,9 +1249,9 @@ class PMSSM:
         
         hists = {}
         for key in flavor_list.keys():
-            print(f"{BULLET} {BOLD}{YELLOW}{key}{RESET}")
+            print(f"{printStyle.BULLET} {printStyle.BOLD}{printStyle.YELLOW}{key}{printStyle.RESET}")
             if self.c.terms.get(key) is None:
-                print(f"{BOLD}{RED}No term found for {key}{RESET}. Skipping")
+                print(f"{printStyle.BOLD}{printStyle.RED}No term found for {key}{printStyle.RESET}. Skipping")
                 continue
             hists[key] = PlotterUtils.mkhistlogx(key,key,xbin, xmin, xmax,logx= xlog)
             self.tree.Draw("Omegah2>>" + hists[key].GetName(),"("+constraintstring+")*"+self.c.terms[key])

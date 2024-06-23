@@ -267,6 +267,42 @@ class PlotterConfig:
                 "linearScale": 1.0,
                 "unit": "GeV",
                 "name" : "chi20_ctau"
+            },
+            "Omegah2" : {
+                "title" : "#Omega_{h^{2}}",
+                "bins" : 50,
+                "min" : 1e-6,
+                "max" : 1e6,
+                "Ndivisions" : 506,
+                "logScale" : True,
+                "1Dlogy" : False,
+                "linearScale": 1.0,
+                "unit": "",
+                "name" : "relicdensity"
+            },
+            "cdm_xsec_neutron_si_pb" :{
+                "name" : "independentspin",
+                "bins" : 50,
+                "min" : 1e-18,
+                "max" : 1e-4,
+                "Ndivisions" : 507,
+                "logScale" : True,
+                "1Dlogy" : False,
+                "linearScale": 1.0,
+                "unit": "",
+                "title" : "#sigma_{SI}(#tilde{#chi}^{0}_{1},nucleon)"
+            },
+          "cdm_xsec_neutron_sd_pb" :{
+                "name" : "dependentspin",
+                "bins" : 50,
+                "min" : 1e-18,
+                "max" : 1e-4,
+                "Ndivisions" : 507,
+                "logScale" : True,
+                "1Dlogy" : False,
+                "linearScale": 1.0,
+                "unit": "",
+                "title" : "#sigma_{SD}(#tilde{#chi}^{0}_{1},nucleon)"
             }
             }
         
@@ -458,7 +494,7 @@ class PlotterConfig:
             "leftTop" : {"x1":0.23,"x2":0.66,"y1":0.67,"y2":0.9},
             "rightTop" : {"x1":0.63,"x2":0.93,"y1":0.8,"y2":0.9},
             "rightBottom" : {"x1":0.49,"x2":0.92,"y1":0.17,"y2":0.4},
-            "leftBottom" : {"x1":0.23,"x2":0.53,"y1":0.2,"y2":0.32},
+            "leftBottom" : {"x1":0.23,"x2":0.53,"y1":0.2,"y2":0.36},
             "YaxisSetTitleOffset" : 1.35,
             "XaxisSetTitleOffset" : 1.05, 
             "legendFillWhite" : True,

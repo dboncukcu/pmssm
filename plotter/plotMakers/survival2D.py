@@ -29,7 +29,7 @@ pmssm.survivalProbability2D("abs(chi10):b1")
 pmssm.survivalProbability2D("abs(chi10):lcsp")
 
 
-pmssm.survivalProbability2D("abs(chi20-chi10):abs(chi10)",showLegend=True,legendStyle="rightBottom")
+pmssm.survivalProbability2D("abs(chi20)-abs(chi10):abs(chi10)",showLegend=True,legendStyle="rightBottom")
 pmssm.survivalProbability2D("abs(chi1pm)-abs(chi10):abs(chi10)")
 pmssm.survivalProbability2D("g-abs(chi10):abs(chi10)")
 pmssm.survivalProbability2D("t1-abs(chi10):abs(chi10)")
