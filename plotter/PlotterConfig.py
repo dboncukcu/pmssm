@@ -61,9 +61,9 @@ class PlotterConfig:
             "abs(chi10)" : {
                 "title" : "m_{#tilde{#chi}^{0}_{1}}",
                 "bins" : 50,
-                "min" : 50,
-                "max" : 1000,
-                "Ndivisions" : 505,
+                "min" : 0,
+                "max" : 2300,
+                "Ndivisions" : 506,
                 "logScale" : False,
                 "linearScale": 1000,
                 "unit": "TeV",
@@ -72,12 +72,24 @@ class PlotterConfig:
             "abs(chi20)" : {
                 "title" : "m_{#tilde{#chi}^{0}_{2}}",
                 "bins" : 50,
-                "min" : 50,
-                "max" : 2500,
+                "min" : 0,
+                "max" : 2300,
                 "logScale" : False,
                 "linearScale": 1000,
+                "Ndivisions": 506,
                 "unit": "TeV",
                 "name" : "chi20"
+            },
+            "abs(chi1pm)" : {
+                "title" : "m_{#tilde{#chi}^{#pm}_{1}}",
+                "bins" : 50,
+                "min" : 0,
+                "max" : 2300,
+                "logScale" : False,
+                "linearScale": 1000,
+                "Ndivisions": 506,
+                "unit": "TeV",
+                "name" : "chi1pm"
             },
             "g": {
                 "title" : "m_{#tilde{g}}",
@@ -99,6 +111,18 @@ class PlotterConfig:
                 "linearScale": 1000.0,
                 "unit": "TeV",
                 "name": "stop1"
+                
+            },
+            "tau1" : {
+                "title": "m_{#tilde{#tau}}",
+                "bins" : 100,
+                "min" : 0,
+                "max" : 2300,
+                "logScale": False,
+                "linearScale": 1000.0,
+                "Ndivisions": 506,
+                "unit": "TeV",
+                "name": "stau"
                 
             },
             "t2" : {
@@ -198,16 +222,6 @@ class PlotterConfig:
                 "name" : "DmChi20Chi10",
                 "1Dlogy": False
             },
-            "abs(chi1pm)" : {
-                "title" : "m_{#tilde{#chi}^{#pm}_{1}}",
-                "bins" : 50,
-                "min" : 50,
-                "max" : 2500,
-                "logScale" : False,
-                "linearScale": 1000,
-                "unit": "TeV",
-                "name" : "chi1pm"
-                },
             "deltaEW" : {
                 "title" : "#Delta_{EW}",
                 "bins" : 50,

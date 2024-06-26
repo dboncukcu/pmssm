@@ -21,6 +21,7 @@ pmssm = PMSSM(config=c)
 pmssm.constraints.printAnalysisList()
 
 pmssm.survivalProbability2D("abs(chi10):abs(chi20)",showLegend=True,legendStyle="leftTop")
+exit()
 pmssm.survivalProbability2D("abs(chi10):abs(chi1pm)")
 pmssm.survivalProbability2D("abs(chi1pm):abs(chi10)")
 pmssm.survivalProbability2D("abs(chi10):g")

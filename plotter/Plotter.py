@@ -203,10 +203,10 @@ class PMSSM:
         # PlotterUtils.histoStyler(posterior_up, kMagenta, linestyle=kDashed)
         
                 
-        PlotterUtils.histoStyler(prior, kBlue - 9, fill=True)
+        PlotterUtils.histoStyler(prior, CMSColors.six.blue, fill=True)
         PlotterUtils.histoStyler(posterior, kBlack)
-        PlotterUtils.histoStyler(posterior_down, kRed, linestyle=kDashed)
-        PlotterUtils.histoStyler(posterior_up, kMagenta, linestyle=kDashed)
+        PlotterUtils.histoStyler(posterior_down, CMSColors.six.red, linestyle=kDashed)
+        PlotterUtils.histoStyler(posterior_up, CMSColors.six.violet, linestyle=kDashed)
         
         prior.Scale(prior_scalar)
         posterior.Scale(posterior_scalar)
@@ -554,7 +554,7 @@ class PMSSM:
         xax = htemplate.GetXaxis()
         for prob in probs:
             hists["quantile_" + str(int(100 * prob))] = htemplate.ProjectionX().Clone("quantile_" + str(int(100 * prob)))
-            hists["quantile_" + str(int(100 * prob))].printStyle.Reset()
+            hists["quantile_" + str(int(100 * prob))].Reset()
         for ibinx in range(1, xax.GetNbins() + 1):
             hz = qhist.ProjectionY('hz', ibinx, ibinx)
             try:
@@ -1025,12 +1025,12 @@ class PMSSM:
         
 
         legend = CMS.cmsLeg(
-            x1 = legendConfig["x1"],
-            y1 = legendConfig["y1"],
-            x2 = legendConfig["x2"],
-            y2 = legendConfig["y2"],
-            columns = legendConfig.get("numberOfColumns",2),
-            textSize = 0.03)
+            x1 = 0.2,
+            y1 = 0,
+            x2 = 0.8,
+            y2 = 0.9,
+            columns = 2,
+            textSize = 0.06)
         legend.SetHeader(self.constraints.getAnalysisName(analysis),"C")
 
         hret.Draw("colz same")
@@ -1061,13 +1061,7 @@ class PMSSM:
         if ylog:
             canvas.SetLogy()
             
-        if showLegend:
-            legend.Draw("same")
-            if drawConfig.get("legendFillWhite",False):
-                PlotterUtils.makeLegendFillWhite(legend)
-        else:
-            del legend
-            
+
         hframe = CMS.GetcmsCanvasHist(canvas)
         hframe.GetYaxis().SetTitleOffset(drawConfig.get("YaxisSetTitleOffset",1.2))
         hframe.GetXaxis().SetTitleOffset(drawConfig.get("XaxisSetTitleOffset",1.05))
@@ -1075,7 +1069,17 @@ class PMSSM:
 
         CMS.UpdatePalettePosition(hret, canvas)
         CMS.SaveCanvas(canvas, self.outputpath+name+"."+self.defaultFileFormat, close=True)
-        print("_______________________________________________________________________________________\n\n")      
+        if showLegend:
+            c = TCanvas(name + "c", name + "c",60,40)
+            c.cd()
+            legend.SetTextAlign(22)
+            legend.Draw()
+            if drawConfig.get("legendFillWhite",False):
+                PlotterUtils.makeLegendFillWhite(legend)
+            CMS.SaveCanvas(c, self.outputpath+name+"_legend."+self.defaultFileFormat, close=True)
+        else:
+            del legend
+            print("_______________________________________________________________________________________\n\n")      
         
     def get_prior_CI(self,analysis, hname, xbins, xlow, xup, ybins, ylow, yup, _logx, _logy, drawstring, moreconstraints=[],
                  intervals=[0.1, 0.67, 0.95], contourcolors=[kRed, kRed + 2, kMagenta],

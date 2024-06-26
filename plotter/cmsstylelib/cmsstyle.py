@@ -646,7 +646,7 @@ def cmsLeg(
     leg.SetFillColor(0)
     if columns:
         leg.SetNColumns(columns)
-    leg.Draw()
+    # leg.Draw()
     return leg
 
 

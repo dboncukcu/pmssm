@@ -10,7 +10,10 @@ pmssm = PMSSM(config=c)
 
 pmssm.constraints.printAnalysisList()
 
-pmssm.relicDensity1D()
+
+pmssm.survivalProbability2D("abs(chi20):tanbeta")
+
+# pmssm.relicDensity1D()
 
 # pmssm.survivalProbability1D("abs(chi10)")
 # pmssm.survivalProbability1D("abs(chi1pm)")
