@@ -10,8 +10,8 @@ from Plotter import PMSSM
 
 # variantName = "NoCut"
 # variantName = "DM"
-variantName = "DeltaEW"
-# variantName = "DM_DeltaEW"
+# variantName = "DeltaEW"
+variantName = "DM_DeltaEW"
 
 
 deltaewcut = ("Omegah2<=0.132","dd_exclusion_pval>=0.05","#Omega_{h}^{2}<=0.132 & p-value>=0.05")
@@ -19,7 +19,7 @@ dmcuts = ("deltaEW<=200","#DeltaEW<=200")
 
 
 if variantName == "NoCut":
-    denum_constraint = False
+    denum_constraint = []
 elif variantName == "DM":
     denum_constraint = [dmcuts[0]]
 elif variantName == "DeltaEW":
@@ -28,7 +28,7 @@ elif variantName == "DM_DeltaEW":
     denum_constraint = [dmcuts[0], deltaewcut[0]]
 
 
-outputPath = "../../output/survival2D_"+variantName+"/"
+outputPath = "../../output/survival2D/"+variantName+"/"
 
 
 c_survival_ewk = PlotterConfig()
@@ -42,17 +42,16 @@ c_survival_strong.global_settings["logEps"] = 8 # 8GeV
 pmssm_survival_strong = PMSSM(config=c_survival_strong)
 
 pmssm_survival_ewk.survivalProbability2D("tau1-abs(chi10):abs(chi10)", moreconstraints_prior = denum_constraint, moreconstraints= denum_constraint)
-exit()
-pmssm_survival_ewk.survivalProbability2D("abs(chi1pm)-abs(chi10):abs(chi10)", moreconstraints_prior = denum_constraint)
-pmssm_survival_ewk.survivalProbability2D("abs(chi2pm)-abs(chi10):abs(chi10)", moreconstraints_prior = denum_constraint)
-pmssm_survival_ewk.survivalProbability2D("abs(chi20)-abs(chi10):abs(chi10)", moreconstraints_prior = denum_constraint)
-pmssm_survival_ewk.survivalProbability2D("abs(chi30)-abs(chi10):abs(chi10)", moreconstraints_prior = denum_constraint)
-pmssm_survival_ewk.survivalProbability2D("abs(chi40)-abs(chi10):abs(chi10)", moreconstraints_prior = denum_constraint)
-pmssm_survival_strong.survivalProbability2D("t1-abs(chi10):abs(chi10)", moreconstraints_prior = denum_constraint)
-pmssm_survival_strong.survivalProbability2D("b1-abs(chi10):abs(chi10)", moreconstraints_prior = denum_constraint)
-pmssm_survival_strong.survivalProbability2D("lcsp-abs(chi10):abs(chi10)", moreconstraints_prior = denum_constraint)
-pmssm_survival_strong.survivalProbability2D("g-abs(chi10):abs(chi10)", moreconstraints_prior = denum_constraint)
-pmssm_survival_strong.survivalProbability2D("Mq1-abs(chi10):abs(chi10)", moreconstraints_prior = denum_constraint)
-pmssm_survival_strong.survivalProbability2D("Md1-abs(chi10):abs(chi10)", moreconstraints_prior = denum_constraint)
-pmssm_survival_ewk.survivalProbability2D("Ml1-abs(chi10):abs(chi10)", moreconstraints_prior = denum_constraint)
+pmssm_survival_ewk.survivalProbability2D("abs(chi1pm)-abs(chi10):abs(chi10)", moreconstraints_prior = denum_constraint, moreconstraints= denum_constraint)
+pmssm_survival_ewk.survivalProbability2D("abs(chi2pm)-abs(chi10):abs(chi10)", moreconstraints_prior = denum_constraint, moreconstraints= denum_constraint)
+pmssm_survival_ewk.survivalProbability2D("abs(chi20)-abs(chi10):abs(chi10)", moreconstraints_prior = denum_constraint, moreconstraints= denum_constraint)
+pmssm_survival_ewk.survivalProbability2D("abs(chi30)-abs(chi10):abs(chi10)", moreconstraints_prior = denum_constraint, moreconstraints= denum_constraint)
+pmssm_survival_ewk.survivalProbability2D("abs(chi40)-abs(chi10):abs(chi10)", moreconstraints_prior = denum_constraint, moreconstraints= denum_constraint)
+pmssm_survival_strong.survivalProbability2D("t1-abs(chi10):abs(chi10)", moreconstraints_prior = denum_constraint, moreconstraints= denum_constraint)
+pmssm_survival_strong.survivalProbability2D("b1-abs(chi10):abs(chi10)", moreconstraints_prior = denum_constraint, moreconstraints= denum_constraint)
+pmssm_survival_strong.survivalProbability2D("lcsp-abs(chi10):abs(chi10)", moreconstraints_prior = denum_constraint, moreconstraints= denum_constraint)
+pmssm_survival_strong.survivalProbability2D("g-abs(chi10):abs(chi10)", moreconstraints_prior = denum_constraint, moreconstraints= denum_constraint)
+pmssm_survival_strong.survivalProbability2D("Mq1-abs(chi10):abs(chi10)", moreconstraints_prior = denum_constraint, moreconstraints= denum_constraint)
+pmssm_survival_strong.survivalProbability2D("Md1-abs(chi10):abs(chi10)", moreconstraints_prior = denum_constraint, moreconstraints= denum_constraint)
+pmssm_survival_ewk.survivalProbability2D("Ml1-abs(chi10):abs(chi10)", moreconstraints_prior = denum_constraint, moreconstraints= denum_constraint)
 
