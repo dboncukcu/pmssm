@@ -655,9 +655,9 @@ class PMSSM:
         
         
         if drawConfig is None:
-            drawConfig = self.c.drawConfig["quantile1D"]
+            drawConfig = self.c.drawConfig["quantile1DWVar"]
         else:
-            drawConfigCopy = copy.copy(self.c.drawConfig["quantile1D"])
+            drawConfigCopy = copy.copy(self.c.drawConfig["quantile1DWVar"])
             drawConfigCopy.update(drawConfig)
             drawConfig = drawConfigCopy
             
@@ -736,6 +736,7 @@ class PMSSM:
 
 
         ## UP
+        up_constraint = _drawstring.replace('mu1p0','mu1p5').replace('_100s','_150s')
         qhist_up = PlotterUtils.mkhistlogxy("qhist_up", "", xbins, xlow, xup, 3000, 0, 30, logy=ylog, logx=xlog)
         self.tree.Draw(_drawstring.replace('mu1p0','mu1p5').replace('_100s','_150s') + ">>" + qhist_up.GetName(), constraintstring, "")
         htemplate_up = qhist_up.ProfileX('OF UF')
@@ -758,15 +759,16 @@ class PMSSM:
         
         ## DOWN
         
+        down_constraint = _drawstring.replace('mu1p0','mu0p5').replace('_100s','_050s')
         qhist_down = PlotterUtils.mkhistlogxy("qhist_down", "", xbins, xlow, xup, 3000, 0, 30, logy=ylog, logx=xlog)
-        self.tree.Draw(_drawstring.replace('mu1p0','mu0p5').replace('_100s','_050s') + ">>" + qhist_down.GetName(), constraintstring, "")
+        self.tree.Draw(down_constraint + ">>" + qhist_down.GetName(), constraintstring, "")
         htemplate_down = qhist_down.ProfileX('OF UF')
         xax_down = htemplate.GetXaxis()
         for prob in probs:
             hists["quantile_down_" + str(int(100 * prob))] = htemplate_down.ProjectionX().Clone("quantile_down_" + str(int(100 * prob)))
             hists["quantile_down_" + str(int(100 * prob))].Reset()
         for ibinx in range(1, xax_down.GetNbins() + 1):
-            hz = qhist.ProjectionY('hz', ibinx, ibinx)
+            hz = qhist_down.ProjectionY('hz', ibinx, ibinx)
             try:
                 hz.Scale(1.0 / hz.Integral(-1, 99999))
             except:
@@ -780,7 +782,6 @@ class PMSSM:
         
         ##
         for key in hists:
-            print(key)
             hist = hists[key]
             if not xaxisDrawConfig.get("logScale", False):
                 PlotterUtils.scaleXaxis(hist,scaleFactor=xaxisDrawConfig.get("linearScale"))
@@ -796,10 +797,10 @@ class PMSSM:
         canvas = CMS.cmsCanvas(
             x_min = cxmin,
             x_max = cxmax,
-            y_min = cymin,
-            y_max = cymax,
+            y_min = 0.5,  #cymin,
+            y_max = 1.1 * cymax,
             nameXaxis = f"{xtitle} [{xunit}]" if xunit != "" else xtitle,
-            nameYaxis = "Bayes Factor",
+            nameYaxis = str(int(100 * float(quantile)))+"^{th} Percentile Bayes Factor",
             canvName = name,
             square = CMS.kSquare,
             iPos = 0,
@@ -824,11 +825,10 @@ class PMSSM:
             x2 = legendConfig["x2"],
             y2 = legendConfig["y2"],
             columns = legendConfig.get("numberOfColumns",1),
-            textSize = 0.03)
-        legend.SetHeader(self.constraints.getAnalysisName(analysis),"C")
+            textSize = 0.05)
+        legend.SetHeader(self.constraints.getAnalysisName(analysis) ,"C")
         
         for histname in hists.keys():
-            print(histname)
             hist = hists[histname]
             PlotterUtils.histoStyler(hist)
             if "down" in histname :
@@ -841,7 +841,7 @@ class PMSSM:
                 legend.AddEntry(hist,"1.5#times#sigma_{nominal}")
             else:
                 hist.SetLineColor(kBlack)
-                legend.AddEntry(hist,str(int(100 * float(quantile)))+"th Percentile #sigma_{nominal}")
+                legend.AddEntry(hist,"#sigma_{nominal}")
         
         for hist in hists.values():
             hist.Draw("hist same")

@@ -101,7 +101,7 @@ class Constraints:
     def getAnalysisName(self, analysis):
         analysisList = analysis.split(",")
         if "combined" in analysis or len(analysisList) > 1:
-            return "COMBINED"
+            return "Combined"
         else:
             return self.config[analysis]["analysisName"]
     
