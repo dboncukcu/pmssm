@@ -473,10 +473,11 @@ class PMSSM:
         self,
         drawstring : str,
         quantiles : dict = {
-            "0.5": {"color":kBlack},
-            "0.75": {"color":CMSColors.six.orange},
-            "0.9": {"color":CMSColors.six.red,"linestyle": kDashed},
-            "0.99": {"color":CMSColors.six.blue,"linestyle": kDashed}
+            # "0.5": {"color":kBlack},
+            # "0.75": {"color":CMSColors.six.orange},
+            # "0.9": {"color":CMSColors.six.red,"linestyle": kDashed},
+            # "0.99": {"color":CMSColors.six.blue,"linestyle": kDashed},
+            "0.99": {"color":kBlack},
         },
         analysis : str = "combined",
         moreconstraints : list = [], 
@@ -527,7 +528,7 @@ class PMSSM:
             _drawstring = self.constraints.getConstraint(analysis,isSimplified=True) + ":" + drawstring
         else:
             constraintstring = "*".join([self.c.theconstraints["reweight"], self.c.theconstraints["reason"]])
-            _drawstring = self.constraints.getConstraint(analysis,isSimplified=True) + ":" + drawstring
+            _drawstring = self.constraints.getConstraint(analysis,isSimplified=False) + ":" + drawstring
 
         print(f"{printStyle.BOLD}{printStyle.GREEN}Quantile Plot DrawString:{printStyle.RESET} {_drawstring}")     
         for newc in moreconstraints:
@@ -639,6 +640,223 @@ class PMSSM:
         legend.Draw("same")
         CMS.SaveCanvas(canvas, self.outputpath+name+"."+self.defaultFileFormat, close=True)
         print("_______________________________________________________________________________________\n\n")
+    
+    def quantile1D_with_sigmaVariations(
+        self,
+        drawstring : str,
+        quantile : dict = "0.99",
+        analysis : str = "combined",
+        moreconstraints : list = [], 
+        xaxisDrawConfig : dict = None,
+        drawConfig: Union[dict, str] = None,
+        legendStyle: Union[dict, str] = None,
+        customName:str = ""):
+        print("_____________________________",f"{printStyle.BOLD}{printStyle.ORANGE}1D Quantile{printStyle.RESET} for{printStyle.BOLD}{printStyle.BLUE}", drawstring, f"{printStyle.RESET}","_____________________________")
+        
+        
+        if drawConfig is None:
+            drawConfig = self.c.drawConfig["quantile1D"]
+        else:
+            drawConfigCopy = copy.copy(self.c.drawConfig["quantile1D"])
+            drawConfigCopy.update(drawConfig)
+            drawConfig = drawConfigCopy
+            
+        if legendStyle is None:
+            legendStyle = "rightBottom"
+        if isinstance(legendStyle, str):
+            legendConfig = drawConfig.get("legendStyle",legendStyle)
+        if isinstance(legendStyle, dict):
+            legendConfig = legendStyle
+        legendConfig = drawConfig[legendConfig]
+        
+        if xaxisDrawConfig is None:
+            xaxisDrawConfig = self.c.particleConfig[drawstring]
+        else:
+            particleConfigCopy = copy.copy(self.c.particleConfig[drawstring])
+            particleConfigCopy.update(xaxisDrawConfig)
+            xaxisDrawConfig = particleConfigCopy
+        
+        ## Variables
+        xbins = self.getParticleConfigValue(xaxisDrawConfig, "bins")
+        xlow = self.getParticleConfigValue(xaxisDrawConfig, "min")
+        xup = self.getParticleConfigValue(xaxisDrawConfig, "max")
+        xlog = self.getParticleConfigValue(xaxisDrawConfig, "logScale")
+        ylog = self.getParticleConfigValue(xaxisDrawConfig, "1Dlogy")
+        xtitle = self.getParticleConfigValue(xaxisDrawConfig, "title")
+        xunit = self.getParticleConfigValue(xaxisDrawConfig, "unit")
+        
+        ## Create Histogram Name
+                
+        name = self.createName(xaxisDrawConfig, analysis=analysis, plotType="quantile1D",customName=customName)
+        
+        if "simplified" in analysis:  # reweighting is always done, in addition to removing unreasonable points
+            constraintstring = "*".join([self.c.theconstraints["reweight"], self.c.theconstraints["reason_simplified"]])
+            _drawstring = self.constraints.getConstraint(analysis,isSimplified=True) + ":" + drawstring
+        else:
+            constraintstring = "*".join([self.c.theconstraints["reweight"], self.c.theconstraints["reason"]])
+            _drawstring = self.constraints.getConstraint(analysis,isSimplified=False) + ":" + drawstring
+
+        print(f"{printStyle.BOLD}{printStyle.GREEN}Quantile Plot DrawString:{printStyle.RESET} {_drawstring}")     
+        for newc in moreconstraints:
+            constraintstring += "*(" + newc + ")"
+        
+        
+        if float(quantile) > 1:
+            _quantiles = [float(quantile) / 100.]
+        elif float(quantile) > 0:
+            _quantiles = [float(quantile)]
+        else:
+            raise ValueError("Invalid quantile provided, please use positive values")
+
+        probs = list(np.array([x]) for x in _quantiles)
+        qs = list(np.array([0.]) for x in _quantiles)
+        hists = {}
+        
+        
+        ## NORMAL
+        qhist = PlotterUtils.mkhistlogxy("qhist", "", xbins, xlow, xup, 3000, 0, 30, logy=ylog, logx=xlog)
+        self.tree.Draw(_drawstring + ">>" + qhist.GetName(), constraintstring, "")
+        htemplate = qhist.ProfileX('OF UF')
+        xax = htemplate.GetXaxis()
+        for prob in probs:
+            hists["quantile_" + str(int(100 * prob))] = htemplate.ProjectionX().Clone("quantile_" + str(int(100 * prob)))
+            hists["quantile_" + str(int(100 * prob))].Reset()
+        for ibinx in range(1, xax.GetNbins() + 1):
+            hz = qhist.ProjectionY('hz', ibinx, ibinx)
+            try:
+                hz.Scale(1.0 / hz.Integral(-1, 99999))
+            except:
+                for hname, hist in hists.items():
+                    hist.SetBinContent(ibinx, 0)
+                continue
+            quantiles_ = []
+            for ix, prob in enumerate(probs):
+                quantiles_.append(hz.GetQuantiles(1, qs[ix], prob))
+                hists["quantile_" + str(int(100 * prob))].SetBinContent(ibinx, qs[ix][0])
+
+
+        ## UP
+        qhist_up = PlotterUtils.mkhistlogxy("qhist_up", "", xbins, xlow, xup, 3000, 0, 30, logy=ylog, logx=xlog)
+        self.tree.Draw(_drawstring.replace('mu1p0','mu1p5').replace('_100s','_150s') + ">>" + qhist_up.GetName(), constraintstring, "")
+        htemplate_up = qhist_up.ProfileX('OF UF')
+        xax_up = htemplate_up.GetXaxis()
+        for prob in probs:
+            hists["quantile_up_" + str(int(100 * prob))] = htemplate_up.ProjectionX().Clone("quantile_up_" + str(int(100 * prob)))
+            hists["quantile_up_" + str(int(100 * prob))].Reset()
+        for ibinx in range(1, xax_up.GetNbins() + 1):
+            hz = qhist_up.ProjectionY('hz', ibinx, ibinx)
+            try:
+                hz.Scale(1.0 / hz.Integral(-1, 99999))
+            except:
+                for hname, hist in hists.items():
+                    hist.SetBinContent(ibinx, 0)
+                continue
+            quantiles_up_ = []
+            for ix, prob in enumerate(probs):
+                quantiles_up_.append(hz.GetQuantiles(1, qs[ix], prob))
+                hists["quantile_up_" + str(int(100 * prob))].SetBinContent(ibinx, qs[ix][0])
+        
+        ## DOWN
+        
+        qhist_down = PlotterUtils.mkhistlogxy("qhist_down", "", xbins, xlow, xup, 3000, 0, 30, logy=ylog, logx=xlog)
+        self.tree.Draw(_drawstring.replace('mu1p0','mu0p5').replace('_100s','_050s') + ">>" + qhist_down.GetName(), constraintstring, "")
+        htemplate_down = qhist_down.ProfileX('OF UF')
+        xax_down = htemplate.GetXaxis()
+        for prob in probs:
+            hists["quantile_down_" + str(int(100 * prob))] = htemplate_down.ProjectionX().Clone("quantile_down_" + str(int(100 * prob)))
+            hists["quantile_down_" + str(int(100 * prob))].Reset()
+        for ibinx in range(1, xax_down.GetNbins() + 1):
+            hz = qhist.ProjectionY('hz', ibinx, ibinx)
+            try:
+                hz.Scale(1.0 / hz.Integral(-1, 99999))
+            except:
+                for hname, hist in hists.items():
+                    hist.SetBinContent(ibinx, 0)
+                continue
+            quantiles_down_ = []
+            for ix, prob in enumerate(probs):
+                quantiles_down_.append(hz.GetQuantiles(1, qs[ix], prob))
+                hists["quantile_down_" + str(int(100 * prob))].SetBinContent(ibinx, qs[ix][0])
+        
+        ##
+        for key in hists:
+            print(key)
+            hist = hists[key]
+            if not xaxisDrawConfig.get("logScale", False):
+                PlotterUtils.scaleXaxis(hist,scaleFactor=xaxisDrawConfig.get("linearScale"))
+        
+        cxmin, cxmax, cymin, cymax = PlotterUtils.getAxisRangeOfList(list(hists.values()))
+
+        if xaxisDrawConfig.get("1Dlogy", False):
+            if cymin == 0:
+                cymin = self.c.global_settings["logEps"]
+        
+        cymax += drawConfig.get("yMaxOffsett", 0)
+
+        canvas = CMS.cmsCanvas(
+            x_min = cxmin,
+            x_max = cxmax,
+            y_min = cymin,
+            y_max = cymax,
+            nameXaxis = f"{xtitle} [{xunit}]" if xunit != "" else xtitle,
+            nameYaxis = "Bayes Factor",
+            canvName = name,
+            square = CMS.kSquare,
+            iPos = 0,
+            leftMargin = drawConfig.get("leftMargin", 0.03),
+            rightMargin = drawConfig.get("rightMargin", 0.01),
+            bottomMargin = drawConfig.get("bottomMargin", 0.035),
+            with_z_axis = False,
+            scaleLumi = None,
+            customStyle= {
+                "SetXNdivisions": xaxisDrawConfig.get("Ndivisions",510)
+            })
+
+        if xlog:
+            canvas.SetLogx()
+        if ylog:
+            canvas.SetLogy()
+        
+        
+        legend = CMS.cmsLeg(
+            x1 = legendConfig["x1"],
+            y1 = legendConfig["y1"],
+            x2 = legendConfig["x2"],
+            y2 = legendConfig["y2"],
+            columns = legendConfig.get("numberOfColumns",1),
+            textSize = 0.03)
+        legend.SetHeader(self.constraints.getAnalysisName(analysis),"C")
+        
+        for histname in hists.keys():
+            print(histname)
+            hist = hists[histname]
+            PlotterUtils.histoStyler(hist)
+            if "down" in histname :
+                hist.SetLineColor(CMSColors.six.red)
+                hist.SetLineStyle(kDashed)
+                legend.AddEntry(hist,"0.5#times#sigma_{nominal}")
+            elif "up" in histname:
+                hist.SetLineColor(CMSColors.six.violet)
+                hist.SetLineStyle(kDashed)
+                legend.AddEntry(hist,"1.5#times#sigma_{nominal}")
+            else:
+                hist.SetLineColor(kBlack)
+                legend.AddEntry(hist,str(int(100 * float(quantile)))+"th Percentile #sigma_{nominal}")
+        
+        for hist in hists.values():
+            hist.Draw("hist same")
+            
+        hframe = CMS.GetcmsCanvasHist(canvas)
+        hframe.GetYaxis().SetTitleOffset(drawConfig.get("YaxisSetTitleOffset",1.2))
+        hframe.GetXaxis().SetTitleOffset(drawConfig.get("XaxisSetTitleOffset",1.05))
+
+        if drawConfig.get("legendFillWhite",False):
+            PlotterUtils.makeLegendFillWhite(legend)
+
+        legend.Draw("same")
+        CMS.SaveCanvas(canvas, self.outputpath+name+"."+self.defaultFileFormat, close=True)
+        print("_______________________________________________________________________________________\n\n")
+    
     
     def quantile2D(
             self,

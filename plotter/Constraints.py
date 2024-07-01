@@ -11,7 +11,7 @@ class Constraints:
     def __init__(
         self, 
         config :dict, 
-        order:list = ["llhd", "bf"],
+        order:list = [ "bf","llhd"],
         expressions :dict = {
             "llhd_individual": "(exp({signal}-{background}))",
             "llhd_combined" : "(exp({signal}-{background}))",

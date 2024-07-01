@@ -11,7 +11,7 @@ from Plotter import PMSSM
 # variantName = "NoCut"
 # variantName = "DM"
 # variantName = "DeltaEW"
-variantName = "DM_DeltaEW"
+# variantName = "DM_DeltaEW"
 
 
 deltaewcut = (["Omegah2<=0.132","dd_exclusion_pval>=0.05"],"#Omega_{h}^{2}<=0.132 & p-value>=0.05")

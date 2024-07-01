@@ -655,7 +655,7 @@ class PlotterConfig:
         self.drawConfig["quantile1D"] = {
             "leftTop" : {"x1":0.19,"x2":0.49,"y1":0.67,"y2":0.9},
             "rightTop" : {"x1":0.63,"x2":0.93,"y1":0.67,"y2":0.9},
-            "rightBottom" : {"x1":0.63,"x2":0.93,"y1":0.18,"y2":0.41},
+            "rightBottom" : {"x1":0.6,"x2":0.9,"y1":0.18,"y2":0.41},
             "leftBottom" : {"x1":0.17,"x2":0.4,"y1":0.2,"y2":0.32},
             "YaxisSetTitleOffset" : 1.2,
             "XaxisSetTitleOffset" : 1.05, 
