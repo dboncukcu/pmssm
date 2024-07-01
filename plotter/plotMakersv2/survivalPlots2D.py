@@ -14,8 +14,8 @@ from Plotter import PMSSM
 variantName = "DM_DeltaEW"
 
 
-deltaewcut = ("Omegah2<=0.132","dd_exclusion_pval>=0.05","#Omega_{h}^{2}<=0.132 & p-value>=0.05")
-dmcuts = ("deltaEW<=200","#DeltaEW<=200")
+deltaewcut = (["Omegah2<=0.132","dd_exclusion_pval>=0.05"],"#Omega_{h}^{2}<=0.132 & p-value>=0.05")
+dmcuts = (["deltaEW<=200"],"#DeltaEW<=200")
 
 
 if variantName == "NoCut":
@@ -25,7 +25,7 @@ elif variantName == "DM":
 elif variantName == "DeltaEW":
     denum_constraint = [deltaewcut[0]]
 elif variantName == "DM_DeltaEW":
-    denum_constraint = [dmcuts[0], deltaewcut[0]]
+    denum_constraint = dmcuts[0] + deltaewcut[0]
 
 
 outputPath = "../../output/survival2D/"+variantName+"/"
