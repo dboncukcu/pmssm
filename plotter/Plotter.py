@@ -388,8 +388,8 @@ class PMSSM:
                 "*".join([constraintstring, "(" + z_down + ">-1.64)"]), "")#Down
         
         PlotterUtils.histoStyler(posterior, kBlack)
-        PlotterUtils.histoStyler(posterior_up, kMagenta, linestyle=kDashed)
-        PlotterUtils.histoStyler(posterior_down, kRed, linestyle=kDashed)
+        PlotterUtils.histoStyler(posterior_up, CMSColors.six.violet, linestyle=kDashed)
+        PlotterUtils.histoStyler(posterior_down, CMSColors.six.red, linestyle=kDashed)
         posterior.Divide(prior)
         posterior_up.Divide(prior)
         posterior_down.Divide(prior)
@@ -474,9 +474,9 @@ class PMSSM:
         drawstring : str,
         quantiles : dict = {
             "0.5": {"color":kBlack},
-            "0.75": {"color":kOrange},
-            "0.9": {"color":kRed,"linestyle": kDashed},
-            "0.99": {"color":kMagenta,"linestyle": kDashed}
+            "0.75": {"color":CMSColors.six.orange},
+            "0.9": {"color":CMSColors.six.red,"linestyle": kDashed},
+            "0.99": {"color":CMSColors.six.blue,"linestyle": kDashed}
         },
         analysis : str = "combined",
         moreconstraints : list = [], 
@@ -936,9 +936,13 @@ class PMSSM:
         if moreconstraints_prior:
             for newc_p in moreconstraints_prior:
                 constraintstring_prior += "*(" + newc_p + ")"
-
+        
+        print("constraintstring: ", constraintstring)
+        print("constraintstring_prior: ", constraintstring_prior)
+        
         self.tree.Draw(drawstring + ">>" + hdenom.GetName(), constraintstring_prior, "colz")
         z = self.constraints.getZScore(analysis,isSimplified)
+        print("z: ", z)
         self.tree.Draw(drawstring + ">>" + hret.GetName(), "*".join([constraintstring, "(" + z + ">-1.64)"]), "colz")
         hret.GetZaxis().SetRangeUser(-0.001, 1)
         cutoff = 1E-3
@@ -1336,4 +1340,89 @@ class PMSSM:
         hframe.GetYaxis().SetTitleOffset(drawConfig.get("YaxisSetTitleOffset",1.35))
         hframe.GetXaxis().SetTitleOffset(drawConfig.get("XaxisSetTitleOffset",1.15))
         CMS.SaveCanvas(canvas, self.outputpath+name+"."+self.defaultFileFormat, close=True)
-        print("_______________________________________________________________________________________\n\n")      
+        print("_______________________________________________________________________________________\n\n")
+        
+    def ZScorePlots(self,  
+                    analysis:str = "combined",
+                    moreconstraints:list = [],
+                    xbin = 100,
+                    xmin = -5,
+                    xmax = 5,
+                    xlog = False,
+                    ylog = True):
+        CMS.setCMSStyle()
+        print("_____________________________",f"{printStyle.BOLD}{printStyle.ORANGE}Z Score{printStyle.RESET}", f"{printStyle.RESET}","_____________________________")
+        
+
+        if "simplified" in analysis:  # reweighting is always done, in addition to removing unreasonable points
+                isSimplified = True
+                constraintstring = "*".join([self.c.theconstraints["reweight"], self.c.theconstraints["reason_simplified"]])
+        else:
+            isSimplified = False
+            constraintstring = "*".join([self.c.theconstraints["reweight"], self.c.theconstraints["reason"]])
+        for newc in moreconstraints:
+            constraintstring += "*(" + newc + ")"
+
+        z = self.constraints.getZScore(analysis,isSimplified)
+        print("z:",z)
+        hist = PlotterUtils.mkhistlogx("z_score","z_score",xbin, xmin, xmax,logx= xlog)
+        self.tree.Draw(f"{z}>>" + hist.GetName(),constraintstring)
+        
+        print("Total Entries: ", hist.Integral())
+        hist.Scale(1/hist.Integral())
+
+        cxmin, cxmax, cymin, cymax = PlotterUtils.getAxisRangeOfList([hist])
+
+        if xlog:
+            if cxmin == 0:
+                cxmin = self.c.global_settings["logEps"]
+        if ylog:
+            if cymin == 0:
+                cymin = self.c.global_settings["logEps"]
+                
+        canvas = CMS.cmsCanvas(
+            x_min = cxmin,
+            x_max = cxmax,
+            y_min = cymin,
+            y_max = cymax + (0.003),
+            nameXaxis = "Z Score",
+            nameYaxis = "# Entries (Normalized)",
+            canvName = "z_score",
+            square = CMS.kSquare,
+            iPos = 0,
+            leftMargin = 0.06,
+            bottomMargin = 0.037,
+            rightMargin = 0.02,
+            with_z_axis = False,
+            scaleLumi = None,
+                  customStyle= {
+                "SetXNdivisions":509
+            })
+        
+        
+        # hist.SetStats(0)
+        # hist.SetLineWidth(1)    
+        PlotterUtils.histoStyler(hist, CMSColors.six.blue, fill=True)
+        hist.Draw("hist same")
+        
+        if xlog:
+            canvas.SetLogx()
+        if ylog:
+            canvas.SetLogy()
+            
+        legend = CMS.cmsLeg(
+            x1 = 0.25,
+            y1 = 0.8,
+            x2 = 0.4,
+            y2 = 0.95,
+            columns = 1,
+            textSize = 0.03)
+        legend.SetHeader(self.constraints.getAnalysisName(analysis),"C")
+        legend.Draw("same")
+        
+        hframe = CMS.GetcmsCanvasHist(canvas)
+        hframe.GetYaxis().SetTitleOffset(1.65)
+        hframe.GetXaxis().SetTitleOffset(1.15)
+        CMS.SaveCanvas(canvas, self.outputpath+"z_score."+self.defaultFileFormat, close=True)
+        print("_______________________________________________________________________________________\n\n")
+        

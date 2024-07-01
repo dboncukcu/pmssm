@@ -23,11 +23,19 @@ pmssm_impact.constraints.printAnalysisList()
 pmssm_impact.impact1D("tau1")
 pmssm_impact.impact1D("abs(chi10)",legendStyle="rightTop")
 pmssm_impact.impact1D("abs(chi1pm)")
+pmssm_impact.impact1D("abs(chi2pm)")
 pmssm_impact.impact1D("abs(chi20)")
+pmssm_impact.impact1D("abs(chi30)")
+pmssm_impact.impact1D("abs(chi40)")
 pmssm_impact.impact1D("t1",legendStyle="leftTop")
 pmssm_impact.impact1D("b1")
 pmssm_impact.impact1D("lcsp",legendStyle="rightTop")
+pmssm_impact.impact1D("Mq1")
+pmssm_impact.impact1D("Md1")
+pmssm_impact.impact1D("Ml1")
 pmssm_impact.impact1D("g")
+
+
 
 ## QUANTILE 1D
 
@@ -42,8 +50,39 @@ pmssm_quantile.constraints.printAnalysisList()
 pmssm_quantile.quantile1D("tau1",legendStyle="leftTop")
 pmssm_quantile.quantile1D("abs(chi10)")
 pmssm_quantile.quantile1D("abs(chi1pm)")
+pmssm_quantile.quantile1D("abs(chi2pm)")
 pmssm_quantile.quantile1D("abs(chi20)")
+pmssm_quantile.quantile1D("abs(chi30)")
+pmssm_quantile.quantile1D("abs(chi40)")
 pmssm_quantile.quantile1D("t1")
 pmssm_quantile.quantile1D("b1")
 pmssm_quantile.quantile1D("lcsp")
 pmssm_quantile.quantile1D("g")
+pmssm_quantile.quantile1D("Mq1")
+pmssm_quantile.quantile1D("Md1")
+pmssm_quantile.quantile1D("Ml1")
+
+## SURVIVAL 1D
+
+
+c_survival = PlotterConfig()
+c_survival.global_settings["outputPath"] = "../../output/survival1D"
+pmssm_survival = PMSSM(config=c_survival)
+
+pmssm_survival.constraints.printAnalysisList()
+
+
+pmssm_survival.survivalProbability1D("tau1")
+pmssm_survival.survivalProbability1D("abs(chi10)")
+pmssm_survival.survivalProbability1D("abs(chi1pm)")
+pmssm_survival.survivalProbability1D("abs(chi2pm)")
+pmssm_survival.survivalProbability1D("abs(chi20)")
+pmssm_survival.survivalProbability1D("abs(chi30)")
+pmssm_survival.survivalProbability1D("abs(chi40)")
+pmssm_survival.survivalProbability1D("t1")
+pmssm_survival.survivalProbability1D("b1")
+pmssm_survival.survivalProbability1D("lcsp")
+pmssm_survival.survivalProbability1D("g")
+pmssm_survival.survivalProbability1D("Mq1")
+pmssm_survival.survivalProbability1D("Md1")
+pmssm_survival.survivalProbability1D("Ml1")

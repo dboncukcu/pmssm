@@ -79,7 +79,40 @@ class PlotterConfig:
                 "Ndivisions": 506,
                 "unit": "TeV",
                 "name" : "chi20"
-            },
+                },
+            "abs(chi30)" : {
+                "title" : "m_{#tilde{#chi}^{0}_{3}}",
+                "bins" : 50,
+                "min" : 0,
+                "max" : 2300,
+                "logScale" : False,
+                "linearScale": 1000,
+                "Ndivisions": 506,
+                "unit": "TeV",
+                "name" : "chi30"
+                },
+            "abs(chi40)" : {
+                "title" : "m_{#tilde{#chi}^{0}_{4}}",
+                "bins" : 50,
+                "min" : 0,
+                "max" : 2300,
+                "logScale" : False,
+                "linearScale": 1000,
+                "Ndivisions": 506,
+                "unit": "TeV",
+                "name" : "chi40"
+                },
+            "abs(chi2pm)" : {
+                "title" : "m_{#tilde{#chi}^{#pm}_{2}}",
+                "bins" : 50,
+                "min" : 0,
+                "max" : 2300,
+                "logScale" : False,
+                "linearScale": 1000,
+                "Ndivisions": 506,
+                "unit": "TeV",
+                "name" : "chi2pm"
+                },
             "abs(chi1pm)" : {
                 "title" : "m_{#tilde{#chi}^{#pm}_{1}}",
                 "bins" : 50,
@@ -90,7 +123,7 @@ class PlotterConfig:
                 "Ndivisions": 506,
                 "unit": "TeV",
                 "name" : "chi1pm"
-            },
+                },
             "g": {
                 "title" : "m_{#tilde{g}}",
                 "bins" : 100,
@@ -110,9 +143,39 @@ class PlotterConfig:
                 "logScale": False,
                 "linearScale": 1000.0,
                 "unit": "TeV",
-                "name": "stop1"
-                
-            },
+                "name": "stop1"    
+                },
+            "Mq1" : {
+                "title": "m_{#tilde{q}_{1,2}^{R}}",
+                "bins" : 100,
+                "min" : 50,
+                "max" : 7000,
+                "logScale": False,
+                "linearScale": 1000.0,
+                "unit": "TeV",
+                "name": "mq1"    
+                },
+            "Md1" : {
+                "title": "m_{#tilde{q}_{1,2}^{L}}",
+                "bins" : 100,
+                "min" : 50,
+                "max" : 7000,
+                "logScale": False,
+                "linearScale": 1000.0,
+                "unit": "TeV",
+                "name": "md1"      
+                },
+            "Ml1" : {
+                "title": "m_{#tilde{L}_{1,2}}",
+                "bins" : 100,
+                "min" : 0,
+                "max" : 2300,
+                "logScale": False,
+                "linearScale": 1000.0,
+                "Ndivisions": 506,
+                "unit": "TeV",
+                "name": "ml1"
+                },
             "tau1" : {
                 "title": "m_{#tilde{#tau}}",
                 "bins" : 100,
@@ -123,8 +186,7 @@ class PlotterConfig:
                 "Ndivisions": 506,
                 "unit": "TeV",
                 "name": "stau"
-                
-            },
+                },
             "t2" : {
                 "title": "m_{#tilde{t}_{2}}",
                 "bins" : 100,
@@ -134,8 +196,7 @@ class PlotterConfig:
                 "linearScale": 1000.0,
                 "unit": "TeV",
                 "name": "stop2"
-                
-            },
+                },
             "b1" : {
                 "title": "m_{#tilde{b}_{1}}",
                 "bins" : 100,
@@ -145,7 +206,7 @@ class PlotterConfig:
                 "linearScale": 1000.0,
                 "unit": "TeV",
                 "name": "sbottom"
-            },
+                },
             "lcsp" : {
                 "title" : "m_{LCSP}",
                 "bins" : 50,
@@ -159,69 +220,146 @@ class PlotterConfig:
             "abs(chi1pm)-abs(chi10)": {
                 "title": "#Deltam(#tilde{#chi}^{#pm}_{1},#tilde{#chi}^{0}_{1})",
                 "bins" : 100,
-                "min" : 0.1,
+                "min" : 0.02,
                 "max" : 3000,
                 "logScale": True,
                 "linearScale": 1.0,
                 "unit": "GeV",
                 "name" : "DmChi1pmChi10",
                 "1Dlogy": False
-            },
+                },
+            "abs(chi2pm)-abs(chi10)": {
+                "title": "#Deltam(#tilde{#chi}^{#pm}_{2},#tilde{#chi}^{0}_{1})",
+                "bins" : 100,
+                "min" : 90,
+                "max" : 3000,
+                "logScale": True,
+                "linearScale": 1.0,
+                "unit": "GeV",
+                "name" : "DmChi2pmChi10",
+                "1Dlogy": False
+                },
+            "Mq1-abs(chi10)": {
+                "title": "#Deltam(#tilde{q}_{1,2}^{R},#tilde{#chi}^{0}_{1})",
+                "bins" : 100,
+                "min" : 8,
+                "max" : 7000,
+                "logScale": True,
+                "linearScale": 1.0,
+                "unit": "GeV",
+                "name" : "DmMq1Chi10",
+                "1Dlogy": False
+                },
+            "Md1-abs(chi10)": {
+                "title": "#Deltam(#tilde{q}_{1,2}^{L},#tilde{#chi}^{0}_{1})",
+                "bins" : 100,
+                "min" : 8,
+                "max" : 7000,
+                "logScale": True,
+                "linearScale": 1.0,
+                "unit": "GeV",
+                "name" : "DmMd1Chi10",
+                "1Dlogy": False
+                },
+            "Ml1-abs(chi10)": {
+                "title": "#Deltam(#tilde{L}_{1,2},#tilde{#chi}^{0}_{1})",
+               "bins" : 100,
+                "min" : 0.02,
+                "max" : 3000,
+                "logScale": True,
+                "linearScale": 1.0,
+                "unit": "GeV",
+                "name" : "DmMl1Chi10",
+                "1Dlogy": False
+                },
             "g-abs(chi10)": {
                 "title": "#Deltam(#tilde{g},#tilde{#chi}^{0}_{1})",
                 "bins" : 100,
-                "min" : 1,
+                "min" : 8,
                 "max" : 7000,
                 "logScale": True,
                 "linearScale": 1.0,
                 "unit": "GeV",
                 "name" : "DmGluinoChi10",
                 "1Dlogy": False
-            },
+                },
             "t1-abs(chi10)": {
                 "title": "#Deltam(#tilde{t}_{1},#tilde{#chi}^{0}_{1})",
                 "bins" : 100,
-                "min" : 1,
+                "min" : 8,
                 "max" : 7000,
                 "logScale": True,
                 "linearScale": 1.0,
                 "unit": "GeV",
                 "name" : "DmStop1Chi10",
                 "1Dlogy": False
-            },
+                },
             "b1-abs(chi10)": {
                 "title": "#Deltam(#tilde{b}_{1},#tilde{#chi}^{0}_{1})",
                 "bins" : 100,
-                "min" :1,
+                "min" :8,
                 "max" : 7000,
                 "logScale": True,
                 "linearScale": 1.0,
                 "unit": "GeV",
                 "name" : "DmSbottom1Chi10",
                 "1Dlogy": False
-            },
+                },
             "lcsp-abs(chi10)": {
                 "title": "#Deltam(LCSP,#tilde{#chi}^{0}_{1})",
                 "bins" : 100,
-                "min" : 1,
+                "min" : 8,
                 "max" : 7000,
                 "logScale": True,
                 "linearScale": 1.0,
                 "unit": "GeV",
                 "name" : "DmLcspChi10",
                 "1Dlogy": False
-            },
+                },
             "abs(chi20)-abs(chi10)": {
                 "title": "#Deltam(#tilde{#chi}^{0}_{2},#tilde{#chi}^{0}_{1})",
                 "bins" : 100,
-                "min" : 0.1,
+                "min" : 0.02,
                 "max" : 3000,
                 "logScale": True,
                 "linearScale": 1.0,
                 "unit": "GeV",
                 "name" : "DmChi20Chi10",
                 "1Dlogy": False
-            },
+                },
+            "abs(chi30)-abs(chi10)": {
+                "title": "#Deltam(#tilde{#chi}^{0}_{3},#tilde{#chi}^{0}_{1})",
+                "bins" : 100,
+                "min" : 90,
+                "max" : 3000,
+                "logScale": True,
+                "linearScale": 1.0,
+                "unit": "GeV",
+                "name" : "DmChi30Chi10",
+                "1Dlogy": False
+                },
+            "abs(chi40)-abs(chi10)": {
+                "title": "#Deltam(#tilde{#chi}^{0}_{4},#tilde{#chi}^{0}_{1})",
+                "bins" : 100,
+                "min" : 90,
+                "max" : 3000,
+                "logScale": True,
+                "linearScale": 1.0,
+                "unit": "GeV",
+                "name" : "DmChi40Chi10",
+                "1Dlogy": False
+                },
+            "tau1-abs(chi10)": {
+                "title": "#Deltam(#tilde{#tau},#tilde{#chi}^{0}_{1})",
+                "bins" : 100,
+                "min" : 0.02,
+                "max" : 3000,
+                "logScale": True,
+                "linearScale": 1.0,
+                "unit": "GeV",
+                "name" : "DmStau1Chi10",
+                "1Dlogy": False
+                },        
             "deltaEW" : {
                 "title" : "#Delta_{EW}",
                 "bins" : 50,
@@ -233,7 +371,7 @@ class PlotterConfig:
                 "linearScale": 1.0,
                 "unit": "GeV",
                 "name" : "deltaEW"
-            },
+                },
             "mA" : {
                 "title" : "m_{A}",
                 "bins" : 50,
@@ -245,7 +383,7 @@ class PlotterConfig:
                 "linearScale": 1000.0,
                 "unit": "TeV",
                 "name" : "mA"
-            },
+                },
             "tanbeta" : {
                 "title" : "tan(#beta)",
                 "bins" : 50,
@@ -257,7 +395,7 @@ class PlotterConfig:
                 "linearScale": 1.0,
                 "unit": "",
                 "name" : "tanbeta"
-            },
+                },
             "chi1pm_ctau" : {
                 "title" : "m_{#tilde{#chi}^{#pm}_{1,ctau}}",
                 "bins" : 50,
@@ -269,7 +407,7 @@ class PlotterConfig:
                 "linearScale": 1.0,
                 "unit": "GeV",
                 "name" : "chi1pm_ctau"
-            },
+                },
             "chi20_ctau" : {
                 "title" : "m_{#tilde{#chi}^{0}_{2,ctau}}",
                 "bins" : 50,
@@ -281,7 +419,7 @@ class PlotterConfig:
                 "linearScale": 1.0,
                 "unit": "GeV",
                 "name" : "chi20_ctau"
-            },
+                },
             "Omegah2" : {
                 "title" : "#Omega_{h^{2}}",
                 "bins" : 50,
@@ -293,7 +431,7 @@ class PlotterConfig:
                 "linearScale": 1.0,
                 "unit": "",
                 "name" : "relicdensity"
-            },
+                },
             "cdm_xsec_neutron_si_pb" :{
                 "name" : "independentspin",
                 "bins" : 50,
@@ -305,7 +443,7 @@ class PlotterConfig:
                 "linearScale": 1.0,
                 "unit": "",
                 "title" : "#sigma_{SI}(#tilde{#chi}^{0}_{1},nucleon)"
-            },
+                },
           "cdm_xsec_neutron_sd_pb" :{
                 "name" : "dependentspin",
                 "bins" : 50,
@@ -317,7 +455,7 @@ class PlotterConfig:
                 "linearScale": 1.0,
                 "unit": "",
                 "title" : "#sigma_{SD}(#tilde{#chi}^{0}_{1},nucleon)"
-            }
+                }
             }
         
         ###################################################################
@@ -542,7 +680,7 @@ class PlotterConfig:
             "rightBottom" : {"x1":0.30,"x2":0.77,"y1":0.17,"y2":0.4},
             "leftBottom" : {"x1":0.23,"x2":0.53,"y1":0.2,"y2":0.32},
             "numberOfColumns" : 2,
-            "YaxisSetTitleOffset" : 1.25,
+            "YaxisSetTitleOffset" : 1.28,
             "XaxisSetTitleOffset" : 1.05,
             "ZaxisSetTitleOffset" : 1.2,
             "legendFillWhite" : True ,
