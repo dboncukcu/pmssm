@@ -221,7 +221,7 @@ class PlotterConfig:
                 "title": "#Deltam(#tilde{#chi}^{#pm}_{1},#tilde{#chi}^{0}_{1})",
                 "bins" : 100,
                 "min" : 0.02,
-                "max" : 3000,
+                "max" : 3500,
                 "logScale": True,
                 "linearScale": 1.0,
                 "unit": "GeV",
@@ -352,7 +352,7 @@ class PlotterConfig:
             "tau1-abs(chi10)": {
                 "title": "#Deltam(#tilde{#tau},#tilde{#chi}^{0}_{1})",
                 "bins" : 100,
-                "min" : 0.02,
+                "min" : 0.8,
                 "max" : 3000,
                 "logScale": True,
                 "linearScale": 1.0,
@@ -444,7 +444,7 @@ class PlotterConfig:
                 "unit": "",
                 "title" : "#sigma_{SI}(#tilde{#chi}^{0}_{1},nucleon)"
                 },
-          "cdm_xsec_neutron_sd_pb" :{
+            "cdm_xsec_neutron_sd_pb" :{
                 "name" : "dependentspin",
                 "bins" : 50,
                 "min" : 1e-18,

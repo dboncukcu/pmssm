@@ -1,0 +1,11 @@
+from ROOT import *
+import PlotterUtils
+from PlotterConfig import PlotterConfig
+
+c = PlotterConfig()
+
+
+tree,file = PlotterUtils.create_tree(c.root_dict)
+
+
+tree.Scan("Niteration:chain_index:TMath::Abs(TMath::Log((exp(llhd_cms_sus_20_001_mu1p0s-llhd_cms_sus_20_001_mu0p0s))*(exp(llhd_cms_sus_19_006_100s-llhd_cms_sus_19_006_0s))*(max(bf_cms_sus_21_006_mu1p0f,1E-20))*(max(bf_cms_sus_18_004_mu1p0f,1E-20))*(exp(llhd_cms_sus_21_007_100s-llhd_cms_sus_21_007_0s))*(max(bf_cms_sus_21_007_mb_mu1p0s,1E-20))))/(TMath::Log((exp(llhd_cms_sus_20_001_mu1p0s-llhd_cms_sus_20_001_mu0p0s))*(exp(llhd_cms_sus_19_006_100s-llhd_cms_sus_19_006_0s))*(max(bf_cms_sus_21_006_mu1p0f,1E-20))*(max(bf_cms_sus_18_004_mu1p0f,1E-20))*(exp(llhd_cms_sus_21_007_100s-llhd_cms_sus_21_007_0s))*(max(bf_cms_sus_21_007_mb_mu1p0s,1E-20)))) * TMath::Sqrt(2 * TMath::Abs(TMath::Log((exp(llhd_cms_sus_20_001_mu1p0s-llhd_cms_sus_20_001_mu0p0s))*(exp(llhd_cms_sus_19_006_100s-llhd_cms_sus_19_006_0s))*(max(bf_cms_sus_21_006_mu1p0f,1E-20))*(max(bf_cms_sus_18_004_mu1p0f,1E-20))*(exp(llhd_cms_sus_21_007_100s-llhd_cms_sus_21_007_0s))*(max(bf_cms_sus_21_007_mb_mu1p0s,1E-20)))))","TMath::Abs(TMath::Log((exp(llhd_cms_sus_20_001_mu1p0s-llhd_cms_sus_20_001_mu0p0s))*(exp(llhd_cms_sus_19_006_100s-llhd_cms_sus_19_006_0s))*(max(bf_cms_sus_21_006_mu1p0f,1E-20))*(max(bf_cms_sus_18_004_mu1p0f,1E-20))*(exp(llhd_cms_sus_21_007_100s-llhd_cms_sus_21_007_0s))*(max(bf_cms_sus_21_007_mb_mu1p0s,1E-20))))/(TMath::Log((exp(llhd_cms_sus_20_001_mu1p0s-llhd_cms_sus_20_001_mu0p0s))*(exp(llhd_cms_sus_19_006_100s-llhd_cms_sus_19_006_0s))*(max(bf_cms_sus_21_006_mu1p0f,1E-20))*(max(bf_cms_sus_18_004_mu1p0f,1E-20))*(exp(llhd_cms_sus_21_007_100s-llhd_cms_sus_21_007_0s))*(max(bf_cms_sus_21_007_mb_mu1p0s,1E-20)))) * TMath::Sqrt(2 * TMath::Abs(TMath::Log((exp(llhd_cms_sus_20_001_mu1p0s-llhd_cms_sus_20_001_mu0p0s))*(exp(llhd_cms_sus_19_006_100s-llhd_cms_sus_19_006_0s))*(max(bf_cms_sus_21_006_mu1p0f,1E-20))*(max(bf_cms_sus_18_004_mu1p0f,1E-20))*(exp(llhd_cms_sus_21_007_100s-llhd_cms_sus_21_007_0s))*(max(bf_cms_sus_21_007_mb_mu1p0s,1E-20)))))>2.0")

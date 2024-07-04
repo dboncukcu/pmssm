@@ -1236,7 +1236,7 @@ class PMSSM:
             square = CMS.kSquare,
             iPos = 0,
             leftMargin = 0.04,
-            bottomMargin = 0.037,
+            bottomMargin = drawConfig.get("bottomMargin",0.037),
             rightMargin = 0.04,
             with_z_axis = True,
             scaleLumi = None,
