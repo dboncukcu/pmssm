@@ -674,7 +674,7 @@ class PlotterConfig:
         
         
         self.drawConfig["quantile2D"] = {
-            "leftTop" : {"x1":0.23,"x2":0.66,"y1":0.67,"y2":0.9},
+            "leftTop" : {"x1":0.13,"x2":0.4,"y1":0.83,"y2":0.93},
             "rightTop" : {"x1":0.57,"x2":0.87,"y1":0.83,"y2":0.93},
             "rightBottom" : {"x1":0.42,"x2":0.85,"y1":0.10,"y2":0.33},
             "leftBottom" : {"x1":0.15,"x2":0.38,"y1":0.15,"y2":0.27},

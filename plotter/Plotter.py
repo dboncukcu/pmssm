@@ -869,7 +869,8 @@ class PMSSM:
             yaxisDrawConfig : dict = None,
             drawConfig: Union[dict, str] = None,
             legendStyle: Union[dict, str] = None,
-            customName:str = ""):
+            customName:str = "",
+            colorPallette = kViridis):
             CMS.setCMSStyle()
             print("_____________________________",f"{printStyle.BOLD}{printStyle.ORANGE}2D Quantile {str(quantile)} Percentile {printStyle.RESET} for{printStyle.BOLD}{printStyle.BLUE}", drawstring, f"{printStyle.RESET}","_____________________________")
             
@@ -1021,7 +1022,7 @@ class PMSSM:
                     "SetXNdivisions": xaxisDrawConfig.get("Ndivisions",510),
                     "SetYNdivisions": yaxisDrawConfig.get("Ndivisions",510)
                 })
-            CMS.SetCMSPalette()
+            CMS.SetCMSCustomPalette(colorPallette)
             if xlog:
                 canvas.SetLogx()
             if ylog:

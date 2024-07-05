@@ -15,28 +15,31 @@ c = PlotterConfig()
 c.global_settings["outputPath"] = "../../output/"
 pmssm = PMSSM(config=c)
 
-pmssm.ZScorePlots()
+# pmssm.ZScorePlots()
 
 ## QUANTILE 2D
 
-# c_quantile = PlotterConfig()
-# c_quantile.global_settings["outputPath"] = "../../output/quantile2D_50"
-# pmssm_quantile = PMSSM(config=c_quantile)
+color_palette = (kRainBow,"kRainBow")
 
-# pmssm_quantile.constraints.printAnalysisList()
-# pmssm_quantile.quantile2D("abs(chi10):tau1",quantile=0.50)
-# pmssm_quantile.quantile2D("abs(chi10):abs(chi1pm)",quantile=0.50)
-# pmssm_quantile.quantile2D("abs(chi10):abs(chi2pm)",quantile=0.50)
-# pmssm_quantile.quantile2D("abs(chi10):abs(chi20)",quantile=0.50)
-# pmssm_quantile.quantile2D("abs(chi10):abs(chi30)",quantile=0.50)
-# pmssm_quantile.quantile2D("abs(chi10):abs(chi40)",quantile=0.50)
-# pmssm_quantile.quantile2D("abs(chi10):t1",quantile=0.50)
-# pmssm_quantile.quantile2D("abs(chi10):b1",quantile=0.50)
-# pmssm_quantile.quantile2D("abs(chi10):lcsp",quantile=0.50)
-# pmssm_quantile.quantile2D("abs(chi10):g",quantile=0.50)
-# pmssm_quantile.quantile2D("abs(chi10):Mq1",quantile=0.50)
-# pmssm_quantile.quantile2D("abs(chi10):Md1",quantile=0.50)
-# pmssm_quantile.quantile2D("abs(chi10):Ml1",quantile=0.50)
+c_quantile = PlotterConfig()
+c_quantile.global_settings["outputPath"] = f"../../output/quantile2D_99/"+color_palette[1]
+pmssm_quantile = PMSSM(config=c_quantile)
+
+pmssm_quantile.constraints.printAnalysisList()
+pmssm_quantile.quantile2D("abs(chi10):tau1",quantile=0.99, legendStyle="leftTop",colorPallette=color_palette[0])
+exit()
+pmssm_quantile.quantile2D("abs(chi10):abs(chi1pm)",quantile=0.99, legendStyle="leftTop")
+pmssm_quantile.quantile2D("abs(chi10):abs(chi2pm)",quantile=0.99, legendStyle="leftTop")
+pmssm_quantile.quantile2D("abs(chi10):abs(chi20)",quantile=0.99, legendStyle="leftTop")
+pmssm_quantile.quantile2D("abs(chi10):abs(chi30)",quantile=0.99, legendStyle="leftTop")
+pmssm_quantile.quantile2D("abs(chi10):abs(chi40)",quantile=0.99, legendStyle="leftTop")
+pmssm_quantile.quantile2D("abs(chi10):t1",quantile=0.99, legendStyle="leftTop")
+pmssm_quantile.quantile2D("abs(chi10):b1",quantile=0.99, legendStyle="leftTop")
+pmssm_quantile.quantile2D("abs(chi10):lcsp",quantile=0.99, legendStyle="leftTop")
+pmssm_quantile.quantile2D("abs(chi10):g",quantile=0.99, legendStyle="leftTop")
+pmssm_quantile.quantile2D("abs(chi10):Mq1",quantile=0.99, legendStyle="leftTop")
+pmssm_quantile.quantile2D("abs(chi10):Md1",quantile=0.99, legendStyle="leftTop")
+pmssm_quantile.quantile2D("abs(chi10):Ml1",quantile=0.99, legendStyle="leftTop")
 
 # c_quantile_ewk = PlotterConfig()
 # c_quantile_ewk.global_settings["outputPath"] = "../../output/quantile2D"

@@ -136,6 +136,9 @@ def SetCMSPalette():
     cmsStyle.SetPalette(rt.kViridis)
     #cmsStyle.SetPalette(rt.kCividis)
 
+def SetCMSCustomPalette(palette):
+    cmsStyle.SetPalette(palette)
+
 def SetCustomPalette(palette):
     cmsStyle.SetPalette(len(palette),palette)
 
