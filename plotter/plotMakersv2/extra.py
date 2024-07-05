@@ -52,7 +52,7 @@ pmssm.impact1D("chi1pm_ctau",
                     "leftBottom" : {"x1":0.18,"x2":0.59,"y1":0.21,"y2":0.36},
                     })
 pmssm.quantile1D("chi1pm_ctau",drawConfig={"yMaxOffsett":0.1},xaxisDrawConfig={"1Dlogy":False,"logScale":True})
-pmssm.survivalProbability1D(" ",xaxisDrawConfig={"1Dlogy":False,"logScale":True})
+pmssm.survivalProbability1D("chi1pm_ctau",xaxisDrawConfig={"1Dlogy":False,"logScale":True})
 
 
 pmssm_chi20_ctau = PMSSM(config=c)

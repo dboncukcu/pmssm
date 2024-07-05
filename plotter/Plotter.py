@@ -253,7 +253,7 @@ class PMSSM:
             y_min = cymin,
             y_max = cymax,
             nameXaxis = f"{xtitle} [{xunit}]" if xunit != "" else xtitle,
-            nameYaxis = "pMSSM density",
+            nameYaxis = f"{self.constraints.getAnalysisName(analysis)} pMSSM density",
             canvName = name,
             square = CMS.kSquare,
             iPos = 0,
@@ -285,11 +285,11 @@ class PMSSM:
             textSize = 0.03)
         
 
-        legend.SetHeader(self.constraints.getAnalysisName(analysis),"C")
+        # legend.SetHeader(self.constraints.getAnalysisName(analysis),"C")
         legend.AddEntry(prior,"prior")
         legend.AddEntry(posterior,"posterior (#sigma = #sigma_{nominal} )")
         legend.AddEntry(posterior_up,"posterior (#sigma = 1.5#times#sigma_{nominal} )")
-        legend.AddEntry(posterior_down,"posterior (#sigma =0.5#times#sigma_{nominal} )")
+        legend.AddEntry(posterior_down,"posterior (#sigma = 0.5#times#sigma_{nominal} )")
         hframe = CMS.GetcmsCanvasHist(canvas)
         hframe.GetYaxis().SetTitleOffset(drawConfig.get("YaxisSetTitleOffset",1.7))
         hframe.GetXaxis().SetTitleOffset(drawConfig.get("XaxisSetTitleOffset",1.05))
@@ -425,7 +425,7 @@ class PMSSM:
             y_min = cymin,
             y_max = cymax,
             nameXaxis = f"{xtitle} [{xunit}]" if xunit != "" else xtitle,
-            nameYaxis = "Survival Probability",
+            nameYaxis = f"{self.constraints.getAnalysisName(analysis)} Survival Probability",
             canvName = name,
             square = CMS.kSquare,
             iPos = 0,
@@ -453,10 +453,10 @@ class PMSSM:
             y2 = legendConfig["y2"],
             columns = legendConfig.get("numberOfColumns",1),
             textSize = 0.03)
-        legend.SetHeader(self.constraints.getAnalysisName(analysis),"C")
-        legend.AddEntry(posterior,"posterior (#sigma = #sigma_{nominal} )")
-        legend.AddEntry(posterior_up,"posterior (#sigma = 1.5#times#sigma_{nominal} )")
-        legend.AddEntry(posterior_down,"posterior (#sigma =0.5#times#sigma_{nominal} )")
+        # legend.SetHeader(self.constraints.getAnalysisName(analysis),"C")
+        legend.AddEntry(posterior,"#sigma = #sigma_{nominal}")
+        legend.AddEntry(posterior_up,"#sigma = 1.5#times#sigma_{nominal}")
+        legend.AddEntry(posterior_down,"#sigma = 0.5#times#sigma_{nominal}")
 
         hframe = CMS.GetcmsCanvasHist(canvas)
         hframe.GetYaxis().SetTitleOffset(drawConfig.get("YaxisSetTitleOffset",1.7))
@@ -588,7 +588,7 @@ class PMSSM:
             y_min = cymin,
             y_max = cymax,
             nameXaxis = f"{xtitle} [{xunit}]" if xunit != "" else xtitle,
-            nameYaxis = "Bayes Factor",
+            nameYaxis = f"{self.constraints.getAnalysisName(analysis)} Bayes Factor",
             canvName = name,
             square = CMS.kSquare,
             iPos = 0,
@@ -614,7 +614,7 @@ class PMSSM:
             y2 = legendConfig["y2"],
             columns = legendConfig.get("numberOfColumns",1),
             textSize = 0.03)
-        legend.SetHeader(self.constraints.getAnalysisName(analysis),"C")
+        # legend.SetHeader(self.constraints.getAnalysisName(analysis),"C")
                 
         for i in quantiles:
             histname = "quantile_" + str(int(100 * float(i)))
@@ -825,8 +825,8 @@ class PMSSM:
             x2 = legendConfig["x2"],
             y2 = legendConfig["y2"],
             columns = legendConfig.get("numberOfColumns",1),
-            textSize = 0.05)
-        legend.SetHeader(self.constraints.getAnalysisName(analysis) ,"C")
+            textSize = 0.03)
+        # legend.SetHeader(self.constraints.getAnalysisName(analysis) ,"C")
         
         for histname in hists.keys():
             hist = hists[histname]
@@ -834,14 +834,14 @@ class PMSSM:
             if "down" in histname :
                 hist.SetLineColor(CMSColors.six.red)
                 hist.SetLineStyle(kDashed)
-                legend.AddEntry(hist,"0.5#times#sigma_{nominal}")
+                legend.AddEntry(hist,"#sigma = 0.5#times#sigma_{nominal}")
             elif "up" in histname:
                 hist.SetLineColor(CMSColors.six.violet)
                 hist.SetLineStyle(kDashed)
-                legend.AddEntry(hist,"1.5#times#sigma_{nominal}")
+                legend.AddEntry(hist,"#sigma = 1.5#times#sigma_{nominal}")
             else:
                 hist.SetLineColor(kBlack)
-                legend.AddEntry(hist,"#sigma_{nominal}")
+                legend.AddEntry(hist,"#sigma = #sigma_{nominal}")
         
         for hist in hists.values():
             hist.Draw("hist same")

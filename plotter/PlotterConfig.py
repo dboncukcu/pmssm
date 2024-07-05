@@ -60,7 +60,7 @@ class PlotterConfig:
                 },
             "abs(chi10)" : {
                 "title" : "m_{#tilde{#chi}^{0}_{1}}",
-                "bins" : 50,
+                "bins" : 100,
                 "min" : 0,
                 "max" : 2300,
                 "Ndivisions" : 506,
@@ -71,7 +71,7 @@ class PlotterConfig:
                 },
             "abs(chi20)" : {
                 "title" : "m_{#tilde{#chi}^{0}_{2}}",
-                "bins" : 50,
+                "bins" : 100,
                 "min" : 0,
                 "max" : 2300,
                 "logScale" : False,
@@ -82,7 +82,7 @@ class PlotterConfig:
                 },
             "abs(chi30)" : {
                 "title" : "m_{#tilde{#chi}^{0}_{3}}",
-                "bins" : 50,
+                "bins" : 100,
                 "min" : 0,
                 "max" : 2300,
                 "logScale" : False,
@@ -93,7 +93,7 @@ class PlotterConfig:
                 },
             "abs(chi40)" : {
                 "title" : "m_{#tilde{#chi}^{0}_{4}}",
-                "bins" : 50,
+                "bins" : 100,
                 "min" : 0,
                 "max" : 2300,
                 "logScale" : False,
@@ -104,7 +104,7 @@ class PlotterConfig:
                 },
             "abs(chi2pm)" : {
                 "title" : "m_{#tilde{#chi}^{#pm}_{2}}",
-                "bins" : 50,
+                "bins" : 100,
                 "min" : 0,
                 "max" : 2300,
                 "logScale" : False,
@@ -115,7 +115,7 @@ class PlotterConfig:
                 },
             "abs(chi1pm)" : {
                 "title" : "m_{#tilde{#chi}^{#pm}_{1}}",
-                "bins" : 50,
+                "bins" : 100,
                 "min" : 0,
                 "max" : 2300,
                 "logScale" : False,
@@ -127,7 +127,7 @@ class PlotterConfig:
             "g": {
                 "title" : "m_{#tilde{g}}",
                 "bins" : 100,
-                "min" : 50,
+                "min" : 100,
                 "max" : 7000,
                 "logScale" : False,
                 "linearScale": 1000,
@@ -209,8 +209,8 @@ class PlotterConfig:
                 },
             "lcsp" : {
                 "title" : "m_{LCSP}",
-                "bins" : 50,
-                "min" : 50,
+                "bins" : 100,
+                "min" : 100,
                 "max" : 7000,
                 "logScale" : False,
                 "linearScale": 1000, # for TeV, 1GeV/1000
@@ -366,7 +366,7 @@ class PlotterConfig:
                 "min" : 1,
                 "max" : 10000,
                 "logScale" : True,
-                "1Dlogy" : True,
+                "1Dlogy" : False,
                 "Ndivisions" : 510,
                 "linearScale": 1.0,
                 "unit": "GeV",
@@ -633,9 +633,9 @@ class PlotterConfig:
         self.drawConfig = {}
         
         self.drawConfig["impact1D"] = {
-            "leftTop" : {"x1":0.23,"x2":0.66,"y1":0.67,"y2":0.9},
+            "leftTop" : {"x1":0.23,"x2":0.66,"y1":0.75,"y2":0.9},
             "rightTop" : {"x1":0.53,"x2":0.83,"y1":0.75,"y2":0.9},
-            "rightBottom" : {"x1":0.49,"x2":0.92,"y1":0.17,"y2":0.4},
+            "rightBottom" : {"x1":0.49,"x2":0.92,"y1":0.19,"y2":0.34},
             "leftBottom" : {"x1":0.23,"x2":0.53,"y1":0.2,"y2":0.32},
             "YaxisSetTitleOffset" : 1.7,
             "XaxisSetTitleOffset" : 1.05, 
@@ -645,7 +645,7 @@ class PlotterConfig:
         self.drawConfig["survival1D"] = {
             "leftTop" : {"x1":0.23,"x2":0.66,"y1":0.67,"y2":0.9},
             "rightTop" : {"x1":0.63,"x2":0.93,"y1":0.8,"y2":0.9},
-            "rightBottom" : {"x1":0.49,"x2":0.92,"y1":0.17,"y2":0.4},
+            "rightBottom" : {"x1":0.6,"x2":1,"y1":0.18,"y2":0.34},
             "leftBottom" : {"x1":0.23,"x2":0.53,"y1":0.2,"y2":0.36},
             "YaxisSetTitleOffset" : 1.35,
             "XaxisSetTitleOffset" : 1.05, 
@@ -665,7 +665,7 @@ class PlotterConfig:
         self.drawConfig["quantile1DWVar"] = {
             "leftTop" : {"x1":0.19,"x2":0.49,"y1":0.67,"y2":0.9},
             "rightTop" : {"x1":0.63,"x2":0.93,"y1":0.67,"y2":0.9},
-            "rightBottom" : {"x1":0.6,"x2":0.9,"y1":0.18,"y2":0.41},
+            "rightBottom" : {"x1":0.6,"x2":1,"y1":0.18,"y2":0.34},
             "leftBottom" : {"x1":0.17,"x2":0.4,"y1":0.2,"y2":0.32},
             "YaxisSetTitleOffset" : 1.2,
             "XaxisSetTitleOffset" : 1.05, 
