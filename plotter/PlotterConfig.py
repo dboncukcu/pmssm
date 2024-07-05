@@ -18,6 +18,7 @@ class PlotterConfig:
         self.root_dict = [
             # {"treeName": "mcmc", "filePath" : "/eos/user/d/dboncukc/rootFiles/pmssmtree_11aug2023.root"},
             {"treeName": "mcmc", "filePath": "/eos/cms/store/group/phys_susy/pMSSMScan/MasterTrees/pmssmtree_11aug2023.root"},
+            {"treeName": "mcmc", "filePath": "/eos/cms/store/group/phys_susy/pMSSMScan/MasterTrees/lildd_exc_val_withlz.root"},
             {"treeName": "cms_sus_20_001",  "filePath" :"/eos/user/d/dboncukc/rootFiles/sus_20_001_likelihood.root"},
             {"treeName": "cms_sus_21_007_mb",  "filePath" :"/eos/user/d/dboncukc/rootFiles/sus_21_007_mb_likelihood.root"},
         ]

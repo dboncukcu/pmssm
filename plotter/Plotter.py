@@ -1067,7 +1067,8 @@ class PMSSM:
         drawConfig: Union[dict, str] = None,
         legendStyle: Union[dict, str] = None,
         showLegend: bool = False,
-        customName:str = ""):
+        customName:str = "",
+        legendAddition:str = None):
         CMS.setCMSStyle()
         print("_____________________________",f"{printStyle.BOLD}{printStyle.ORANGE}2D Survival Probability{printStyle.RESET} for{printStyle.BOLD}{printStyle.BLUE}", drawstring, f"{printStyle.RESET}","_____________________________")
         
@@ -1169,7 +1170,12 @@ class PMSSM:
         self.tree.Draw(drawstring + ">>" + hret.GetName(), "*".join([constraintstring, "(" + z + ">-1.64)"]), "colz")
         hret.GetZaxis().SetRangeUser(-0.001, 1)
         cutoff = 1E-3
-        hret.GetZaxis().SetTitle("Survival Probability")
+        
+        if legendAddition is None:
+            hret.GetZaxis().SetTitle(f"{self.constraints.getAnalysisName(analysis)} Survival Probability")
+        else:
+            hret.GetZaxis().SetTitle(f"{legendAddition} Survival Probability")
+
         hret.Divide(hdenom)
         for i in range(1, hret.GetNbinsX() + 1):
             for j in range(1, hret.GetNbinsY() + 1):

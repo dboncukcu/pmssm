@@ -11,10 +11,9 @@ print("variant Name: ", variantName)
 # variantName = "DeltaEW"
 # variantName = "DM_DeltaEW"
 
-
-dmcuts= (["Omegah2<=0.132","dd_exclusion_pval>=0.05"],"#Omega_{h}^{2}<=0.132 & p-value>=0.05")
+# dmcuts= (["Omegah2<=0.132","dd_exclusion_pval>=0.05"],"#Omega_{h}^{2}<=0.132 & p-value>=0.05")
+dmcuts= (["Omegah2<=0.132","abs(dd_exclusion_pval_withlz)>=0.05"],"#Omega_{h}^{2}<=0.132 & p-value>=0.05")
 deltaewcut = (["deltaEW<=200"],"#DeltaEW<=200")
-
 
 if variantName == "NoCut":
     denum_constraint = []
