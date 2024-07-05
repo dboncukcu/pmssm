@@ -1070,7 +1070,8 @@ class PMSSM:
         customName:str = "",
         legendAddition:str = None,
         constraints:tuple= None,
-        contourFix2ndWay:bool = True ):
+        contourFix2ndWay:bool = True,
+        showContour:bool = True):
         CMS.setCMSStyle()
         print("_____________________________",f"{printStyle.BOLD}{printStyle.ORANGE}2D Survival Probability{printStyle.RESET} for{printStyle.BOLD}{printStyle.BLUE}", drawstring, f"{printStyle.RESET}","_____________________________")
         
@@ -1271,25 +1272,26 @@ class PMSSM:
         legend.SetHeader(self.constraints.getAnalysisName(analysis),"C" )
 
         hret.Draw("colz same")
-        for ix,interval in enumerate(prior_data):
-            for cont in prior_data[interval]:
-                if not xaxisDrawConfig.get("logScale", False):
-                    PlotterUtils.scaleGraphXaxis(cont,scaleFactor=xaxisDrawConfig.get("linearScale"))
-                if not yaxisDrawConfig.get("logScale", False):
-                    PlotterUtils.scaleGraphYaxis(cont,scaleFactor=yaxisDrawConfig.get("linearScale"))
-                cont.Draw("same")
-        for ix,interval in enumerate(posterior_data):
-            for cont in posterior_data[interval]:
-                if not xaxisDrawConfig.get("logScale", False):
-                    PlotterUtils.scaleGraphXaxis(cont,scaleFactor=xaxisDrawConfig.get("linearScale"))
-                if not yaxisDrawConfig.get("logScale", False):
-                    PlotterUtils.scaleGraphYaxis(cont,scaleFactor=yaxisDrawConfig.get("linearScale"))
-                cont.Draw("same")
-        for ix,interval in enumerate(prior_data):
-            if interval in prior_data.keys() and len(prior_data[interval])>0:
-                legend.AddEntry(prior_data[interval][0],str(int(100*(interval)))+"%  prior CI","l",)
-            if interval in posterior_data.keys() and len(posterior_data[interval])>0:
-                legend.AddEntry(posterior_data[interval][0],str(int(100*(interval)))+"% posterior CI","l",)
+        if showContour:
+            for ix,interval in enumerate(prior_data):
+                for cont in prior_data[interval]:
+                    if not xaxisDrawConfig.get("logScale", False):
+                        PlotterUtils.scaleGraphXaxis(cont,scaleFactor=xaxisDrawConfig.get("linearScale"))
+                    if not yaxisDrawConfig.get("logScale", False):
+                        PlotterUtils.scaleGraphYaxis(cont,scaleFactor=yaxisDrawConfig.get("linearScale"))
+                    cont.Draw("same")
+            for ix,interval in enumerate(posterior_data):
+                for cont in posterior_data[interval]:
+                    if not xaxisDrawConfig.get("logScale", False):
+                        PlotterUtils.scaleGraphXaxis(cont,scaleFactor=xaxisDrawConfig.get("linearScale"))
+                    if not yaxisDrawConfig.get("logScale", False):
+                        PlotterUtils.scaleGraphYaxis(cont,scaleFactor=yaxisDrawConfig.get("linearScale"))
+                    cont.Draw("same")
+            for ix,interval in enumerate(prior_data):
+                if interval in prior_data.keys() and len(prior_data[interval])>0:
+                    legend.AddEntry(prior_data[interval][0],str(int(100*(interval)))+"%  prior CI","l",)
+                if interval in posterior_data.keys() and len(posterior_data[interval])>0:
+                    legend.AddEntry(posterior_data[interval][0],str(int(100*(interval)))+"% posterior CI","l",)
         
         
         CMS.SetCustomPalette(custompalette)

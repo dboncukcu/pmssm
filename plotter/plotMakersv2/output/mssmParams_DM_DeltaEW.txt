@@ -1,11 +1,7 @@
 Info in <TCanvas::MakeDefCanvas>:  created default TCanvas with name c1
-TFile::Append:0: RuntimeWarning: Replacing existing TH1: M2_M1_COMBINED_survival2DDM_DeltaEW_priorcontours (Potential memory leak).
 Info in <TCanvas::Print>: pdf file ../../output/pmssmParams/DM_DeltaEW/M2_M1_COMBINED_survival2DDM_DeltaEW.pdf has been created
-TFile::Append:0: RuntimeWarning: Replacing existing TH1: mu_tanbeta_COMBINED_survival2DDM_DeltaEW_priorcontours (Potential memory leak).
 Info in <TCanvas::Print>: pdf file ../../output/pmssmParams/DM_DeltaEW/mu_tanbeta_COMBINED_survival2DDM_DeltaEW.pdf has been created
-TFile::Append:0: RuntimeWarning: Replacing existing TH1: stop1_At_COMBINED_survival2DDM_DeltaEW_priorcontours (Potential memory leak).
 Info in <TCanvas::Print>: pdf file ../../output/pmssmParams/DM_DeltaEW/stop1_At_COMBINED_survival2DDM_DeltaEW.pdf has been created
-TFile::Append:0: RuntimeWarning: Replacing existing TH1: tanbeta_mA_COMBINED_survival2DDM_DeltaEW_priorcontours (Potential memory leak).
 Info in <TCanvas::Print>: pdf file ../../output/pmssmParams/DM_DeltaEW/tanbeta_mA_COMBINED_survival2DDM_DeltaEW.pdf has been created
 variant Name:  DM_DeltaEW
 _____________________________ [1m[38;5;214m2D Survival Probability[0m for[1m[94m M1:M2 [0m _____________________________
@@ -61,11 +57,8 @@ _____________________________[1m[92mFULL COMBINED[0m_______________________
 •[93mAnalysis:[0m cms_sus_21_007 [38;5;214mConstraint[0m: (exp(llhd_cms_sus_21_007_100s-llhd_cms_sus_21_007_0s))
 •[93mAnalysis:[0m cms_sus_21_007_mb [38;5;214mConstraint[0m: (max(bf_cms_sus_21_007_mb_mu1p0s,1E-20))
 z:  TMath::Abs(TMath::Log((max(bf_cms_sus_20_001_mu1p0s,1E-20))*(exp(llhd_cms_sus_19_006_100s-llhd_cms_sus_19_006_0s))*(max(bf_cms_sus_21_006_mu1p0f,1E-20))*(max(bf_cms_sus_18_004_mu1p0f,1E-20))*(exp(llhd_cms_sus_21_007_100s-llhd_cms_sus_21_007_0s))*(max(bf_cms_sus_21_007_mb_mu1p0s,1E-20))))/(TMath::Log((max(bf_cms_sus_20_001_mu1p0s,1E-20))*(exp(llhd_cms_sus_19_006_100s-llhd_cms_sus_19_006_0s))*(max(bf_cms_sus_21_006_mu1p0f,1E-20))*(max(bf_cms_sus_18_004_mu1p0f,1E-20))*(exp(llhd_cms_sus_21_007_100s-llhd_cms_sus_21_007_0s))*(max(bf_cms_sus_21_007_mb_mu1p0s,1E-20)))) * TMath::Sqrt(2 * TMath::Abs(TMath::Log((max(bf_cms_sus_20_001_mu1p0s,1E-20))*(exp(llhd_cms_sus_19_006_100s-llhd_cms_sus_19_006_0s))*(max(bf_cms_sus_21_006_mu1p0f,1E-20))*(max(bf_cms_sus_18_004_mu1p0f,1E-20))*(exp(llhd_cms_sus_21_007_100s-llhd_cms_sus_21_007_0s))*(max(bf_cms_sus_21_007_mb_mu1p0s,1E-20)))))
-TFile::Append:0: RuntimeWarning: Replacing existing TH1: mu_M1_COMBINED_survival2DDM_DeltaEW_priorcontours (Potential memory leak).
 Info in <TCanvas::Print>: pdf file ../../output/pmssmParams/DM_DeltaEW/mu_M1_COMBINED_survival2DDM_DeltaEW.pdf has been created
-TFile::Append:0: RuntimeWarning: Replacing existing TH1: stau_Atau_COMBINED_survival2DDM_DeltaEW_priorcontours (Potential memory leak).
 Info in <TCanvas::Print>: pdf file ../../output/pmssmParams/DM_DeltaEW/stau_Atau_COMBINED_survival2DDM_DeltaEW.pdf has been created
-TFile::Append:0: RuntimeWarning: Replacing existing TH1: Mq3_M3_COMBINED_survival2DDM_DeltaEW_priorcontours (Potential memory leak).
 Info in <TCanvas::Print>: pdf file ../../output/pmssmParams/DM_DeltaEW/Mq3_M3_COMBINED_survival2DDM_DeltaEW.pdf has been created
 _______________________________________________________________________________________
 
@@ -122,13 +115,9 @@ _____________________________[1m[92mFULL COMBINED[0m_______________________
 •[93mAnalysis:[0m cms_sus_18_004 [38;5;214mConstraint[0m: (max(bf_cms_sus_18_004_mu1p0f,1E-20))
 •[93mAnalysis:[0m cms_sus_21_007 [38;5;214mConstraint[0m: (exp(llhd_cms_sus_21_007_100s-llhd_cms_sus_21_007_0s))
 •[93mAnalysis:[0m cms_sus_21_007_mb [38;5;214mConstraint[0m: (max(bf_cms_sus_21_007_mb_mu1p0s,1E-20))
-z:  TFile::Append:0: RuntimeWarning: Replacing existing TH1: mA_mu_COMBINED_survival2DDM_DeltaEW_priorcontours (Potential memory leak).
-Info in <TCanvas::Print>: pdf file ../../output/pmssmParams/DM_DeltaEW/mA_mu_COMBINED_survival2DDM_DeltaEW.pdf has been created
-TFile::Append:0: RuntimeWarning: Replacing existing TH1: stop1_mu_COMBINED_survival2DDM_DeltaEW_priorcontours (Potential memory leak).
+z:  Info in <TCanvas::Print>: pdf file ../../output/pmssmParams/DM_DeltaEW/mA_mu_COMBINED_survival2DDM_DeltaEW.pdf has been created
 Info in <TCanvas::Print>: pdf file ../../output/pmssmParams/DM_DeltaEW/stop1_mu_COMBINED_survival2DDM_DeltaEW.pdf has been created
-TFile::Append:0: RuntimeWarning: Replacing existing TH1: M2_mu_COMBINED_survival2DDM_DeltaEW_priorcontours (Potential memory leak).
 Info in <TCanvas::Print>: pdf file ../../output/pmssmParams/DM_DeltaEW/M2_mu_COMBINED_survival2DDM_DeltaEW.pdf has been created
-TFile::Append:0: RuntimeWarning: Replacing existing TH1: sbottom_Ab_COMBINED_survival2DDM_DeltaEW_priorcontours (Potential memory leak).
 Info in <TCanvas::Print>: pdf file ../../output/pmssmParams/DM_DeltaEW/sbottom_Ab_COMBINED_survival2DDM_DeltaEW.pdf has been created
 TMath::Abs(TMath::Log((max(bf_cms_sus_20_001_mu1p0s,1E-20))*(exp(llhd_cms_sus_19_006_100s-llhd_cms_sus_19_006_0s))*(max(bf_cms_sus_21_006_mu1p0f,1E-20))*(max(bf_cms_sus_18_004_mu1p0f,1E-20))*(exp(llhd_cms_sus_21_007_100s-llhd_cms_sus_21_007_0s))*(max(bf_cms_sus_21_007_mb_mu1p0s,1E-20))))/(TMath::Log((max(bf_cms_sus_20_001_mu1p0s,1E-20))*(exp(llhd_cms_sus_19_006_100s-llhd_cms_sus_19_006_0s))*(max(bf_cms_sus_21_006_mu1p0f,1E-20))*(max(bf_cms_sus_18_004_mu1p0f,1E-20))*(exp(llhd_cms_sus_21_007_100s-llhd_cms_sus_21_007_0s))*(max(bf_cms_sus_21_007_mb_mu1p0s,1E-20)))) * TMath::Sqrt(2 * TMath::Abs(TMath::Log((max(bf_cms_sus_20_001_mu1p0s,1E-20))*(exp(llhd_cms_sus_19_006_100s-llhd_cms_sus_19_006_0s))*(max(bf_cms_sus_21_006_mu1p0f,1E-20))*(max(bf_cms_sus_18_004_mu1p0f,1E-20))*(exp(llhd_cms_sus_21_007_100s-llhd_cms_sus_21_007_0s))*(max(bf_cms_sus_21_007_mb_mu1p0s,1E-20)))))
 _______________________________________________________________________________________
@@ -185,9 +174,7 @@ _____________________________[1m[92mFULL COMBINED[0m_______________________
 •[93mAnalysis:[0m cms_sus_21_006 [38;5;214mConstraint[0m: (max(bf_cms_sus_21_006_mu1p0f,1E-20))
 •[93mAnalysis:[0m cms_sus_18_004 [38;5;214mConstraint[0m: (max(bf_cms_sus_18_004_mu1p0f,1E-20))
 •[93mAnalysis:[0m cms_sus_21_007 [38;5;214mConstraint[0m: (exp(llhd_cms_sus_21_007_100s-llhd_cms_sus_21_007_0s))
-TFile::Append:0: RuntimeWarning: Replacing existing TH1: M3_tanbeta_COMBINED_survival2DDM_DeltaEW_priorcontours (Potential memory leak).
 Info in <TCanvas::Print>: pdf file ../../output/pmssmParams/DM_DeltaEW/M3_tanbeta_COMBINED_survival2DDM_DeltaEW.pdf has been created
-TFile::Append:0: RuntimeWarning: Replacing existing TH1: M2_tanbeta_COMBINED_survival2DDM_DeltaEW_priorcontours (Potential memory leak).
 Info in <TCanvas::Print>: pdf file ../../output/pmssmParams/DM_DeltaEW/M2_tanbeta_COMBINED_survival2DDM_DeltaEW.pdf has been created
 •[93mAnalysis:[0m cms_sus_21_007_mb [38;5;214mConstraint[0m: (max(bf_cms_sus_21_007_mb_mu1p0s,1E-20))
 z:  TMath::Abs(TMath::Log((max(bf_cms_sus_20_001_mu1p0s,1E-20))*(exp(llhd_cms_sus_19_006_100s-llhd_cms_sus_19_006_0s))*(max(bf_cms_sus_21_006_mu1p0f,1E-20))*(max(bf_cms_sus_18_004_mu1p0f,1E-20))*(exp(llhd_cms_sus_21_007_100s-llhd_cms_sus_21_007_0s))*(max(bf_cms_sus_21_007_mb_mu1p0s,1E-20))))/(TMath::Log((max(bf_cms_sus_20_001_mu1p0s,1E-20))*(exp(llhd_cms_sus_19_006_100s-llhd_cms_sus_19_006_0s))*(max(bf_cms_sus_21_006_mu1p0f,1E-20))*(max(bf_cms_sus_18_004_mu1p0f,1E-20))*(exp(llhd_cms_sus_21_007_100s-llhd_cms_sus_21_007_0s))*(max(bf_cms_sus_21_007_mb_mu1p0s,1E-20)))) * TMath::Sqrt(2 * TMath::Abs(TMath::Log((max(bf_cms_sus_20_001_mu1p0s,1E-20))*(exp(llhd_cms_sus_19_006_100s-llhd_cms_sus_19_006_0s))*(max(bf_cms_sus_21_006_mu1p0f,1E-20))*(max(bf_cms_sus_18_004_mu1p0f,1E-20))*(exp(llhd_cms_sus_21_007_100s-llhd_cms_sus_21_007_0s))*(max(bf_cms_sus_21_007_mb_mu1p0s,1E-20)))))

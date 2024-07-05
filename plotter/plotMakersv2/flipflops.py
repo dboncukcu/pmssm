@@ -17,7 +17,7 @@ c.global_settings["outputPath"] = "/afs/cern.ch/user/d/dboncukc/pmssm/output/pre
 mainPath = "/afs/cern.ch/user/d/dboncukc/pmssm/output/preapproval"
 
 
-contourFix2ndWay = (1.2,1.2)
+contourFix2ndWay = False
 
 for par in ["abs(chi1pm)-abs(chi10)","g-abs(chi10)","t1-abs(chi10)","b1-abs(chi10)","lcsp-abs(chi10)","abs(chi20)-abs(chi10)"]:
     c.global_settings["outputPath"] = "/afs/cern.ch/user/a/agungord/pmssm/output/"+ c.particleConfig[par]["name"]
