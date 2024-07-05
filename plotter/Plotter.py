@@ -327,7 +327,9 @@ class PMSSM:
             legendConfig = drawConfig.get("legendStyle",legendStyle)
         if isinstance(legendStyle, dict):
             legendConfig = legendStyle
-        legendConfig = self.c.drawConfig["survival1D"][legendConfig]
+        legendConfigCopy = copy.copy(self.c.drawConfig["survival1D"][legendConfig])
+        legendConfigCopy.update(drawConfig.get(legendConfig,{}))
+        legendConfig = legendConfigCopy
         
         if xaxisDrawConfig is None:
             xaxisDrawConfig = self.c.particleConfig[drawstring]
@@ -445,7 +447,7 @@ class PMSSM:
         posterior.Draw("hist same")
         posterior_up.Draw("hist same")
         posterior_down.Draw("hist same")
-
+        
         legend = CMS.cmsLeg(
             x1 = legendConfig["x1"],
             y1 = legendConfig["y1"],
@@ -667,7 +669,9 @@ class PMSSM:
             legendConfig = drawConfig.get("legendStyle",legendStyle)
         if isinstance(legendStyle, dict):
             legendConfig = legendStyle
-        legendConfig = drawConfig[legendConfig]
+        legendConfigCopy = copy.copy(self.c.drawConfig["survival1D"][legendConfig])
+        legendConfigCopy.update(drawConfig.get(legendConfig,{}))
+        legendConfig = legendConfigCopy
         
         if xaxisDrawConfig is None:
             xaxisDrawConfig = self.c.particleConfig[drawstring]
@@ -857,7 +861,6 @@ class PMSSM:
         CMS.SaveCanvas(canvas, self.outputpath+name+"."+self.defaultFileFormat, close=True)
         print("_______________________________________________________________________________________\n\n")
     
-    
     def quantile2D(
             self,
             drawstring : str,
@@ -956,7 +959,8 @@ class PMSSM:
             xax, yax = htemplate.GetXaxis(), htemplate.GetYaxis()
             returnhist = htemplate.ProjectionXY().Clone(name)
             returnhist.Reset()
-            cutoff = 1E-3
+            # cutoff = 1E-3
+            cutoff = 0.5
             
             for ibinx in range(1, xax.GetNbins() + 1):
                 for ibiny in range(1, yax.GetNbins() + 1):
@@ -1293,6 +1297,7 @@ class PMSSM:
         CMS.UpdatePalettePosition(hret, canvas)
         CMS.SaveCanvas(canvas, self.outputpath+name+"."+self.defaultFileFormat, close=True)
         if showLegend:
+            ## baby legend
             c = TCanvas(name + "c", name + "c",60,40)
             c.cd()
             legend.SetTextAlign(22)

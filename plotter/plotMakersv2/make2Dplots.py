@@ -19,7 +19,7 @@ pmssm = PMSSM(config=c)
 
 ## QUANTILE 2D
 
-color_palette = (kRainBow,"kRainBow")
+color_palette = (kDarkBodyRadiator,"kDarkBodyRadiator")
 
 c_quantile = PlotterConfig()
 c_quantile.global_settings["outputPath"] = f"../../output/quantile2D_99/"+color_palette[1]

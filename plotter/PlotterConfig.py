@@ -16,7 +16,8 @@ class PlotterConfig:
         ###################### root Files ######################
         
         self.root_dict = [
-            {"treeName": "mcmc", "filePath" : "/eos/user/d/dboncukc/rootFiles/pmssmtree_11aug2023.root"},
+            # {"treeName": "mcmc", "filePath" : "/eos/user/d/dboncukc/rootFiles/pmssmtree_11aug2023.root"},
+            {"treeName": "mcmc", "filePath": "/eos/cms/store/group/phys_susy/pMSSMScan/MasterTrees/pmssmtree_11aug2023.root"},
             {"treeName": "cms_sus_20_001",  "filePath" :"/eos/user/d/dboncukc/rootFiles/sus_20_001_likelihood.root"},
             {"treeName": "cms_sus_21_007_mb",  "filePath" :"/eos/user/d/dboncukc/rootFiles/sus_21_007_mb_likelihood.root"},
         ]
@@ -447,9 +448,9 @@ class PlotterConfig:
             "cdm_xsec_neutron_sd_pb" :{
                 "name" : "dependentspin",
                 "bins" : 50,
-                "min" : 1e-18,
+                "min" : 1e-14,
                 "max" : 1e-4,
-                "Ndivisions" : 507,
+                "Ndivisions" : 505,
                 "logScale" : True,
                 "1Dlogy" : False,
                 "linearScale": 1.0,
@@ -664,7 +665,7 @@ class PlotterConfig:
         
         self.drawConfig["quantile1DWVar"] = {
             "leftTop" : {"x1":0.19,"x2":0.49,"y1":0.67,"y2":0.9},
-            "rightTop" : {"x1":0.63,"x2":0.93,"y1":0.67,"y2":0.9},
+            "rightTop" : {"x1":0.63,"x2":0.93,"y1":0.76,"y2":0.9},
             "rightBottom" : {"x1":0.6,"x2":1,"y1":0.18,"y2":0.34},
             "leftBottom" : {"x1":0.17,"x2":0.4,"y1":0.2,"y2":0.32},
             "YaxisSetTitleOffset" : 1.2,

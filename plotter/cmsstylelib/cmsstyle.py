@@ -139,6 +139,7 @@ def SetCMSPalette():
 def SetCMSCustomPalette(palette):
     cmsStyle.SetPalette(palette)
 
+
 def SetCustomPalette(palette):
     cmsStyle.SetPalette(len(palette),palette)
 
