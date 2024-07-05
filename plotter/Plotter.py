@@ -1069,7 +1069,8 @@ class PMSSM:
         showLegend: bool = False,
         customName:str = "",
         legendAddition:str = None,
-        constraints:tuple= None):
+        constraints:tuple= None,
+        contourFix2ndWay:bool = True ):
         CMS.setCMSStyle()
         print("_____________________________",f"{printStyle.BOLD}{printStyle.ORANGE}2D Survival Probability{printStyle.RESET} for{printStyle.BOLD}{printStyle.BLUE}", drawstring, f"{printStyle.RESET}","_____________________________")
         
@@ -1203,7 +1204,8 @@ class PMSSM:
             _logx = xlog, 
             _logy = ylog, 
             drawstring = drawstring,
-            moreconstraints= moreconstraints)
+            moreconstraints= moreconstraints,
+            contourFix2ndWay=contourFix2ndWay)
             
         posterior_data = self.get_posterior_CI(
             analysis = analysis, 
@@ -1217,7 +1219,8 @@ class PMSSM:
             _logx = xlog, 
             _logy = ylow, 
             drawstring = drawstring,
-            moreconstraints = moreconstraints)
+            moreconstraints = moreconstraints,
+            contourFix2ndWay = contourFix2ndWay)
 
 
         if not xlog:
@@ -1336,7 +1339,7 @@ class PMSSM:
         
     def get_prior_CI(self,analysis, hname, xbins, xlow, xup, ybins, ylow, yup, _logx, _logy, drawstring, moreconstraints=[],
                  intervals=[0.1, 0.67, 0.95], contourcolors=[kRed, kRed + 2, kMagenta],
-                 contourstyle=[kSolid, kSolid, kSolid]):
+                 contourstyle=[kSolid, kSolid, kSolid],contourFix2ndWay=False):
         """
         Produce credibility intervals for the prior, defined here as the smallest number of bins that contain X% of the prior density.
         Returns the contours for the given intervals
@@ -1363,9 +1366,16 @@ class PMSSM:
             constraintstring = "*".join([self.c.theconstraints["reweight"], self.c.theconstraints["reason"]])
         for newc in moreconstraints:
             constraintstring += "*(" + newc + ")"
-
-        contours = PlotterUtils.mkhistlogxy(hname, '', int(2*xbins), xlow, xup, int(2*ybins), ylow, yup, logx=_logx, logy=_logy)
-        # contours.Rebin2D(2,2)
+        
+        if not contourFix2ndWay:
+            contours = PlotterUtils.mkhistlogxy(hname, '', int(1.2*xbins), xlow, xup, int(1.2*ybins), ylow, yup, logx=_logx, logy=_logy)
+        else:
+            contours = PlotterUtils.mkhistlogxy(hname, '', int(1*xbins), xlow, xup, int(1*ybins), ylow, yup, logx=_logx, logy=_logy)
+            if isinstance(contourFix2ndWay,bool):
+                contours.Rebin2D(2,2)
+            else:
+                contours.Rebin2D(contourFix2ndWay[0],contourFix2ndWay[1])
+                
         self.tree.Draw(drawstring + ">>" + contours.GetName(), constraintstring, "cont2")
         contarrays = np.array(self.getThresholdForContainment(contours, intervals))
         # redraw the histogram with cont list option
@@ -1390,7 +1400,7 @@ class PMSSM:
 
     def get_posterior_CI(self,analysis, hname, xbins, xlow, xup, ybins, ylow, yup, _logx, _logy, drawstring,
                         moreconstraints=[], intervals=[0.1, 0.67, 0.95], contourcolors=[kRed, kRed + 2, kMagenta],
-                        contourstyle=[kDashed, kDashed, kDashed]):
+                        contourstyle=[kDashed, kDashed, kDashed],contourFix2ndWay = False):
         """
         Produce credibility intervals for the prior, defined here as the smallest number of bins that contain X% of the prior density.
         Returns the contours for the given intervals
@@ -1419,9 +1429,16 @@ class PMSSM:
             constraintstring = "*".join([self.c.theconstraints["reweight"], self.c.theconstraints["reason"], self.constraints.getConstraint(analysis,isSimplified=False,verbose=False)])
         for newc in moreconstraints:
             constraintstring += "*(" + newc + ")"
-
-        contours = PlotterUtils.mkhistlogxy(hname, '', int(2*xbins), xlow, xup, int(2*ybins), ylow, yup, logx=_logx, logy=_logy)
-        # contours.Rebin2D(2,2)
+            
+        if not contourFix2ndWay:
+            contours = PlotterUtils.mkhistlogxy(hname, '', int(1.2*xbins), xlow, xup, int(1.2*ybins), ylow, yup, logx=_logx, logy=_logy)
+        else:
+            contours = PlotterUtils.mkhistlogxy(hname, '', int(1*xbins), xlow, xup, int(1*ybins), ylow, yup, logx=_logx, logy=_logy)
+            if isinstance(contourFix2ndWay,bool):
+                contours.Rebin2D(2,2)
+            else:
+                contours.Rebin2D(contourFix2ndWay[0],contourFix2ndWay[1])
+            
         self.tree.Draw(drawstring + ">>" + contours.GetName(), constraintstring, "cont2")
         contarrays = np.array(self.getThresholdForContainment(contours, intervals))
         # redraw the histogram with cont list option
