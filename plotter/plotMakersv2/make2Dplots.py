@@ -11,10 +11,6 @@ from PlotterConfig import PlotterConfig
 from Plotter import PMSSM
 
 
-c = PlotterConfig()
-c.global_settings["outputPath"] = "../../output/"
-pmssm = PMSSM(config=c)
-
 # pmssm.ZScorePlots()
 
 ## QUANTILE 2D
@@ -42,11 +38,38 @@ pmssm = PMSSM(config=c)
 c_quantile_ewk = PlotterConfig()
 c_quantile_ewk.global_settings["outputPath"] = "../../output/quantile2D"
 c_quantile_ewk.global_settings["logEps"] = 0.02 # 20MeV
+
+# c_quantile_ewk.particleConfig["abs(chi10)"] = {
+#                 "title" : "m_{#tilde{#chi}^{0}_{1}}",
+#                 "bins" : 100,
+#                 "min" : 0,
+#                 "max" : 1700,
+#                 "Ndivisions" : 506,
+#                 "logScale" : False,
+#                 "linearScale": 1000,
+#                 "unit": "TeV",
+#                 "name" : "chi10"
+#                 }
+
 pmssm_quantile_ewk = PMSSM(config=c_quantile_ewk)
 
 c_quantile_strong = PlotterConfig()
 c_quantile_strong.global_settings["outputPath"] = "../../output/quantile2D"
 c_quantile_strong.global_settings["logEps"] = 8 # 8GeV
+
+# c_quantile_strong.particleConfig["abs(chi10)"] = {
+#                 "title" : "m_{#tilde{#chi}^{0}_{1}}",
+#                 "bins" : 100,
+#                 "min" : 0,
+#                 "max" : 1700,
+#                 "Ndivisions" : 506,
+#                 "logScale" : False,
+#                 "linearScale": 1000,
+#                 "unit": "TeV",
+#                 "name" : "chi10"
+#                 }
+
+
 pmssm_quantile_strong = PMSSM(config=c_quantile_strong)
 
 pmssm_quantile_ewk.quantile2D("tau1-abs(chi10):abs(chi10)",quantile=0.99, legendStyle="leftTop")

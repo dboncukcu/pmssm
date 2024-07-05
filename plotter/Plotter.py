@@ -984,7 +984,9 @@ class PMSSM:
                         returnhist.SetBinContent(i, j, cutoff)
                     zaxis_max = max(zaxis_max, returnhist.GetBinContent(i, j))
                     
-            returnhist.GetZaxis().SetRangeUser(cutoff, max(1, zaxis_max + 0.1))
+            # returnhist.GetZaxis().SetRangeUser(cutoff, max(1, zaxis_max + 0.1))
+            returnhist.GetZaxis().SetRangeUser(0.5, 25)
+        
             returnhist.SetContour(999)
             returnhist.GetZaxis().SetTitle(str(int(100 * quantile)) + "th percentile Bayes factor"),
             returnhist.GetZaxis().SetTitleOffset(drawConfig.get("ZaxisSetTitleOffset",0.75))
