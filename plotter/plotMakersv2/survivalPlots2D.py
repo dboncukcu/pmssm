@@ -39,7 +39,7 @@ elif variantName == "DM_DeltaEW":
     legend_constraints = (dmcuts[1][0],dmcuts[1][1],deltaewcut[1]) 
 
 legend_constraints = None
-outputPath = "../../output/TEST/"+variantName+"/"
+outputPath = "../../output/survival2D/"+variantName+"/"
 
 
 c_survival_ewk = PlotterConfig()

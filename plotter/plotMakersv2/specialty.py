@@ -12,7 +12,7 @@ from Plotter import PMSSM
 
 c = PlotterConfig()
 c.global_settings["outputFileFormat"] = "pdf"
-c.global_settings["outputPath"] = "../../output/fig7"
+c.global_settings["outputPath"] = "../../output/specialty"
 
 
 pmssm_Omegah2 = PMSSM(config=c)
@@ -31,7 +31,7 @@ pmssm_cdm = PMSSM(config=c)
 pmssm_cdm.constraints.printAnalysisList()
 
 pmssm_cdm.impact1D("cdm_xsec_neutron_si_pb",legendStyle="leftTop",drawConfig={"yMaxOffsett":0.035,"bottomMargin":0.055,"rightMargin":0.01,"XaxisSetTitleOffset":1.2})
-pmssm_cdm.quantile1D_with_sigmaVariations("cdm_xsec_neutron_si_pb",legendStyle="rightTop",drawConfig={"XaxisSetTitleOffset":1.2,"bottomMargin": 0.055,"yMaxOffsett":0.7,"legendFillWhite":False})
+pmssm_cdm.quantile1D_with_sigmaVariations("cdm_xsec_neutron_si_pb",legendStyle="rightTop",drawConfig={"XaxisSetTitleOffset":1.2,"bottomMargin": 0.055,"yMaxOffsett":0.1,"legendFillWhite":False})
 pmssm_cdm.survivalProbability1D("cdm_xsec_neutron_si_pb",legendStyle="leftBottom",drawConfig={"XaxisSetTitleOffset":1.2,"bottomMargin": 0.055})
 
 pmssm_cdm.impact1D("cdm_xsec_neutron_sd_pb",legendStyle="leftTop",drawConfig={"yMaxOffsett":0.02,"bottomMargin":0.055,"rightMargin":0.01,"XaxisSetTitleOffset":1.2})

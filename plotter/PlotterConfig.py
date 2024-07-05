@@ -425,7 +425,7 @@ class PlotterConfig:
             "Omegah2" : {
                 "title" : "#Omega_{h^{2}}",
                 "bins" : 50,
-                "min" : 1e-6,
+                "min" : 1e-3,
                 "max" : 1e6,
                 "Ndivisions" : 506,
                 "logScale" : True,

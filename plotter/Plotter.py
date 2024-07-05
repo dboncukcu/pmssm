@@ -1364,8 +1364,8 @@ class PMSSM:
         for newc in moreconstraints:
             constraintstring += "*(" + newc + ")"
 
-        contours = PlotterUtils.mkhistlogxy(hname, '', xbins, xlow, xup, ybins, ylow, yup, logx=_logx, logy=_logy)
-        contours.Rebin2D(2,2)
+        contours = PlotterUtils.mkhistlogxy(hname, '', int(2*xbins), xlow, xup, int(2*ybins), ylow, yup, logx=_logx, logy=_logy)
+        # contours.Rebin2D(2,2)
         self.tree.Draw(drawstring + ">>" + contours.GetName(), constraintstring, "cont2")
         contarrays = np.array(self.getThresholdForContainment(contours, intervals))
         # redraw the histogram with cont list option
@@ -1420,8 +1420,8 @@ class PMSSM:
         for newc in moreconstraints:
             constraintstring += "*(" + newc + ")"
 
-        contours = PlotterUtils.mkhistlogxy(hname, '', xbins, xlow, xup, ybins, ylow, yup, logx=_logx, logy=_logy)
-        contours.Rebin2D(2,2)
+        contours = PlotterUtils.mkhistlogxy(hname, '', int(2*xbins), xlow, xup, int(2*ybins), ylow, yup, logx=_logx, logy=_logy)
+        # contours.Rebin2D(2,2)
         self.tree.Draw(drawstring + ">>" + contours.GetName(), constraintstring, "cont2")
         contarrays = np.array(self.getThresholdForContainment(contours, intervals))
         # redraw the histogram with cont list option
