@@ -682,7 +682,7 @@ class PlotterConfig:
             "leftBottom" : {"x1":0.15,"x2":0.38,"y1":0.15,"y2":0.27},
             "YaxisSetTitleOffset" : 1.25,
             "XaxisSetTitleOffset" : 1.05,
-            "ZaxisSetTitleOffset" : 1.35,
+            "ZaxisSetTitleOffset" : 1.1,
             "legendFillWhite" : True,
             "legendColor" : kWhite
         }
@@ -695,7 +695,7 @@ class PlotterConfig:
             "numberOfColumns" : 2,
             "YaxisSetTitleOffset" : 1.28,
             "XaxisSetTitleOffset" : 1.05,
-            "ZaxisSetTitleOffset" : 1.2,
+            "ZaxisSetTitleOffset" : 1.1,
             "legendFillWhite" : True ,
             "legendColor" : kWhite
         }

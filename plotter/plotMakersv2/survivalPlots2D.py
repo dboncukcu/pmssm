@@ -16,8 +16,8 @@ variantName = sys.argv[1]
 
 
 # dmcuts= (["Omegah2<=0.132","dd_exclusion_pval>=0.05"],"#Omega_{h}^{2}<=0.132 & p-value>=0.05")
-dmcuts= (["Omegah2<=0.132","abs(dd_exclusion_pval_withlz)>=0.05"],"#Omega_{h}^{2}<=0.132 & p-value>=0.05")
-deltaewcut = (["deltaEW<=200"],"#DeltaEW<=200")
+dmcuts= (["Omegah2<=0.132","abs(dd_exclusion_pval_withlz)>=0.05"],["#Omega_{h^2}<1.1#dot#Omega_{h^2}^{Planck}","DD p-value>=0.05"])
+deltaewcut = (["deltaEW<200"],"#Delta_{EW}<200")
 
 
 if variantName == "NoCut":
@@ -28,9 +28,18 @@ elif variantName == "DeltaEW":
     denum_constraint = deltaewcut[0]
 elif variantName == "DM_DeltaEW":
     denum_constraint = dmcuts[0] + deltaewcut[0]
+    
+if variantName == "NoCut":
+    legend_constraints = None
+elif variantName == "DM":
+    legend_constraints = (dmcuts[1][0],dmcuts[1][1])
+elif variantName == "DeltaEW":
+    legend_constraints = (deltaewcut[1])
+elif variantName == "DM_DeltaEW":
+    legend_constraints = (dmcuts[1][0],dmcuts[1][1],deltaewcut[1]) 
 
-
-outputPath = "../../output/survival2D/"+variantName+"/"
+legend_constraints = None
+outputPath = "../../output/TEST/"+variantName+"/"
 
 
 c_survival_ewk = PlotterConfig()
@@ -67,17 +76,19 @@ c_survival_strong.particleConfig["abs(chi10)"] = {
 
 pmssm_survival_strong = PMSSM(config=c_survival_strong)
 
-pmssm_survival_ewk.survivalProbability2D("tau1-abs(chi10):abs(chi10)", moreconstraints_prior = denum_constraint, moreconstraints= denum_constraint,customName = variantName, drawConfig={"XaxisSetTitleOffset": 1.15, "YaxisSetTitleOffset" : 1.33,"bottomMargin":0.045})
-pmssm_survival_ewk.survivalProbability2D("abs(chi1pm)-abs(chi10):abs(chi10)", moreconstraints_prior = denum_constraint, moreconstraints= denum_constraint,customName = variantName, drawConfig={"XaxisSetTitleOffset": 1.15, "YaxisSetTitleOffset" : 1.33,"bottomMargin":0.045})
-pmssm_survival_ewk.survivalProbability2D("abs(chi2pm)-abs(chi10):abs(chi10)", moreconstraints_prior = denum_constraint, moreconstraints= denum_constraint,customName = variantName, drawConfig={"XaxisSetTitleOffset": 1.15, "YaxisSetTitleOffset" : 1.33,"bottomMargin":0.045})
-pmssm_survival_ewk.survivalProbability2D("abs(chi20)-abs(chi10):abs(chi10)", moreconstraints_prior = denum_constraint, moreconstraints= denum_constraint,customName = variantName, drawConfig={"XaxisSetTitleOffset": 1.15, "YaxisSetTitleOffset" : 1.33,"bottomMargin":0.045})
-pmssm_survival_ewk.survivalProbability2D("abs(chi30)-abs(chi10):abs(chi10)", moreconstraints_prior = denum_constraint, moreconstraints= denum_constraint,customName = variantName, drawConfig={"XaxisSetTitleOffset": 1.15, "YaxisSetTitleOffset" : 1.33,"bottomMargin":0.045})
-pmssm_survival_ewk.survivalProbability2D("abs(chi40)-abs(chi10):abs(chi10)", moreconstraints_prior = denum_constraint, moreconstraints= denum_constraint,customName = variantName, drawConfig={"XaxisSetTitleOffset": 1.15, "YaxisSetTitleOffset" : 1.33,"bottomMargin":0.045})
-pmssm_survival_strong.survivalProbability2D("t1-abs(chi10):abs(chi10)", moreconstraints_prior = denum_constraint, moreconstraints= denum_constraint,customName = variantName, drawConfig={"XaxisSetTitleOffset": 1.15, "YaxisSetTitleOffset" : 1.33,"bottomMargin":0.045})
-pmssm_survival_strong.survivalProbability2D("b1-abs(chi10):abs(chi10)", moreconstraints_prior = denum_constraint, moreconstraints= denum_constraint,customName = variantName, drawConfig={"XaxisSetTitleOffset": 1.15, "YaxisSetTitleOffset" : 1.33,"bottomMargin":0.045})
-pmssm_survival_strong.survivalProbability2D("lcsp-abs(chi10):abs(chi10)", moreconstraints_prior = denum_constraint, moreconstraints= denum_constraint,customName = variantName, drawConfig={"XaxisSetTitleOffset": 1.15, "YaxisSetTitleOffset" : 1.33,"bottomMargin":0.045})
-pmssm_survival_strong.survivalProbability2D("g-abs(chi10):abs(chi10)", moreconstraints_prior = denum_constraint, moreconstraints= denum_constraint,customName = variantName, drawConfig={"XaxisSetTitleOffset": 1.15, "YaxisSetTitleOffset" : 1.33,"bottomMargin":0.045})
-pmssm_survival_strong.survivalProbability2D("Mq1-abs(chi10):abs(chi10)", moreconstraints_prior = denum_constraint, moreconstraints= denum_constraint,customName = variantName, drawConfig={"XaxisSetTitleOffset": 1.15, "YaxisSetTitleOffset" : 1.33,"bottomMargin":0.045})
-pmssm_survival_strong.survivalProbability2D("Md1-abs(chi10):abs(chi10)", moreconstraints_prior = denum_constraint, moreconstraints= denum_constraint,customName = variantName, drawConfig={"XaxisSetTitleOffset": 1.15, "YaxisSetTitleOffset" : 1.33,"bottomMargin":0.045})
-pmssm_survival_ewk.survivalProbability2D("Ml1-abs(chi10):abs(chi10)", moreconstraints_prior = denum_constraint, moreconstraints= denum_constraint,customName = variantName, drawConfig={"XaxisSetTitleOffset": 1.15, "YaxisSetTitleOffset" : 1.33,"bottomMargin":0.045})
+pmssm_survival_strong.survivalProbability2D("lcsp-abs(chi10):abs(chi10)", moreconstraints_prior = denum_constraint, moreconstraints= denum_constraint,customName = variantName, drawConfig={"XaxisSetTitleOffset": 1.15, "YaxisSetTitleOffset" : 1.33,"bottomMargin":0.045},constraints=legend_constraints)
+exit()
+pmssm_survival_ewk.survivalProbability2D("tau1-abs(chi10):abs(chi10)", moreconstraints_prior = denum_constraint, moreconstraints= denum_constraint,customName = variantName, drawConfig={"XaxisSetTitleOffset": 1.15, "YaxisSetTitleOffset" : 1.33,"bottomMargin":0.045},constraints=legend_constraints)
+pmssm_survival_ewk.survivalProbability2D("abs(chi1pm)-abs(chi10):abs(chi10)", moreconstraints_prior = denum_constraint, moreconstraints= denum_constraint,customName = variantName, drawConfig={"XaxisSetTitleOffset": 1.15, "YaxisSetTitleOffset" : 1.33,"bottomMargin":0.045},constraints=legend_constraints)
+pmssm_survival_ewk.survivalProbability2D("abs(chi2pm)-abs(chi10):abs(chi10)", moreconstraints_prior = denum_constraint, moreconstraints= denum_constraint,customName = variantName, drawConfig={"XaxisSetTitleOffset": 1.15, "YaxisSetTitleOffset" : 1.33,"bottomMargin":0.045},constraints=legend_constraints)
+pmssm_survival_ewk.survivalProbability2D("abs(chi20)-abs(chi10):abs(chi10)", moreconstraints_prior = denum_constraint, moreconstraints= denum_constraint,customName = variantName, drawConfig={"XaxisSetTitleOffset": 1.15, "YaxisSetTitleOffset" : 1.33,"bottomMargin":0.045},constraints=legend_constraints)
+pmssm_survival_ewk.survivalProbability2D("abs(chi30)-abs(chi10):abs(chi10)", moreconstraints_prior = denum_constraint, moreconstraints= denum_constraint,customName = variantName, drawConfig={"XaxisSetTitleOffset": 1.15, "YaxisSetTitleOffset" : 1.33,"bottomMargin":0.045},constraints=legend_constraints)
+pmssm_survival_ewk.survivalProbability2D("abs(chi40)-abs(chi10):abs(chi10)", moreconstraints_prior = denum_constraint, moreconstraints= denum_constraint,customName = variantName, drawConfig={"XaxisSetTitleOffset": 1.15, "YaxisSetTitleOffset" : 1.33,"bottomMargin":0.045},constraints=legend_constraints)
+pmssm_survival_strong.survivalProbability2D("t1-abs(chi10):abs(chi10)", moreconstraints_prior = denum_constraint, moreconstraints= denum_constraint,customName = variantName, drawConfig={"XaxisSetTitleOffset": 1.15, "YaxisSetTitleOffset" : 1.33,"bottomMargin":0.045},constraints=legend_constraints)
+pmssm_survival_strong.survivalProbability2D("b1-abs(chi10):abs(chi10)", moreconstraints_prior = denum_constraint, moreconstraints= denum_constraint,customName = variantName, drawConfig={"XaxisSetTitleOffset": 1.15, "YaxisSetTitleOffset" : 1.33,"bottomMargin":0.045},constraints=legend_constraints)
+pmssm_survival_strong.survivalProbability2D("lcsp-abs(chi10):abs(chi10)", moreconstraints_prior = denum_constraint, moreconstraints= denum_constraint,customName = variantName, drawConfig={"XaxisSetTitleOffset": 1.15, "YaxisSetTitleOffset" : 1.33,"bottomMargin":0.045},constraints=legend_constraints)
+pmssm_survival_strong.survivalProbability2D("g-abs(chi10):abs(chi10)", moreconstraints_prior = denum_constraint, moreconstraints= denum_constraint,customName = variantName, drawConfig={"XaxisSetTitleOffset": 1.15, "YaxisSetTitleOffset" : 1.33,"bottomMargin":0.045},constraints=legend_constraints)
+pmssm_survival_strong.survivalProbability2D("Mq1-abs(chi10):abs(chi10)", moreconstraints_prior = denum_constraint, moreconstraints= denum_constraint,customName = variantName, drawConfig={"XaxisSetTitleOffset": 1.15, "YaxisSetTitleOffset" : 1.33,"bottomMargin":0.045},constraints=legend_constraints)
+pmssm_survival_strong.survivalProbability2D("Md1-abs(chi10):abs(chi10)", moreconstraints_prior = denum_constraint, moreconstraints= denum_constraint,customName = variantName, drawConfig={"XaxisSetTitleOffset": 1.15, "YaxisSetTitleOffset" : 1.33,"bottomMargin":0.045},constraints=legend_constraints)
+pmssm_survival_ewk.survivalProbability2D("Ml1-abs(chi10):abs(chi10)", moreconstraints_prior = denum_constraint, moreconstraints= denum_constraint,customName = variantName, drawConfig={"XaxisSetTitleOffset": 1.15, "YaxisSetTitleOffset" : 1.33,"bottomMargin":0.045},constraints=legend_constraints)
 

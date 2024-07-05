@@ -873,7 +873,7 @@ class PMSSM:
             drawConfig: Union[dict, str] = None,
             legendStyle: Union[dict, str] = None,
             customName:str = "",
-            colorPallette = kViridis):
+            colorPallette = kDarkBodyRadiator):
             CMS.setCMSStyle()
             print("_____________________________",f"{printStyle.BOLD}{printStyle.ORANGE}2D Quantile {str(quantile)} Percentile {printStyle.RESET} for{printStyle.BOLD}{printStyle.BLUE}", drawstring, f"{printStyle.RESET}","_____________________________")
             
@@ -1068,7 +1068,8 @@ class PMSSM:
         legendStyle: Union[dict, str] = None,
         showLegend: bool = False,
         customName:str = "",
-        legendAddition:str = None):
+        legendAddition:str = None,
+        constraints:tuple= None):
         CMS.setCMSStyle()
         print("_____________________________",f"{printStyle.BOLD}{printStyle.ORANGE}2D Survival Probability{printStyle.RESET} for{printStyle.BOLD}{printStyle.BLUE}", drawstring, f"{printStyle.RESET}","_____________________________")
         
@@ -1260,11 +1261,11 @@ class PMSSM:
         legend = CMS.cmsLeg(
             x1 = 0.2,
             y1 = 0,
-            x2 = 0.8,
-            y2 = 0.9,
+            x2 = 0.67,
+            y2 = 0.7, #0i9 ile başladık
             columns = 2,
-            textSize = 0.06)
-        legend.SetHeader(self.constraints.getAnalysisName(analysis),"C")
+            textSize = 0.1) #0.06
+        legend.SetHeader(self.constraints.getAnalysisName(analysis),"C" )
 
         hret.Draw("colz same")
         for ix,interval in enumerate(prior_data):
@@ -1301,8 +1302,8 @@ class PMSSM:
         
 
         CMS.UpdatePalettePosition(hret, canvas)
-        CMS.SaveCanvas(canvas, self.outputpath+name+"."+self.defaultFileFormat, close=True)
-        if showLegend:
+        if showLegend and (constraints is None):
+            CMS.SaveCanvas(canvas, self.outputpath+name+"."+self.defaultFileFormat, close=True)
             ## baby legend
             c = TCanvas(name + "c", name + "c",60,40)
             c.cd()
@@ -1312,8 +1313,26 @@ class PMSSM:
                 PlotterUtils.makeLegendFillWhite(legend)
             CMS.SaveCanvas(c, self.outputpath+name+"_legend."+self.defaultFileFormat, close=True)
         else:
+            CMS.SaveCanvas(canvas, self.outputpath+name+"."+self.defaultFileFormat, close=True)
             del legend
-            print("_______________________________________________________________________________________\n\n")      
+        
+        if constraints is not None:
+            legend = CMS.cmsLeg(
+                        x1 = 0.45,
+                        y1 = 0.18,
+                        x2 = 0.78,
+                        y2 = 0.31,
+                        columns = legendConfig.get("numberOfColumns",1),
+                        textSize = 0.035)
+            for const in constraints:
+                print(const)
+                legend.AddEntry("",const, "")
+            PlotterUtils.makeLegendFillWhite(legend)    
+            legend.Draw("same")
+            CMS.SaveCanvas(canvas, self.outputpath+name+"."+self.defaultFileFormat, close=True)
+            
+        
+        print("_______________________________________________________________________________________\n\n")      
         
     def get_prior_CI(self,analysis, hname, xbins, xlow, xup, ybins, ylow, yup, _logx, _logy, drawstring, moreconstraints=[],
                  intervals=[0.1, 0.67, 0.95], contourcolors=[kRed, kRed + 2, kMagenta],
@@ -1346,6 +1365,7 @@ class PMSSM:
             constraintstring += "*(" + newc + ")"
 
         contours = PlotterUtils.mkhistlogxy(hname, '', xbins, xlow, xup, ybins, ylow, yup, logx=_logx, logy=_logy)
+        contours.Rebin2D(2,2)
         self.tree.Draw(drawstring + ">>" + contours.GetName(), constraintstring, "cont2")
         contarrays = np.array(self.getThresholdForContainment(contours, intervals))
         # redraw the histogram with cont list option
@@ -1401,6 +1421,7 @@ class PMSSM:
             constraintstring += "*(" + newc + ")"
 
         contours = PlotterUtils.mkhistlogxy(hname, '', xbins, xlow, xup, ybins, ylow, yup, logx=_logx, logy=_logy)
+        contours.Rebin2D(2,2)
         self.tree.Draw(drawstring + ">>" + contours.GetName(), constraintstring, "cont2")
         contarrays = np.array(self.getThresholdForContainment(contours, intervals))
         # redraw the histogram with cont list option

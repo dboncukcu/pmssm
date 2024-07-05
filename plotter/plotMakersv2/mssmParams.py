@@ -12,8 +12,9 @@ print("variant Name: ", variantName)
 # variantName = "DM_DeltaEW"
 
 # dmcuts= (["Omegah2<=0.132","dd_exclusion_pval>=0.05"],"#Omega_{h}^{2}<=0.132 & p-value>=0.05")
-dmcuts= (["Omegah2<=0.132","abs(dd_exclusion_pval_withlz)>=0.05"],"#Omega_{h}^{2}<=0.132 & p-value>=0.05")
-deltaewcut = (["deltaEW<=200"],"#DeltaEW<=200")
+dmcuts= (["Omegah2<=0.132","abs(dd_exclusion_pval_withlz)>=0.05"],["#Omega_{h^2}<1.1#cdot#Omega_{h^2}^{Planck}","DD p-value>=0.05"])
+deltaewcut = (["deltaEW<200"],"#Delta_{EW}<200")
+
 
 if variantName == "NoCut":
     denum_constraint = []
@@ -23,6 +24,17 @@ elif variantName == "DeltaEW":
     denum_constraint = deltaewcut[0]
 elif variantName == "DM_DeltaEW":
     denum_constraint = dmcuts[0] + deltaewcut[0]
+    
+if variantName == "NoCut":
+    legend_constraints = None
+elif variantName == "DM":
+    legend_constraints = (dmcuts[1][0],dmcuts[1][1])
+elif variantName == "DeltaEW":
+    legend_constraints = (deltaewcut[1])
+elif variantName == "DM_DeltaEW":
+    legend_constraints = (dmcuts[1][0],dmcuts[1][1],deltaewcut[1]) 
+
+legend_constraints = None
 
 from ROOT import  *
 
@@ -190,40 +202,40 @@ pmssm = PMSSM(config=c)
 
 
 #1
-pmssm.survivalProbability2D("M1:M2",moreconstraints_prior = denum_constraint, moreconstraints= denum_constraint,customName = variantName)
+pmssm.survivalProbability2D("M1:M2",moreconstraints_prior = denum_constraint, moreconstraints= denum_constraint,customName = variantName,constraints=legend_constraints)
 
 #2
-pmssm.survivalProbability2D("tanbeta:mu",moreconstraints_prior = denum_constraint, moreconstraints= denum_constraint,customName = variantName)
+pmssm.survivalProbability2D("tanbeta:mu",moreconstraints_prior = denum_constraint, moreconstraints= denum_constraint,customName = variantName,constraints=legend_constraints)
 
 #3
-pmssm.survivalProbability2D("At:t1",moreconstraints_prior = denum_constraint, moreconstraints= denum_constraint,customName = variantName)
+pmssm.survivalProbability2D("At:t1",moreconstraints_prior = denum_constraint, moreconstraints= denum_constraint,customName = variantName,constraints=legend_constraints)
 
 #4
-pmssm.survivalProbability2D("mA:tanbeta",moreconstraints_prior = denum_constraint, moreconstraints= denum_constraint,customName = variantName)
+pmssm.survivalProbability2D("mA:tanbeta",moreconstraints_prior = denum_constraint, moreconstraints= denum_constraint,customName = variantName,constraints=legend_constraints)
 
 #5
-pmssm.survivalProbability2D("M1:mu",moreconstraints_prior = denum_constraint, moreconstraints= denum_constraint,customName = variantName)
+pmssm.survivalProbability2D("M1:mu",moreconstraints_prior = denum_constraint, moreconstraints= denum_constraint,customName = variantName,constraints=legend_constraints)
 
 #6
-pmssm.survivalProbability2D("A_tau:tau1",moreconstraints_prior = denum_constraint, moreconstraints= denum_constraint,customName = variantName)
+pmssm.survivalProbability2D("A_tau:tau1",moreconstraints_prior = denum_constraint, moreconstraints= denum_constraint,customName = variantName,constraints=legend_constraints)
 
 #7
-pmssm.survivalProbability2D("M3:Mq3",moreconstraints_prior = denum_constraint, moreconstraints= denum_constraint,customName = variantName)
+pmssm.survivalProbability2D("M3:Mq3",moreconstraints_prior = denum_constraint, moreconstraints= denum_constraint,customName = variantName,constraints=legend_constraints)
 
 #8
-pmssm.survivalProbability2D("mu:mA",moreconstraints_prior = denum_constraint, moreconstraints= denum_constraint,customName = variantName)
+pmssm.survivalProbability2D("mu:mA",moreconstraints_prior = denum_constraint, moreconstraints= denum_constraint,customName = variantName,constraints=legend_constraints)
 
 #9
-pmssm.survivalProbability2D("mu:t1",moreconstraints_prior = denum_constraint, moreconstraints= denum_constraint,customName = variantName)
+pmssm.survivalProbability2D("mu:t1",moreconstraints_prior = denum_constraint, moreconstraints= denum_constraint,customName = variantName,constraints=legend_constraints)
 
 #10
-pmssm.survivalProbability2D("mu:M2",moreconstraints_prior = denum_constraint, moreconstraints= denum_constraint,customName = variantName)
+pmssm.survivalProbability2D("mu:M2",moreconstraints_prior = denum_constraint, moreconstraints= denum_constraint,customName = variantName,constraints=legend_constraints)
 
 #11
-pmssm.survivalProbability2D("Ab:b1",moreconstraints_prior = denum_constraint, moreconstraints= denum_constraint,customName = variantName)
+pmssm.survivalProbability2D("Ab:b1",moreconstraints_prior = denum_constraint, moreconstraints= denum_constraint,customName = variantName,constraints=legend_constraints)
 
 #12
-pmssm.survivalProbability2D("tanbeta:M3",moreconstraints_prior = denum_constraint, moreconstraints= denum_constraint,customName = variantName)
+pmssm.survivalProbability2D("tanbeta:M3",moreconstraints_prior = denum_constraint, moreconstraints= denum_constraint,customName = variantName,constraints=legend_constraints)
 
 #13
-pmssm.survivalProbability2D("tanbeta:M2",moreconstraints_prior = denum_constraint, moreconstraints= denum_constraint,customName = variantName)
+pmssm.survivalProbability2D("tanbeta:M2",moreconstraints_prior = denum_constraint, moreconstraints= denum_constraint,customName = variantName,constraints=legend_constraints)
