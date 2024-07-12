@@ -693,7 +693,7 @@ class PlotterConfig:
             "rightTop" : {"x1":0.57,"x2":0.87,"y1":0.83,"y2":0.93},
             "rightBottom" : {"x1":0.42,"x2":0.85,"y1":0.10,"y2":0.33},
             "leftBottom" : {"x1":0.15,"x2":0.38,"y1":0.15,"y2":0.27},
-            "YaxisSetTitleOffset" : 1.25,
+            "YaxisSetTitleOffset" : 1.3,
             "XaxisSetTitleOffset" : 1.05,
             "ZaxisSetTitleOffset" : 1.1,
             "legendFillWhite" : True,

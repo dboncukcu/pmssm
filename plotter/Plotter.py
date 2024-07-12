@@ -1007,7 +1007,7 @@ class PMSSM:
                     zaxis_max = max(zaxis_max, returnhist.GetBinContent(i, j))
                     
             # returnhist.GetZaxis().SetRangeUser(cutoff, max(1, zaxis_max + 0.1))
-            returnhist.GetZaxis().SetRangeUser(1.0, 25)
+            returnhist.GetZaxis().SetRangeUser(0.5, 25)
         
             returnhist.SetContour(999)
             returnhist.GetZaxis().SetTitle(str(int(100 * quantile)) + "th percentile Bayes factor"),
@@ -1041,7 +1041,7 @@ class PMSSM:
                 canvName = name,
                 square = CMS.kSquare,
                 iPos = 0,
-                leftMargin = 0.035,
+                leftMargin = 0.04,
                 bottomMargin = 0.037,
                 rightMargin= 0.045,
                 with_z_axis = True,
