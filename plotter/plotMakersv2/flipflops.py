@@ -46,7 +46,7 @@ for par in ["abs(chi1pm)-abs(chi10)","g-abs(chi10)","t1-abs(chi10)","b1-abs(chi1
         f"{par}:abs(chi10)", 
         analysis="combined",
         moreconstraints=["Omegah2<=0.132","abs(dd_exclusion_pval_withlz)>=0.05","deltaEW<=500"],customName="_8",
-        legendAddition="+ #Delta_{EW}<200",contourFix2ndWay=contourFix2ndWay)
+        legendAddition="+ #Delta_{EW}<=500",contourFix2ndWay=contourFix2ndWay)
     del pmssm_flipbook
 
 
