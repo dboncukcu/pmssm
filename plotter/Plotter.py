@@ -69,7 +69,7 @@ class PMSSM:
             CMS.SetLumi(self.c.cms_label.get("lumi"))
         CMS.setCMSStyle()
         # Reading root files
-        self.tree,self.file = PlotterUtils.create_tree(root_dict)
+        self.tree,self.file,self.friendTreeStore = PlotterUtils.create_tree(root_dict)
         
         # create an output directory
         self.outputpath =  PlotterUtils.create_output_directory( self.c.global_settings["outputPath"])
@@ -107,6 +107,28 @@ class PMSSM:
     def getParticleConfigValue(self, drawConfig:dict, key:str):
         return drawConfig.get(key, self.c.particleConfig["default"][key])
 
+
+
+    def testPlots(self):
+            
+        for i, friendData in enumerate(self.c.root_dict):
+            if (i == 0):
+                continue
+                
+            treeName = friendData.get("name", friendData["treeName"])
+            
+            c = TCanvas()
+            
+            hist = TH2F("hist", f"{treeName} Scatter Plot", 
+                        1000,0,150000, 1000, 0, 150000)
+            
+            self.tree.Draw(f"{treeName}.Niteration:Niteration >> hist", "", "SCAT")
+            
+            c.Update()
+            
+            c.Print(f"{treeName}.jpg")
+    
+    
     def impact1D(
         self,
         drawstring : str, 
@@ -985,7 +1007,7 @@ class PMSSM:
                     zaxis_max = max(zaxis_max, returnhist.GetBinContent(i, j))
                     
             # returnhist.GetZaxis().SetRangeUser(cutoff, max(1, zaxis_max + 0.1))
-            returnhist.GetZaxis().SetRangeUser(0.5, 25)
+            returnhist.GetZaxis().SetRangeUser(1.0, 25)
         
             returnhist.SetContour(999)
             returnhist.GetZaxis().SetTitle(str(int(100 * quantile)) + "th percentile Bayes factor"),
@@ -1169,7 +1191,8 @@ class PMSSM:
         print("constraintstring: ", constraintstring)
         print("constraintstring_prior: ", constraintstring_prior)
         
-        self.tree.Draw(drawstring + ">>" + hdenom.GetName(), constraintstring_prior, "colz")
+        self.tree.Draw(drawstring + ">>" + hdenom.GetName(), constraintstring_prior, "colz")        
+      
         z = self.constraints.getZScore(analysis,isSimplified)
         print("z: ", z)
         self.tree.Draw(drawstring + ">>" + hret.GetName(), "*".join([constraintstring, "(" + z + ">-1.64)"]), "colz")
@@ -1188,8 +1211,8 @@ class PMSSM:
                     hret.SetBinContent(i, j, 0)
                 elif hret.GetBinContent(i, j) == 0 and hdenom.GetBinContent(i, j) == 0:
                     hret.SetBinContent(i, j, -1)
-                elif hret.GetBinContent(i, j) < cutoff and hdenom.GetBinContent(i, j) > 0:
-                    hret.SetBinContent(i, j, cutoff)
+                # elif hret.GetBinContent(i, j) < cutoff and hdenom.GetBinContent(i, j) > 0:
+                #     hret.SetBinContent(i, j, cutoff)
         hret.SetContour(len(sprobcontours) - 1, sprobcontours)
         
         hret.GetZaxis().SetTitleOffset(drawConfig.get("ZaxisSetTitleOffset",0.85))

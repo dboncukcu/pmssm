@@ -12,7 +12,7 @@ print("variant Name: ", variantName)
 # variantName = "DM_DeltaEW"
 
 # dmcuts= (["Omegah2<=0.132","dd_exclusion_pval>=0.05"],"#Omega_{h}^{2}<=0.132 & p-value>=0.05")
-dmcuts= (["Omegah2<=0.132","abs(dd_exclusion_pval_withlz)>=0.05"],["#Omega_{h^2}<1.1#cdot#Omega_{h^2}^{Planck}","DD p-value>=0.05"])
+dmcuts= (["Omegah2<=0.132","abs(dd_exclusion_pval_withlz)>=0.05"],["#Omega_{h^2}<1.1#dot#Omega_{h^2}^{Planck}","DD p-value>=0.05"])
 deltaewcut = (["deltaEW<200"],"#Delta_{EW}<200")
 
 

@@ -215,13 +215,25 @@ def create_tree(root_dict):
     if len(root_dict) == 1:
         return main_tree,main_file
 
-    # Add remaining elements as friends
-    for friend in root_dict[1:]:
-        friendTreeName = friend["treeName"]
-        friendTreePath = friend["filePath"].strip()  # Get the file path and remove leading/trailing whitespace
-        main_tree.AddFriend(friendTreeName, TFile(friendTreePath))
+    store = []
 
-    return main_tree,main_file
+    for friend in root_dict[1:]:
+        
+        friendTreeName = friend["treeName"]
+        friendTreePath = friend["filePath"].strip()
+        
+        newFriendName = friend.get("name", friendTreeName)
+        
+        friendTreeFile = TFile(friendTreePath)
+        friendTree = friendTreeFile.Get(friendTreeName)
+        
+        if newFriendName == "pvalwithlz":
+            friendTree.BuildIndex("Niteration","chain_index")
+        
+        store.append([friendTreeFile,friendTree])
+        main_tree.AddFriend(friendTree, newFriendName)
+
+    return main_tree,main_file,store
 
 # Create Output Directory
 

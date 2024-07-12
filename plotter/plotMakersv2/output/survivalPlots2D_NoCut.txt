@@ -1,0 +1,242 @@
+Info in <TCanvas::MakeDefCanvas>:  created default TCanvas with name c1
+TFile::Append:0: RuntimeWarning: Replacing existing TH1: chi10_DmChi1pmChi10_COMBINED_survival2DNoCut_priorcontours (Potential memory leak).
+Info in <TCanvas::Print>: pdf file ../../output/survival2D_NEW/NoCut/chi10_DmChi1pmChi10_COMBINED_survival2DNoCut.pdf has been created
+TFile::Append:0: RuntimeWarning: Replacing existing TH1: chi10_DmLcspChi10_COMBINED_survival2DNoCut_priorcontours (Potential memory leak).
+Info in <TCanvas::Print>: pdf file ../../output/survival2D_NEW/NoCut/chi10_DmLcspChi10_COMBINED_survival2DNoCut.pdf has been created
+TFile::Append:0: RuntimeWarning: Replacing existing TH1: chi10_DmStau1Chi10_COMBINED_survival2DNoCut_priorcontours (Potential memory leak).
+Info in <TCanvas::Print>: pdf file ../../output/survival2D_NEW/NoCut/chi10_DmStau1Chi10_COMBINED_survival2DNoCut.pdf has been created
+TFile::Append:0: RuntimeWarning: Replacing existing TH1: chi10_DmChi1pmChi10_COMBINED_survival2DNoCut_priorcontours (Potential memory leak).
+Info in <TCanvas::Print>: pdf file ../../output/survival2D_NEW/NoCut/chi10_DmChi1pmChi10_COMBINED_survival2DNoCut.pdf has been created
+_____________________________ [1m[38;5;214m2D Survival Probability[0m for[1m[94m abs(chi1pm)-abs(chi10):abs(chi10) [0m _____________________________
+constraintstring:  (1/PickProbability)*(1)
+constraintstring_prior:  (1/PickProbability)*(1)
+_____________________________[1m[92mFULL COMBINED[0m_______________________
+•[93mAnalysis:[0m cms_sus_20_001 [38;5;214mConstraint[0m: (max(bf_cms_sus_20_001_mu1p0s,1E-20))
+•[93mAnalysis:[0m cms_sus_19_006 [38;5;214mConstraint[0m: (exp(llhd_cms_sus_19_006_100s-llhd_cms_sus_19_006_0s))
+•[93mAnalysis:[0m cms_sus_21_006 [38;5;214mConstraint[0m: (max(bf_cms_sus_21_006_mu1p0f,1E-20))
+•[93mAnalysis:[0m cms_sus_18_004 [38;5;214mConstraint[0m: (max(bf_cms_sus_18_004_mu1p0f,1E-20))
+•[93mAnalysis:[0m cms_sus_21_007 [38;5;214mConstraint[0m: (exp(llhd_cms_sus_21_007_100s-llhd_cms_sus_21_007_0s))
+•[93mAnalysis:[0m cms_sus_21_007_mb [38;5;214mConstraint[0m: (max(bf_cms_sus_21_007_mb_mu1p0s,1E-20))
+z:  TMath::Abs(TMath::Log((max(bf_cms_sus_20_001_mu1p0s,1E-20))*(exp(llhd_cms_sus_19_006_100s-llhd_cms_sus_19_006_0s))*(max(bf_cms_sus_21_006_mu1p0f,1E-20))*(max(bf_cms_sus_18_004_mu1p0f,1E-20))*(exp(llhd_cms_sus_21_007_100s-llhd_cms_sus_21_007_0s))*(max(bf_cms_sus_21_007_mb_mu1p0s,1E-20))))/(TMath::Log((max(bf_cms_sus_20_001_mu1p0s,1E-20))*(exp(llhd_cms_sus_19_006_100s-llhd_cms_sus_19_006_0s))*(max(bf_cms_sus_21_006_mu1p0f,1E-20))*(max(bf_cms_sus_18_004_mu1p0f,1E-20))*(exp(llhd_cms_sus_21_007_100s-llhd_cms_sus_21_007_0s))*(max(bf_cms_sus_21_007_mb_mu1p0s,1E-20)))) * TMath::Sqrt(2 * TMath::Abs(TMath::Log((max(bf_cms_sus_20_001_mu1p0s,1E-20))*(exp(llhd_cms_sus_19_006_100s-llhd_cms_sus_19_006_0s))*(max(bf_cms_sus_21_006_mu1p0f,1E-20))*(max(bf_cms_sus_18_004_mu1p0f,1E-20))*(exp(llhd_cms_sus_21_007_100s-llhd_cms_sus_21_007_0s))*(max(bf_cms_sus_21_007_mb_mu1p0s,1E-20)))))
+_______________________________________________________________________________________
+
+
+_____________________________ [1m[38;5;214m2D Survival Probability[0m for[1m[94m lcsp-abs(chi10):abs(chi10) [0m _____________________________
+constraintstring:  (1/PickProbability)*(1)
+constraintstring_prior:  (1/PickProbability)*(1)
+_____________________________[1m[92mFULL COMBINED[0m_______________________
+•[93mAnalysis:[0m cms_sus_20_001 [38;5;214mConstraint[0m: (max(bf_cms_sus_20_001_mu1p0s,1E-20))
+•[93mAnalysis:[0m cms_sus_19_006 [38;5;214mConstraint[0m: (exp(llhd_cms_sus_19_006_100s-llhd_cms_sus_19_006_0s))
+•[93mAnalysis:[0m cms_sus_21_006 [38;5;214mConstraint[0m: (max(bf_cms_sus_21_006_mu1p0f,1E-20))
+•[93mAnalysis:[0m cms_sus_18_004 [38;5;214mConstraint[0m: (max(bf_cms_sus_18_004_mu1p0f,1E-20))
+•[93mAnalysis:[0m cms_sus_21_007 [38;5;214mConstraint[0m: (exp(llhd_cms_sus_21_007_100s-llhd_cms_sus_21_007_0s))
+•[93mAnalysis:[0m cms_sus_21_007_mb [38;5;214mConstraint[0m: (max(bf_cms_sus_21_007_mb_mu1p0s,1E-20))
+z:  TMath::Abs(TMath::Log((max(bf_cms_sus_20_001_mu1p0s,1E-20))*(exp(llhd_cms_sus_19_006_100s-llhd_cms_sus_19_006_0s))*(max(bf_cms_sus_21_006_mu1p0f,1E-20))*(max(bf_cms_sus_18_004_mu1p0f,1E-20))*(exp(llhd_cms_sus_21_007_100s-llhd_cms_sus_21_007_0s))*(max(bf_cms_sus_21_007_mb_mu1p0s,1E-20))))/(TMath::Log((max(bf_cms_sus_20_001_mu1p0s,1E-20))*(exp(llhd_cms_sus_19_006_100s-llhd_cms_sus_19_006_0s))*(max(bf_cms_sus_21_006_mu1p0f,1E-20))*(max(bf_cms_sus_18_004_mu1p0f,1E-20))*(exp(llhd_cms_sus_21_007_100s-llhd_cms_sus_21_007_0s))*(max(bf_cms_sus_21_007_mb_mu1p0s,1E-20)))) * TMath::Sqrt(2 * TMath::Abs(TMath::Log((max(bf_cms_sus_20_001_mu1p0s,1E-20))*(exp(llhd_cms_sus_19_006_100s-llhd_cms_sus_19_006_0s))*(max(bf_cms_sus_21_006_mu1p0f,1E-20))*(max(bf_cms_sus_18_004_mu1p0f,1E-20))*(exp(llhd_cms_sus_21_007_100s-llhd_cms_sus_21_007_0s))*(max(bf_cms_sus_21_007_mb_mu1p0s,1E-20)))))
+_______________________________________________________________________________________
+
+
+_____________________________ [1m[38;5;214m2D Survival Probability[0m for[1m[94m tau1-abs(chi10):abs(chi10) [0m _____________________________
+constraintstring:  (1/PickProbability)*(1)
+constraintstring_prior:  (1/PickProbability)*(1)
+_____________________________[1m[92mFULL COMBINED[0m_______________________
+•[93mAnalysis:[0m cms_sus_20_001 [38;5;214mConstraint[0m: (max(bf_cms_sus_20_001_mu1p0s,1E-20))
+•[93mAnalysis:[0m cms_sus_19_006 [38;5;214mConstraint[0m: (exp(llhd_cms_sus_19_006_100s-llhd_cms_sus_19_006_0s))
+•[93mAnalysis:[0m cms_sus_21_006 [38;5;214mConstraint[0m: (max(bf_cms_sus_21_006_mu1p0f,1E-20))
+•[93mAnalysis:[0m cms_sus_18_004 [38;5;214mConstraint[0m: (max(bf_cms_sus_18_004_mu1p0f,1E-20))
+•[93mAnalysis:[0m cms_sus_21_007 [38;5;214mConstraint[0m: (exp(llhd_cms_sus_21_007_100s-llhd_cms_sus_21_007_0s))
+•[93mAnalysis:[0m cms_sus_21_007_mb [38;5;214mConstraint[0m: (max(bf_cms_sus_21_007_mb_mu1p0s,1E-20))
+z:  TMath::Abs(TMath::Log((max(bf_cms_sus_20_001_mu1p0s,1E-20))*(exp(llhd_cms_sus_19_006_100s-llhd_cms_sus_19_006_0s))*(max(bf_cms_sus_21_006_mu1p0f,1E-20))*(max(bf_cms_sus_18_004_mu1p0f,1E-20))*(exp(llhd_cms_sus_21_007_100s-llhd_cms_sus_21_007_0s))*(max(bf_cms_sus_21_007_mb_mu1p0s,1E-20))))/(TMath::Log((max(bf_cms_sus_20_001_mu1p0s,1E-20))*(exp(llhd_cms_sus_19_006_100s-llhd_cms_sus_19_006_0s))*(max(bf_cms_sus_21_006_mu1p0f,1E-20))*(max(bf_cms_sus_18_004_mu1p0f,1E-20))*(exp(llhd_cms_sus_21_007_100s-llhd_cms_sus_21_007_0s))*(max(bf_cms_sus_21_007_mb_mu1p0s,1E-20)))) * TMath::Sqrt(2 * TMath::Abs(TMath::Log((max(bf_cms_sus_20_001_mu1p0s,1E-20))*(exp(llhd_cms_sus_19_006_100s-llhd_cms_sus_19_006_0s))*(max(bf_cms_sus_21_006_mu1p0f,1E-20))*(max(bf_cms_sus_18_004_mu1p0f,1E-20))*(exp(llhd_cms_sus_21_007_100s-llhd_cms_sus_21_007_0s))*(max(bf_cms_sus_21_007_mb_mu1p0s,1E-20)))))
+_______________________________________________________________________________________
+
+
+_____________________________ [1m[38;5;214m2D Survival Probability[0m for[1m[94m abs(chi1pm)-abs(chi10):abs(chi10) [0m _____________________________
+constraintstring:  (1/PickProbability)*(1)
+constraintstring_prior:  (1/PickProbability)*(1)
+_____________________________[1m[92mFULL COMBINED[0m_______________________
+•[93mAnalysis:[0m cms_sus_20_001 [38;5;214mConstraint[0m: (max(bf_cms_sus_20_001_mu1p0s,1E-20))
+•[93mAnalysis:[0m cms_sus_19_006 [38;5;214mConstraint[0m: (exp(llhd_cms_sus_19_006_100s-llhd_cms_sus_19_006_0s))
+•[93mAnalysis:[0m cms_sus_21_006 [38;5;214mConstraint[0m: (max(bf_cms_sus_21_006_mu1p0f,1E-20))
+•[93mAnalysis:[0m cms_sus_18_004 [38;5;214mConstraint[0m: (max(bf_cms_sus_18_004_mu1p0f,1E-20))
+•[93mAnalysis:[0m cms_sus_21_007 [38;5;214mConstraint[0m: (exp(llhd_cms_sus_21_007_100s-llhd_cms_sus_21_007_0s))
+•[93mAnalysis:[0m cms_sus_21_007_mb [38;5;214mConstraint[0m: (max(bf_cms_sus_21_007_mb_mu1p0s,1E-20))
+z:  TMath::Abs(TMath::Log((max(bf_cms_sus_20_001_mu1p0s,1E-20))*(exp(llhd_cms_sus_19_006_100s-llhd_cms_sus_19_006_0s))*(max(bf_cms_sus_21_006_mu1p0f,1E-20))*(max(bf_cms_sus_18_004_mu1p0f,1E-20))*(exp(llhd_cms_sus_21_007_100s-llhd_cms_sus_21_007_0s))*(max(bf_cms_sus_21_007_mb_mu1p0s,1E-20))))/(TMath::Log((max(bf_cms_sus_20_001_mu1p0s,1E-20))*(exp(llhd_cms_sus_19_006_100s-llhd_cms_sus_19_006_0s))*(max(bf_cms_sus_21_006_mu1p0f,1E-20))*(max(bf_cms_sus_18_004_mu1p0f,1E-20))*(exp(llhd_cms_sus_21_007_100s-llhd_cms_sus_21_007_0s))*(max(bf_cms_sus_21_007_mb_mu1p0s,1E-20)))) * TMath::Sqrt(2 * TMath::Abs(TMath::Log((max(bf_cms_sus_20_001_mu1p0s,1E-20))*(exp(llhd_cms_sus_19_006_100s-llhd_cms_sus_19_006_0s))*(max(bf_cms_sus_21_006_mu1p0f,1E-20))*(max(bf_cms_sus_18_004_mu1p0f,1E-20))*(exp(llhd_cms_sus_21_007_100s-llhd_cms_sus_21_007_0s))*(max(bf_cms_sus_21_007_mb_mu1p0s,1E-20)))))
+_______________________________________________________________________________________
+
+
+_____________________________ [1m[38;5;214m2D Survival Probability[0m for[1m[94m abs(chi2pm)-abs(chi10):abs(chi10) [0m _____________________________
+constraintstring:  (1/PickProbability)*(1)
+constraintstring_prior:  (1/PickProbability)*(1)
+_____________________________[1m[92mFULL COMBINED[0m_______________________
+TFile::Append:0: RuntimeWarning: Replacing existing TH1: chi10_DmChi2pmChi10_COMBINED_survival2DNoCut_priorcontours (Potential memory leak).
+Info in <TCanvas::Print>: pdf file ../../output/survival2D_NEW/NoCut/chi10_DmChi2pmChi10_COMBINED_survival2DNoCut.pdf has been created
+TFile::Append:0: RuntimeWarning: Replacing existing TH1: chi10_DmChi20Chi10_COMBINED_survival2DNoCut_priorcontours (Potential memory leak).
+Info in <TCanvas::Print>: pdf file ../../output/survival2D_NEW/NoCut/chi10_DmChi20Chi10_COMBINED_survival2DNoCut.pdf has been created
+TFile::Append:0: RuntimeWarning: Replacing existing TH1: chi10_DmChi30Chi10_COMBINED_survival2DNoCut_priorcontours (Potential memory leak).
+Info in <TCanvas::Print>: pdf file ../../output/survival2D_NEW/NoCut/chi10_DmChi30Chi10_COMBINED_survival2DNoCut.pdf has been created
+TFile::Append:0: RuntimeWarning: Replacing existing TH1: chi10_DmChi40Chi10_COMBINED_survival2DNoCut_priorcontours (Potential memory leak).
+Info in <TCanvas::Print>: pdf file ../../output/survival2D_NEW/NoCut/chi10_DmChi40Chi10_COMBINED_survival2DNoCut.pdf has been created
+•[93mAnalysis:[0m cms_sus_20_001 [38;5;214mConstraint[0m: (max(bf_cms_sus_20_001_mu1p0s,1E-20))
+•[93mAnalysis:[0m cms_sus_19_006 [38;5;214mConstraint[0m: (exp(llhd_cms_sus_19_006_100s-llhd_cms_sus_19_006_0s))
+•[93mAnalysis:[0m cms_sus_21_006 [38;5;214mConstraint[0m: (max(bf_cms_sus_21_006_mu1p0f,1E-20))
+•[93mAnalysis:[0m cms_sus_18_004 [38;5;214mConstraint[0m: (max(bf_cms_sus_18_004_mu1p0f,1E-20))
+•[93mAnalysis:[0m cms_sus_21_007 [38;5;214mConstraint[0m: (exp(llhd_cms_sus_21_007_100s-llhd_cms_sus_21_007_0s))
+•[93mAnalysis:[0m cms_sus_21_007_mb [38;5;214mConstraint[0m: (max(bf_cms_sus_21_007_mb_mu1p0s,1E-20))
+z:  TMath::Abs(TMath::Log((max(bf_cms_sus_20_001_mu1p0s,1E-20))*(exp(llhd_cms_sus_19_006_100s-llhd_cms_sus_19_006_0s))*(max(bf_cms_sus_21_006_mu1p0f,1E-20))*(max(bf_cms_sus_18_004_mu1p0f,1E-20))*(exp(llhd_cms_sus_21_007_100s-llhd_cms_sus_21_007_0s))*(max(bf_cms_sus_21_007_mb_mu1p0s,1E-20))))/(TMath::Log((max(bf_cms_sus_20_001_mu1p0s,1E-20))*(exp(llhd_cms_sus_19_006_100s-llhd_cms_sus_19_006_0s))*(max(bf_cms_sus_21_006_mu1p0f,1E-20))*(max(bf_cms_sus_18_004_mu1p0f,1E-20))*(exp(llhd_cms_sus_21_007_100s-llhd_cms_sus_21_007_0s))*(max(bf_cms_sus_21_007_mb_mu1p0s,1E-20)))) * TMath::Sqrt(2 * TMath::Abs(TMath::Log((max(bf_cms_sus_20_001_mu1p0s,1E-20))*(exp(llhd_cms_sus_19_006_100s-llhd_cms_sus_19_006_0s))*(max(bf_cms_sus_21_006_mu1p0f,1E-20))*(max(bf_cms_sus_18_004_mu1p0f,1E-20))*(exp(llhd_cms_sus_21_007_100s-llhd_cms_sus_21_007_0s))*(max(bf_cms_sus_21_007_mb_mu1p0s,1E-20)))))
+_______________________________________________________________________________________
+
+
+_____________________________ [1m[38;5;214m2D Survival Probability[0m for[1m[94m abs(chi20)-abs(chi10):abs(chi10) [0m _____________________________
+constraintstring:  (1/PickProbability)*(1)
+constraintstring_prior:  (1/PickProbability)*(1)
+_____________________________[1m[92mFULL COMBINED[0m_______________________
+•[93mAnalysis:[0m cms_sus_20_001 [38;5;214mConstraint[0m: (max(bf_cms_sus_20_001_mu1p0s,1E-20))
+•[93mAnalysis:[0m cms_sus_19_006 [38;5;214mConstraint[0m: (exp(llhd_cms_sus_19_006_100s-llhd_cms_sus_19_006_0s))
+•[93mAnalysis:[0m cms_sus_21_006 [38;5;214mConstraint[0m: (max(bf_cms_sus_21_006_mu1p0f,1E-20))
+•[93mAnalysis:[0m cms_sus_18_004 [38;5;214mConstraint[0m: (max(bf_cms_sus_18_004_mu1p0f,1E-20))
+•[93mAnalysis:[0m cms_sus_21_007 [38;5;214mConstraint[0m: (exp(llhd_cms_sus_21_007_100s-llhd_cms_sus_21_007_0s))
+•[93mAnalysis:[0m cms_sus_21_007_mb [38;5;214mConstraint[0m: (max(bf_cms_sus_21_007_mb_mu1p0s,1E-20))
+z:  TMath::Abs(TMath::Log((max(bf_cms_sus_20_001_mu1p0s,1E-20))*(exp(llhd_cms_sus_19_006_100s-llhd_cms_sus_19_006_0s))*(max(bf_cms_sus_21_006_mu1p0f,1E-20))*(max(bf_cms_sus_18_004_mu1p0f,1E-20))*(exp(llhd_cms_sus_21_007_100s-llhd_cms_sus_21_007_0s))*(max(bf_cms_sus_21_007_mb_mu1p0s,1E-20))))/(TMath::Log((max(bf_cms_sus_20_001_mu1p0s,1E-20))*(exp(llhd_cms_sus_19_006_100s-llhd_cms_sus_19_006_0s))*(max(bf_cms_sus_21_006_mu1p0f,1E-20))*(max(bf_cms_sus_18_004_mu1p0f,1E-20))*(exp(llhd_cms_sus_21_007_100s-llhd_cms_sus_21_007_0s))*(max(bf_cms_sus_21_007_mb_mu1p0s,1E-20)))) * TMath::Sqrt(2 * TMath::Abs(TMath::Log((max(bf_cms_sus_20_001_mu1p0s,1E-20))*(exp(llhd_cms_sus_19_006_100s-llhd_cms_sus_19_006_0s))*(max(bf_cms_sus_21_006_mu1p0f,1E-20))*(max(bf_cms_sus_18_004_mu1p0f,1E-20))*(exp(llhd_cms_sus_21_007_100s-llhd_cms_sus_21_007_0s))*(max(bf_cms_sus_21_007_mb_mu1p0s,1E-20)))))
+_______________________________________________________________________________________
+
+
+_____________________________ [1m[38;5;214m2D Survival Probability[0m for[1m[94m abs(chi30)-abs(chi10):abs(chi10) [0m _____________________________
+constraintstring:  (1/PickProbability)*(1)
+constraintstring_prior:  (1/PickProbability)*(1)
+_____________________________[1m[92mFULL COMBINED[0m_______________________
+•[93mAnalysis:[0m cms_sus_20_001 [38;5;214mConstraint[0m: (max(bf_cms_sus_20_001_mu1p0s,1E-20))
+•[93mAnalysis:[0m cms_sus_19_006 [38;5;214mConstraint[0m: (exp(llhd_cms_sus_19_006_100s-llhd_cms_sus_19_006_0s))
+•[93mAnalysis:[0m cms_sus_21_006 [38;5;214mConstraint[0m: (max(bf_cms_sus_21_006_mu1p0f,1E-20))
+•[93mAnalysis:[0m cms_sus_18_004 [38;5;214mConstraint[0m: (max(bf_cms_sus_18_004_mu1p0f,1E-20))
+•[93mAnalysis:[0m cms_sus_21_007 [38;5;214mConstraint[0m: (exp(llhd_cms_sus_21_007_100s-llhd_cms_sus_21_007_0s))
+•[93mAnalysis:[0m cms_sus_21_007_mb [38;5;214mConstraint[0m: (max(bf_cms_sus_21_007_mb_mu1p0s,1E-20))
+z:  TMath::Abs(TMath::Log((max(bf_cms_sus_20_001_mu1p0s,1E-20))*(exp(llhd_cms_sus_19_006_100s-llhd_cms_sus_19_006_0s))*(max(bf_cms_sus_21_006_mu1p0f,1E-20))*(max(bf_cms_sus_18_004_mu1p0f,1E-20))*(exp(llhd_cms_sus_21_007_100s-llhd_cms_sus_21_007_0s))*(max(bf_cms_sus_21_007_mb_mu1p0s,1E-20))))/(TMath::Log((max(bf_cms_sus_20_001_mu1p0s,1E-20))*(exp(llhd_cms_sus_19_006_100s-llhd_cms_sus_19_006_0s))*(max(bf_cms_sus_21_006_mu1p0f,1E-20))*(max(bf_cms_sus_18_004_mu1p0f,1E-20))*(exp(llhd_cms_sus_21_007_100s-llhd_cms_sus_21_007_0s))*(max(bf_cms_sus_21_007_mb_mu1p0s,1E-20)))) * TMath::Sqrt(2 * TMath::Abs(TMath::Log((max(bf_cms_sus_20_001_mu1p0s,1E-20))*(exp(llhd_cms_sus_19_006_100s-llhd_cms_sus_19_006_0s))*(max(bf_cms_sus_21_006_mu1p0f,1E-20))*(max(bf_cms_sus_18_004_mu1p0f,1E-20))*(exp(llhd_cms_sus_21_007_100s-llhd_cms_sus_21_007_0s))*(max(bf_cms_sus_21_007_mb_mu1p0s,1E-20)))))
+_______________________________________________________________________________________
+
+
+_____________________________ [1m[38;5;214m2D Survival Probability[0m for[1m[94m abs(chi40)-abs(chi10):abs(chi10) [0m _____________________________
+constraintstring:  (1/PickProbability)*(1)
+constraintstring_prior:  (1/PickProbability)*(1)
+_____________________________[1m[92mFULL COMBINED[0m_______________________
+•[93mAnalysis:[0m cms_sus_20_001 [38;5;214mConstraint[0m: (max(bf_cms_sus_20_001_mu1p0s,1E-20))
+•[93mAnalysis:[0m cms_sus_19_006 [38;5;214mConstraint[0m: (exp(llhd_cms_sus_19_006_100s-llhd_cms_sus_19_006_0s))
+•[93mAnalysis:[0m cms_sus_21_006 [38;5;214mConstraint[0m: (max(bf_cms_sus_21_006_mu1p0f,1E-20))
+•[93mAnalysis:[0m cms_sus_18_004 [38;5;214mConstraint[0m: (max(bf_cms_sus_18_004_mu1p0f,1E-20))
+•[93mAnalysis:[0m cms_sus_21_007 [38;5;214mConstraint[0m: (exp(llhd_cms_sus_21_007_100s-llhd_cms_sus_21_007_0s))
+•[93mAnalysis:[0m cms_sus_21_007_mb [38;5;214mConstraint[0m: (max(bf_cms_sus_21_007_mb_mu1p0s,1E-20))
+z:  TMath::Abs(TMath::Log((max(bf_cms_sus_20_001_mu1p0s,1E-20))*(exp(llhd_cms_sus_19_006_100s-llhd_cms_sus_19_006_0s))*(max(bf_cms_sus_21_006_mu1p0f,1E-20))*(max(bf_cms_sus_18_004_mu1p0f,1E-20))*(exp(llhd_cms_sus_21_007_100s-llhd_cms_sus_21_007_0s))*(max(bf_cms_sus_21_007_mb_mu1p0s,1E-20))))/(TMath::Log((max(bf_cms_sus_20_001_mu1p0s,1E-20))*(exp(llhd_cms_sus_19_006_100s-llhd_cms_sus_19_006_0s))*(max(bf_cms_sus_21_006_mu1p0f,1E-20))*(max(bf_cms_sus_18_004_mu1p0f,1E-20))*(exp(llhd_cms_sus_21_007_100s-llhd_cms_sus_21_007_0s))*(max(bf_cms_sus_21_007_mb_mu1p0s,1E-20)))) * TMath::Sqrt(2 * TMath::Abs(TMath::Log((max(bf_cms_sus_20_001_mu1p0s,1E-20))*(exp(llhd_cms_sus_19_006_100s-llhd_cms_sus_19_006_0s))*(max(bf_cms_sus_21_006_mu1p0f,1E-20))*(max(bf_cms_sus_18_004_mu1p0f,1E-20))*(exp(llhd_cms_sus_21_007_100s-llhd_cms_sus_21_007_0s))*(max(bf_cms_sus_21_007_mb_mu1p0s,1E-20)))))
+_______________________________________________________________________________________
+
+
+_____________________________ [1m[38;5;214m2D Survival Probability[0m for[1m[94m t1-abs(chi10):abs(chi10) [0m _____________________________
+constraintstring:  (1/PickProbability)*(1)
+constraintstring_prior:  (1/PickProbability)*(1)
+_____________________________[1m[92mFULL COMBINED[0m_______________________
+•[93mAnalysis:[0m cms_sus_20_001 [38;5;214mConstraint[0m: (max(bf_cms_sus_20_001_mu1p0s,1E-20))
+•[93mAnalysis:[0m cms_sus_19_006 [38;5;214mConstraint[0m: (exp(llhd_cms_sus_19_006_100s-llhd_cms_sus_19_006_0s))
+•[93mAnalysis:[0m cms_sus_21_006 [38;5;214mConstraint[0m: (max(bf_cms_sus_21_006_mu1p0f,1E-20))
+TFile::Append:0: RuntimeWarning: Replacing existing TH1: chi10_DmStop1Chi10_COMBINED_survival2DNoCut_priorcontours (Potential memory leak).
+Info in <TCanvas::Print>: pdf file ../../output/survival2D_NEW/NoCut/chi10_DmStop1Chi10_COMBINED_survival2DNoCut.pdf has been created
+TFile::Append:0: RuntimeWarning: Replacing existing TH1: chi10_DmSbottom1Chi10_COMBINED_survival2DNoCut_priorcontours (Potential memory leak).
+Info in <TCanvas::Print>: pdf file ../../output/survival2D_NEW/NoCut/chi10_DmSbottom1Chi10_COMBINED_survival2DNoCut.pdf has been created
+TFile::Append:0: RuntimeWarning: Replacing existing TH1: chi10_DmLcspChi10_COMBINED_survival2DNoCut_priorcontours (Potential memory leak).
+TFile::Append:0: RuntimeWarning: Replacing existing TH1: chi10_DmLcspChi10_COMBINED_survival2DNoCut_priorcontours (Potential memory leak).
+Info in <TCanvas::Print>: pdf file ../../output/survival2D_NEW/NoCut/chi10_DmLcspChi10_COMBINED_survival2DNoCut.pdf has been created
+TFile::Append:0: RuntimeWarning: Replacing existing TH1: chi10_DmGluinoChi10_COMBINED_survival2DNoCut_priorcontours (Potential memory leak).
+Info in <TCanvas::Print>: pdf file ../../output/survival2D_NEW/NoCut/chi10_DmGluinoChi10_COMBINED_survival2DNoCut.pdf has been created
+•[93mAnalysis:[0m cms_sus_18_004 [38;5;214mConstraint[0m: (max(bf_cms_sus_18_004_mu1p0f,1E-20))
+•[93mAnalysis:[0m cms_sus_21_007 [38;5;214mConstraint[0m: (exp(llhd_cms_sus_21_007_100s-llhd_cms_sus_21_007_0s))
+•[93mAnalysis:[0m cms_sus_21_007_mb [38;5;214mConstraint[0m: (max(bf_cms_sus_21_007_mb_mu1p0s,1E-20))
+z:  TMath::Abs(TMath::Log((max(bf_cms_sus_20_001_mu1p0s,1E-20))*(exp(llhd_cms_sus_19_006_100s-llhd_cms_sus_19_006_0s))*(max(bf_cms_sus_21_006_mu1p0f,1E-20))*(max(bf_cms_sus_18_004_mu1p0f,1E-20))*(exp(llhd_cms_sus_21_007_100s-llhd_cms_sus_21_007_0s))*(max(bf_cms_sus_21_007_mb_mu1p0s,1E-20))))/(TMath::Log((max(bf_cms_sus_20_001_mu1p0s,1E-20))*(exp(llhd_cms_sus_19_006_100s-llhd_cms_sus_19_006_0s))*(max(bf_cms_sus_21_006_mu1p0f,1E-20))*(max(bf_cms_sus_18_004_mu1p0f,1E-20))*(exp(llhd_cms_sus_21_007_100s-llhd_cms_sus_21_007_0s))*(max(bf_cms_sus_21_007_mb_mu1p0s,1E-20)))) * TMath::Sqrt(2 * TMath::Abs(TMath::Log((max(bf_cms_sus_20_001_mu1p0s,1E-20))*(exp(llhd_cms_sus_19_006_100s-llhd_cms_sus_19_006_0s))*(max(bf_cms_sus_21_006_mu1p0f,1E-20))*(max(bf_cms_sus_18_004_mu1p0f,1E-20))*(exp(llhd_cms_sus_21_007_100s-llhd_cms_sus_21_007_0s))*(max(bf_cms_sus_21_007_mb_mu1p0s,1E-20)))))
+_______________________________________________________________________________________
+
+
+_____________________________ [1m[38;5;214m2D Survival Probability[0m for[1m[94m b1-abs(chi10):abs(chi10) [0m _____________________________
+constraintstring:  (1/PickProbability)*(1)
+constraintstring_prior:  (1/PickProbability)*(1)
+_____________________________[1m[92mFULL COMBINED[0m_______________________
+•[93mAnalysis:[0m cms_sus_20_001 [38;5;214mConstraint[0m: (max(bf_cms_sus_20_001_mu1p0s,1E-20))
+•[93mAnalysis:[0m cms_sus_19_006 [38;5;214mConstraint[0m: (exp(llhd_cms_sus_19_006_100s-llhd_cms_sus_19_006_0s))
+•[93mAnalysis:[0m cms_sus_21_006 [38;5;214mConstraint[0m: (max(bf_cms_sus_21_006_mu1p0f,1E-20))
+•[93mAnalysis:[0m cms_sus_18_004 [38;5;214mConstraint[0m: (max(bf_cms_sus_18_004_mu1p0f,1E-20))
+•[93mAnalysis:[0m cms_sus_21_007 [38;5;214mConstraint[0m: (exp(llhd_cms_sus_21_007_100s-llhd_cms_sus_21_007_0s))
+•[93mAnalysis:[0m cms_sus_21_007_mb [38;5;214mConstraint[0m: (max(bf_cms_sus_21_007_mb_mu1p0s,1E-20))
+z:  TMath::Abs(TMath::Log((max(bf_cms_sus_20_001_mu1p0s,1E-20))*(exp(llhd_cms_sus_19_006_100s-llhd_cms_sus_19_006_0s))*(max(bf_cms_sus_21_006_mu1p0f,1E-20))*(max(bf_cms_sus_18_004_mu1p0f,1E-20))*(exp(llhd_cms_sus_21_007_100s-llhd_cms_sus_21_007_0s))*(max(bf_cms_sus_21_007_mb_mu1p0s,1E-20))))/(TMath::Log((max(bf_cms_sus_20_001_mu1p0s,1E-20))*(exp(llhd_cms_sus_19_006_100s-llhd_cms_sus_19_006_0s))*(max(bf_cms_sus_21_006_mu1p0f,1E-20))*(max(bf_cms_sus_18_004_mu1p0f,1E-20))*(exp(llhd_cms_sus_21_007_100s-llhd_cms_sus_21_007_0s))*(max(bf_cms_sus_21_007_mb_mu1p0s,1E-20)))) * TMath::Sqrt(2 * TMath::Abs(TMath::Log((max(bf_cms_sus_20_001_mu1p0s,1E-20))*(exp(llhd_cms_sus_19_006_100s-llhd_cms_sus_19_006_0s))*(max(bf_cms_sus_21_006_mu1p0f,1E-20))*(max(bf_cms_sus_18_004_mu1p0f,1E-20))*(exp(llhd_cms_sus_21_007_100s-llhd_cms_sus_21_007_0s))*(max(bf_cms_sus_21_007_mb_mu1p0s,1E-20)))))
+_______________________________________________________________________________________
+
+
+_____________________________ [1m[38;5;214m2D Survival Probability[0m for[1m[94m lcsp-abs(chi10):abs(chi10) [0m _____________________________
+constraintstring:  (1/PickProbability)*(1)
+constraintstring_prior:  (1/PickProbability)*(1)
+_____________________________[1m[92mFULL COMBINED[0m_______________________
+•[93mAnalysis:[0m cms_sus_20_001 [38;5;214mConstraint[0m: (max(bf_cms_sus_20_001_mu1p0s,1E-20))
+•[93mAnalysis:[0m cms_sus_19_006 [38;5;214mConstraint[0m: (exp(llhd_cms_sus_19_006_100s-llhd_cms_sus_19_006_0s))
+•[93mAnalysis:[0m cms_sus_21_006 [38;5;214mConstraint[0m: (max(bf_cms_sus_21_006_mu1p0f,1E-20))
+•[93mAnalysis:[0m cms_sus_18_004 [38;5;214mConstraint[0m: (max(bf_cms_sus_18_004_mu1p0f,1E-20))
+•[93mAnalysis:[0m cms_sus_21_007 [38;5;214mConstraint[0m: (exp(llhd_cms_sus_21_007_100s-llhd_cms_sus_21_007_0s))
+•[93mAnalysis:[0m cms_sus_21_007_mb [38;5;214mConstraint[0m: (max(bf_cms_sus_21_007_mb_mu1p0s,1E-20))
+z:  TMath::Abs(TMath::Log((max(bf_cms_sus_20_001_mu1p0s,1E-20))*(exp(llhd_cms_sus_19_006_100s-llhd_cms_sus_19_006_0s))*(max(bf_cms_sus_21_006_mu1p0f,1E-20))*(max(bf_cms_sus_18_004_mu1p0f,1E-20))*(exp(llhd_cms_sus_21_007_100s-llhd_cms_sus_21_007_0s))*(max(bf_cms_sus_21_007_mb_mu1p0s,1E-20))))/(TMath::Log((max(bf_cms_sus_20_001_mu1p0s,1E-20))*(exp(llhd_cms_sus_19_006_100s-llhd_cms_sus_19_006_0s))*(max(bf_cms_sus_21_006_mu1p0f,1E-20))*(max(bf_cms_sus_18_004_mu1p0f,1E-20))*(exp(llhd_cms_sus_21_007_100s-llhd_cms_sus_21_007_0s))*(max(bf_cms_sus_21_007_mb_mu1p0s,1E-20)))) * TMath::Sqrt(2 * TMath::Abs(TMath::Log((max(bf_cms_sus_20_001_mu1p0s,1E-20))*(exp(llhd_cms_sus_19_006_100s-llhd_cms_sus_19_006_0s))*(max(bf_cms_sus_21_006_mu1p0f,1E-20))*(max(bf_cms_sus_18_004_mu1p0f,1E-20))*(exp(llhd_cms_sus_21_007_100s-llhd_cms_sus_21_007_0s))*(max(bf_cms_sus_21_007_mb_mu1p0s,1E-20)))))
+_______________________________________________________________________________________
+
+
+_____________________________ [1m[38;5;214m2D Survival Probability[0m for[1m[94m g-abs(chi10):abs(chi10) [0m _____________________________
+constraintstring:  (1/PickProbability)*(1)
+constraintstring_prior:  (1/PickProbability)*(1)
+_____________________________[1m[92mFULL COMBINED[0m_______________________
+•[93mAnalysis:[0m cms_sus_20_001 [38;5;214mConstraint[0m: (max(bf_cms_sus_20_001_mu1p0s,1E-20))
+•[93mAnalysis:[0m cms_sus_19_006 [38;5;214mConstraint[0m: (exp(llhd_cms_sus_19_006_100s-llhd_cms_sus_19_006_0s))
+•[93mAnalysis:[0m cms_sus_21_006 [38;5;214mConstraint[0m: (max(bf_cms_sus_21_006_mu1p0f,1E-20))
+•[93mAnalysis:[0m cms_sus_18_004 [38;5;214mConstraint[0m: (max(bf_cms_sus_18_004_mu1p0f,1E-20))
+•[93mAnalysis:[0m cms_sus_21_007 [38;5;214mConstraint[0m: (exp(llhd_cms_sus_21_007_100s-llhd_cms_sus_21_007_0s))
+•[93mAnalysis:[0m cms_sus_21_007_mb [38;5;214mConstraint[0m: (max(bf_cms_sus_21_007_mb_mu1p0s,1E-20))
+z:  TMath::Abs(TMath::Log((max(bf_cms_sus_20_001_mu1p0s,1E-20))*(exp(llhd_cms_sus_19_006_100s-llhd_cms_sus_19_006_0s))*(max(bf_cms_sus_21_006_mu1p0f,1E-20))*(max(bf_cms_sus_18_004_mu1p0f,1E-20))*(exp(llhd_cms_sus_21_007_100s-llhd_cms_sus_21_007_0s))*(max(bf_cms_sus_21_007_mb_mu1p0s,1E-20))))/(TMath::Log((max(bf_cms_sus_20_001_mu1p0s,1E-20))*(exp(llhd_cms_sus_19_006_100s-llhd_cms_sus_19_006_0s))*(max(bf_cms_sus_21_006_mu1p0f,1E-20))*(max(bf_cms_sus_18_004_mu1p0f,1E-20))*(exp(llhd_cms_sus_21_007_100s-llhd_cms_sus_21_007_0s))*(max(bf_cms_sus_21_007_mb_mu1p0s,1E-20)))) * TMath::Sqrt(2 * TMath::Abs(TMath::Log((max(bf_cms_sus_20_001_mu1p0s,1E-20))*(exp(llhd_cms_sus_19_006_100s-llhd_cms_sus_19_006_0s))*(max(bf_cms_sus_21_006_mu1p0f,1E-20))*(max(bf_cms_sus_18_004_mu1p0f,1E-20))*(exp(llhd_cms_sus_21_007_100s-llhd_cms_sus_21_007_0s))*(max(bf_cms_sus_21_007_mb_mu1p0s,1E-20)))))
+_______________________________________________________________________________________
+
+
+_____________________________ [1m[38;5;214m2D Survival Probability[0m for[1m[94m Mq1-abs(chi10):abs(chi10) [0m _____________________________
+constraintstring:  (1/PickProbability)*(1)
+constraintstring_prior:  (1/PickProbability)*(1)
+_____________________________[1m[92mFULL COMBINED[0m_______________________
+•[93mAnalysis:[0m cms_sus_20_001 [38;5;214mConstraint[0m: (max(bf_cms_sus_20_001_mu1p0s,1E-20))
+•[93mAnalysis:[0m cms_sus_19_006 [38;5;214mConstraint[0m: (exp(llhd_cms_sus_19_006_100s-llhd_cms_sus_19_006_0s))
+•[93mAnalysis:[0m cms_sus_21_006 [38;5;214mConstraint[0m: (max(bf_cms_sus_21_006_mu1p0f,1E-20))
+•[93mAnalysis:[0m cms_sus_18_004 [38;5;214mConstraint[0m: (max(bf_cms_sus_18_004_mu1p0f,1E-20))
+•[93mAnalysis:[0m cms_sus_21_007 [38;5;214mConstraint[0m: (exp(llhd_cms_sus_21_007_100s-llhd_cms_sus_21_007_0s))
+•[93mAnalysis:[0m cms_sus_21_007_mb [38;5;214mConstraint[0m: (max(bf_cms_sus_21_007_mb_mu1p0s,1E-20))
+z:  TFile::Append:0: RuntimeWarning: Replacing existing TH1: chi10_DmMq1Chi10_COMBINED_survival2DNoCut_priorcontours (Potential memory leak).
+Info in <TCanvas::Print>: pdf file ../../output/survival2D_NEW/NoCut/chi10_DmMq1Chi10_COMBINED_survival2DNoCut.pdf has been created
+TFile::Append:0: RuntimeWarning: Replacing existing TH1: chi10_DmMd1Chi10_COMBINED_survival2DNoCut_priorcontours (Potential memory leak).
+Info in <TCanvas::Print>: pdf file ../../output/survival2D_NEW/NoCut/chi10_DmMd1Chi10_COMBINED_survival2DNoCut.pdf has been created
+TFile::Append:0: RuntimeWarning: Replacing existing TH1: chi10_DmMl1Chi10_COMBINED_survival2DNoCut_priorcontours (Potential memory leak).
+Info in <TCanvas::Print>: pdf file ../../output/survival2D_NEW/NoCut/chi10_DmMl1Chi10_COMBINED_survival2DNoCut.pdf has been created
+TMath::Abs(TMath::Log((max(bf_cms_sus_20_001_mu1p0s,1E-20))*(exp(llhd_cms_sus_19_006_100s-llhd_cms_sus_19_006_0s))*(max(bf_cms_sus_21_006_mu1p0f,1E-20))*(max(bf_cms_sus_18_004_mu1p0f,1E-20))*(exp(llhd_cms_sus_21_007_100s-llhd_cms_sus_21_007_0s))*(max(bf_cms_sus_21_007_mb_mu1p0s,1E-20))))/(TMath::Log((max(bf_cms_sus_20_001_mu1p0s,1E-20))*(exp(llhd_cms_sus_19_006_100s-llhd_cms_sus_19_006_0s))*(max(bf_cms_sus_21_006_mu1p0f,1E-20))*(max(bf_cms_sus_18_004_mu1p0f,1E-20))*(exp(llhd_cms_sus_21_007_100s-llhd_cms_sus_21_007_0s))*(max(bf_cms_sus_21_007_mb_mu1p0s,1E-20)))) * TMath::Sqrt(2 * TMath::Abs(TMath::Log((max(bf_cms_sus_20_001_mu1p0s,1E-20))*(exp(llhd_cms_sus_19_006_100s-llhd_cms_sus_19_006_0s))*(max(bf_cms_sus_21_006_mu1p0f,1E-20))*(max(bf_cms_sus_18_004_mu1p0f,1E-20))*(exp(llhd_cms_sus_21_007_100s-llhd_cms_sus_21_007_0s))*(max(bf_cms_sus_21_007_mb_mu1p0s,1E-20)))))
+_______________________________________________________________________________________
+
+
+_____________________________ [1m[38;5;214m2D Survival Probability[0m for[1m[94m Md1-abs(chi10):abs(chi10) [0m _____________________________
+constraintstring:  (1/PickProbability)*(1)
+constraintstring_prior:  (1/PickProbability)*(1)
+_____________________________[1m[92mFULL COMBINED[0m_______________________
+•[93mAnalysis:[0m cms_sus_20_001 [38;5;214mConstraint[0m: (max(bf_cms_sus_20_001_mu1p0s,1E-20))
+•[93mAnalysis:[0m cms_sus_19_006 [38;5;214mConstraint[0m: (exp(llhd_cms_sus_19_006_100s-llhd_cms_sus_19_006_0s))
+•[93mAnalysis:[0m cms_sus_21_006 [38;5;214mConstraint[0m: (max(bf_cms_sus_21_006_mu1p0f,1E-20))
+•[93mAnalysis:[0m cms_sus_18_004 [38;5;214mConstraint[0m: (max(bf_cms_sus_18_004_mu1p0f,1E-20))
+•[93mAnalysis:[0m cms_sus_21_007 [38;5;214mConstraint[0m: (exp(llhd_cms_sus_21_007_100s-llhd_cms_sus_21_007_0s))
+•[93mAnalysis:[0m cms_sus_21_007_mb [38;5;214mConstraint[0m: (max(bf_cms_sus_21_007_mb_mu1p0s,1E-20))
+z:  TMath::Abs(TMath::Log((max(bf_cms_sus_20_001_mu1p0s,1E-20))*(exp(llhd_cms_sus_19_006_100s-llhd_cms_sus_19_006_0s))*(max(bf_cms_sus_21_006_mu1p0f,1E-20))*(max(bf_cms_sus_18_004_mu1p0f,1E-20))*(exp(llhd_cms_sus_21_007_100s-llhd_cms_sus_21_007_0s))*(max(bf_cms_sus_21_007_mb_mu1p0s,1E-20))))/(TMath::Log((max(bf_cms_sus_20_001_mu1p0s,1E-20))*(exp(llhd_cms_sus_19_006_100s-llhd_cms_sus_19_006_0s))*(max(bf_cms_sus_21_006_mu1p0f,1E-20))*(max(bf_cms_sus_18_004_mu1p0f,1E-20))*(exp(llhd_cms_sus_21_007_100s-llhd_cms_sus_21_007_0s))*(max(bf_cms_sus_21_007_mb_mu1p0s,1E-20)))) * TMath::Sqrt(2 * TMath::Abs(TMath::Log((max(bf_cms_sus_20_001_mu1p0s,1E-20))*(exp(llhd_cms_sus_19_006_100s-llhd_cms_sus_19_006_0s))*(max(bf_cms_sus_21_006_mu1p0f,1E-20))*(max(bf_cms_sus_18_004_mu1p0f,1E-20))*(exp(llhd_cms_sus_21_007_100s-llhd_cms_sus_21_007_0s))*(max(bf_cms_sus_21_007_mb_mu1p0s,1E-20)))))
+_______________________________________________________________________________________
+
+
+_____________________________ [1m[38;5;214m2D Survival Probability[0m for[1m[94m Ml1-abs(chi10):abs(chi10) [0m _____________________________
+constraintstring:  (1/PickProbability)*(1)
+constraintstring_prior:  (1/PickProbability)*(1)
+_____________________________[1m[92mFULL COMBINED[0m_______________________
+•[93mAnalysis:[0m cms_sus_20_001 [38;5;214mConstraint[0m: (max(bf_cms_sus_20_001_mu1p0s,1E-20))
+•[93mAnalysis:[0m cms_sus_19_006 [38;5;214mConstraint[0m: (exp(llhd_cms_sus_19_006_100s-llhd_cms_sus_19_006_0s))
+•[93mAnalysis:[0m cms_sus_21_006 [38;5;214mConstraint[0m: (max(bf_cms_sus_21_006_mu1p0f,1E-20))
+•[93mAnalysis:[0m cms_sus_18_004 [38;5;214mConstraint[0m: (max(bf_cms_sus_18_004_mu1p0f,1E-20))
+•[93mAnalysis:[0m cms_sus_21_007 [38;5;214mConstraint[0m: (exp(llhd_cms_sus_21_007_100s-llhd_cms_sus_21_007_0s))
+•[93mAnalysis:[0m cms_sus_21_007_mb [38;5;214mConstraint[0m: (max(bf_cms_sus_21_007_mb_mu1p0s,1E-20))
+z:  TMath::Abs(TMath::Log((max(bf_cms_sus_20_001_mu1p0s,1E-20))*(exp(llhd_cms_sus_19_006_100s-llhd_cms_sus_19_006_0s))*(max(bf_cms_sus_21_006_mu1p0f,1E-20))*(max(bf_cms_sus_18_004_mu1p0f,1E-20))*(exp(llhd_cms_sus_21_007_100s-llhd_cms_sus_21_007_0s))*(max(bf_cms_sus_21_007_mb_mu1p0s,1E-20))))/(TMath::Log((max(bf_cms_sus_20_001_mu1p0s,1E-20))*(exp(llhd_cms_sus_19_006_100s-llhd_cms_sus_19_006_0s))*(max(bf_cms_sus_21_006_mu1p0f,1E-20))*(max(bf_cms_sus_18_004_mu1p0f,1E-20))*(exp(llhd_cms_sus_21_007_100s-llhd_cms_sus_21_007_0s))*(max(bf_cms_sus_21_007_mb_mu1p0s,1E-20)))) * TMath::Sqrt(2 * TMath::Abs(TMath::Log((max(bf_cms_sus_20_001_mu1p0s,1E-20))*(exp(llhd_cms_sus_19_006_100s-llhd_cms_sus_19_006_0s))*(max(bf_cms_sus_21_006_mu1p0f,1E-20))*(max(bf_cms_sus_18_004_mu1p0f,1E-20))*(exp(llhd_cms_sus_21_007_100s-llhd_cms_sus_21_007_0s))*(max(bf_cms_sus_21_007_mb_mu1p0s,1E-20)))))
+_______________________________________________________________________________________
+
+
