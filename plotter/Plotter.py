@@ -1235,7 +1235,7 @@ class PMSSM:
             
         posterior_data = self.get_posterior_CI(
             analysis = analysis, 
-            hname = name + "_priorcontours", 
+            hname = name + "_posteriorcontours", 
             xbins = xbins, 
             xlow = xlow, 
             xup = xup, 
@@ -1394,10 +1394,22 @@ class PMSSM:
         for newc in moreconstraints:
             constraintstring += "*(" + newc + ")"
         
+        
         if not contourFix2ndWay:
-            contours = PlotterUtils.mkhistlogxy(hname, '', int(1.2*xbins), xlow, xup, int(1.2*ybins), ylow, yup, logx=_logx, logy=_logy)
+            
+            coef = 1.2
+            print("prior: ",int(coef*xbins),coef,"contourFix2ndWay")
+            contours = PlotterUtils.mkhistlogxy(hname, '', int(coef*xbins), xlow, xup, int(1.2*ybins), ylow, yup, logx=_logx, logy=_logy)
         else:
-            contours = PlotterUtils.mkhistlogxy(hname, '', int(1*xbins), xlow, xup, int(1*ybins), ylow, yup, logx=_logx, logy=_logy)
+            coef = 1.6
+      
+            print("-------------------")
+            print("...::prior::...")
+            print(f"{xbins}*{coef} = {int(coef*xbins)}")
+            print(f"{ybins}*{coef} = {int(coef*ybins)}")
+            print("-------------------")
+            
+            contours = PlotterUtils.mkhistlogxy(hname, '', int(coef*xbins), xlow, xup, int(coef*ybins), ylow, yup, logx=_logx, logy=_logy)
             if isinstance(contourFix2ndWay,bool):
                 contours.Rebin2D(2,2)
             else:
@@ -1458,9 +1470,25 @@ class PMSSM:
             constraintstring += "*(" + newc + ")"
             
         if not contourFix2ndWay:
-            contours = PlotterUtils.mkhistlogxy(hname, '', int(1.2*xbins), xlow, xup, int(1.2*ybins), ylow, yup, logx=_logx, logy=_logy)
+            coef = 1.2
+            
+            print("-------------------")
+            print("...::posterior::...")
+            print(f"{xbins}*{coef} = {int(coef*xbins)}")
+            print(f"{ybins}*{coef} = {int(coef*ybins)}")
+            print("-------------------")
+            
+            contours = PlotterUtils.mkhistlogxy(hname, 'p', int(coef*xbins), xlow, xup, int(coef*ybins), ylow, yup, logx=_logx, logy=_logy)
         else:
-            contours = PlotterUtils.mkhistlogxy(hname, '', int(1*xbins), xlow, xup, int(1*ybins), ylow, yup, logx=_logx, logy=_logy)
+            coef = 1.6
+      
+            print("-------------------")
+            print("...::posterior::...")
+            print(f"{xbins}*{coef} = {int(coef*xbins)}")
+            print(f"{ybins}*{coef} = {int(coef*ybins)}")
+            print("-------------------")
+            
+            contours = PlotterUtils.mkhistlogxy(hname, 'p', int(coef*xbins), xlow, xup, int(coef*ybins), ylow, yup, logx=_logx, logy=_logy)
             if isinstance(contourFix2ndWay,bool):
                 contours.Rebin2D(2,2)
             else:

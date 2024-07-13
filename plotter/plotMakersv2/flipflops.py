@@ -14,10 +14,23 @@ c = PlotterConfig()
 c.global_settings["outputFileFormat"] = "pdf"
 c.global_settings["outputPath"] = "/afs/cern.ch/user/d/dboncukc/pmssm/output/preapproval"
 
+c.drawConfig["survival2D"] = {
+           "leftTop" : {"x1":0.19,"x2":0.67,"y1":0.70,"y2":0.93},
+            "rightTop" : {"x1":0.42,"x2":0.82,"y1":0.73,"y2":0.93},
+            "rightBottom" : {"x1":0.30,"x2":0.77,"y1":0.17,"y2":0.4},
+            "leftBottom" : {"x1":0.23,"x2":0.53,"y1":0.2,"y2":0.32},
+            "numberOfColumns" : 2,
+            "YaxisSetTitleOffset" : 1.28,
+            "XaxisSetTitleOffset" : 1.05,
+            "ZaxisSetTitleOffset" : 1.1,
+            "legendFillWhite" : True ,
+            "legendColor" : kWhite
+        }
+
 mainPath = "/afs/cern.ch/user/d/dboncukc/pmssmArea/CMSSW_13_0_17/src/output/preapproval/"
 
 
-contourFix2ndWay = False
+contourFix2ndWay = True
 
 for par in ["abs(chi1pm)-abs(chi10)","g-abs(chi10)","t1-abs(chi10)","b1-abs(chi10)","lcsp-abs(chi10)","abs(chi20)-abs(chi10)"]:
 # for par in ["abs(chi1pm)-abs(chi10)"]:
