@@ -17,22 +17,6 @@ from Plotter import PMSSM
 
 c_quantile = PlotterConfig()
 c_quantile.global_settings["outputPath"] = "../../output/quantile1D_with_sigmaVariations2"
-pmssm_quantile = PMSSM(config=c_quantile)
+pmssm = PMSSM(config=c_quantile)
 
-pmssm_quantile.constraints.printAnalysisList()
-
-
-pmssm_quantile.quantile1D_with_sigmaVariations("tau1")
-pmssm_quantile.quantile1D_with_sigmaVariations("abs(chi10)")
-pmssm_quantile.quantile1D_with_sigmaVariations("abs(chi1pm)")
-pmssm_quantile.quantile1D_with_sigmaVariations("abs(chi2pm)")
-pmssm_quantile.quantile1D_with_sigmaVariations("abs(chi20)")
-pmssm_quantile.quantile1D_with_sigmaVariations("abs(chi30)",legendStyle="rightTop")
-pmssm_quantile.quantile1D_with_sigmaVariations("abs(chi40)")
-pmssm_quantile.quantile1D_with_sigmaVariations("t1",xaxisDrawConfig = {"min" : 50})
-pmssm_quantile.quantile1D_with_sigmaVariations("b1",xaxisDrawConfig = {"min" : 50})
-pmssm_quantile.quantile1D_with_sigmaVariations("lcsp",xaxisDrawConfig = {"min" : 50})
-pmssm_quantile.quantile1D_with_sigmaVariations("g",xaxisDrawConfig = {"min" : 50})
-pmssm_quantile.quantile1D_with_sigmaVariations("Mq1")
-pmssm_quantile.quantile1D_with_sigmaVariations("Md1")
-pmssm_quantile.quantile1D_with_sigmaVariations("Ml1")
+tree = pmssm.tree

@@ -9,6 +9,8 @@ import copy
 
 gROOT.SetBatch(True)
 
+global COEF
+COEF = 1.6
 
 class printStyle:
     YELLOW = '\033[93m'
@@ -1158,7 +1160,7 @@ class PMSSM:
         cols = TColor.GetNumberOfColors()# This gets the colors of the Palette currently set in ROOT
         #This part sets bins with a survival probability of zero (less than second entry of sprobcontours list to be exact) to Black color. Bins with a survival probability of exactly 1 (greater than second last entry of sprobcontours list) to Grey.
         for i in range(cols):
-            if i<19: # The exact i was found by trial and error. Sorry.
+            if i<25: # The exact i was found by trial and error. Sorry.
                 col = kBlack
             # elif i > 253:
             #     col = kGray
@@ -1243,7 +1245,7 @@ class PMSSM:
             ylow = ylow, 
             yup = yup, 
             _logx = xlog, 
-            _logy = ylow, 
+            _logy = ylog, 
             drawstring = drawstring,
             moreconstraints = moreconstraints,
             contourFix2ndWay = contourFix2ndWay)
@@ -1401,7 +1403,7 @@ class PMSSM:
             print("prior: ",int(coef*xbins),coef,"contourFix2ndWay")
             contours = PlotterUtils.mkhistlogxy(hname, '', int(coef*xbins), xlow, xup, int(1.2*ybins), ylow, yup, logx=_logx, logy=_logy)
         else:
-            coef = 1.6
+            coef = COEF
       
             print("-------------------")
             print("...::prior::...")
@@ -1414,8 +1416,9 @@ class PMSSM:
                 contours.Rebin2D(2,2)
             else:
                 contours.Rebin2D(contourFix2ndWay[0],contourFix2ndWay[1])
-                
+        
         self.tree.Draw(drawstring + ">>" + contours.GetName(), constraintstring, "cont2")
+                
         contarrays = np.array(self.getThresholdForContainment(contours, intervals))
         # redraw the histogram with cont list option
         self.tree.Draw(drawstring + ">>" + contours.GetName(), constraintstring, "cont list")
@@ -1435,6 +1438,7 @@ class PMSSM:
                 cont.SetLineStyle(contourstyle[ix])
                 cont.SetLineWidth(3)
                 the_contours[intervals[len(intervals) - ix - 1]].append(cont.Clone())
+                
         return the_contours
 
     def get_posterior_CI(self,analysis, hname, xbins, xlow, xup, ybins, ylow, yup, _logx, _logy, drawstring,
@@ -1468,19 +1472,14 @@ class PMSSM:
             constraintstring = "*".join([self.c.theconstraints["reweight"], self.c.theconstraints["reason"], self.constraints.getConstraint(analysis,isSimplified=False,verbose=False)])
         for newc in moreconstraints:
             constraintstring += "*(" + newc + ")"
-            
+        
+
         if not contourFix2ndWay:
             coef = 1.2
             
-            print("-------------------")
-            print("...::posterior::...")
-            print(f"{xbins}*{coef} = {int(coef*xbins)}")
-            print(f"{ybins}*{coef} = {int(coef*ybins)}")
-            print("-------------------")
-            
             contours = PlotterUtils.mkhistlogxy(hname, 'p', int(coef*xbins), xlow, xup, int(coef*ybins), ylow, yup, logx=_logx, logy=_logy)
         else:
-            coef = 1.6
+            coef = COEF
       
             print("-------------------")
             print("...::posterior::...")
@@ -1493,8 +1492,9 @@ class PMSSM:
                 contours.Rebin2D(2,2)
             else:
                 contours.Rebin2D(contourFix2ndWay[0],contourFix2ndWay[1])
-            
-        self.tree.Draw(drawstring + ">>" + contours.GetName(), constraintstring, "cont2")
+
+        self.tree.Draw(drawstring + ">>" + contours.GetName(), constraintstring, "colz")
+        
         contarrays = np.array(self.getThresholdForContainment(contours, intervals))
         # redraw the histogram with cont list option
         self.tree.Draw(drawstring + ">>" + contours.GetName(), constraintstring, "cont list")
@@ -1514,6 +1514,7 @@ class PMSSM:
                 cont.SetLineStyle(contourstyle[ix])
                 cont.SetLineWidth(3)
                 the_contours[intervals[len(intervals) - ix - 1]].append(cont.Clone())
+        
         return the_contours
 
     @staticmethod

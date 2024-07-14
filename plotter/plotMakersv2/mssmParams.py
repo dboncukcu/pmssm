@@ -212,43 +212,43 @@ c.drawConfig["survival2D"] = {
         }
 pmssm = PMSSM(config=c)
 
-contourFix2ndWay = False
-
+contourFix2ndWay = True
+showContour = True
 #1
-pmssm.survivalProbability2D("M1:M2",moreconstraints_prior = denum_constraint, moreconstraints= denum_constraint,customName = variantName,constraints=legend_constraints,contourFix2ndWay=contourFix2ndWay,showContour = False)
+pmssm.survivalProbability2D("M1:M2",moreconstraints_prior = denum_constraint, moreconstraints= denum_constraint,customName = variantName,constraints=legend_constraints,contourFix2ndWay=contourFix2ndWay,showContour = showContour)
 
 #2
-pmssm.survivalProbability2D("tanbeta:mu",moreconstraints_prior = denum_constraint, moreconstraints= denum_constraint,customName = variantName,constraints=legend_constraints,contourFix2ndWay=contourFix2ndWay,showContour = False)
+pmssm.survivalProbability2D("tanbeta:mu",moreconstraints_prior = denum_constraint, moreconstraints= denum_constraint,customName = variantName,constraints=legend_constraints,contourFix2ndWay=contourFix2ndWay,showContour = showContour)
 
 #3
-pmssm.survivalProbability2D("At:t1",moreconstraints_prior = denum_constraint, moreconstraints= denum_constraint,customName = variantName,constraints=legend_constraints,contourFix2ndWay=contourFix2ndWay,showContour = False)
+pmssm.survivalProbability2D("At:t1",moreconstraints_prior = denum_constraint, moreconstraints= denum_constraint,customName = variantName,constraints=legend_constraints,contourFix2ndWay=contourFix2ndWay,showContour = showContour)
 
 #4
-pmssm.survivalProbability2D("mA:tanbeta",moreconstraints_prior = denum_constraint, moreconstraints= denum_constraint,customName = variantName,constraints=legend_constraints,contourFix2ndWay=contourFix2ndWay,showContour = False)
+pmssm.survivalProbability2D("mA:tanbeta",moreconstraints_prior = denum_constraint, moreconstraints= denum_constraint,customName = variantName,constraints=legend_constraints,contourFix2ndWay=contourFix2ndWay,showContour = showContour)
 
 #5
-pmssm.survivalProbability2D("M1:mu",moreconstraints_prior = denum_constraint, moreconstraints= denum_constraint,customName = variantName,constraints=legend_constraints,contourFix2ndWay=contourFix2ndWay,showContour = False)
+pmssm.survivalProbability2D("M1:mu",moreconstraints_prior = denum_constraint, moreconstraints= denum_constraint,customName = variantName,constraints=legend_constraints,contourFix2ndWay=contourFix2ndWay,showContour = showContour)
 
 #6
-pmssm.survivalProbability2D("A_tau:tau1",moreconstraints_prior = denum_constraint, moreconstraints= denum_constraint,customName = variantName,constraints=legend_constraints,contourFix2ndWay=contourFix2ndWay,showContour = False)
+pmssm.survivalProbability2D("A_tau:tau1",moreconstraints_prior = denum_constraint, moreconstraints= denum_constraint,customName = variantName,constraints=legend_constraints,contourFix2ndWay=contourFix2ndWay,showContour = showContour)
 
 #7
-pmssm.survivalProbability2D("M3:Mq3",moreconstraints_prior = denum_constraint, moreconstraints= denum_constraint,customName = variantName,constraints=legend_constraints,contourFix2ndWay=contourFix2ndWay,showContour = False)
+pmssm.survivalProbability2D("M3:Mq3",moreconstraints_prior = denum_constraint, moreconstraints= denum_constraint,customName = variantName,constraints=legend_constraints,contourFix2ndWay=contourFix2ndWay,showContour = showContour)
 
 #8
-pmssm.survivalProbability2D("mu:mA",moreconstraints_prior = denum_constraint, moreconstraints= denum_constraint,customName = variantName,constraints=legend_constraints,contourFix2ndWay=contourFix2ndWay,showContour = False)
+pmssm.survivalProbability2D("mu:mA",moreconstraints_prior = denum_constraint, moreconstraints= denum_constraint,customName = variantName,constraints=legend_constraints,contourFix2ndWay=contourFix2ndWay,showContour = showContour)
 
 #9
-pmssm.survivalProbability2D("mu:t1",moreconstraints_prior = denum_constraint, moreconstraints= denum_constraint,customName = variantName,constraints=legend_constraints,contourFix2ndWay=contourFix2ndWay,showContour = False)
+pmssm.survivalProbability2D("mu:t1",moreconstraints_prior = denum_constraint, moreconstraints= denum_constraint,customName = variantName,constraints=legend_constraints,contourFix2ndWay=contourFix2ndWay,showContour = showContour)
 
 #10
-pmssm.survivalProbability2D("mu:M2",moreconstraints_prior = denum_constraint, moreconstraints= denum_constraint,customName = variantName,constraints=legend_constraints,contourFix2ndWay=contourFix2ndWay,showContour = False)
+pmssm.survivalProbability2D("mu:M2",moreconstraints_prior = denum_constraint, moreconstraints= denum_constraint,customName = variantName,constraints=legend_constraints,contourFix2ndWay=contourFix2ndWay,showContour = showContour)
 
 #11
-pmssm.survivalProbability2D("Ab:b1",moreconstraints_prior = denum_constraint, moreconstraints= denum_constraint,customName = variantName,constraints=legend_constraints,contourFix2ndWay=contourFix2ndWay,showContour = False)
+pmssm.survivalProbability2D("Ab:b1",moreconstraints_prior = denum_constraint, moreconstraints= denum_constraint,customName = variantName,constraints=legend_constraints,contourFix2ndWay=contourFix2ndWay,showContour = showContour)
 
 #12
-pmssm.survivalProbability2D("tanbeta:M3",moreconstraints_prior = denum_constraint, moreconstraints= denum_constraint,customName = variantName,constraints=legend_constraints,contourFix2ndWay=contourFix2ndWay,showContour = False)
+pmssm.survivalProbability2D("tanbeta:M3",moreconstraints_prior = denum_constraint, moreconstraints= denum_constraint,customName = variantName,constraints=legend_constraints,contourFix2ndWay=contourFix2ndWay,showContour = showContour)
 
 #13
-pmssm.survivalProbability2D("tanbeta:M2",moreconstraints_prior = denum_constraint, moreconstraints= denum_constraint,customName = variantName,constraints=legend_constraints,contourFix2ndWay=contourFix2ndWay,showContour = False)
+pmssm.survivalProbability2D("tanbeta:M2",moreconstraints_prior = denum_constraint, moreconstraints= denum_constraint,customName = variantName,constraints=legend_constraints,contourFix2ndWay=contourFix2ndWay,showContour = showContour)

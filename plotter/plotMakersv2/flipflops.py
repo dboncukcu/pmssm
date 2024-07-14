@@ -41,6 +41,14 @@ for par in ["abs(chi1pm)-abs(chi10)","g-abs(chi10)","t1-abs(chi10)","b1-abs(chi1
     pmssm_flipbook.c.particleConfig["abs(chi10)"]["max"] = 1700
     # pmssm_flipbook.c.particleConfig["abs(chi10)"]["Ndivisions"] = 507
     pmssm_flipbook.c.particleConfig["abs(chi1pm)-abs(chi10)"]["min"] = 0.02
+    
+    nbins = 90
+    
+    pmssm_flipbook.c.particleConfig["abs(chi10)"]["bins"] = nbins
+    pmssm_flipbook.c.particleConfig["abs(chi1pm)-abs(chi10)"]["bins"] = nbins
+    pmssm_flipbook.c.particleConfig["..."]["bins"] = nbins
+
+    
     pmssm_flipbook.survivalProbability2D(f"{par}:abs(chi10)", analysis="cms_sus_18_004",customName="_1",legendAddition="SUS-18-004",contourFix2ndWay=contourFix2ndWay)
     pmssm_flipbook.survivalProbability2D(f"{par}:abs(chi10)", analysis="cms_sus_18_004,cms_sus_20_001",customName="_2",legendAddition="+ SUS-20-001",contourFix2ndWay=contourFix2ndWay)
     pmssm_flipbook.survivalProbability2D(f"{par}:abs(chi10)", analysis="cms_sus_18_004,cms_sus_20_001,cms_sus_21_007,cms_sus_21_007_mb",customName="_3",legendAddition="+ SUS-21-007",contourFix2ndWay=contourFix2ndWay)

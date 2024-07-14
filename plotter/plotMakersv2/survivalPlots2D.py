@@ -40,7 +40,7 @@ elif variantName == "DM_DeltaEW":
 
 legend_constraints = None
 # outputPath = "../../output/survival2D/"+variantName+"/"
-outputPath = "../../output/survival2D_NEW/"+variantName+"/"
+outputPath = "../../output/survival2D/"+variantName+"/"
 
 
 c_survival_ewk = PlotterConfig()
@@ -77,10 +77,6 @@ c_survival_strong.particleConfig["abs(chi10)"] = {
 
 pmssm_survival_strong = PMSSM(config=c_survival_strong)
 
-
-pmssm_survival_strong.survivalProbability2D("lcsp-abs(chi10):abs(chi10)", moreconstraints_prior = denum_constraint, moreconstraints= denum_constraint,customName = variantName, drawConfig={"XaxisSetTitleOffset": 1.15, "YaxisSetTitleOffset" : 1.33,"bottomMargin":0.045},constraints=legend_constraints,contourFix2ndWay=True)
-
-exit()
 # pmssm_survival_ewk.testPlots()
 pmssm_survival_ewk.survivalProbability2D("abs(chi1pm)-abs(chi10):abs(chi10)", moreconstraints_prior = denum_constraint, moreconstraints= denum_constraint,customName = variantName, drawConfig={"XaxisSetTitleOffset": 1.15, "YaxisSetTitleOffset" : 1.33,"bottomMargin":0.045},constraints=legend_constraints,contourFix2ndWay=True)
 pmssm_survival_strong.survivalProbability2D("lcsp-abs(chi10):abs(chi10)", moreconstraints_prior = denum_constraint, moreconstraints= denum_constraint,customName = variantName, drawConfig={"XaxisSetTitleOffset": 1.15, "YaxisSetTitleOffset" : 1.33,"bottomMargin":0.045},constraints=legend_constraints,contourFix2ndWay=True)

@@ -72,19 +72,19 @@ c_quantile_strong.global_settings["logEps"] = 8 # 8GeV
 
 pmssm_quantile_strong = PMSSM(config=c_quantile_strong)
 
-# pmssm_quantile_ewk.quantile2D("tau1-abs(chi10):abs(chi10)",quantile=0.99, legendStyle="leftTop")
-# pmssm_quantile_ewk.quantile2D("abs(chi1pm)-abs(chi10):abs(chi10)",quantile=0.99, legendStyle="leftTop")
-# pmssm_quantile_ewk.quantile2D("abs(chi2pm)-abs(chi10):abs(chi10)",quantile=0.99, legendStyle="leftTop")
-# pmssm_quantile_ewk.quantile2D("abs(chi20)-abs(chi10):abs(chi10)",quantile=0.99, legendStyle="leftTop")
+pmssm_quantile_ewk.quantile2D("tau1-abs(chi10):abs(chi10)",quantile=0.99, legendStyle="leftTop")
+pmssm_quantile_ewk.quantile2D("abs(chi1pm)-abs(chi10):abs(chi10)",quantile=0.99, legendStyle="leftTop")
+pmssm_quantile_ewk.quantile2D("abs(chi2pm)-abs(chi10):abs(chi10)",quantile=0.99, legendStyle="leftTop")
+pmssm_quantile_ewk.quantile2D("abs(chi20)-abs(chi10):abs(chi10)",quantile=0.99, legendStyle="leftTop")
 pmssm_quantile_ewk.quantile2D("abs(chi30)-abs(chi10):abs(chi10)",quantile=0.99, legendStyle="leftTop")
-# pmssm_quantile_ewk.quantile2D("abs(chi40)-abs(chi10):abs(chi10)",quantile=0.99, legendStyle="leftTop")
-# pmssm_quantile_strong.quantile2D("t1-abs(chi10):abs(chi10)",quantile=0.99, legendStyle="leftTop")
-# pmssm_quantile_strong.quantile2D("b1-abs(chi10):abs(chi10)",quantile=0.99, legendStyle="leftTop")
-# pmssm_quantile_strong.quantile2D("lcsp-abs(chi10):abs(chi10)",quantile=0.99, legendStyle="leftTop")
-# pmssm_quantile_strong.quantile2D("g-abs(chi10):abs(chi10)",quantile=0.99, legendStyle="leftTop")
-# pmssm_quantile_strong.quantile2D("Mq1-abs(chi10):abs(chi10)",quantile=0.99, legendStyle="leftTop")
-# pmssm_quantile_strong.quantile2D("Md1-abs(chi10):abs(chi10)",quantile=0.99, legendStyle="leftTop")
-# pmssm_quantile_ewk.quantile2D("Ml1-abs(chi10):abs(chi10)",quantile=0.99, legendStyle="leftTop")
+pmssm_quantile_ewk.quantile2D("abs(chi40)-abs(chi10):abs(chi10)",quantile=0.99, legendStyle="leftTop")
+pmssm_quantile_strong.quantile2D("t1-abs(chi10):abs(chi10)",quantile=0.99, legendStyle="leftTop")
+pmssm_quantile_strong.quantile2D("b1-abs(chi10):abs(chi10)",quantile=0.99, legendStyle="leftTop")
+pmssm_quantile_strong.quantile2D("lcsp-abs(chi10):abs(chi10)",quantile=0.99, legendStyle="leftTop")
+pmssm_quantile_strong.quantile2D("g-abs(chi10):abs(chi10)",quantile=0.99, legendStyle="leftTop")
+pmssm_quantile_strong.quantile2D("Mq1-abs(chi10):abs(chi10)",quantile=0.99, legendStyle="leftTop")
+pmssm_quantile_strong.quantile2D("Md1-abs(chi10):abs(chi10)",quantile=0.99, legendStyle="leftTop")
+pmssm_quantile_ewk.quantile2D("Ml1-abs(chi10):abs(chi10)",quantile=0.99, legendStyle="leftTop")
 
 
 ## SURVIVAL 2D
