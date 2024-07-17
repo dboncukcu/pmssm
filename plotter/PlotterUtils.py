@@ -227,8 +227,7 @@ def create_tree(root_dict):
         friendTreeFile = TFile(friendTreePath)
         friendTree = friendTreeFile.Get(friendTreeName)
         
-        if newFriendName == "pvalwithlz":
-            friendTree.BuildIndex("Niteration","chain_index")
+        friendTree.BuildIndex("Niteration","chain_index")
         
         store.append([friendTreeFile,friendTree])
         main_tree.AddFriend(friendTree, newFriendName)

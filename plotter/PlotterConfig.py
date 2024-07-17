@@ -48,7 +48,8 @@ class PlotterConfig:
         self.cms_label = {}
         self.cms_label["energy"] = "13" # TeV
         self.cms_label["extraText"] = "Preliminary"
-        self.cms_label["lumi"] = "137-139" # fb^-1
+        # self.cms_label["lumi"] = "137-139" # fb^-1
+        self.cms_label["lumi"] = "138" # fb^-1
         
         ###################################################################
         ################### Particle Drawing Information ###################

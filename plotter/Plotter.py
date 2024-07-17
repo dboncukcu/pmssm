@@ -9,9 +9,6 @@ import copy
 
 gROOT.SetBatch(True)
 
-global COEF
-COEF = 1.6
-
 class printStyle:
     YELLOW = '\033[93m'
     BLUE = '\033[94m'
@@ -47,6 +44,7 @@ class CMSColors:
 
 
 class PMSSM:
+    COEF = 2.5
     def __init__(
         self,
         root_dict: list[dict] = None,
@@ -108,8 +106,6 @@ class PMSSM:
     
     def getParticleConfigValue(self, drawConfig:dict, key:str):
         return drawConfig.get(key, self.c.particleConfig["default"][key])
-
-
 
     def testPlots(self):
             
@@ -1060,6 +1056,36 @@ class PMSSM:
             canvas.SetLogz()
             returnhist.Draw("same colz")
             
+            
+            indices = [275599, 250422, 405216, 426917]
+            marker_styles = [29, 24, 21, 22]
+            marker_colors = [0, 2, 6, 4]
+            for i, idx in enumerate(indices):
+                self.tree.GetEntry(idx)
+                chi1pm = getattr(self.tree, 'chi1pm')
+                chi10 = getattr(self.tree, 'chi10')
+                #####
+                #t1,g, ...
+                
+                ####
+                x_value = eval(xaxisParticleName)
+                y_value = eval(yaxisParticleName)
+                
+                x_value = x_value/xaxisDrawConfig.get("linearScale")
+                y_value = y_value/yaxisDrawConfig.get("linearScale")
+
+                # if xlog:
+                #     x_value = TMath.Log10(x_value)
+                # if ylog:
+                #     y_value = TMath.Log10(y_value)
+                
+                print(f"chi1pm: {chi1pm}, chi10: {chi10}, x: {x_value}, y: {y_value}")
+                marker = TMarker(x_value, y_value, marker_styles[i])
+                marker.SetMarkerColor(marker_colors[i])
+                marker.SetMarkerSize(2)
+                marker.Draw()
+            
+            
             legend = CMS.cmsLeg(
                         x1 = legendConfig["x1"],
                         y1 = legendConfig["y1"],
@@ -1160,8 +1186,8 @@ class PMSSM:
         cols = TColor.GetNumberOfColors()# This gets the colors of the Palette currently set in ROOT
         #This part sets bins with a survival probability of zero (less than second entry of sprobcontours list to be exact) to Black color. Bins with a survival probability of exactly 1 (greater than second last entry of sprobcontours list) to Grey.
         for i in range(cols):
-            if i<25: # The exact i was found by trial and error. Sorry.
-                col = kBlack
+            if i<19: # The exact i was found by trial and error. Sorry.
+                col =  TColor.GetColor("#545454")
             # elif i > 253:
             #     col = kGray
             else:
@@ -1334,6 +1360,20 @@ class PMSSM:
         
 
         CMS.UpdatePalettePosition(hret, canvas)
+        
+        
+        palette = CMS.GetPalette(hret)
+        print("-------------------")
+        palette_x1 = palette.GetX1NDC()
+        palette_x2 = palette.GetX2NDC()
+        palette_y1 = palette.GetY1NDC()
+        palette_y2 = palette.GetY2NDC()
+        new_palette_y2 = palette_y1 + (palette_y2-palette_y1)* 0.025
+        rect = TPave(palette_x1, palette_y1,palette_x2, new_palette_y2, 0, "NDC")
+        rect.SetFillColor(TColor.GetColor("#545454"))
+        rect.SetFillStyle(1001)  # Dolu dikdörtgen
+        rect.Draw("same")
+        
         if showLegend and (constraints is None):
             CMS.SaveCanvas(canvas, self.outputpath+name+"."+self.defaultFileFormat, close=True)
             ## baby legend
@@ -1403,7 +1443,7 @@ class PMSSM:
             print("prior: ",int(coef*xbins),coef,"contourFix2ndWay")
             contours = PlotterUtils.mkhistlogxy(hname, '', int(coef*xbins), xlow, xup, int(1.2*ybins), ylow, yup, logx=_logx, logy=_logy)
         else:
-            coef = COEF
+            coef = self.COEF
       
             print("-------------------")
             print("...::prior::...")
@@ -1479,7 +1519,7 @@ class PMSSM:
             
             contours = PlotterUtils.mkhistlogxy(hname, 'p', int(coef*xbins), xlow, xup, int(coef*ybins), ylow, yup, logx=_logx, logy=_logy)
         else:
-            coef = COEF
+            coef = self.COEF
       
             print("-------------------")
             print("...::posterior::...")

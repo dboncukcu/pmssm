@@ -72,6 +72,10 @@ c_quantile_strong.global_settings["logEps"] = 8 # 8GeV
 
 pmssm_quantile_strong = PMSSM(config=c_quantile_strong)
 
+pmssm_quantile_ewk.quantile2D("abs(chi1pm)-abs(chi10):abs(chi10)",quantile=0.99, legendStyle="leftTop")
+
+exit(0)
+
 pmssm_quantile_ewk.quantile2D("tau1-abs(chi10):abs(chi10)",quantile=0.99, legendStyle="leftTop")
 pmssm_quantile_ewk.quantile2D("abs(chi1pm)-abs(chi10):abs(chi10)",quantile=0.99, legendStyle="leftTop")
 pmssm_quantile_ewk.quantile2D("abs(chi2pm)-abs(chi10):abs(chi10)",quantile=0.99, legendStyle="leftTop")

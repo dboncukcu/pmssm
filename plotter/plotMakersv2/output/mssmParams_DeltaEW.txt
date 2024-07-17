@@ -24,6 +24,7 @@ z:  TMath::Abs(TMath::Log((max(bf_cms_sus_20_001_mu1p0s,1E-20))*(exp(llhd_cms_su
 50*2.5 = 125
 50*2.5 = 125
 -------------------
+-------------------
 _______________________________________________________________________________________
 
 
@@ -47,6 +48,7 @@ z:  TMath::Abs(TMath::Log((max(bf_cms_sus_20_001_mu1p0s,1E-20))*(exp(llhd_cms_su
 ...::posterior::...
 50*2.5 = 125
 50*2.5 = 125
+-------------------
 -------------------
 _______________________________________________________________________________________
 
@@ -72,6 +74,7 @@ z:  TMath::Abs(TMath::Log((max(bf_cms_sus_20_001_mu1p0s,1E-20))*(exp(llhd_cms_su
 100*2.5 = 250
 50*2.5 = 125
 -------------------
+-------------------
 _______________________________________________________________________________________
 
 
@@ -86,7 +89,7 @@ _____________________________[1m[92mFULL COMBINED[0m_______________________
 •[93mAnalysis:[0m cms_sus_21_007 [38;5;214mConstraint[0m: (exp(llhd_cms_sus_21_007_100s-llhd_cms_sus_21_007_0s))
 •[93mAnalysis:[0m cms_sus_21_007_mb [38;5;214mConstraint[0m: (max(bf_cms_sus_21_007_mb_mu1p0s,1E-20))
 z:  Info in <TCanvas::Print>: pdf file ../../output/pmssmParams/DeltaEW/tanbeta_mA_COMBINED_survival2DDeltaEW.pdf has been created
-Info in <TCanvas::Print>: pdf file ../../output/pmssmParams/DeltaEW/mu_M1_COMBINED_survival2DDeltaEW.pdf has been created
+Info in <TCanvas::Print>: pdf file ../../output/pmssmParams/DeltaEW/M1_mu_COMBINED_survival2DDeltaEW.pdf has been created
 Info in <TCanvas::Print>: pdf file ../../output/pmssmParams/DeltaEW/stau_Atau_COMBINED_survival2DDeltaEW.pdf has been created
 Info in <TCanvas::Print>: pdf file ../../output/pmssmParams/DeltaEW/Mq3_M3_COMBINED_survival2DDeltaEW.pdf has been created
 TMath::Abs(TMath::Log((max(bf_cms_sus_20_001_mu1p0s,1E-20))*(exp(llhd_cms_sus_19_006_100s-llhd_cms_sus_19_006_0s))*(max(bf_cms_sus_21_006_mu1p0f,1E-20))*(max(bf_cms_sus_18_004_mu1p0f,1E-20))*(exp(llhd_cms_sus_21_007_100s-llhd_cms_sus_21_007_0s))*(max(bf_cms_sus_21_007_mb_mu1p0s,1E-20))))/(TMath::Log((max(bf_cms_sus_20_001_mu1p0s,1E-20))*(exp(llhd_cms_sus_19_006_100s-llhd_cms_sus_19_006_0s))*(max(bf_cms_sus_21_006_mu1p0f,1E-20))*(max(bf_cms_sus_18_004_mu1p0f,1E-20))*(exp(llhd_cms_sus_21_007_100s-llhd_cms_sus_21_007_0s))*(max(bf_cms_sus_21_007_mb_mu1p0s,1E-20)))) * TMath::Sqrt(2 * TMath::Abs(TMath::Log((max(bf_cms_sus_20_001_mu1p0s,1E-20))*(exp(llhd_cms_sus_19_006_100s-llhd_cms_sus_19_006_0s))*(max(bf_cms_sus_21_006_mu1p0f,1E-20))*(max(bf_cms_sus_18_004_mu1p0f,1E-20))*(exp(llhd_cms_sus_21_007_100s-llhd_cms_sus_21_007_0s))*(max(bf_cms_sus_21_007_mb_mu1p0s,1E-20)))))
@@ -100,10 +103,11 @@ TMath::Abs(TMath::Log((max(bf_cms_sus_20_001_mu1p0s,1E-20))*(exp(llhd_cms_sus_19
 50*2.5 = 125
 50*2.5 = 125
 -------------------
+-------------------
 _______________________________________________________________________________________
 
 
-_____________________________ [1m[38;5;214m2D Survival Probability[0m for[1m[94m M1:mu [0m _____________________________
+_____________________________ [1m[38;5;214m2D Survival Probability[0m for[1m[94m mu:M1 [0m _____________________________
 constraintstring:  (1/PickProbability)*(1)*(deltaEW<200)
 constraintstring_prior:  (1/PickProbability)*(1)*(deltaEW<200)
 _____________________________[1m[92mFULL COMBINED[0m_______________________
@@ -123,6 +127,7 @@ z:  TMath::Abs(TMath::Log((max(bf_cms_sus_20_001_mu1p0s,1E-20))*(exp(llhd_cms_su
 ...::posterior::...
 50*2.5 = 125
 50*2.5 = 125
+-------------------
 -------------------
 _______________________________________________________________________________________
 
@@ -148,6 +153,7 @@ z:  TMath::Abs(TMath::Log((max(bf_cms_sus_20_001_mu1p0s,1E-20))*(exp(llhd_cms_su
 100*2.5 = 250
 50*2.5 = 125
 -------------------
+-------------------
 _______________________________________________________________________________________
 
 
@@ -172,6 +178,7 @@ z:  TMath::Abs(TMath::Log((max(bf_cms_sus_20_001_mu1p0s,1E-20))*(exp(llhd_cms_su
 50*2.5 = 125
 50*2.5 = 125
 -------------------
+-------------------
 _______________________________________________________________________________________
 
 
@@ -181,11 +188,11 @@ constraintstring_prior:  (1/PickProbability)*(1)*(deltaEW<200)
 _____________________________[1m[92mFULL COMBINED[0m_______________________
 •[93mAnalysis:[0m cms_sus_20_001 [38;5;214mConstraint[0m: (max(bf_cms_sus_20_001_mu1p0s,1E-20))
 •[93mAnalysis:[0m cms_sus_19_006 [38;5;214mConstraint[0m: (exp(llhd_cms_sus_19_006_100s-llhd_cms_sus_19_006_0s))
-•[93mAnalysis:[0m cms_sus_21_006 [38;5;214mConstraint[0m: (max(bf_cms_sus_21_006_mu1p0f,1E-20))
 Info in <TCanvas::Print>: pdf file ../../output/pmssmParams/DeltaEW/mA_mu_COMBINED_survival2DDeltaEW.pdf has been created
 Info in <TCanvas::Print>: pdf file ../../output/pmssmParams/DeltaEW/stop1_mu_COMBINED_survival2DDeltaEW.pdf has been created
 Info in <TCanvas::Print>: pdf file ../../output/pmssmParams/DeltaEW/M2_mu_COMBINED_survival2DDeltaEW.pdf has been created
 Info in <TCanvas::Print>: pdf file ../../output/pmssmParams/DeltaEW/sbottom_Ab_COMBINED_survival2DDeltaEW.pdf has been created
+•[93mAnalysis:[0m cms_sus_21_006 [38;5;214mConstraint[0m: (max(bf_cms_sus_21_006_mu1p0f,1E-20))
 •[93mAnalysis:[0m cms_sus_18_004 [38;5;214mConstraint[0m: (max(bf_cms_sus_18_004_mu1p0f,1E-20))
 •[93mAnalysis:[0m cms_sus_21_007 [38;5;214mConstraint[0m: (exp(llhd_cms_sus_21_007_100s-llhd_cms_sus_21_007_0s))
 •[93mAnalysis:[0m cms_sus_21_007_mb [38;5;214mConstraint[0m: (max(bf_cms_sus_21_007_mb_mu1p0s,1E-20))
@@ -199,6 +206,7 @@ z:  TMath::Abs(TMath::Log((max(bf_cms_sus_20_001_mu1p0s,1E-20))*(exp(llhd_cms_su
 ...::posterior::...
 50*2.5 = 125
 50*2.5 = 125
+-------------------
 -------------------
 _______________________________________________________________________________________
 
@@ -224,6 +232,7 @@ z:  TMath::Abs(TMath::Log((max(bf_cms_sus_20_001_mu1p0s,1E-20))*(exp(llhd_cms_su
 100*2.5 = 250
 50*2.5 = 125
 -------------------
+-------------------
 _______________________________________________________________________________________
 
 
@@ -247,6 +256,7 @@ z:  TMath::Abs(TMath::Log((max(bf_cms_sus_20_001_mu1p0s,1E-20))*(exp(llhd_cms_su
 ...::posterior::...
 50*2.5 = 125
 50*2.5 = 125
+-------------------
 -------------------
 _______________________________________________________________________________________
 
@@ -272,15 +282,16 @@ z:  TMath::Abs(TMath::Log((max(bf_cms_sus_20_001_mu1p0s,1E-20))*(exp(llhd_cms_su
 100*2.5 = 250
 50*2.5 = 125
 -------------------
+-------------------
 _______________________________________________________________________________________
 
 
 _____________________________ [1m[38;5;214m2D Survival Probability[0m for[1m[94m tanbeta:M3 [0m _____________________________
 constraintstring:  (1/PickProbability)*(1)*(deltaEW<200)
-constraintstring_prior:  (1/PickProbability)*(1)*(deltaEW<200)
-_____________________________[1m[92mFULL COMBINED[0m_______________________
 Info in <TCanvas::Print>: pdf file ../../output/pmssmParams/DeltaEW/M3_tanbeta_COMBINED_survival2DDeltaEW.pdf has been created
 Info in <TCanvas::Print>: pdf file ../../output/pmssmParams/DeltaEW/M2_tanbeta_COMBINED_survival2DDeltaEW.pdf has been created
+constraintstring_prior:  (1/PickProbability)*(1)*(deltaEW<200)
+_____________________________[1m[92mFULL COMBINED[0m_______________________
 •[93mAnalysis:[0m cms_sus_20_001 [38;5;214mConstraint[0m: (max(bf_cms_sus_20_001_mu1p0s,1E-20))
 •[93mAnalysis:[0m cms_sus_19_006 [38;5;214mConstraint[0m: (exp(llhd_cms_sus_19_006_100s-llhd_cms_sus_19_006_0s))
 •[93mAnalysis:[0m cms_sus_21_006 [38;5;214mConstraint[0m: (max(bf_cms_sus_21_006_mu1p0f,1E-20))
@@ -297,6 +308,7 @@ z:  TMath::Abs(TMath::Log((max(bf_cms_sus_20_001_mu1p0s,1E-20))*(exp(llhd_cms_su
 ...::posterior::...
 50*2.5 = 125
 50*2.5 = 125
+-------------------
 -------------------
 _______________________________________________________________________________________
 
@@ -321,6 +333,7 @@ z:  TMath::Abs(TMath::Log((max(bf_cms_sus_20_001_mu1p0s,1E-20))*(exp(llhd_cms_su
 ...::posterior::...
 50*2.5 = 125
 50*2.5 = 125
+-------------------
 -------------------
 _______________________________________________________________________________________
 

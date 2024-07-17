@@ -227,7 +227,7 @@ pmssm.survivalProbability2D("At:t1",moreconstraints_prior = denum_constraint, mo
 pmssm.survivalProbability2D("mA:tanbeta",moreconstraints_prior = denum_constraint, moreconstraints= denum_constraint,customName = variantName,constraints=legend_constraints,contourFix2ndWay=contourFix2ndWay,showContour = showContour)
 
 #5
-pmssm.survivalProbability2D("M1:mu",moreconstraints_prior = denum_constraint, moreconstraints= denum_constraint,customName = variantName,constraints=legend_constraints,contourFix2ndWay=contourFix2ndWay,showContour = showContour)
+pmssm.survivalProbability2D("mu:M1",moreconstraints_prior = denum_constraint, moreconstraints= denum_constraint,customName = variantName,constraints=legend_constraints,contourFix2ndWay=contourFix2ndWay,showContour = showContour)
 
 #6
 pmssm.survivalProbability2D("A_tau:tau1",moreconstraints_prior = denum_constraint, moreconstraints= denum_constraint,customName = variantName,constraints=legend_constraints,contourFix2ndWay=contourFix2ndWay,showContour = showContour)

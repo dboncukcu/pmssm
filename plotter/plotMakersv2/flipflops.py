@@ -42,11 +42,16 @@ for par in ["abs(chi1pm)-abs(chi10)","g-abs(chi10)","t1-abs(chi10)","b1-abs(chi1
     # pmssm_flipbook.c.particleConfig["abs(chi10)"]["Ndivisions"] = 507
     pmssm_flipbook.c.particleConfig["abs(chi1pm)-abs(chi10)"]["min"] = 0.02
     
-    nbins = 90
+    nbins = 80
     
     pmssm_flipbook.c.particleConfig["abs(chi10)"]["bins"] = nbins
     pmssm_flipbook.c.particleConfig["abs(chi1pm)-abs(chi10)"]["bins"] = nbins
-    pmssm_flipbook.c.particleConfig["..."]["bins"] = nbins
+    pmssm_flipbook.c.particleConfig["g-abs(chi10)"]["bins"] = nbins
+    pmssm_flipbook.c.particleConfig["t1-abs(chi10)"]["bins"] = nbins
+    pmssm_flipbook.c.particleConfig["b1-abs(chi10)"]["bins"] = nbins
+    pmssm_flipbook.c.particleConfig["lcsp-abs(chi10)"]["bins"] = nbins
+    pmssm_flipbook.c.particleConfig["abs(chi20)-abs(chi10)"]["bins"] = nbins
+    
 
     
     pmssm_flipbook.survivalProbability2D(f"{par}:abs(chi10)", analysis="cms_sus_18_004",customName="_1",legendAddition="SUS-18-004",contourFix2ndWay=contourFix2ndWay)
@@ -61,7 +66,7 @@ for par in ["abs(chi1pm)-abs(chi10)","g-abs(chi10)","t1-abs(chi10)","b1-abs(chi1
     pmssm_flipbook.survivalProbability2D(
         f"{par}:abs(chi10)", 
         analysis="combined",
-        moreconstraints=["Omegah2<=0.132","abs(dd_exclusion_pval_withlz)>=0.05"],customName="_7", legendAddition="+DM direct detection",contourFix2ndWay=contourFix2ndWay)
+        moreconstraints=["Omegah2<=0.132","abs(dd_exclusion_pval_withlz)>=0.05"],customName="_7", legendAddition="+DM DD",contourFix2ndWay=contourFix2ndWay)
        
     pmssm_flipbook.survivalProbability2D(
         f"{par}:abs(chi10)", 

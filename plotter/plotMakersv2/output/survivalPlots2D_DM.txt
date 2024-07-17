@@ -23,6 +23,7 @@ z:  TMath::Abs(TMath::Log((max(bf_cms_sus_20_001_mu1p0s,1E-20))*(exp(llhd_cms_su
 50*2.5 = 125
 100*2.5 = 250
 -------------------
+-------------------
 _______________________________________________________________________________________
 
 
@@ -47,6 +48,7 @@ z:  TMath::Abs(TMath::Log((max(bf_cms_sus_20_001_mu1p0s,1E-20))*(exp(llhd_cms_su
 50*2.5 = 125
 100*2.5 = 250
 -------------------
+-------------------
 _______________________________________________________________________________________
 
 
@@ -70,6 +72,7 @@ z:  TMath::Abs(TMath::Log((max(bf_cms_sus_20_001_mu1p0s,1E-20))*(exp(llhd_cms_su
 ...::posterior::...
 50*2.5 = 125
 100*2.5 = 250
+-------------------
 -------------------
 _______________________________________________________________________________________
 
@@ -100,6 +103,7 @@ TMath::Abs(TMath::Log((max(bf_cms_sus_20_001_mu1p0s,1E-20))*(exp(llhd_cms_sus_19
 50*2.5 = 125
 100*2.5 = 250
 -------------------
+-------------------
 _______________________________________________________________________________________
 
 
@@ -123,6 +127,7 @@ z:  TMath::Abs(TMath::Log((max(bf_cms_sus_20_001_mu1p0s,1E-20))*(exp(llhd_cms_su
 ...::posterior::...
 50*2.5 = 125
 100*2.5 = 250
+-------------------
 -------------------
 _______________________________________________________________________________________
 
@@ -148,6 +153,7 @@ z:  TMath::Abs(TMath::Log((max(bf_cms_sus_20_001_mu1p0s,1E-20))*(exp(llhd_cms_su
 50*2.5 = 125
 100*2.5 = 250
 -------------------
+-------------------
 _______________________________________________________________________________________
 
 
@@ -172,15 +178,16 @@ z:  TMath::Abs(TMath::Log((max(bf_cms_sus_20_001_mu1p0s,1E-20))*(exp(llhd_cms_su
 50*2.5 = 125
 100*2.5 = 250
 -------------------
+-------------------
 _______________________________________________________________________________________
 
 
 _____________________________ [1m[38;5;214m2D Survival Probability[0m for[1m[94m abs(chi40)-abs(chi10):abs(chi10) [0m _____________________________
 constraintstring:  (1/PickProbability)*(1)*(Omegah2<=0.132)*(abs(dd_exclusion_pval_withlz)>=0.05)
-constraintstring_prior:  (1/PickProbability)*(1)*(Omegah2<=0.132)*(abs(dd_exclusion_pval_withlz)>=0.05)
-Info in <TCanvas::Print>: pdf file ../../output/survival2D/DM/chi10_DmChi40Chi10_COMBINED_survival2DDM.pdf has been created
+constraintstring_prior:  Info in <TCanvas::Print>: pdf file ../../output/survival2D/DM/chi10_DmChi40Chi10_COMBINED_survival2DDM.pdf has been created
 Info in <TCanvas::Print>: pdf file ../../output/survival2D/DM/chi10_DmStop1Chi10_COMBINED_survival2DDM.pdf has been created
 Info in <TCanvas::Print>: pdf file ../../output/survival2D/DM/chi10_DmSbottom1Chi10_COMBINED_survival2DDM.pdf has been created
+(1/PickProbability)*(1)*(Omegah2<=0.132)*(abs(dd_exclusion_pval_withlz)>=0.05)
 _____________________________[1m[92mFULL COMBINED[0m_______________________
 •[93mAnalysis:[0m cms_sus_20_001 [38;5;214mConstraint[0m: (max(bf_cms_sus_20_001_mu1p0s,1E-20))
 •[93mAnalysis:[0m cms_sus_19_006 [38;5;214mConstraint[0m: (exp(llhd_cms_sus_19_006_100s-llhd_cms_sus_19_006_0s))
@@ -198,6 +205,7 @@ z:  TMath::Abs(TMath::Log((max(bf_cms_sus_20_001_mu1p0s,1E-20))*(exp(llhd_cms_su
 ...::posterior::...
 50*2.5 = 125
 100*2.5 = 250
+-------------------
 -------------------
 _______________________________________________________________________________________
 
@@ -223,6 +231,7 @@ z:  TMath::Abs(TMath::Log((max(bf_cms_sus_20_001_mu1p0s,1E-20))*(exp(llhd_cms_su
 50*2.5 = 125
 100*2.5 = 250
 -------------------
+-------------------
 _______________________________________________________________________________________
 
 
@@ -246,6 +255,7 @@ z:  TMath::Abs(TMath::Log((max(bf_cms_sus_20_001_mu1p0s,1E-20))*(exp(llhd_cms_su
 ...::posterior::...
 50*2.5 = 125
 100*2.5 = 250
+-------------------
 -------------------
 _______________________________________________________________________________________
 
@@ -277,6 +287,7 @@ TMath::Abs(TMath::Log((max(bf_cms_sus_20_001_mu1p0s,1E-20))*(exp(llhd_cms_sus_19
 50*2.5 = 125
 100*2.5 = 250
 -------------------
+-------------------
 _______________________________________________________________________________________
 
 
@@ -300,6 +311,7 @@ z:  TMath::Abs(TMath::Log((max(bf_cms_sus_20_001_mu1p0s,1E-20))*(exp(llhd_cms_su
 ...::posterior::...
 50*2.5 = 125
 100*2.5 = 250
+-------------------
 -------------------
 _______________________________________________________________________________________
 
@@ -325,6 +337,7 @@ z:  TMath::Abs(TMath::Log((max(bf_cms_sus_20_001_mu1p0s,1E-20))*(exp(llhd_cms_su
 50*2.5 = 125
 100*2.5 = 250
 -------------------
+-------------------
 _______________________________________________________________________________________
 
 
@@ -349,13 +362,14 @@ z:  TMath::Abs(TMath::Log((max(bf_cms_sus_20_001_mu1p0s,1E-20))*(exp(llhd_cms_su
 50*2.5 = 125
 100*2.5 = 250
 -------------------
+-------------------
 _______________________________________________________________________________________
 
 
 _____________________________ [1m[38;5;214m2D Survival Probability[0m for[1m[94m Ml1-abs(chi10):abs(chi10) [0m _____________________________
 constraintstring:  (1/PickProbability)*(1)*(Omegah2<=0.132)*(abs(dd_exclusion_pval_withlz)>=0.05)
-constraintstring_prior:  (1/PickProbability)*(1)*(Omegah2<=0.132)*(abs(dd_exclusion_pval_withlz)>=0.05)
-Info in <TCanvas::Print>: pdf file ../../output/survival2D/DM/chi10_DmMl1Chi10_COMBINED_survival2DDM.pdf has been created
+constraintstring_prior:  Info in <TCanvas::Print>: pdf file ../../output/survival2D/DM/chi10_DmMl1Chi10_COMBINED_survival2DDM.pdf has been created
+(1/PickProbability)*(1)*(Omegah2<=0.132)*(abs(dd_exclusion_pval_withlz)>=0.05)
 _____________________________[1m[92mFULL COMBINED[0m_______________________
 •[93mAnalysis:[0m cms_sus_20_001 [38;5;214mConstraint[0m: (max(bf_cms_sus_20_001_mu1p0s,1E-20))
 •[93mAnalysis:[0m cms_sus_19_006 [38;5;214mConstraint[0m: (exp(llhd_cms_sus_19_006_100s-llhd_cms_sus_19_006_0s))
@@ -373,6 +387,7 @@ z:  TMath::Abs(TMath::Log((max(bf_cms_sus_20_001_mu1p0s,1E-20))*(exp(llhd_cms_su
 ...::posterior::...
 50*2.5 = 125
 100*2.5 = 250
+-------------------
 -------------------
 _______________________________________________________________________________________
 
