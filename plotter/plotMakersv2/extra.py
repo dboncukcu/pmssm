@@ -12,7 +12,7 @@ from Plotter import PMSSM
 
 c = PlotterConfig()
 c.global_settings["outputFileFormat"] = "pdf"
-c.global_settings["outputPath"] = "/afs/cern.ch/user/d/dboncukc/pmssm/output/extra"
+c.global_settings["outputPath"] = "../../output/extra"
 
 
 

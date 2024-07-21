@@ -42,15 +42,15 @@ for par in ["abs(chi1pm)-abs(chi10)","g-abs(chi10)","t1-abs(chi10)","b1-abs(chi1
     # pmssm_flipbook.c.particleConfig["abs(chi10)"]["Ndivisions"] = 507
     pmssm_flipbook.c.particleConfig["abs(chi1pm)-abs(chi10)"]["min"] = 0.02
     
-    nbins = 80
+    nbins = 50
     
     pmssm_flipbook.c.particleConfig["abs(chi10)"]["bins"] = nbins
-    pmssm_flipbook.c.particleConfig["abs(chi1pm)-abs(chi10)"]["bins"] = nbins
-    pmssm_flipbook.c.particleConfig["g-abs(chi10)"]["bins"] = nbins
-    pmssm_flipbook.c.particleConfig["t1-abs(chi10)"]["bins"] = nbins
-    pmssm_flipbook.c.particleConfig["b1-abs(chi10)"]["bins"] = nbins
-    pmssm_flipbook.c.particleConfig["lcsp-abs(chi10)"]["bins"] = nbins
-    pmssm_flipbook.c.particleConfig["abs(chi20)-abs(chi10)"]["bins"] = nbins
+    # pmssm_flipbook.c.particleConfig["abs(chi1pm)-abs(chi10)"]["bins"] = nbins
+    # pmssm_flipbook.c.particleConfig["g-abs(chi10)"]["bins"] = nbins
+    # pmssm_flipbook.c.particleConfig["t1-abs(chi10)"]["bins"] = nbins
+    # pmssm_flipbook.c.particleConfig["b1-abs(chi10)"]["bins"] = nbins
+    # pmssm_flipbook.c.particleConfig["lcsp-abs(chi10)"]["bins"] = nbins
+    # pmssm_flipbook.c.particleConfig["abs(chi20)-abs(chi10)"]["bins"] = nbins
     
 
     

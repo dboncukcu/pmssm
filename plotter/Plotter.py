@@ -44,7 +44,7 @@ class CMSColors:
 
 
 class PMSSM:
-    COEF = 2.5
+    COEF = 2.0
     def __init__(
         self,
         root_dict: list[dict] = None,
@@ -223,6 +223,7 @@ class PMSSM:
         # PlotterUtils.histoStyler(posterior_up, kMagenta, linestyle=kDashed)
         
                 
+        # PlotterUtils.histoStyler(prior, kCyan-10, fill=True,fillstyle=1001)
         PlotterUtils.histoStyler(prior, CMSColors.six.blue, fill=True)
         PlotterUtils.histoStyler(posterior, kBlack)
         PlotterUtils.histoStyler(posterior_down, CMSColors.six.red, linestyle=kDashed)
@@ -893,7 +894,7 @@ class PMSSM:
             drawConfig: Union[dict, str] = None,
             legendStyle: Union[dict, str] = None,
             customName:str = "",
-            colorPallette = kDarkBodyRadiator):
+            colorPallette = kViridis):
             CMS.setCMSStyle()
             print("_____________________________",f"{printStyle.BOLD}{printStyle.ORANGE}2D Quantile {str(quantile)} Percentile {printStyle.RESET} for{printStyle.BOLD}{printStyle.BLUE}", drawstring, f"{printStyle.RESET}","_____________________________")
             
@@ -1056,14 +1057,32 @@ class PMSSM:
             canvas.SetLogz()
             returnhist.Draw("same colz")
             
-            
-            indices = [275599, 250422, 405216, 426917]
-            marker_styles = [29, 24, 21, 22]
-            marker_colors = [0, 2, 6, 4]
+            print("-----------------------------------")
+            # indices = [275599, 250422, 405216, 426917]
+            indices = []
+            marker_styles = [ 56 ,53, 54, 55]
+            marker_colors = [kGray, kRed, kMagenta-9, kOrange+1]
+            # marker_colors = [0, 2, 6, 4]
+            markers = []
             for i, idx in enumerate(indices):
                 self.tree.GetEntry(idx)
-                chi1pm = getattr(self.tree, 'chi1pm')
                 chi10 = getattr(self.tree, 'chi10')
+                chi1pm = getattr(self.tree, 'chi1pm')
+                chi2pm = getattr(self.tree, 'chi2pm')
+                chi20 = getattr(self.tree, 'chi20')
+                chi30 = getattr(self.tree, 'chi30')
+                chi40 = getattr(self.tree, 'chi40')
+                tau1 = getattr(self.tree, 'tau1')
+                t1 = getattr(self.tree, 't1')
+                b1 = getattr(self.tree, 'b1')
+                lcsp = getattr(self.tree, 'lcsp')
+                g = getattr(self.tree, 'g')
+                Mq1 = getattr(self.tree, 'Mq1')
+                Md1 = getattr(self.tree, 'Md1')
+                Ml1 = getattr(self.tree, 'Ml1')
+                tanbeta = getattr(self.tree, 'tanbeta')
+                mA = getattr(self.tree, 'mA')
+                
                 #####
                 #t1,g, ...
                 
@@ -1073,18 +1092,33 @@ class PMSSM:
                 
                 x_value = x_value/xaxisDrawConfig.get("linearScale")
                 y_value = y_value/yaxisDrawConfig.get("linearScale")
-
+                
+                # if x_value > cxmax - 0.12 * cxmax:
+                #     x_value = cxmax - 0.12 * cxmax
+                # if x_value < cxmin + 0.12 * cxmin:
+                #     x_value = cxmin + 0.12 * cxmin
+                if y_value > cymax - 0.23 * cymax:
+                    y_value = cymax - 0.23 * cymax
+                # if y_value < cymin + 0.12 * cymin:
+                #     y_value = cymin + 0.12 * cymin
                 # if xlog:
                 #     x_value = TMath.Log10(x_value)
                 # if ylog:
                 #     y_value = TMath.Log10(y_value)
                 
-                print(f"chi1pm: {chi1pm}, chi10: {chi10}, x: {x_value}, y: {y_value}")
+                print(f"{idx}:: x: {x_value}, y: {y_value}, marker: {marker_styles[i]}, color: {marker_colors[i]}")
                 marker = TMarker(x_value, y_value, marker_styles[i])
                 marker.SetMarkerColor(marker_colors[i])
-                marker.SetMarkerSize(2)
-                marker.Draw()
-            
+                
+                if marker_styles[i] == 56:
+                    marker.SetMarkerSize(2.6)
+                else:
+                    marker.SetMarkerSize(2.2)
+                    
+                marker.Draw("same")
+                markers.append(marker)
+            print("-----------------------------------")
+
             
             legend = CMS.cmsLeg(
                         x1 = legendConfig["x1"],

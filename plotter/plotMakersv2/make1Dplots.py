@@ -36,7 +36,6 @@ pmssm_impact.impact1D("Ml1")
 pmssm_impact.impact1D("g")
 del pmssm_impact
 
-
 ## QUANTILE 1D
 
 
